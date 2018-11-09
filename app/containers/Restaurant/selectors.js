@@ -16,7 +16,9 @@ const selectRestaurantDomain = state => state.get('restaurant', initialState);
  */
 
 const makeSelectRestaurant = () =>
-  createSelector(selectRestaurantDomain, substate => substate.toJS());
+  createSelector(selectRestaurantDomain, addressState =>
+    addressState.get('restaurant'),
+  );
 
 export default makeSelectRestaurant;
 export { selectRestaurantDomain };
