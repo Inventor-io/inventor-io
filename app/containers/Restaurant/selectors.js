@@ -6,7 +6,7 @@ import { initialState } from './reducer';
  */
 
 const selectRestaurantDomain = state => state.get('restaurant', initialState);
-
+// state.restaurant; //
 /**
  * Other specific selectors
  */
@@ -15,10 +15,24 @@ const selectRestaurantDomain = state => state.get('restaurant', initialState);
  * Default selector used by Restaurant
  */
 
-const makeSelectRestaurant = () =>
+const makeSelectResName = () =>
   createSelector(selectRestaurantDomain, addressState =>
-    addressState.get('restaurant'),
+    addressState.get('resName'),
   );
 
-export default makeSelectRestaurant;
-export { selectRestaurantDomain };
+const makeSelectResAddress = () =>
+  createSelector(selectRestaurantDomain, addressState =>
+    addressState.get('resAddress'),
+  );
+const makeSelectResNumber = () =>
+  createSelector(selectRestaurantDomain, addressState =>
+    addressState.get('resNumber'),
+  );
+
+// export default makeSelectRestaurant;
+export {
+  selectRestaurantDomain,
+  makeSelectResAddress,
+  makeSelectResName,
+  makeSelectResNumber,
+};

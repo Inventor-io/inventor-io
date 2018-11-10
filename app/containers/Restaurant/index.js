@@ -8,15 +8,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-// import { createStructuredSelector } from 'reselect';
+import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-
-// import {makeSelectRestaurant} from 'containers/App/selectors';
-
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { Input } from 'semantic-ui-react';
-// import makeSelectRestaurant from './selectors';
+import {
+  makeSelectResAddress,
+  makeSelectResName,
+  makeSelectResNumber,
+} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -63,10 +64,12 @@ Restaurant.propTypes = {
   onChangeNumber: PropTypes.func,
 };
 
-const mapStateToProps = state => ({ restaurant: state.restaurant });
-// const mapStateToProps = createStructuredSelector({
-//   restaurant: makeSelectRestaurant(),
-// });
+// const mapStateToProps = state => ({ restaurant: state.restaurant });
+const mapStateToProps = createStructuredSelector({
+  resAddress: makeSelectResAddress,
+  resName: makeSelectResName,
+  resNumber: makeSelectResNumber,
+});
 
 function mapDispatchToProps(dispatch) {
   return {
