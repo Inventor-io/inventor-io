@@ -9,7 +9,9 @@
 
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-
+import SignupPage from 'containers/SignupPage/Loadable';
+import LoginPage from 'containers/LoginPage/Loadable';
+import LandingPage from 'containers/LandingPage/Loadable';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
@@ -19,9 +21,12 @@ export default function App() {
   return (
     <div>
       <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route component={NotFoundPage} />
-      </Switch>
+        <Route exact path="/signup" component={SignupPage} />{' '}
+        <Route exact path="/login" component={LoginPage} />{' '}
+        <Route exact path="/landing" component={LandingPage} />{' '}
+        <Route exact path="/" component={HomePage} />{' '}
+        <Route component={NotFoundPage} />{' '}
+      </Switch>{' '}
       <GlobalStyle />
     </div>
   );
