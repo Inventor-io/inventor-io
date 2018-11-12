@@ -6,4 +6,9 @@ router.get('/', (req, res) => {
   res.status(200).send('/api/restaurant route');
 });
 
+router.post('/', (req, res) => {
+  console.log('SERVER', req.body);
+  res.status(201).send('Success');
+});
+
 module.exports = router;

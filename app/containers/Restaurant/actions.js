@@ -5,15 +5,17 @@
  */
 
 import {
-  DEFAULT_ACTION,
   UPDATE_ADDRESS,
   UPDATE_NAME,
   UPDATE_NUMBER,
+  SEND_FORM,
 } from './constants';
 
-export function defaultAction() {
+export function sendForm() {
+  // const data = { resAddress, resName, resNumber };
+
   return {
-    type: DEFAULT_ACTION,
+    type: SEND_FORM,
   };
 }
 

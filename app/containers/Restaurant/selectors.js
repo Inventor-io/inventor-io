@@ -15,6 +15,10 @@ const selectRestaurantDomain = state => state.get('restaurant', initialState);
  * Default selector used by Restaurant
  */
 
+const selectRestaurant = () => {
+  createSelector(selectRestaurantDomain, state => state.get(''));
+};
+
 const makeSelectResName = () =>
   createSelector(selectRestaurantDomain, addressState =>
     addressState.get('resName'),
@@ -35,4 +39,5 @@ export {
   makeSelectResAddress,
   makeSelectResName,
   makeSelectResNumber,
+  selectRestaurant,
 };

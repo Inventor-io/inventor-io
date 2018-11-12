@@ -6,7 +6,7 @@
 
 import { fromJS } from 'immutable';
 import {
-  DEFAULT_ACTION,
+  SEND_FORM,
   UPDATE_ADDRESS,
   UPDATE_NAME,
   UPDATE_NUMBER,
@@ -16,7 +16,7 @@ export const initialState = fromJS({});
 
 function restaurantReducer(state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
+    case SEND_FORM:
       return state;
     case UPDATE_ADDRESS:
       return Object.assign({}, state, {
