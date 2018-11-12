@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import { Link } from 'react-router-dom';
 
 import injectReducer from 'utils/injectReducer';
 import makeSelectLandingPage from './selectors';
@@ -22,6 +23,12 @@ export class LandingPage extends React.Component {
     return (
       <div>
         <FormattedMessage {...messages.header} />{' '}
+        <div>
+          <Link to="/login">Login</Link>
+          <Link to="/signup">Signup</Link>
+          <Link to="/inventory">Inventory</Link>
+          <Link to="/recipe">Recipes</Link>
+        </div>
       </div>
     );
   }
