@@ -15,6 +15,8 @@ import LoginPage from 'containers/LoginPage/Loadable';
 import LandingPage from 'containers/LandingPage/Loadable';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import Inventory from 'containers/Inventory/Loadable';
+import AddInventory from 'containers/AddInventory/Loadable';
 
 import GlobalStyle from '../../global-styles';
 
@@ -29,7 +31,10 @@ export default function App() {
         <Route exact path="/landing" component={LandingPage} />{' '}
         <Route exact path="/" component={HomePage} />{' '}
         <Route component={NotFoundPage} />{' '}
-      </Switch>{' '}
+        <Route exact path="/inventory" component={Inventory} />
+        <Route exact path="/addInventory" component={AddInventory} />
+        <Route component={NotFoundPage} />
+      </Switch>
       <GlobalStyle />
     </div>
   );

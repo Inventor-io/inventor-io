@@ -3,7 +3,19 @@ const router = express.Router();
 
 // this route is to /api/inventory
 router.get('/', (req, res) => {
-  res.send('/api/invetory route');
+  const data = [
+    {
+      Item: 'apple',
+      Quantity: 3,
+      Selected: false,
+    },
+    {
+      Item: 'orange',
+      Quantity: 4,
+      Selected: true,
+    },
+  ];
+  res.send(data);
 });
 
 module.exports = router;
