@@ -9,6 +9,7 @@
 
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import RecipePage from 'containers/RecipePage/Loadable';
 import SignupPage from 'containers/SignupPage/Loadable';
 import LoginPage from 'containers/LoginPage/Loadable';
 import LandingPage from 'containers/LandingPage/Loadable';
@@ -21,6 +22,8 @@ export default function App() {
   return (
     <div>
       <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/recipe" component={RecipePage} />
         <Route exact path="/signup" component={SignupPage} />{' '}
         <Route exact path="/login" component={LoginPage} />{' '}
         <Route exact path="/landing" component={LandingPage} />{' '}
