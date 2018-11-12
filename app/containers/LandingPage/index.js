@@ -25,9 +25,14 @@ export class LandingPage extends React.Component {
         <FormattedMessage {...messages.header} />{' '}
         <div>
           <Link to="/login">Login</Link>
+          <br />
           <Link to="/signup">Signup</Link>
+          <br />
           <Link to="/inventory">Inventory</Link>
+          <br />
           <Link to="/recipe">Recipes</Link>
+          <br />
+          <Link to="/restaurant">Restaurant</Link>
         </div>
       </div>
     );
