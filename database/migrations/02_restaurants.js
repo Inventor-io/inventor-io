@@ -1,5 +1,5 @@
-exports.up = function(knex) {
-  return knex.schema.createTable('restaurants', table => {
+exports.up = knex =>
+  knex.schema.createTable('restaurants', table => {
     table.increments('id').primary();
     table
       .string('restaurants_name')
@@ -14,9 +14,5 @@ exports.up = function(knex) {
     table.timestamp('created_at');
     table.foreign('user_id').references('users.id');
   });
-};
 
-exports.down = function(knex) {
-  console.log('TEARING IT DOWN');
-  return knex.schema.dropTableIfExists('recipes');
-};
+exports.down = knex => knex.schema.dropTableIfExists('recipes');
