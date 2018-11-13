@@ -1,4 +1,5 @@
 const path = require('path');
+require('dotenv').config();
 
 module.exports = {
   development: {
@@ -15,8 +16,9 @@ module.exports = {
     seeds: {
       directory: path.join(__dirname, '/database/seeds'),
     },
+    searchPath: ['knex', 'public'],
   },
-  // production will need some adjustment for deployement (process.env.DATABASE_URL)
+  // production will need some adjustment for deployment (process.env.DATABASE_URL)
   production: {
     client: 'pg',
     connection: {
@@ -31,5 +33,6 @@ module.exports = {
     seeds: {
       directory: path.join(__dirname, '/database/seeds/production'),
     },
+    searchPath: ['knex', 'public'],
   },
 };
