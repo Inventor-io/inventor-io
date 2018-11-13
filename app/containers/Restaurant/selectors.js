@@ -33,6 +33,9 @@ const makeSelectResNumber = () =>
     addressState.get('resNumber'),
   );
 
+const makeSelectPhoto = () => {
+  createSelector(selectRestaurantDomain, photoState => photoState.get('photo'));
+};
 // export default makeSelectRestaurant;
 export {
   selectRestaurantDomain,
@@ -40,4 +43,5 @@ export {
   makeSelectResName,
   makeSelectResNumber,
   selectRestaurant,
+  makeSelectPhoto,
 };
