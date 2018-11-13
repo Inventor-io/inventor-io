@@ -15,6 +15,7 @@ import LoginPage from 'containers/LoginPage/Loadable';
 import LandingPage from 'containers/LandingPage/Loadable';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import Restaurant from 'containers/Restaurant/Loadable';
 import Inventory from 'containers/Inventory/Loadable';
 import AddInventory from 'containers/AddInventory/Loadable';
 
@@ -31,6 +32,7 @@ export default function App() {
         <Route exact path="/landing" component={LandingPage} />{' '}
         <Route exact path="/inventory" component={Inventory} />
         <Route exact path="/addInventory" component={AddInventory} />
+        <Route path="/restaurant" component={Restaurant} />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />
