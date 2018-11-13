@@ -6,6 +6,7 @@ const logger = require('./logger');
 const argv = require('./argv');
 const port = require('./port');
 const setup = require('./middlewares/frontendMiddleware');
+const bodyParser = require('body-parser');
 const isDev = process.env.NODE_ENV !== 'production';
 const ngrok =
   (isDev && process.env.ENABLE_TUNNEL) || argv.tunnel
@@ -17,6 +18,11 @@ const restaurant = require('./restaurant.js');
 const auth = require('./auth.js');
 const inventory = require('./inventory.js');
 const recipe = require('./recipe.js');
+
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
+app.use(bodyParser.json());
 
 app.use('/api/restaurant', restaurant);
 app.use('/api/auth', auth);
