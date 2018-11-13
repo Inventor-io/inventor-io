@@ -12,7 +12,7 @@ exports.up = knex =>
     table.string('restaurant_phone_number').notNullable();
     table.string('restaurant_website');
     table.timestamp('created_at');
-    table.foreign('user_id').references('users.id');
+    // table.foreign('user_id').references('users.id');
   });
 
 exports.down = knex => knex.schema.dropTableIfExists('recipes');
