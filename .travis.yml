@@ -1,22 +1,22 @@
 language: node_js
 node_js:
-  - node
-  - lts/*
+- node
+- lts/*
 script:
-  - node ./internals/scripts/generate-templates-for-linting
-  - npm test -- --maxWorkers=4
-  - npm run build
+- node ./internals/scripts/generate-templates-for-linting
+- npm test -- --maxWorkers=4
+- npm run build
 before_install:
-  - export CHROME_BIN=chromium-browser
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
+- export CHROME_BIN=chromium-browser
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
 notifications:
   email:
     on_failure: change
 after_success: npm run coveralls
 cache:
   directories:
-    - node_modules
+  - node_modules
 deploy:
   provider: s3
   bucket: hratx-thesis
@@ -24,5 +24,5 @@ deploy:
   local_dir: build
   access_key_id: AKIAJ7YHT67VY56AWVBQ
   secret_access_key:
-    secure: 'T264ciyh2+onAqgwmz33P4HK2z7Ey+sUmt+ejlUZfNfHoTVSaQ6JUrx06rCiWbwneqwwvuLcbIr92nEyFlxSnEsE8t0RxXVLbPSt9C9ClAaKqz1bMd2UXs+FeAM+kL2SsXYlfrEdXeogyjpk4wVP5qd/vT4V+Af+boM7OflsVg824tfdUIZZlNYjcNs8vUQCdYUlaBw5Afhcle99sA1mSa2LrEtk2gukErQkVVu257Uro6Vt01h4FE1jvk7JqlmoN1y95YKXlj8GMscBV0TGY32eiTm2HS59pr6BiW16s+3WrzHpeBRs0AT2Nfe1fuw90707yO7v6PSDwOHtEmzBRDNCVabrmDRWIyK4cqO1OoyzNyjZK2fueMTMfXcnC3k3UDIJhcYbZyQcfn2j3UkAcC7hawPI/OwWEiWIJeozXZk1w5wWAm8K2/ZL/C7JoXmJGjzLp1sHuzRxZvT33Jc5wheOW951ZtrCdCC0tEORjLeKC4vMeo50OJAVBOsclYTwXUpTRhO/77pDf0Grh/MExNHHwiIJfgyfe+XLZMS92NoI2CQVTERBEZK07JbVujNbtQGef2IAlC5ALXrjE7Txt2hgBsD7tOkos6NZiVqjVUw2QEP/5Inmprl6OVXRLA2M1qkfqUebLOuNjgsrIQRuSIvRP+sd9ec/mUWQ54eDwws='
+    secure: YaJQ2ZfllQCP8zEkzf+BcAMvYVzUW/wXzw9DxE/gV4sK+sKtd7a9Fq2+VCSdDBx1iL0M3wmdm4CQJxgj8De/VMLP+Eaccj0f/WCp4W9zaXtT9ODWtO5CUXjDFtcX3XrUbTvJdIcQjP4ZX3rn00vR4bj2UGq7RQfIfJLyA8/jqliQ2Glo+pMW17mTOSDVhSauwNlD6XmjALkaunm7Na7GhyT4IiRD/oLBS39E6bRhL41uLsoi/B1bkGKwrxn4gfTacjLWb0+um7vEaysjoP9/29pbis3Lfwe550IXrpPwOoBnE90DzxBAhyuVz5BnqxjioEaKgTEedmOQRCYbyqAczo4bPZtVrv3ecIdQ4n8WalrmksnZqfmbxd+kR+uagSEjEdx7IngNVYlY2ziAMQkSwIL6Lk8SosALt/4HFXauuVT4tB394rjXPggRmBy9zm6k7TJsJA9O1eylw1192EX0TICgk7gA8S+X/mozigGQQcAikrgR/H2IBYWtDPbhbFxah0IVJlESuYRWujZWEsVix7jmTGSr6/JWkK+uoVbfQB5RFmJM9QNm2bW+PkGButucT3H0nybg+4OUVie0xP5CG9wK6IVbAe9Nf2Jx/utrOJdKIP4d2MnrCOHl1BGqWdKzUhBOZSmYbI/M0/1TqWWEgeQZ/Mk14izSMWhkeiz1SfY=
   skip_cleanup: true
