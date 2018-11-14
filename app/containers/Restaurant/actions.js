@@ -9,7 +9,6 @@ import {
   UPDATE_NAME,
   UPDATE_NUMBER,
   SEND_FORM,
-  UPDATE_PHOTO,
 } from './constants';
 
 export function sendForm() {
@@ -41,9 +40,4 @@ export function updateNumber(resNumber) {
   };
 }
 
-export function updatePhoto(photo) {
-  return {
-    type: UPDATE_PHOTO,
-    photo,
-  };
-}
+
