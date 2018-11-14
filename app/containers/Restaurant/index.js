@@ -27,33 +27,11 @@ import {
   updateName,
   updateNumber,
   sendForm,
-  // updatePhoto,
 } from './actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Restaurant extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      selectedFile: null,
-    };
-    this.uploadHandler = this.uploadHandler.bind(this);
-    this.fileChangeHandler = this.fileChangeHandler.bind(this);
-  }
-
-  fileChangeHandler(e) {
-    const file = e.target.files[0];
-    this.setState({ selectedFile: file });
-  }
-
-  uploadHandler() {
-    console.log(this.state.selectedFile);
-  }
-
   render() {
-    // const item = state => state.resName;
-    // console.log(item);
-    // console.log('Restaurant store', restaurant);
     return (
       <div>
         <form onSubmit={this.props.onSubmitForm}>
@@ -78,8 +56,6 @@ export class Restaurant extends React.Component {
             placeholder="Phone Number"
           />
           <Button content="Submit" onClick={this.props.onSubmitForm} />
-          {/* <input type="file" onChange={this.props.fileChangeHandler} />
-          <button onClick={this.props.uploadHandler}>Upload</button> */}
         </form>
       </div>
     );
@@ -102,7 +78,6 @@ const mapStateToProps = createStructuredSelector({
   resAddress: makeSelectResAddress,
   resName: makeSelectResName,
   resNumber: makeSelectResNumber,
-  photo: makeSelectPhoto,
 });
 
 function mapDispatchToProps(dispatch) {
@@ -114,14 +89,6 @@ function mapDispatchToProps(dispatch) {
       e.preventDefault();
       dispatch(sendForm());
     },
-    // fileChangeHandler: e => {
-    //   console.log(e);
-    //   const file = e.target.files[0];
-    //   dispatch(updatePhoto(file));
-    // },
-    // uploadHandler: () => {
-    //   dispatch(updatePhoto(this.props.photo));
-    // },
   };
 }
 
