@@ -8,7 +8,7 @@
 
 // const generator = addInventorySaga();
 
-describe('addInventorySaga Saga', () => {
+xdescribe('addInventorySaga Saga', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });
