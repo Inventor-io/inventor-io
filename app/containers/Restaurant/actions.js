@@ -39,5 +39,3 @@ export function updateNumber(resNumber) {
     resNumber,
   };
 }
-
-

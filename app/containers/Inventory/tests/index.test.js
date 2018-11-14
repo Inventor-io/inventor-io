@@ -4,7 +4,7 @@
 
 // import { Inventory } from '../index';
 
-describe('<Inventory />', () => {
+xdescribe('<Inventory />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });

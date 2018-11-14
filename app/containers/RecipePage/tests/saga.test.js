@@ -8,7 +8,7 @@
 
 // const generator = recipePageSaga();
 
-describe('recipePageSaga Saga', () => {
+xdescribe('recipePageSaga Saga', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });

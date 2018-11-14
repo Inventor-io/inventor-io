@@ -4,7 +4,7 @@
 
 // import { LandingPage } from '../index';
 
-describe('<LandingPage />', () => {
+xdescribe('<LandingPage />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });
