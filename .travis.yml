@@ -19,9 +19,8 @@ cache:
     - node_modules
 deploy:
   provider: s3
-  access_key_id: AKIAJ7YHT67VY56AWVBQ
-  secret_access_key:
-    secure: XH6p3tIRXJGRgPacdSy9oLGHrgih88n7+PQRg5mmExrGnuTDn27yQEWu6uxWbKODPDpjJVfvMRBNsY+Xwpyu1IganIRYjRIrm4ePzzpJEQebSZCgaVX68y1Q5lGyf9vBF2RU4YZilqSSc/m0aNJzq0H7GdRz08cxE3KMiVzMONZMjKW/ZzzQW034LXMPDQOEHq3s8CwEqu6s0tX4LIZu8DG8zKnp1udNuzSOozgeysb17PyTDYDXbZ51DCD4uzZ3vKYegTf8Rnlup3tselzd6VMsIqpZa4Ma4uQFJehsfgRA6HLlJVIkqMHIHY94sqKsi82K84LCbblXETBgnsIFVTgIezqC5d7hFKAshn8YrNta8GCDKYJCYJ+g0T+a0zXLNfuHo5EHWWLMOwMaTbJSlR/OuuA0rbqzTkSwqf2K7l+PdRRU5XMBhVenMUaGN9ubx8a2zwYEI6614XBzmihnnB3/+iStk5X/ZBb7mIkB7UoX+WqrfCqgZcb7uiD61sK1DfS4MTQeb4Z9AwF4Ju1mphfcdE2kO/a6y2sUavNj8gda4fpJCkMLIE4RdWwvsMM/denvfepvolQDUDa8pEUyypBACi4PQFLa8vLuagJFDGEW3nQbmg3VQGY7ToEaulrHDeYFCAvrd6/vqAmIgqZAiWEqNnfOSO7+nWsoMbTIA64=
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
   bucket: hratx-thesis
   region: us-east-2
   local-dir: build
