@@ -15,13 +15,13 @@ import messages from './messages';
 const restaurantList = [
   {
     text: 'All Restaurants',
-    value: "All Restaurants",
+    value: 'All Restaurants',
   },
   {
-    text: "El Ranchero",
-    value: "El Ranchero",
+    text: 'El Ranchero',
+    value: 'El Ranchero',
   },
-]
+];
 
 const RecipeDropdown = () => (
   <Dropdown
