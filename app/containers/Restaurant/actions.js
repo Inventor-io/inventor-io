@@ -10,6 +10,7 @@ import {
   UPDATE_NUMBER,
   SEND_FORM,
 } from './constants';
+import { DEFAULT_ACTION } from '../LoginPage/constants';
 
 export function sendForm() {
   // const data = { resAddress, resName, resNumber };
@@ -37,5 +38,11 @@ export function updateNumber(resNumber) {
   return {
     type: UPDATE_NUMBER,
     resNumber,
+  };
+}
+
+export function defaultAction() {
+  return {
+    type: DEFAULT_ACTION,
   };
 }

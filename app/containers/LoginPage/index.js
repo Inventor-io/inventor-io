@@ -18,6 +18,7 @@ import makeSelectLoginPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+import { login } from './actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class LoginPage extends React.Component {
@@ -29,6 +30,9 @@ export class LoginPage extends React.Component {
           <meta name="description" content="Description of LoginPage" />
         </Helmet>
         <FormattedMessage {...messages.header} />
+        <button type="button" onClick={this.props.onClick}>
+          TRY THIS BUTTON
+        </button>
       </div>
     );
   }
@@ -44,6 +48,12 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
+    onClick: e => {
+      console.log('at least i clicked it');
+      console.log(login());
+      dispatch(login());
+      e.preventDefault();
+    },
     dispatch,
   };
 }

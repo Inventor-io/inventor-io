@@ -15,9 +15,10 @@ const ngrok =
 const { resolve } = require('path');
 const app = express();
 const restaurant = require('./restaurant.js');
-const auth = require('./auth/auth.js');
+const auth = require('./auth');
 const inventory = require('./inventory.js');
 const recipe = require('./recipe.js');
+require('dotenv').config();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
