@@ -1,13 +1,13 @@
-import { defaultAction } from '../actions';
-import { DEFAULT_ACTION } from '../constants';
+import { updateAddress } from '../actions';
+import { UPDATE_ADDRESS } from '../constants';
 
 describe('Restaurant actions', () => {
-  describe('Default Action', () => {
+  describe('UPDATE_ADDRESS', () => {
     it('has a type of DEFAULT_ACTION', () => {
       const expected = {
-        type: DEFAULT_ACTION,
+        type: UPDATE_ADDRESS,
       };
-      expect(defaultAction()).toEqual(expected);
+      expect(updateAddress()).toEqual(expected);
     });
   });
 });

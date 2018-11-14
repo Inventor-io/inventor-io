@@ -17,17 +17,11 @@ import {
   makeSelectResAddress,
   makeSelectResName,
   makeSelectResNumber,
-  makeSelectPhoto,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 // import messages from './messages';
-import {
-  updateAddress,
-  updateName,
-  updateNumber,
-  sendForm,
-} from './actions';
+import { updateAddress, updateName, updateNumber, sendForm } from './actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Restaurant extends React.Component {
