@@ -26,9 +26,6 @@ import { updateAddress, updateName, updateNumber, sendForm } from './actions';
 /* eslint-disable react/prefer-stateless-function */
 export class Restaurant extends React.Component {
   render() {
-    // const item = state => state.resName;
-    // console.log(item);
-    // console.log('Restaurant store', restaurant);
     return (
       <div>
         <form onSubmit={this.props.onSubmitForm}>
@@ -85,7 +82,6 @@ function mapDispatchToProps(dispatch) {
     onSubmitForm: e => {
       e.preventDefault();
       dispatch(sendForm());
-      // console.log(e);
     },
   };
 }
