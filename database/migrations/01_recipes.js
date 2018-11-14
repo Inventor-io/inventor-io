@@ -33,7 +33,7 @@ exports.up = knex =>
 
     // 03 INVENTORY
     .createTable('inventory', table => {
-      table.integer('ndbno').unique();
+      table.string('ndbno').unique();
       table.string('inventory_name');
     })
 
@@ -45,7 +45,7 @@ exports.up = knex =>
         .references('id')
         .inTable('restaurants');
       table
-        .integer('ndbno')
+        .string('ndbno')
         .references('ndbno')
         .inTable('inventory');
       table.float('quantity').defaultTo(0);
@@ -55,11 +55,11 @@ exports.up = knex =>
     .createTable('recipe_inventory', table => {
       table.increments('id');
       table
-        .integer('restaurant_id')
-        .references('id')
-        .inTable('restaurants');
+        .integer('recipe_id')
+        .references('recipe_id')
+        .inTable('recipes');
       table
-        .integer('ndbno')
+        .string('ndbno')
         .references('ndbno')
         .inTable('inventory');
       table.float('measurement').defaultTo(0);
@@ -80,10 +80,10 @@ exports.up = knex =>
     .createTable('orders', table => {
       table.increments('id');
       table
-        .integer('ndbno')
+        .string('ndbno')
         .references('ndbno')
         .inTable('inventory');
-      table.float('price');
+      table.float('price', 10, 2);
       table.float('quantity');
     });
 
