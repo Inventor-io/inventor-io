@@ -18,6 +18,7 @@ import makeSelectRecipePage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+import RecipeDropdown from '../../components/RecipeDropdown/Loadable';// mjw
 
 /* eslint-disable react/prefer-stateless-function */
 export class RecipePage extends React.PureComponent {
@@ -29,6 +30,9 @@ export class RecipePage extends React.PureComponent {
           <meta name="description" content="Description of RecipePage" />
         </Helmet>
         <FormattedMessage {...messages.header} />
+        <div>
+          Select a restaurant: <RecipeDropdown />
+        </div>
       </div>
     );
   }
