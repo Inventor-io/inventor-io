@@ -17,8 +17,7 @@ after_success: npm run coveralls
 cache:
   directories:
     - node_modules
-
-  ? deploy
+deploy:
   provider: s3
   region: us-east-2
   local_dir: build
