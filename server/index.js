@@ -18,12 +18,24 @@ const restaurant = require('./restaurant.js');
 const auth = require('./auth');
 const inventory = require('./inventory.js');
 const recipe = require('./recipe.js');
+const cors = require('cors');
+const passport = require('passport');
 require('dotenv').config();
+
+const corsOption = {
+  origin: true,
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  exposedHeaders: ['x-auth-token'],
+};
+app.use(cors(corsOption));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
 app.use(bodyParser.json());
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/api/restaurant', restaurant);
 app.use('/api/auth', auth);
