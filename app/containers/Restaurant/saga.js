@@ -17,11 +17,20 @@ function* getServer() {
   );
   const data = { resAddress, resName, resNumber };
   console.log(data);
+  // let url = null;
+  // const isDev = process.env.NODE_ENV !== 'production';
+
+  // if (isDev) {
+  //   console.log(process.env.CLIENT_HOST);
+  //   url = `${process.env.CLIENT_HOST}/api/restaurant`;
+  // } else {
+  //   url = '/api/restaurant';
+  // }
   try {
     // console.log('SAGAGAGAGA RESTAURANT', state);
 
     const post = {
-      url: '/api/restaurant',
+      url: 'http://52.14.47.91/api/restaurant',
       method: 'post',
       data: { resAddress, resName, resNumber },
     };
