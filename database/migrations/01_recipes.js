@@ -1,5 +1,6 @@
 exports.up = knex =>
   knex.schema
+    // 01 RESTAURANTS
     .createTable('restaurants', table => {
       table.increments('id').primary();
       table
@@ -16,7 +17,7 @@ exports.up = knex =>
       table.integer('user_id'); // foreign('user_id').references('users.id');
     })
 
-    // RECIPES
+    // 02 RECIPES
     .createTable('recipes', table => {
       table.increments('recipe_id');
       table
@@ -30,13 +31,13 @@ exports.up = knex =>
       table.float('price', 8, 2);
     })
 
-    // INVENTORY
+    // 03 INVENTORY
     .createTable('inventory', table => {
       table.string('ndbno').unique();
       table.string('inventory_name');
     })
 
-    // RESTAURANT-INVENTORY JOINT TABLE
+    // 04 RESTAURANT-INVENTORY JOINT TABLE
     .createTable('restaurant_inventory', table => {
       table.increments('id');
       table
@@ -50,7 +51,7 @@ exports.up = knex =>
       table.float('quantity').defaultTo(0);
     })
 
-    // RECIPE-INVENTORY JOINT TABLE
+    // 05 RECIPE-INVENTORY JOIN TABLE
     .createTable('recipe_inventory', table => {
       table.increments('id');
       table
@@ -64,7 +65,7 @@ exports.up = knex =>
       table.float('measurement').defaultTo(0);
     })
 
-    // SALES
+    // 06 SALES
     .createTable('sales', table => {
       table.increments('id');
       table
@@ -75,7 +76,7 @@ exports.up = knex =>
       table.timestamp('date').defaultTo(knex.fn.now());
     })
 
-    // HISTORICAL ORDERS
+    // 07 HISTORICAL ORDERS
     .createTable('orders', table => {
       table.increments('id');
       table
