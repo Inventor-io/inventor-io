@@ -10,7 +10,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import RecipePage from 'containers/RecipePage/Loadable';
-import AddRecipePage from 'containers/AddRecipePage';
+import AddRecipePage from 'containers/AddRecipePage/Loadable';
 import SignupPage from 'containers/SignupPage/Loadable';
 import LoginPage from 'containers/LoginPage/Loadable';
 import LandingPage from 'containers/LandingPage/Loadable';
