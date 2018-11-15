@@ -4,7 +4,7 @@
 
 // import { SignupPage } from '../index';
 
-describe('<SignupPage />', () => {
+xdescribe('<SignupPage />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });

@@ -1,0 +1,414 @@
+{
+  "list": {
+    "q": "apple",
+    "sr": "1",
+    "ds": "Standard Reference",
+    "start": 0,
+    "end": 50,
+    "total": 89,
+    "group": "",
+    "sort": "r",
+    "item": [
+      {
+        "offset": 0,
+        "group": "Baked Products",
+        "name": "Croissants, apple",
+        "ndbno": "18240",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 1,
+        "group": "Baked Products",
+        "name": "Strudel, apple",
+        "ndbno": "18354",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 2,
+        "group": "Baby Foods",
+        "name": "Babyfood, apples, dices, toddler",
+        "ndbno": "03115",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 3,
+        "group": "Baby Foods",
+        "name": "Babyfood, juice, apple",
+        "ndbno": "03166",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 4,
+        "group": "Baby Foods",
+        "name": "Babyfood, apple-banana juice",
+        "ndbno": "03167",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 5,
+        "group": "Baby Foods",
+        "name": "Babyfood, juice, apple and peach",
+        "ndbno": "03168",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 6,
+        "group": "Baby Foods",
+        "name": "Babyfood, juice, apple and prune",
+        "ndbno": "03171",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 7,
+        "group": "Baby Foods",
+        "name": "Babyfood, juice, orange and apple",
+        "ndbno": "03173",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 8,
+        "group": "Baby Foods",
+        "name": "Babyfood, juice, apple and grape",
+        "ndbno": "03265",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 9,
+        "group": "Baby Foods",
+        "name": "Babyfood, rice and apples, dry",
+        "ndbno": "43529",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 10,
+        "group": "Baby Foods",
+        "name": "Babyfood, juice, apple - cherry",
+        "ndbno": "43535",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 11,
+        "group": "Fruits and Fruit Juices",
+        "name": "Apples, raw, with skin (Includes foods for USDA's Food Distribution Program)",
+        "ndbno": "09003",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 12,
+        "group": "Fruits and Fruit Juices",
+        "name": "Apples, raw, without skin",
+        "ndbno": "09004",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 13,
+        "group": "Fruits and Fruit Juices",
+        "name": "Apples, dried, sulfured, uncooked",
+        "ndbno": "09011",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 14,
+        "group": "Fruits and Fruit Juices",
+        "name": "Apples, frozen, unsweetened, unheated (Includes foods for USDA's Food Distribution Program)",
+        "ndbno": "09014",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 15,
+        "group": "Fruits and Fruit Juices",
+        "name": "Apples, frozen, unsweetened, heated (Includes foods for USDA's Food Distribution Program)",
+        "ndbno": "09015",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 16,
+        "group": "Fruits and Fruit Juices",
+        "name": "Mammy-apple, (mamey), raw",
+        "ndbno": "09175",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 17,
+        "group": "Fruits and Fruit Juices",
+        "name": "Rose-apples, raw",
+        "ndbno": "09312",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 18,
+        "group": "Fruits and Fruit Juices",
+        "name": "Sugar-apples, (sweetsop), raw",
+        "ndbno": "09321",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 19,
+        "group": "Sweets",
+        "name": "Fruit butters, apple",
+        "ndbno": "19294",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 20,
+        "group": "Sweets",
+        "name": "Pie fillings, apple, canned",
+        "ndbno": "19312",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 21,
+        "group": "Baby Foods",
+        "name": "Babyfood, fruit, apple and raspberry, strained",
+        "ndbno": "03152",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 22,
+        "group": "Baby Foods",
+        "name": "Babyfood, fruit, apple and raspberry, junior",
+        "ndbno": "03153",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 23,
+        "group": "Baby Foods",
+        "name": "Babyfood, fruit, apple and blueberry, strained",
+        "ndbno": "03164",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 24,
+        "group": "Baby Foods",
+        "name": "Babyfood, fruit, apple and blueberry, junior",
+        "ndbno": "03165",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 25,
+        "group": "Baby Foods",
+        "name": "Babyfood, juice, orange and apple and banana",
+        "ndbno": "03174",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 26,
+        "group": "Baby Foods",
+        "name": "Babyfood, dessert, dutch apple, strained",
+        "ndbno": "03220",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 27,
+        "group": "Baby Foods",
+        "name": "Babyfood, dessert, dutch apple, junior",
+        "ndbno": "03221",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 28,
+        "group": "Baby Foods",
+        "name": "Babyfood, juice, apple, with calcium",
+        "ndbno": "03269",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 29,
+        "group": "Baby Foods",
+        "name": "Babyfood, apples with ham, strained",
+        "ndbno": "03289",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 30,
+        "group": "Baby Foods",
+        "name": "Babyfood, dinner, apples and chicken, strained",
+        "ndbno": "03297",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 31,
+        "group": "Baby Foods",
+        "name": "Babyfood, apple yogurt dessert, strained",
+        "ndbno": "42150",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 32,
+        "group": "Baby Foods",
+        "name": "Babyfood, juice, apple-sweet potato",
+        "ndbno": "42266",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 33,
+        "group": "Baby Foods",
+        "name": "Babyfood, banana apple dessert, strained",
+        "ndbno": "43550",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 34,
+        "group": "Fruits and Fruit Juices",
+        "name": "Custard-apple, (bullock's-heart), raw",
+        "ndbno": "09086",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 35,
+        "group": "Fruits and Fruit Juices",
+        "name": "Apples, raw, gala, with skin (Includes foods for USDA's Food Distribution Program)",
+        "ndbno": "09503",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 36,
+        "group": "Fruits and Fruit Juices",
+        "name": "Apples, raw, fuji, with skin (Includes foods for USDA's Food Distribution Program)",
+        "ndbno": "09504",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 37,
+        "group": "Baked Products",
+        "name": "Pie, apple, prepared from recipe",
+        "ndbno": "18302",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 38,
+        "group": "Baked Products",
+        "name": "Pie, Dutch Apple, Commercially Prepared",
+        "ndbno": "18944",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 39,
+        "group": "Baby Foods",
+        "name": "Babyfood, fruit and vegetable, apple and sweet potato",
+        "ndbno": "03154",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 40,
+        "group": "Baby Foods",
+        "name": "Babyfood, fruit, bananas with apples and pears, strained",
+        "ndbno": "03163",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 41,
+        "group": "Breakfast Cereals",
+        "name": "Cereals, QUAKER, Instant Oatmeal, apples and cinnamon, dry",
+        "ndbno": "08124",
+        "ds": "SR",
+        "manu": "The Quaker Oats, Co."
+      },
+      {
+        "offset": 42,
+        "group": "Breakfast Cereals",
+        "name": "Cereals ready-to-eat, MALT-O-MEAL, Apple ZINGS",
+        "ndbno": "08493",
+        "ds": "SR",
+        "manu": "MOM Brands"
+      },
+      {
+        "offset": 43,
+        "group": "Fruits and Fruit Juices",
+        "name": "Apples, raw, without skin, cooked, boiled",
+        "ndbno": "09005",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 44,
+        "group": "Fruits and Fruit Juices",
+        "name": "Apples, raw, without skin, cooked, microwave",
+        "ndbno": "09006",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 45,
+        "group": "Fruits and Fruit Juices",
+        "name": "Apples, canned, sweetened, sliced, drained, heated",
+        "ndbno": "09008",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 46,
+        "group": "Fruits and Fruit Juices",
+        "name": "Apples, dehydrated (low moisture), sulfured, uncooked",
+        "ndbno": "09009",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 47,
+        "group": "Fruits and Fruit Juices",
+        "name": "Apples, dehydrated (low moisture), sulfured, stewed",
+        "ndbno": "09010",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 48,
+        "group": "Fruits and Fruit Juices",
+        "name": "Apples, dried, sulfured, stewed, without added sugar",
+        "ndbno": "09012",
+        "ds": "SR",
+        "manu": "none"
+      },
+      {
+        "offset": 49,
+        "group": "Fruits and Fruit Juices",
+        "name": "Apples, dried, sulfured, stewed, with added sugar",
+        "ndbno": "09013",
+        "ds": "SR",
+        "manu": "none"
+      }
+    ]
+  }
+}

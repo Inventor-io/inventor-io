@@ -10,6 +10,8 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import { Button } from 'semantic-ui-react';
+import 'semantic-ui-css/semantic.min.css';
 import axios from 'axios';
 
 import injectSaga from 'utils/injectSaga';
@@ -29,12 +31,25 @@ export class Inventory extends React.Component {
     this.state = {
       inventoryList: [],
     };
+
+    this.handleOrder = this.handleOrder.bind(this);
   }
 
   componentDidMount() {
     axios.get('/api/inventory').then(res => {
       this.setState({ inventoryList: res.data });
     });
+  }
+
+  handleOrder() {
+    const arr = [];
+    this.state.inventoryList.forEach(obj => {
+      if (obj.Selected) {
+        arr.push(obj);
+      }
+    });
+
+    alert(`Order placed for: ${JSON.stringify(arr)}`);
   }
 
   render() {
@@ -47,6 +62,8 @@ export class Inventory extends React.Component {
 
         <h1>Inventory List</h1>
         <Table data={this.state.inventoryList} />
+
+        <Button content="Place order" onClick={this.handleOrder} />
       </div>
     );
   }
