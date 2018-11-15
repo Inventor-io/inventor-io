@@ -11,6 +11,7 @@ import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Input, Button } from 'semantic-ui-react';
+import 'semantic-ui-css/semantic.min.css';
 import axios from 'axios';
 
 import injectSaga from 'utils/injectSaga';
@@ -126,7 +127,7 @@ export class AddInventory extends React.Component {
           placeholder="Select your ingredient"
         >
           {this.state.options.map((obj, i) => (
-            <option key={i.toString()} value={i}>
+            <option key={i.toString()} value={i} text={obj.name}>
               {obj.name}
             </option>
           ))}
