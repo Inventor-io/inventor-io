@@ -13,7 +13,11 @@ const ngrok =
     ? require('ngrok')
     : false;
 const { resolve } = require('path');
+
 const app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 const restaurant = require('./restaurant.js');
 const auth = require('./auth.js');
 const inventory = require('./inventory.js');
