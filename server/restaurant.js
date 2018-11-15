@@ -3,9 +3,12 @@ const router = express.Router();
 require('dotenv').config();
 const db = require('knex')(require('../knexfile').development);
 
-router.get('/', (req, res) => {
+router.get('/list', (req, res) => {
   console.log(req.body);
-  res.status(200).send('/api/restaurant route');
+  getRestaurants().then(response => {
+    console.log(response);
+    res.status(200).send(response);
+  });
 });
 
 router.post('/create', (req, res) => {
@@ -14,11 +17,12 @@ router.post('/create', (req, res) => {
   createNewRestaurant(req.body)
     .then(response => {
       console.log(response);
+      res.status(201).end('DB Save Success');
     })
     .catch(err => {
       throw err;
     });
-  res.status(201).send('Success');
+  // res.status(201).send('Success');
 });
 
 /*
@@ -27,10 +31,12 @@ restaurant = {
   restaurant_address,
   restaurant_phone_number,
   restaurant_website,
-  created_at
 }
 */
 const createNewRestaurant = restaurant =>
   db.insert(restaurant).into('restaurants');
+
+const getRestaurants = (user_id = 1) =>
+  db.from('restaurants').where({ user_id });
 
 module.exports = router;

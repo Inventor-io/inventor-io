@@ -4,10 +4,26 @@
  *
  */
 
-import { DEFAULT_ACTION } from './constants';
+import {
+  DEFAULT_ACTION,
+  GET_RESTAURANTS,
+  RECEIVED_RESTAURANTS,
+} from './constants';
 
 export function defaultAction() {
   return {
     type: DEFAULT_ACTION,
+  };
+}
+
+export function getRestaurants() {
+  return {
+    type: GET_RESTAURANTS,
+  };
+}
+
+export function receivedRestaurants() {
+  return {
+    type: RECEIVED_RESTAURANTS,
   };
 }

@@ -10,7 +10,13 @@ const selectRestaurantListDomain = state =>
 
 /**
  * Other specific selectors
+ *
  */
+
+// const makeSelectResaurantList = () =>
+// createSelector(selectRestaurantListDomain, RestaurantList =>
+//   RestaurantList.get('resName'),
+// );
 
 /**
  * Default selector used by RestaurantList
