@@ -1,15 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
-const { Strategy } = require('passport-facebook');
+const FacebookStrategy = require('passport-facebook').Strategy;
 require('dotenv').config();
 
 passport.use(
-  new Strategy(
+  new FacebookStrategy(
     {
       clientID: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
-      callbackURL: 'http://localhost:3000/api/auth/login/facebook/return',
+      callbackURL: 'https://localhost:3000/api/auth/login/facebook/return',
       profileFields: [
         'id',
         'displayName',
@@ -31,10 +31,12 @@ passport.use(
 );
 
 passport.serializeUser((user, cb) => {
+  console.log('in serialize');
   cb(null, user);
 });
 
 passport.deserializeUser((obj, cb) => {
+  console.log('in deserialize');
   cb(null, obj);
 });
 
@@ -42,17 +44,12 @@ router.get('/', (req, res) => {
   res.json('/api/login route');
 });
 
-router.get('/login/facebook1', (req, res) => {
-  console.log('hey its working');
-  res.send('hi nik');
-});
-
 router.get('/login/facebook', passport.authenticate('facebook'));
 
 router.get(
   '/login/facebook/return',
   passport.authenticate('facebook', {
-    successRedirect: '/',
+    successRedirect: '/restaurant',
     failureRedirect: '/login',
   }),
 );

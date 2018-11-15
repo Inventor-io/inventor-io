@@ -20,7 +20,15 @@ const inventory = require('./inventory.js');
 const recipe = require('./recipe.js');
 const cors = require('cors');
 const passport = require('passport');
+const path = require('path');
+const fs = require('fs');
+const https = require('https');
 require('dotenv').config();
+
+const certOptions = {
+  key: fs.readFileSync(path.resolve('./server.key')),
+  cert: fs.readFileSync(path.resolve('./server.crt')),
+};
 
 const corsOption = {
   origin: true,
@@ -64,7 +72,7 @@ app.get('*.js', (req, res, next) => {
 });
 
 // Start your app.
-app.listen(port, host, async err => {
+https.createServer(certOptions, app).listen(port, host, async err => {
   if (err) {
     return logger.error(err.message);
   }
