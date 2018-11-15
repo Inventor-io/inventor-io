@@ -8,6 +8,7 @@ import {
   UPDATE_ADDRESS,
   UPDATE_NAME,
   UPDATE_NUMBER,
+  UPDATE_WEBSITE,
   SEND_FORM,
 } from './constants';
 
@@ -37,5 +38,12 @@ export function updateNumber(resNumber) {
   return {
     type: UPDATE_NUMBER,
     resNumber,
+  };
+}
+
+export function updateWebsite(resWebsite) {
+  return {
+    type: UPDATE_WEBSITE,
+    resWebsite,
   };
 }

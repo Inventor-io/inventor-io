@@ -12,10 +12,15 @@ export default function* restaurantSaga() {
   yield takeEvery('app/Restaurant/SEND_FORM', getServer);
 }
 function* getServer() {
-  const { resAddress, resName, resNumber } = yield select(
+  const { resAddress, resName, resNumber, resWebsite } = yield select(
     selectRestaurantDomain,
   );
-  const data = { resAddress, resName, resNumber };
+  const data = {
+    restaurants_name: resName,
+    restaurant_address: resAddress,
+    restaurant_phone_number: resNumber,
+    restaurant_website: resWebsite,
+  };
   console.log(data);
   // let url = null;
   // const isDev = process.env.NODE_ENV !== 'production';
@@ -30,9 +35,9 @@ function* getServer() {
     // console.log('SAGAGAGAGA RESTAURANT', state);
 
     const post = {
-      url: 'http://52.14.47.91/api/restaurant',
+      url: '/api/restaurant/create',
       method: 'post',
-      data: { resAddress, resName, resNumber },
+      data,
     };
     const response = yield call(axios, post);
     const responseBody = response;
