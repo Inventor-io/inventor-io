@@ -5,26 +5,26 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
+// import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import 'semantic-ui-css/semantic.min.css';
-import { Dropdown, List, Container } from 'semantic-ui-react';
+import { Dropdown, List, Button } from 'semantic-ui-react';
 import makeSelectRecipePage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
+// import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
 const restaurantList = [
   {
-    text: 'All Restaurants',
-    value: 'All Restaurants',
+    text: 'Pasta Barn',
+    value: 'Pasta Barn',
   },
   {
     text: 'El Ranchero',
@@ -90,18 +90,23 @@ export class RecipePage extends React.PureComponent {
             options={restaurantList}
           />
         </div>
+        <Button
+          content="Add a new recipe"
+          onClick={() => console.log('Link to add recipes')}
+        />
         <div>
           <List>
-            <b>{recipeList[0].name}</b><br />
+            <b>{recipeList[0].name}</b>
+            <br />
             Description: {recipeList[0].description} <br />
             Ingredients:
             <List.Item>
-              {recipeList[0].ingredients[0].name}: &nbsp;
+              {recipeList[0].ingredients[0].name} - &nbsp;
               {recipeList[0].ingredients[0].quantity} &nbsp;
               {recipeList[0].ingredients[0].unit}
             </List.Item>
             <List.Item>
-              {recipeList[0].ingredients[1].name}: &nbsp;
+              {recipeList[0].ingredients[1].name} - &nbsp;
               {recipeList[0].ingredients[1].quantity} &nbsp;
               {recipeList[0].ingredients[1].unit}
             </List.Item>
@@ -110,14 +115,14 @@ export class RecipePage extends React.PureComponent {
           <List>
             <b>{recipeList[1].name}</b> <br />
             Description: {recipeList[1].description} <br />
-            Ingredients1
+            Ingredients:
             <List.Item>
-              {recipeList[1].ingredients[0].name}: &nbsp;
+              {recipeList[1].ingredients[0].name} - &nbsp;
               {recipeList[1].ingredients[0].quantity} &nbsp;
               {recipeList[1].ingredients[0].unit}
             </List.Item>
             <List.Item>
-              {recipeList[1].ingredients[1].name}: &nbsp;
+              {recipeList[1].ingredients[1].name} - &nbsp;
               {recipeList[1].ingredients[1].quantity} &nbsp;
               {recipeList[1].ingredients[1].unit}
             </List.Item>
@@ -128,9 +133,9 @@ export class RecipePage extends React.PureComponent {
   }
 }
 
-RecipePage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-};
+// RecipePage.propTypes = {
+//   dispatch: PropTypes.func.isRequired,
+// };
 
 const mapStateToProps = createStructuredSelector({
   recipePage: makeSelectRecipePage(),
