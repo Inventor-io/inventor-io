@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Button } from 'semantic-ui-react';
+// import { Button } from 'semantic-ui-react';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -34,17 +34,17 @@ export class RestaurantList extends React.Component {
       <div>
         {this.props.restaurantList.restaurants
           ? this.props.restaurantList.restaurants.map(restaurant => (
-              <RestaurantCard
-                header={restaurant.restaurants_name}
-                description={
-                  <ul>
-                    <li>{restaurant.restaurant_address}</li>
-                    <li>{restaurant.restaurant_phone_number}</li>
-                    <li>{restaurant.restaurant_website}</li>
-                  </ul>
-                }
-              />
-            ))
+            <RestaurantCard
+              header={restaurant.restaurants_name}
+              description={
+                <ul>
+                  <li>{restaurant.restaurant_address}</li>
+                  <li>{restaurant.restaurant_phone_number}</li>
+                  <li>{restaurant.restaurant_website}</li>
+                </ul>
+              }
+            />
+          ))
           : null}
         {/* <Button content="get Repos" onClick={this.props.onPageLoad} /> */}
       </div>
