@@ -47,7 +47,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     onPageLoad: e => {
-      console.log('page load', e, '###############', getRestaurants);
+      console.log(e);
       dispatch(getRestaurants());
     },
   };

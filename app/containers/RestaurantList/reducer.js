@@ -20,9 +20,8 @@ function restaurantListReducer(state = initialState, action) {
     case GET_RESTAURANTS:
       return state;
     case RECEIVED_RESTAURANTS:
-      return Object.assign({}, state, {
-        restaurantList: action.restaurantList,
-      });
+      console.log('INSIDE REDUCER', state);
+      return Object.assign({}, state, { restaurants: action.restaurants });
     default:
       return state;
   }

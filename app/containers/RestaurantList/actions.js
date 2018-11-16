@@ -22,8 +22,9 @@ export function getRestaurants() {
   };
 }
 
-export function receivedRestaurants() {
+export function receivedRestaurants(restaurants) {
   return {
     type: RECEIVED_RESTAURANTS,
+    restaurants,
   };
 }

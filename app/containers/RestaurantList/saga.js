@@ -1,5 +1,6 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 import axios from 'axios';
+import { RECEIVED_RESTAURANTS } from './constants';
 // Individual exports for testing
 export default function* restaurantListSaga() {
   // See example in containers/HomePage/saga.js
@@ -14,12 +15,15 @@ function* getList() {
     };
     const response = yield call(axios, get);
     const { data } = response;
-
-    const restaurant = yield put({
-      type: 'app/RestaurantList/GET_RESTAURANTS',
-      data,
+    const restaurants = data;
+    // const restaurants = data;
+    // console.log(RECEIVED_RESTAURANTS);
+    yield put({
+      type: RECEIVED_RESTAURANTS,
+      restaurants,
     });
-    console.log('getList', restaurant);
+
+    console.log('getList', restaurants);
   } catch (err) {
     throw err;
   }
