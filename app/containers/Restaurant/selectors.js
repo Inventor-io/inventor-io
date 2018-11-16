@@ -33,6 +33,11 @@ const makeSelectResNumber = () =>
     addressState.get('resNumber'),
   );
 
+const makeSelectResWebsite = () =>
+  createSelector(selectRestaurantDomain, addressState =>
+    addressState.get('resWebsite'),
+  );
+
 // export default makeSelectRestaurant;
 export {
   selectRestaurantDomain,
@@ -40,4 +45,5 @@ export {
   makeSelectResName,
   makeSelectResNumber,
   selectRestaurant,
+  makeSelectResWebsite,
 };

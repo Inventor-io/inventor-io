@@ -5,8 +5,54 @@ const axios = require('axios');
 const router = express.Router();
 const db = require('knex')(require('../knexfile').development);
 
-// HELPER FUNCTIONS
+// GET: /api/inventory
+const retrieveRestaurantInventory = tempID =>
+  db.where({ restaurant_id: tempID }).from('restaurant_inventory');
 
+const retrieveInventoryName = data => {
+  const arr = data.map(obj => obj.ndbno);
+  return db.whereIn('ndbno', arr).from('inventory');
+};
+
+const formatInventoryData = (inventories, name) => {
+  // create ndbno-name dict
+  const invDict = {};
+  name.forEach(obj => {
+    invDict[obj.ndbno] = obj.inventory_name;
+  });
+
+  // recreate front-end friendly object
+  const newArr = inventories.map(obj => {
+    const newObj = {};
+    newObj.Quantity = obj.quantity;
+    newObj.Item = invDict[obj.ndbno];
+    newObj.Selected = false;
+    return newObj;
+  });
+  return newArr;
+};
+
+async function getInventory(restaurantID, res) {
+  try {
+    const inventories = await retrieveRestaurantInventory(restaurantID);
+    const names = await retrieveInventoryName(inventories);
+    const data = formatInventoryData(inventories, names);
+    res.send(data);
+  } catch (e) {
+    // console.log('ERROR in async function getInventory', e);
+  }
+}
+
+// MAIN ROUTE
+router.get('/', (req, res) => {
+  // retrieve data from `restaurant_inventory` table
+  // TODO: delete tempID after authorization
+  const restaurantID = 1;
+
+  getInventory(restaurantID, res);
+});
+
+// POST: /api/inventory/usdaSearch
 const usdaQuerySearch = searchTerm =>
   // make API call to USDA and receive ndbnos
   axios.get(`https://api.nal.usda.gov/ndb/search/?`, {
@@ -20,109 +66,108 @@ const usdaQuerySearch = searchTerm =>
     },
   });
 
-const retrieveRestaurantInventory = tempID =>
-  db
-    .where({ restaurant_id: tempID })
-    .from('restaurant_inventory')
-    .then(data => data);
-
-const retrieveInventoryName = data => {
-  const arr = data.map(obj => obj.ndbno);
-  return db.whereIn('ndbno', arr).from('inventory');
-};
-
-const formatInventoryData = (data, inv) => {
-  // create ndbno-name dict
-  const invDict = {};
-  inv.forEach(obj => {
-    invDict[obj.ndbno] = obj.inventory_name;
-  });
-
-  // recreate front-end friendly object
-  const newArr = data.map(obj => {
+const formatForDropdown = item => {
+  const data = item.map(obj => {
     const newObj = {};
-    newObj.Quantity = obj.quantity;
-    newObj.Item = invDict[obj.ndbno];
-    newObj.Selected = false;
+    newObj.ndbno = obj.ndbno;
+    newObj.inventory_name = obj.name;
     return newObj;
   });
-  return newArr;
+  return data;
 };
 
-const saveIngToInventoryDB = inventoryList =>
-  db.insert(inventoryList).into('inventory');
-// .catch(err => {
-//   console.log('>>> err in err', err);
-// });
+async function getUSDA(searchTerm, res) {
+  try {
+    const queryObj = await usdaQuerySearch(searchTerm);
+    const { item } = queryObj.data.list;
+    const data = formatForDropdown(item);
+    res.send(data);
+  } catch (e) {
+    // console.log('ERROR in async function getUSDA', e);
+  }
+}
 
-const formatInventoryDataForDB = (inventoryList, tempID) => {
-  const arr = [];
-  inventoryList.forEach(obj => {
+// MAIN ROUTE
+router.post('/usdaSearch', (req, res) => {
+  // make usda api call
+  const { searchTerm } = req.body;
+
+  getUSDA(searchTerm, res);
+});
+
+// POST: /api/inventory/addIngToDB
+const saveIngToInventoryDB = inventoryList =>
+  // save inventory to 'inventory' table
+  db
+    .insert(inventoryList)
+    .into('inventory')
+    .catch(err => {
+      if (err.code === '23505') {
+        // console.log('Duplicate in inventory db... its ok');
+      } else {
+        // console.log('ERROR saving ing to inventory db');
+      }
+    });
+
+const formatInventoryDataForDB = (ingObj, tempID) => {
+  // for 'restaurant_inventory' table
+  const arr = ingObj.map(obj => {
     const newObj = {};
     newObj.restaurant_id = tempID;
     newObj.ndbno = obj.ndbno;
-    arr.push(newObj);
+    return newObj;
   });
   return arr;
 };
 
-const addInventoryToRestaurant = inventoryList => {
-  // TODO: delete tempID when authorization complete
-  const tempID = 1;
+const checkRestaurantInventory = (restaurantID, ndbnos) =>
+  db
+    .whereIn('ndbno', ndbnos)
+    .andWhere({ restaurant_id: restaurantID })
+    .from('restaurant_inventory');
 
-  return saveIngToInventoryDB(inventoryList).then(() => {
-    const arr = formatInventoryDataForDB(inventoryList, tempID);
-    return db.insert(arr).into('restaurant_inventory');
-  });
+const getndbnos = ingObj => ingObj.map(obj => obj.ndbno);
+
+const addInventoryToRestaurant = (inventoryList, restaurantID) => {
+  const arr = formatInventoryDataForDB(inventoryList, restaurantID);
+  return db.insert(arr).into('restaurant_inventory');
 };
 
-// ROUTES TO /api/inventory
+const filterndbnos = (ndbnos, exists) => {
+  const existingndbnos = exists.map(obj => obj.ndbno);
+  const filtered = ndbnos.filter(val => !existingndbnos.includes(val));
+  return filtered;
+};
 
-router.get('/', (req, res) => {
-  // retrieve data from `restaurant_inventory` table
-  // TODO: delete tempID after authorization
-  const tempID = 1;
+const filterObjs = (filteredndbnos, ingObj) =>
+  ingObj.filter(obj => filteredndbnos.includes(obj.ndbno));
 
-  retrieveRestaurantInventory(tempID).then(data => {
-    retrieveInventoryName(data).then(inv => {
-      const newArr = formatInventoryData(data, inv);
-      res.send(newArr);
-    });
-  });
-});
+async function saveInv(ingObj, restaurantID, res) {
+  try {
+    // save inventory to restaurant_inventory table
+    // TODO: this is a naive solution... just wanted to get it over with it
+    const ndbnos = getndbnos(ingObj); // array of all ndbnos in request
+    const exists = await checkRestaurantInventory(restaurantID, ndbnos); // array of existing objects in restaurant_inventory
+    const filteredndbnos = filterndbnos(ndbnos, exists); // array of ndbnos not in restaurant_inventory
+    const filteredObjs = filterObjs(filteredndbnos, ingObj); // array of objects not in restaurant_inventory
 
-router.post('/usdaSearch', (req, res) => {
-  // make usda api call
-  const { searchTerm } = req.body;
-  usdaQuerySearch(searchTerm).then(data => {
-    let { item } = data.data.list;
-    item = item.map(obj => {
-      const newObj = {};
-      newObj.ndbno = parseInt(obj.ndbno, 10);
-      newObj.inventory_name = obj.name;
-      return newObj;
-    });
-    res.send(item);
-  });
-});
+    // insert into db
+    await saveIngToInventoryDB(filteredObjs); // insert to inventory table
+    await addInventoryToRestaurant(filteredObjs, restaurantID); // insert filteredObjs to restaurant_inventory
+
+    res.sendStatus(200);
+  } catch (e) {
+    // console.log('ERROR in async saveInv', e);
+  }
+}
 
 router.post('/addIngToDB', (req, res) => {
   // save inventories to db
   const { ingObj } = req.body;
 
-  addInventoryToRestaurant(ingObj)
-    .then(() => {
-      console.log('>>> inserted into DB!');
-      res.sendStatus(200);
-    })
-    .catch(err => {
-      // if (err.code === '23505') {
-      //   res.send('duplicate');
-      // } else {
-      //   // console.log('>>> err!', err);
-      // }
-      console.log('>>> err', err);
-    });
+  // TODO: delete tempID when authorization complete
+  const restaurantID = 1;
+  saveInv(ingObj, restaurantID, res);
 });
 
 module.exports = router;
