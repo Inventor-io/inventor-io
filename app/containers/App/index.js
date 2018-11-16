@@ -8,7 +8,7 @@
  */
 
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import RecipePage from 'containers/RecipePage/Loadable';
 import SignupPage from 'containers/SignupPage/Loadable';
 import LoginPage from 'containers/LoginPage/Loadable';
@@ -26,13 +26,49 @@ export default function App() {
     <div>
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route path="/recipe" component={RecipePage} />
         <Route exact path="/signup" component={SignupPage} />{' '}
         <Route exact path="/login" component={LoginPage} />{' '}
         <Route exact path="/landing" component={LandingPage} />{' '}
-        <Route exact path="/inventory" component={Inventory} />
-        <Route exact path="/addInventory" component={AddInventory} />
-        <Route path="/restaurant" component={Restaurant} />
+        <Route
+          path="/recipe"
+          render={() =>
+            sessionStorage.getItem('username') ? (
+              <RecipePage />
+            ) : (
+              <Redirect to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/inventory"
+          render={() =>
+            sessionStorage.getItem('username') ? (
+              <Inventory />
+            ) : (
+              <Redirect to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/addInventory"
+          render={() =>
+            sessionStorage.getItem('username') ? (
+              <AddInventory />
+            ) : (
+              <Redirect to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/restaurant"
+          render={() =>
+            sessionStorage.getItem('username') ? (
+              <Restaurant />
+            ) : (
+              <Redirect to="/login" />
+            )
+          }
+        />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />

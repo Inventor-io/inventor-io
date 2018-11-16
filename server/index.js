@@ -2,11 +2,12 @@
 
 const express = require('express');
 const logger = require('./logger');
-
+const session = require('express-session');
 const argv = require('./argv');
 const port = require('./port');
 const setup = require('./middlewares/frontendMiddleware');
 const bodyParser = require('body-parser');
+// const mongoose = require('mongoose');
 const isDev = process.env.NODE_ENV !== 'production';
 const ngrok =
   (isDev && process.env.ENABLE_TUNNEL) || argv.tunnel
@@ -24,15 +25,9 @@ const inventory = require('./inventory.js');
 const recipe = require('./recipe.js');
 const cors = require('cors');
 const passport = require('passport');
-const path = require('path');
-const fs = require('fs');
-const https = require('https');
 require('dotenv').config();
 
-const certOptions = {
-  key: fs.readFileSync(path.resolve('./server.key')),
-  cert: fs.readFileSync(path.resolve('./server.crt')),
-};
+// mongoose.connect('mongodb://localhost/users');
 
 const corsOption = {
   origin: true,
@@ -46,6 +41,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
 app.use(bodyParser.json());
+
+app.use(
+  session({
+    secret: 'keyboard cat',
+    resave: true,
+    saveUninitialized: true,
+  }),
+);
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -76,7 +79,7 @@ app.get('*.js', (req, res, next) => {
 });
 
 // Start your app.
-https.createServer(certOptions, app).listen(port, host, async err => {
+app.listen(port, host, async err => {
   if (err) {
     return logger.error(err.message);
   }
