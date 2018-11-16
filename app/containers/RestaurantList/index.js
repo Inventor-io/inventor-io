@@ -17,6 +17,7 @@ import makeSelectRestaurantList from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { getRestaurants } from './actions';
+import RestaurantCard from '../../components/RestaurantCard';
 
 /* eslint-disable react/prefer-stateless-function */
 export class RestaurantList extends React.Component {
@@ -24,11 +25,28 @@ export class RestaurantList extends React.Component {
   //   this.props.onPageLoad();
   // }
 
+  componentDidMount() {
+    this.props.onPageLoad();
+  }
+
   render() {
     return (
       <div>
-        {JSON.stringify(this.props.restaurantList)}
-        <Button content="get Repos" onClick={this.props.onPageLoad} />
+        {this.props.restaurantList.restaurants
+          ? this.props.restaurantList.restaurants.map(restaurant => (
+              <RestaurantCard
+                header={restaurant.restaurants_name}
+                description={
+                  <ul>
+                    <li>{restaurant.restaurant_address}</li>
+                    <li>{restaurant.restaurant_phone_number}</li>
+                    <li>{restaurant.restaurant_website}</li>
+                  </ul>
+                }
+              />
+            ))
+          : null}
+        {/* <Button content="get Repos" onClick={this.props.onPageLoad} /> */}
       </div>
     );
   }
