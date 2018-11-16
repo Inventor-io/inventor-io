@@ -1,0 +1,28 @@
+language: node_js
+node_js:
+- node
+- lts/*
+script:
+- node ./internals/scripts/generate-templates-for-linting
+- npm test -- --maxWorkers=4
+- npm run build
+before_install:
+- export CHROME_BIN=chromium-browser
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+notifications:
+  email:
+    on_failure: change
+after_success: npm run coveralls
+cache:
+  directories:
+  - node_modules
+deploy:
+  provider: s3
+  bucket: hratx-thesis
+  region: us-east-2
+  local_dir: build
+  access_key_id: AKIAJ7YHT67VY56AWVBQ
+  secret_access_key:
+    secure: ZmCZqlojQ4oJwqtqEA+947mQo9XJnKJwL+12F1+jkQBMrG4y+LWlSBBH9WfSWhpbxqW3lOWI9I4cMIYSC32bQClPbBFRCoNahH5DqCe1oEre6ixGnm5l9+wH/BpIiaXzoeyZq8rjv6BERZls1y+m7HmWiIsoFJZhk063VX8JlL/MhkDKhf05/JuUEEL68kAcX1y4mXM31uvDuHmFUvmtwb/1SGi+6kR9Wpbm5CW3awzRKAZtHnJNJm4ubhqVjWahWRb0YbeBoDXYuMc2rNbVXNWNzAsqrs2mzxHX0MKFR6cIZoOgLRK0rlcRIO+quQ8pMa0f6nTP0HMLkRr660xt/lvLsAAKgvRg70i9KJyiLdlyHbqki/IguqWglnzrMwF/QQu3UlDCxSI18vk+KrqLoL1FYHoHgAyjkvhq4tbVIP+VXRtc7Hs2pEJkPtbPqWRkBlqNkfPbnxQQz+usRzYkejbQoobGwZC0xD11buWMMxFiKnWgAXoDP58zG8MfetYPMhbtT9U2fy4jEVtUZDjvUqYOc4u2ORaVsQTcDZB1RrepaOMW1c343MTDAGSy311CuyJQydlrlQkwS9zOwiACJvNxF/PHfAhJQrPkVuCeUkW4nI1Og8hpYsjQVbMoGIgiJILmKeA7RQChA/BHfvzyBt60/w5HoWqggehFylw6glk=
+  skip_cleanup: true

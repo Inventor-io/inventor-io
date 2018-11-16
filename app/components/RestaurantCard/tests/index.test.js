@@ -2,9 +2,9 @@
 // import { mount } from 'enzyme';
 // import { enzymeFind } from 'styled-components/test-utils';
 
-// import RecipeDropdown from '../index';
+// import RestaurantCard from '../index';
 
-describe('<RecipeDropdown />', () => {
+describe('<RestaurantCard />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });

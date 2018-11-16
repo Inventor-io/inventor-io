@@ -8,6 +8,7 @@ import {
   UPDATE_ADDRESS,
   UPDATE_NAME,
   UPDATE_NUMBER,
+  UPDATE_WEBSITE,
   SEND_FORM,
 } from './constants';
 import { DEFAULT_ACTION } from '../LoginPage/constants';
@@ -44,5 +45,12 @@ export function updateNumber(resNumber) {
 export function defaultAction() {
   return {
     type: DEFAULT_ACTION,
+  };
+}
+
+export function updateWebsite(resWebsite) {
+  return {
+    type: UPDATE_WEBSITE,
+    resWebsite,
   };
 }

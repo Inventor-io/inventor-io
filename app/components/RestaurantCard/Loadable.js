@@ -1,6 +1,6 @@
 /**
  *
- * Asynchronously loads the component for RecipeDropdown
+ * Asynchronously loads the component for RestaurantCard
  *
  */
 

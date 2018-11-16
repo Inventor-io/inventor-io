@@ -10,23 +10,21 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import RecipePage from 'containers/RecipePage/Loadable';
-import SignupPage from 'containers/SignupPage/Loadable';
 import LoginPage from 'containers/LoginPage/Loadable';
 import LandingPage from 'containers/LandingPage/Loadable';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
-import Restaurant from 'containers/Restaurant/Loadable';
 import Inventory from 'containers/Inventory/Loadable';
 import AddInventory from 'containers/AddInventory/Loadable';
+import RestaurantList from 'containers/RestaurantList/Loadable';
+import RestaurantDashboard from 'containers/RestaurantDashboard/Loadable';
 
 import GlobalStyle from '../../global-styles';
-
 export default function App() {
   return (
     <div>
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route exact path="/signup" component={SignupPage} />{' '}
         <Route exact path="/login" component={LoginPage} />{' '}
         <Route exact path="/landing" component={LandingPage} />{' '}
         <Route
@@ -63,7 +61,27 @@ export default function App() {
           path="/restaurant"
           render={() =>
             sessionStorage.getItem('username') ? (
-              <Restaurant />
+              <RestaurantList />
+            ) : (
+              <Redirect to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/addRestaurant"
+          render={() =>
+            sessionStorage.getItem('username') ? (
+              <RestaurantList />
+            ) : (
+              <Redirect to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/dashboard"
+          render={() =>
+            sessionStorage.getItem('username') ? (
+              <RestaurantDashboard />
             ) : (
               <Redirect to="/login" />
             )

@@ -12,6 +12,5 @@ npm-debug.log
 .env
 jsconfig.json
 
-
 server.crt
 server.key
