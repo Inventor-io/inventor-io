@@ -10,6 +10,7 @@ import {
   UPDATE_ADDRESS,
   UPDATE_NAME,
   UPDATE_NUMBER,
+  UPDATE_WEBSITE,
 } from './constants';
 
 export const initialState = fromJS({});
@@ -29,6 +30,10 @@ function restaurantReducer(state = initialState, action) {
     case UPDATE_NUMBER:
       return Object.assign({}, state, {
         resNumber: action.resNumber,
+      });
+    case UPDATE_WEBSITE:
+      return Object.assign({}, state, {
+        resWebsite: action.resWebsite,
       });
     default:
       return state;

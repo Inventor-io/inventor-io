@@ -17,11 +17,18 @@ import {
   makeSelectResAddress,
   makeSelectResName,
   makeSelectResNumber,
+  makeSelectResWebsite,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 // import messages from './messages';
-import { updateAddress, updateName, updateNumber, sendForm } from './actions';
+import {
+  updateAddress,
+  updateName,
+  updateNumber,
+  sendForm,
+  updateWebsite,
+} from './actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Restaurant extends React.Component {
@@ -49,6 +56,12 @@ export class Restaurant extends React.Component {
             size="large"
             placeholder="Phone Number"
           />
+          <Input
+            value={this.props.number}
+            onChange={this.props.onChangeWebsite}
+            size="large"
+            placeholder="Website"
+          />
           <Button content="Submit" onClick={this.props.onSubmitForm} />
         </form>
       </div>
@@ -62,6 +75,7 @@ Restaurant.propTypes = {
   onChangeAddress: PropTypes.func,
   onChangeNumber: PropTypes.func,
   onSubmitForm: PropTypes.func,
+  onChangeWebsite: PropTypes.func,
   name: PropTypes.any,
   address: PropTypes.any,
   number: PropTypes.any,
@@ -72,6 +86,7 @@ const mapStateToProps = createStructuredSelector({
   resAddress: makeSelectResAddress,
   resName: makeSelectResName,
   resNumber: makeSelectResNumber,
+  resWebsite: makeSelectResWebsite,
 });
 
 function mapDispatchToProps(dispatch) {
@@ -79,6 +94,7 @@ function mapDispatchToProps(dispatch) {
     onChangeName: e => dispatch(updateName(e.target.value)),
     onChangeAddress: e => dispatch(updateAddress(e.target.value)),
     onChangeNumber: e => dispatch(updateNumber(e.target.value)),
+    onChangeWebsite: e => dispatch(updateWebsite(e.target.value)),
     onSubmitForm: e => {
       e.preventDefault();
       dispatch(sendForm());
