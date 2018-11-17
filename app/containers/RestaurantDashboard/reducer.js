@@ -5,7 +5,12 @@
  */
 
 import { fromJS } from 'immutable';
-import { DEFAULT_ACTION, SELECT_RESTAURANT, LOAD_INFO } from './constants';
+import {
+  DEFAULT_ACTION,
+  SELECT_RESTAURANT,
+  LOAD_INFO,
+  RECEIVED_RESTAURANT_INFO,
+} from './constants';
 
 export const initialState = fromJS({});
 
@@ -16,6 +21,10 @@ function restaurantDashboardReducer(state = initialState, action) {
     case SELECT_RESTAURANT:
       return Object.assign({}, state, {
         selectedRestaurant: action.id,
+      });
+    case RECEIVED_RESTAURANT_INFO:
+      return Object.assign({}, state, {
+        info: action.info,
       });
     case LOAD_INFO:
       return state;

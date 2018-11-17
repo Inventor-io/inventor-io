@@ -18,6 +18,7 @@ import Inventory from 'containers/Inventory/Loadable';
 import AddInventory from 'containers/AddInventory/Loadable';
 import RestaurantList from 'containers/RestaurantList/Loadable';
 import RestaurantDashboard from 'containers/RestaurantDashboard/Loadable';
+import Restaurant from 'containers/Restaurant/Loadable';
 
 import GlobalStyle from '../../global-styles';
 export default function App() {
@@ -71,7 +72,7 @@ export default function App() {
           path="/addRestaurant"
           render={() =>
             sessionStorage.getItem('username') ? (
-              <RestaurantList />
+              <Restaurant />
             ) : (
               <Redirect to="/login" />
             )

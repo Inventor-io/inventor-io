@@ -26,10 +26,27 @@ router.post('/create', (req, res) => {
 });
 
 router.post('/getit', (req, res) => {
-  const restaurantID = Object.keys(req.body)[0];
-  res.status(201).end(restaurantID);
+  const restaurantID = 1;
+  // Object.keys(req.body)[0] ||
+  const restaurantInfo = {};
+  restaurantOrders(restaurantID).then(orders => {
+    Object.assign(restaurantInfo, { orders });
+    restaurantSales(restaurantID).then(sales => {
+      Object.assign(restaurantInfo, { sales });
+      restaurantRecipes(restaurantID).then(recipes => {
+        Object.assign(restaurantInfo, { recipes });
+        recipeInventory().then(resInv => {
+          Object.assign(restaurantInfo, { resInv });
+          res.status(201).json(restaurantInfo);
+        });
+      });
+    });
+  });
 });
 
+// recInv => {
+// Object.assign(restaurantInfo, { recInv });
+// restaurantInventory(restaurantID).then(
 /*
 restaurant = {
   restaurant_name,
@@ -43,5 +60,20 @@ const createNewRestaurant = restaurant =>
 
 const getRestaurants = (user_id = 1) =>
   db.from('restaurants').where({ user_id });
+
+const restaurantOrders = (restaurant_id = 1) =>
+  db.from('orders').where({ restaurant_id });
+
+const restaurantSales = (restaurant_id = 1) =>
+  db.from('sales').where({ restaurant_id });
+
+const restaurantRecipes = (restaurant_id = 1) =>
+  db.from('recipes').where({ restaurant_id });
+
+const recipeInventory = (recipe_id = 1) =>
+  db.from('recipe_inventory').where({ recipe_id });
+
+const restaurantInventory = (restaurant_id = 1) =>
+  db.from('restaurant_inventory').where({ restaurant_id });
 
 module.exports = router;
