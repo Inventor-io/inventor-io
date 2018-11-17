@@ -29,10 +29,12 @@ const selectRestaurantListDomain = state =>
 //   createSelector(selectRestaurantListDomain, substate => substate.toJS());
 
 const makeSelectRestaurantList = () =>
-  createSelector(selectRestaurantListDomain, substate => {
-    console.log(substate);
-    return substate;
-  });
+  createSelector(
+    selectRestaurantListDomain,
+    substate =>
+      // console.log(substate);
+      substate,
+  );
 
 export default makeSelectRestaurantList;
 export { selectRestaurantListDomain };
