@@ -26,8 +26,6 @@ export class LandingPage extends React.Component {
         <div>
           <Link to="/login">Login</Link>
           <br />
-          <Link to="/signup">Signup</Link>
-          <br />
           <Link to="/inventory">Inventory</Link>
           <br />
           <Link to="/recipe">Recipes</Link>
