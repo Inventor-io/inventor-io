@@ -8,7 +8,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Redirect } from 'react-router-dom';
@@ -19,8 +18,8 @@ import FacebookLogin from 'react-facebook-login';
 import makeSelectLoginPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
 import { setUsername } from './actions';
+
 // import { login } from './actions';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -36,7 +35,6 @@ export class LoginPage extends React.Component {
           <title>LoginPage</title>
           <meta name="description" content="Description of LoginPage" />
         </Helmet>
-        <FormattedMessage {...messages.header} />
         <div>
           <FacebookLogin
             appId="119762035585891"
@@ -44,13 +42,13 @@ export class LoginPage extends React.Component {
             callback={this.props.responseFacebook}
           />
         </div>
-        <h1>HI NIK {JSON.stringify(this.props.user)}</h1>
       </div>
     );
   }
 }
 
 LoginPage.propTypes = {
+  responseFacebook: PropTypes.func,
   user: PropTypes.any,
 };
 
@@ -63,7 +61,6 @@ function mapDispatchToProps(dispatch) {
     dispatch,
     responseFacebook: response => {
       sessionStorage.setItem('username', response.name);
-      sessionStorage.setItem('userid', response.userID);
       dispatch(setUsername(response));
     },
   };
