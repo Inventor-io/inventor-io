@@ -11,7 +11,7 @@ import { Helmet } from 'react-helmet';
 // import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Input, Button } from 'semantic-ui-react';
+import { Input, Button, Table } from 'semantic-ui-react';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {
@@ -61,6 +61,37 @@ export class AddRecipePage extends React.PureComponent {
               size="large"
               placeholder="Price"
             />
+            <br />
+            <div>
+              <Table celled padded>
+                <Table.Header>
+                  <Table.Row>
+                    <Table.HeaderCell>Ingredient</Table.HeaderCell>
+                    <Table.HeaderCell>Quantity</Table.HeaderCell>
+                    <Table.HeaderCell>Unit</Table.HeaderCell>
+                  </Table.Row>
+                </Table.Header>
+
+                <Table.Body>
+                  <Table.Row>
+                    <Table.Cell>Cell</Table.Cell>
+                    <Table.Cell>Cell</Table.Cell>
+                    <Table.Cell>Cell</Table.Cell>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Cell>Cell</Table.Cell>
+                    <Table.Cell>Cell</Table.Cell>
+                    <Table.Cell>Cell</Table.Cell>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Cell>Cell</Table.Cell>
+                    <Table.Cell>Cell</Table.Cell>
+                    <Table.Cell>Cell</Table.Cell>
+                  </Table.Row>
+                </Table.Body>
+              </Table>
+            </div>
+            <br />
             <Button content="Submit" onClick={this.props.onSubmitForm} />
           </form>
         </div>
