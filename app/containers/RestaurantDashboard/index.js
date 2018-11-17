@@ -12,8 +12,10 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import axios from 'axios';
-import makeSelectRestaurantDashboard from './selectors';
+import makeSelectRestaurantDashboard, {
+  makeSelectRestaurantInfo,
+  makeSelectRestaurantId,
+} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { loadInformation } from './actions';
@@ -25,17 +27,21 @@ export class RestaurantDashboard extends React.Component {
   }
 
   render() {
-    return <div>restuarant dash</div>;
+    return <div>{JSON.stringify(this.props.info)}</div>;
   }
 }
 
 RestaurantDashboard.propTypes = {
   // dispatch: PropTypes.func.isRequired,
   onLoad: PropTypes.func,
+  info: PropTypes.any,
 };
 
 const mapStateToProps = createStructuredSelector({
-  restaurantDashboard: makeSelectRestaurantDashboard(),
+  // restaurantDashboard: makeSelectRestaurantDashboard,
+  info: makeSelectRestaurantInfo(),
+  all: makeSelectRestaurantDashboard,
+  id: makeSelectRestaurantId,
 });
 
 function mapDispatchToProps(dispatch) {

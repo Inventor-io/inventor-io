@@ -1,7 +1,7 @@
-import { takeEvery, select, call } from 'redux-saga/effects';
+import { takeEvery, select, call, put } from 'redux-saga/effects';
 // select, call , ,
 import axios from 'axios';
-import { LOAD_INFO } from './constants';
+import { LOAD_INFO, RECEIVED_RESTAURANT_INFO } from './constants';
 // import { getRestaurant } from '../RestaurantList/actions';
 import { selectRestaurantDashboardDomain } from './selectors';
 // Individual exports for testing
@@ -18,7 +18,11 @@ function* getRestaurantInfo() {
     };
 
     const restaurantQuery = yield call(axios, post);
-    console.log(restaurantQuery);
+    console.log(restaurantQuery.data);
+    yield put({
+      type: RECEIVED_RESTAURANT_INFO,
+      info: restaurantQuery.data,
+    });
   } catch (e) {
     // console.error(e);
     throw e;

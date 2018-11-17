@@ -4,7 +4,13 @@
  *
  */
 
-import { DEFAULT_ACTION, SELECT_RESTAURANT, LOAD_INFO } from './constants';
+import {
+  DEFAULT_ACTION,
+  SELECT_RESTAURANT,
+  LOAD_INFO,
+  RECEIVED_RESTAURANT_INFO,
+} from './constants';
+import { RECEIVED_RESTAURANTS } from '../RestaurantList/constants';
 
 export function defaultAction() {
   return {
@@ -22,5 +28,12 @@ export function selectedRes(id) {
 export function loadInformation() {
   return {
     type: LOAD_INFO,
+  };
+}
+
+export function receivedRestaurantInfo(info) {
+  return {
+    type: RECEIVED_RESTAURANT_INFO,
+    info,
   };
 }
