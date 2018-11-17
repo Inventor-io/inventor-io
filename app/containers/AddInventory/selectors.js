@@ -16,8 +16,28 @@ const selectAddInventoryDomain = state =>
  * Default selector used by AddInventory
  */
 
-const makeSelectAddInventory = () =>
-  createSelector(selectAddInventoryDomain, substate => substate.toJS());
+const makeOptionsSelect = () =>
+  createSelector(selectAddInventoryDomain, substate => substate.get('options')); // .toJS());
 
-export default makeSelectAddInventory;
-export { selectAddInventoryDomain };
+const makeSearchTermSelect = () =>
+  createSelector(selectAddInventoryDomain, substate =>
+    substate.get('searchTerm'),
+  ); // .toJS());
+
+const makeIngredientSelect = () =>
+  createSelector(selectAddInventoryDomain, substate =>
+    substate.get('ingredient'),
+  ); // .toJS());
+
+const makeAddIngredientSelect = () =>
+  createSelector(selectAddInventoryDomain, substate =>
+    substate.get('addedIngredients'),
+  );
+
+export {
+  selectAddInventoryDomain,
+  makeOptionsSelect,
+  makeSearchTermSelect,
+  makeIngredientSelect,
+  makeAddIngredientSelect,
+};
