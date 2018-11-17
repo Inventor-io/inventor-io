@@ -5,7 +5,12 @@
  */
 
 import { fromJS } from 'immutable';
-import { UPDATE_NAME, UPDATE_DESCRIPTION } from './constants';
+import {
+  UPDATE_NAME,
+  UPDATE_PRICE,
+  // UPDATE_DESCRIPTION,
+  SEND_FORM,
+} from './constants';
 
 export const initialState = fromJS({});
 
@@ -15,10 +20,16 @@ function addRecipePageReducer(state = initialState, action) {
       return Object.assign({}, state, {
         recName: action.recName,
       });
-    case UPDATE_DESCRIPTION:
+    case UPDATE_PRICE:
       return Object.assign({}, state, {
-        recDescription: action.recDescription,
+        recPrice: action.recPrice,
       });
+    // case UPDATE_DESCRIPTION:
+    //   return Object.assign({}, state, {
+    //     recDescription: action.recDescription,
+    //   });
+    case SEND_FORM:
+      return state;
     default:
       return state;
   }
