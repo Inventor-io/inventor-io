@@ -30,10 +30,9 @@ export default function App() {
 
         <Route path="/recipe" component={RecipePage} />
         <Route path="/addrecipe" component={AddRecipePage} />
-        <Route exact path="/signup" component={SignupPage} />
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/landing" component={LandingPage} />
-//         <Route
+        {/* <Route
 //           path="/recipe"
 //           render={() =>
 //             sessionStorage.getItem('username') ? (
@@ -42,7 +41,7 @@ export default function App() {
 //               <Redirect to="/login" />
 //             )
 //           }
-//         />
+//         /> */}
         <Route
           path="/inventory"
           render={() =>
