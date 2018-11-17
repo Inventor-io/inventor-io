@@ -11,4 +11,6 @@ npm-debug.log
 
 .env
 jsconfig.json
-package-lock.json
+
+server.crt
+server.key

@@ -2,11 +2,12 @@
 
 const express = require('express');
 const logger = require('./logger');
-
+const session = require('express-session');
 const argv = require('./argv');
 const port = require('./port');
 const setup = require('./middlewares/frontendMiddleware');
 const bodyParser = require('body-parser');
+// const mongoose = require('mongoose');
 const isDev = process.env.NODE_ENV !== 'production';
 const ngrok =
   (isDev && process.env.ENABLE_TUNNEL) || argv.tunnel
@@ -19,14 +20,37 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 const restaurant = require('./restaurant.js');
-const auth = require('./auth.js');
+const auth = require('./auth');
 const inventory = require('./inventory.js');
 const recipe = require('./recipe.js');
+const cors = require('cors');
+const passport = require('passport');
+require('dotenv').config();
+
+// mongoose.connect('mongodb://localhost/users');
+
+const corsOption = {
+  origin: true,
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  exposedHeaders: ['x-auth-token'],
+};
+app.use(cors(corsOption));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
 app.use(bodyParser.json());
+
+app.use(
+  session({
+    secret: 'keyboard cat',
+    resave: true,
+    saveUninitialized: true,
+  }),
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/api/restaurant', restaurant);
 app.use('/api/auth', auth);
