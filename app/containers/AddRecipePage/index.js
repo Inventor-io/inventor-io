@@ -14,10 +14,19 @@ import { compose } from 'redux';
 import { Input, Button } from 'semantic-ui-react';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { makeSelectRecName, makeSelectRecDescription } from './selectors';
+import {
+  makeSelectRecName,
+  makeSelectRecPrice,
+  // makeSelectRecDescription,
+} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { updateName, updateDescription } from './actions';
+import {
+  updateName,
+  updatePrice,
+  /* updateDescription, */
+  sendForm,
+} from './actions';
 // import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -38,24 +47,21 @@ export class AddRecipePage extends React.PureComponent {
               size="large"
               placeholder="Name"
             />
-            <br />
+            {/* <br />
             <Input
               value={this.props.description}
               onChange={this.props.onChangeDescription}
               size="large"
               placeholder="Description"
-            />
-            {/* <br />
-            <Input
-              value={this.props.number}
-              onChange={this.props.onChangeNumber}
-              size="large"
-              placeholder="INGREDIENTS"
             /> */}
-            <Button
-              content="Submit"
-              onClick={() => console.log('Submitted?')}
+            <br />
+            <Input
+              value={this.props.price}
+              onChange={this.props.onChangePrice}
+              size="large"
+              placeholder="Price"
             />
+            <Button content="Submit" onClick={this.props.onSubmitForm} />
           </form>
         </div>
       </div>
@@ -66,18 +72,19 @@ export class AddRecipePage extends React.PureComponent {
 AddRecipePage.propTypes = {
   // dispatch: PropTypes.func.isRequired,
   onChangeName: PropTypes.func,
-  onChangeDescription: PropTypes.func,
-  // onChangeNumber: PropTypes.func,
-  // onSubmitForm: PropTypes.func, USE ME TO SEND DATA TO DB
+  // onChangeDescription: PropTypes.func,
+  onChangePrice: PropTypes.func,
+  onSubmitForm: PropTypes.func, // USE ME TO SEND DATA TO DB
   name: PropTypes.any,
-  description: PropTypes.any,
-  // number: PropTypes.any,
+  // description: PropTypes.any,
+  price: PropTypes.any,
 };
 
 const mapStateToProps = createStructuredSelector({
-  // addRecipePage: makeSelectAddRecipePage(),
+  // addRecipePage: makeSelectAddRecipePage()
   recName: makeSelectRecName,
-  recDescription: makeSelectRecDescription,
+  recPrice: makeSelectRecPrice,
+  // recDescription: makeSelectRecDescription,
 });
 
 function mapDispatchToProps(dispatch) {
@@ -86,12 +93,12 @@ function mapDispatchToProps(dispatch) {
       console.log('name target value', e.target.value);
       dispatch(updateName(e.target.value));
     },
-    onChangeDescription: e => dispatch(updateDescription(e.target.value)),
-    // onChangeNumber: e => dispatch(updateNumber(e.target.value)),
+    onChangePrice: e => dispatch(updatePrice(e.target.value)),
+    // onChangeDescription: e => dispatch(updateDescription(e.target.value)),
     onSubmitForm: e => {
       e.preventDefault();
-      console.log('FORM SENT PLACEHOLDER');
-      // dispatch(/*sendForm()*/);
+      console.log('sendForm dispatched!');
+      dispatch(sendForm());
     },
   };
 }

@@ -15,6 +15,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import 'semantic-ui-css/semantic.min.css';
 import { Dropdown, List, Button } from 'semantic-ui-react';
+import axios from 'axios';
 import makeSelectRecipePage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -72,6 +73,13 @@ const recipeList = [
 ];
 
 export class RecipePage extends React.PureComponent {
+  componentDidMount() {
+    console.log('Components mounted');
+    axios.get('/api/recipe/').then(res => {
+      console.log('response:', res.data);
+    });
+  }
+
   render() {
     return (
       <div>

@@ -10,6 +10,7 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import RecipePage from 'containers/RecipePage/Loadable';
+import AddRecipePage from 'containers/AddRecipePage/Loadable';
 import LoginPage from 'containers/LoginPage/Loadable';
 import LandingPage from 'containers/LandingPage/Loadable';
 import HomePage from 'containers/HomePage/Loadable';
@@ -26,18 +27,22 @@ export default function App() {
     <div>
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route exact path="/login" component={LoginPage} />{' '}
-        <Route exact path="/landing" component={LandingPage} />{' '}
-        <Route
-          path="/recipe"
-          render={() =>
-            sessionStorage.getItem('username') ? (
-              <RecipePage />
-            ) : (
-              <Redirect to="/login" />
-            )
-          }
-        />
+
+        <Route path="/recipe" component={RecipePage} />
+        <Route path="/addrecipe" component={AddRecipePage} />
+        <Route exact path="/signup" component={SignupPage} />
+        <Route exact path="/login" component={LoginPage} />
+        <Route exact path="/landing" component={LandingPage} />
+//         <Route
+//           path="/recipe"
+//           render={() =>
+//             sessionStorage.getItem('username') ? (
+//               <RecipePage />
+//             ) : (
+//               <Redirect to="/login" />
+//             )
+//           }
+//         />
         <Route
           path="/inventory"
           render={() =>
