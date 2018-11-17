@@ -5,19 +5,25 @@
  */
 
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import axios from 'axios';
 import makeSelectRestaurantDashboard from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import { loadInformation } from './actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class RestaurantDashboard extends React.Component {
+  componentDidMount() {
+    this.props.onLoad();
+  }
+
   render() {
     return <div>restuarant dash</div>;
   }
@@ -25,6 +31,7 @@ export class RestaurantDashboard extends React.Component {
 
 RestaurantDashboard.propTypes = {
   // dispatch: PropTypes.func.isRequired,
+  onLoad: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -34,6 +41,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
+    onLoad: () => dispatch(loadInformation()),
   };
 }
 

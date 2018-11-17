@@ -25,6 +25,11 @@ router.post('/create', (req, res) => {
   // res.status(201).send('Success');
 });
 
+router.post('/getit', (req, res) => {
+  const restaurantID = Object.keys(req.body)[0];
+  res.status(201).end(restaurantID);
+});
+
 /*
 restaurant = {
   restaurant_name,
