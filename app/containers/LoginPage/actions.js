@@ -4,7 +4,7 @@
  *
  */
 
-import { DEFAULT_ACTION, SET_USERNAME } from './constants';
+import { DEFAULT_ACTION, SET_USERNAME, LOGOUT } from './constants';
 
 export function defaultAction() {
   return {
@@ -16,5 +16,11 @@ export function setUsername(user) {
   return {
     type: SET_USERNAME,
     user,
+  };
+}
+
+export function logout() {
+  return {
+    type: LOGOUT,
   };
 }
