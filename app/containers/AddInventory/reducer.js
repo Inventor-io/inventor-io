@@ -9,7 +9,6 @@ import {
   UPDATE_SEARCHTERM,
   UPDATE_DROPDOWN_OPTIONS,
   UPDATE_SELECT,
-  SAVE_INV_TO_DB,
 } from './constants';
 
 export const initialState = fromJS({
@@ -26,9 +25,11 @@ function addInventoryReducer(state = initialState, action) {
     case UPDATE_DROPDOWN_OPTIONS:
       return Object.assign({}, state, { options: action.options });
     case UPDATE_SELECT:
-      return Object.assign({}, state, { ingredient: action.ingredient });
-    case SAVE_INV_TO_DB:
-      return state;
+      return Object.assign({}, state, {
+        addedIngredients: state.addedIngredients
+          ? state.addedIngredients.concat(state.options[action.ingredient])
+          : [state.options[action.ingredient]],
+      });
     default:
       return state;
   }

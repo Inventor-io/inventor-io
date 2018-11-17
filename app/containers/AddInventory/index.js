@@ -135,24 +135,22 @@ export class AddInventory extends React.Component {
           onChange={this.props.handleSelect}
           placeholder="Select your ingredient"
         >
-          {console.log('>>> props options', this.props.options)}
-          {/* {this.props.options.map((obj, i) => (
-            <option key={i.toString()} value={i} text={obj.name}>
-              {obj.name}
-            </option>
-          ))} */}
+          {this.props.options
+            ? this.props.options.map((obj, i) => (
+              <option key={i.toString()} value={i} text={obj.name}>{obj.name}</option>
+            ))
+            : ''}
         </select>
 
         <div>
           <h3>Selected Items:</h3>
-          {console.log('>>> props added Ingredients', this.props.ingredient)}
-          {/* {this.props.addedIngredients.map((obj, i) => (
-            <li key={i.toString()}>{obj.inventory_name}</li>
-          ))} */}
+          {this.props.addedIngredients
+            ? this.props.addedIngredients.map((obj, i) => <li key={i.toString()}>{obj.inventory_name}</li>)
+            : ''}
 
           <Button
             content="Add to inventory list"
-            onClick={() => this.props.saveToDB(this.props.addedIngredients)}
+            onClick={e => this.props.saveToDB(e)}
           />
         </div>
       </div>
@@ -170,7 +168,7 @@ AddInventory.propTypes = {
   // states
   searchTerm: PropTypes.any,
   options: PropTypes.any,
-  ingredient: PropTypes.any,
+  // ingredient: PropTypes.any,
   addedIngredients: PropTypes.any,
 };
 
@@ -198,9 +196,9 @@ function mapDispatchToProps(dispatch) {
     // select item from dropdown
     handleSelect: e => dispatch(updateSelect(e.target.value)),
     // send all selected items to db
-    saveToDB: (e, addedIngredients) => {
+    saveToDB: e => {
       e.preventDefault();
-      return dispatch(saveToDB(addedIngredients));
+      return dispatch(saveToDB());
     },
   };
 }

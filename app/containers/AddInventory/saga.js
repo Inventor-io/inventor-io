@@ -5,7 +5,10 @@ import { selectAddInventoryDomain } from './selectors';
 import { updateDropdownOption } from './actions';
 
 export default function* inventorySaga() {
-  yield takeEvery('app/AddInventory/SEND_QUERY', getUSDA);
+  yield [
+    takeEvery('app/AddInventory/SEND_QUERY', getUSDA),
+    takeEvery('app/AddInventory/SAVE_INV_TO_DB', saveInventoryToDB),
+  ];
 }
 
 function* getUSDA() {
@@ -20,6 +23,21 @@ function* getUSDA() {
   try {
     const res = yield call(axios, options);
     yield put(updateDropdownOption(res.data));
+  } catch (e) {
+    yield console.error(e);
+  }
+}
+
+function* saveInventoryToDB() {
+  const { addedIngredients } = yield select(selectAddInventoryDomain);
+  const options = {
+    url: '/api/inventory/addIngToDB',
+    method: 'post',
+    data: { ingObj: addedIngredients },
+  };
+
+  try {
+    yield call(axios, options);
   } catch (e) {
     yield console.error(e);
   }

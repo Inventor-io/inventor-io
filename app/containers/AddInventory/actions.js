@@ -40,9 +40,8 @@ export function updateSelect(ingredient) {
   };
 }
 
-export function saveToDB(addedIngredients) {
+export function saveToDB() {
   return {
     type: SAVE_INV_TO_DB,
-    addedIngredients,
   };
 }
