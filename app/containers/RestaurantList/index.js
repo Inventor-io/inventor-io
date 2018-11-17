@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import {Redirect} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 // import { Button } from 'semantic-ui-react';
 
 import injectSaga from 'utils/injectSaga';
@@ -19,7 +19,7 @@ import reducer from './reducer';
 import saga from './saga';
 import { getRestaurants } from './actions';
 import RestaurantCard from '../../components/RestaurantCard';
-import {selectedRes} from '../RestaurantDashboard/actions';
+import { selectedRes } from '../RestaurantDashboard/actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class RestaurantList extends React.Component {
@@ -74,8 +74,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(getRestaurants());
     },
     onClick: e => {
-      let resID = e.target.id;
-      // dispatch event for dashboard;
+      const resID = e.target.id;
       dispatch(selectedRes(resID));
       console.log(resID);
     },

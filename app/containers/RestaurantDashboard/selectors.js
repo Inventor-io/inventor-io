@@ -11,7 +11,7 @@ const selectRestaurantDashboardDomain = state =>
 /**
  * Other specific selectors
  */
-const makeSelectRestaurantID = () =>
+const makeSelectRestaurantId = () =>
   createSelector(selectRestaurantDashboardDomain, dashboard =>
     dashboard.get('id'),
   );
@@ -23,4 +23,4 @@ const makeSelectRestaurantDashboard = () =>
   createSelector(selectRestaurantDashboardDomain, substate => substate);
 
 export default makeSelectRestaurantDashboard;
-export { selectRestaurantDashboardDomain, makeSelectRestaurantID };
+export { selectRestaurantDashboardDomain, makeSelectRestaurantId };

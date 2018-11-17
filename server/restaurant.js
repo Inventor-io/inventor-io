@@ -26,8 +26,8 @@ router.post('/create', (req, res) => {
 });
 
 router.post('/getit', (req, res) => {
-  console.log('getit', req);
-  res.status(200).end();
+  const restaurantID = Object.keys(req.body)[0];
+  res.status(201).end(restaurantID);
 });
 
 /*
