@@ -137,21 +137,22 @@ export class AddInventory extends React.Component {
 
         <select
           name="ingredients"
-          onChange={() => this.props.handleSelect(this.props.ingredient)}
+          onChange={this.props.handleSelect}
           placeholder="Select your ingredient"
         >
-          {this.props.options.map((obj, i) => (
+          {/* {this.props.options.map((obj, i) => (
             <option key={i.toString()} value={i} text={obj.name}>
               {obj.name}
             </option>
-          ))}
+          ))} */}
+          {console.log(this.props.options)}
         </select>
 
         <div>
           <h3>Selected Items:</h3>
-          {this.props.addedIngredients.map((obj, i) => (
+          {/* {this.props.addedIngredients.map((obj, i) => (
             <li key={i.toString()}>{obj.inventory_name}</li>
-          ))}
+          ))} */}
           <Button
             content="Add to inventory list"
             onClick={() => this.props.saveToDB(this.props.addedIngredients)}
@@ -169,10 +170,10 @@ AddInventory.propTypes = {
   handleSearch: PropTypes.func,
   handleSelect: PropTypes.func,
   saveToDB: PropTypes.func,
-  options: PropTypes.array,
-  searchTerm: PropTypes.string,
-  ingredient: PropTypes.array,
-  addedIngredients: PropTypes.array,
+  options: PropTypes.any,
+  searchTerm: PropTypes.any,
+  // ingredient: PropTypes.any,
+  addedIngredients: PropTypes.any,
 };
 
 const mapStateToProps = createStructuredSelector({

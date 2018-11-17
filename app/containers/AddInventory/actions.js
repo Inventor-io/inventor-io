@@ -20,9 +20,11 @@ export function updateSearchTerm(searchTerm) {
 
 export function updateDropdownOptions(searchTerm) {
   console.log('>>> searchterm', searchTerm);
+  const data = { data: [] }; // TODO: delete later
   return {
     type: UPDATE_DROPDOWN_OPTIONS,
     // usda search term request
+    data,
   };
 }
 
@@ -38,5 +40,6 @@ export function saveToDB(addedIngredients) {
   return {
     type: SAVE_INV_TO_DB,
     // save to db
+    addedIngredients,
   };
 }
