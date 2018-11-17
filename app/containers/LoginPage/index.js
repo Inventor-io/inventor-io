@@ -26,7 +26,7 @@ import { setUsername } from './actions';
 /* eslint-disable react/prefer-stateless-function */
 export class LoginPage extends React.Component {
   render() {
-    if (sessionStorage.getItem('username')) {
+    if (this.props.user.name) {
       return <Redirect to="/restaurant" />;
     }
 
@@ -44,18 +44,18 @@ export class LoginPage extends React.Component {
             callback={this.props.responseFacebook}
           />
         </div>
+        <h1>HI NIK {JSON.stringify(this.props.user)}</h1>
       </div>
     );
   }
 }
 
 LoginPage.propTypes = {
-  user: PropTypes.object,
-  dispatch: PropTypes.func.isRequired,
+  user: PropTypes.any,
 };
 
 const mapStateToProps = createStructuredSelector({
-  loginPage: makeSelectLoginPage(),
+  user: makeSelectLoginPage(),
 });
 
 function mapDispatchToProps(dispatch) {
