@@ -9,6 +9,7 @@ import {
   UPDATE_DROPDOWN_OPTIONS,
   UPDATE_SELECT,
   SAVE_INV_TO_DB,
+  SEND_QUERY,
 } from './constants';
 
 export function updateSearchTerm(searchTerm) {
@@ -18,13 +19,17 @@ export function updateSearchTerm(searchTerm) {
   };
 }
 
-export function updateDropdownOptions(searchTerm) {
-  console.log('>>> searchterm', searchTerm);
-  const data = { data: [] }; // TODO: delete later
+export function sendQuery() {
+  // send axios request to usda
+  return {
+    type: SEND_QUERY,
+  };
+}
+
+export function updateDropdownOption(data) {
   return {
     type: UPDATE_DROPDOWN_OPTIONS,
-    // usda search term request
-    data,
+    options: data,
   };
 }
 
@@ -36,10 +41,8 @@ export function updateSelect(ingredient) {
 }
 
 export function saveToDB(addedIngredients) {
-  console.log('>>> addedIngredients', addedIngredients);
   return {
     type: SAVE_INV_TO_DB,
-    // save to db
     addedIngredients,
   };
 }

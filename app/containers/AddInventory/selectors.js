@@ -16,22 +16,19 @@ const selectAddInventoryDomain = state =>
  * Default selector used by AddInventory
  */
 
-const makeOptionsSelect = () =>
-  createSelector(selectAddInventoryDomain, substate => substate.get('options')); // .toJS());
-
 const makeSearchTermSelect = () =>
-  createSelector(selectAddInventoryDomain, substate =>
-    substate.get('searchTerm'),
-  ); // .toJS());
+  createSelector(selectAddInventoryDomain, substate => substate.searchTerm);
+
+const makeOptionsSelect = () =>
+  createSelector(selectAddInventoryDomain, substate => substate.options); // .toJS());
 
 const makeIngredientSelect = () =>
-  createSelector(selectAddInventoryDomain, substate =>
-    substate.get('ingredient'),
-  ); // .toJS());
+  createSelector(selectAddInventoryDomain, substate => substate.ingredient); // .toJS());
 
 const makeAddIngredientSelect = () =>
-  createSelector(selectAddInventoryDomain, substate =>
-    substate.get('addedIngredients'),
+  createSelector(
+    selectAddInventoryDomain,
+    substate => substate.addedIngredients,
   );
 
 export {

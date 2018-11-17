@@ -21,12 +21,7 @@ import {
   makeIngredientSelect,
   makeAddIngredientSelect,
 } from './selectors';
-import {
-  updateSearchTerm,
-  updateDropdownOptions,
-  updateSelect,
-  saveToDB,
-} from './actions';
+import { updateSearchTerm, sendQuery, updateSelect, saveToDB } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -131,7 +126,7 @@ export class AddInventory extends React.Component {
           />
           <Button
             content="Search!"
-            onClick={() => this.props.handleSearch(this.props.searchTerm)}
+            onClick={e => this.props.handleSearch(e, this.props.searchTerm)}
           />
         </form>
 
@@ -140,19 +135,21 @@ export class AddInventory extends React.Component {
           onChange={this.props.handleSelect}
           placeholder="Select your ingredient"
         >
+          {console.log('>>> props options', this.props.options)}
           {/* {this.props.options.map((obj, i) => (
             <option key={i.toString()} value={i} text={obj.name}>
               {obj.name}
             </option>
           ))} */}
-          {console.log(this.props.options)}
         </select>
 
         <div>
           <h3>Selected Items:</h3>
+          {console.log('>>> props added Ingredients', this.props.ingredient)}
           {/* {this.props.addedIngredients.map((obj, i) => (
             <li key={i.toString()}>{obj.inventory_name}</li>
           ))} */}
+
           <Button
             content="Add to inventory list"
             onClick={() => this.props.saveToDB(this.props.addedIngredients)}
@@ -165,32 +162,46 @@ export class AddInventory extends React.Component {
 
 // TODO: worry about stuff here
 AddInventory.propTypes = {
-  // dispatch: PropTypes.func.isRequired,
+  // functions
   handleChange: PropTypes.func,
   handleSearch: PropTypes.func,
   handleSelect: PropTypes.func,
   saveToDB: PropTypes.func,
-  options: PropTypes.any,
+  // states
   searchTerm: PropTypes.any,
-  // ingredient: PropTypes.any,
+  options: PropTypes.any,
+  ingredient: PropTypes.any,
   addedIngredients: PropTypes.any,
 };
 
+// selectors extract state from the store and update only those
 const mapStateToProps = createStructuredSelector({
-  // addInventory: makeSelectAddInventory(),
-  options: makeOptionsSelect,
-  searchTerm: makeSearchTermSelect,
-  ingredient: makeIngredientSelect,
-  addedIngredients: makeAddIngredientSelect,
+  // term updated by 'handleChange'
+  searchTerm: makeSearchTermSelect(),
+  // dropdown options to show after 'handleSearch'
+  options: makeOptionsSelect(),
+  // i selected by 'handleSelect'
+  ingredient: makeIngredientSelect(),
+  // array of all objects to send to 'saveToDB'
+  addedIngredients: makeAddIngredientSelect(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    // dispatch,
+    // input change
     handleChange: e => dispatch(updateSearchTerm(e.target.value)),
-    handleSearch: searchTerm => dispatch(updateDropdownOptions(searchTerm)),
+    // click button after input
+    handleSearch: (e, searchTerm) => {
+      e.preventDefault();
+      return dispatch(sendQuery(searchTerm));
+    },
+    // select item from dropdown
     handleSelect: e => dispatch(updateSelect(e.target.value)),
-    saveToDB: addedIngredients => dispatch(saveToDB(addedIngredients)),
+    // send all selected items to db
+    saveToDB: (e, addedIngredients) => {
+      e.preventDefault();
+      return dispatch(saveToDB(addedIngredients));
+    },
   };
 }
 

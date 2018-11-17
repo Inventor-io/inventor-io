@@ -12,27 +12,23 @@ import {
   SAVE_INV_TO_DB,
 } from './constants';
 
-export const initialState = fromJS({});
+export const initialState = fromJS({
+  options: [],
+  addedIngredients: [],
+  searchTerm: '',
+  ingredient: [],
+});
 
 function addInventoryReducer(state = initialState, action) {
-  const newState = { ...state };
   switch (action.type) {
     case UPDATE_SEARCHTERM:
-      newState.searchTerm = action.searchTerm;
-      return newState;
+      return Object.assign({}, state, { searchTerm: action.searchTerm });
     case UPDATE_DROPDOWN_OPTIONS:
-      newState.options = action.data.data;
-      return newState;
+      return Object.assign({}, state, { options: action.options });
     case UPDATE_SELECT:
-      // newState.ingredient = action.ingredient; // i
-      // update addedIngredients state like -> addedIngredients: state.addedIngredients.concat([ingObj]),
-      newState.addedIngredients = state.addedIngredients.concat([
-        action.ingredient,
-      ]);
-      return newState;
+      return Object.assign({}, state, { ingredient: action.ingredient });
     case SAVE_INV_TO_DB:
-      // redirect to inventory page
-      return newState;
+      return state;
     default:
       return state;
   }
