@@ -11,13 +11,16 @@ const selectRestaurantDashboardDomain = state =>
 /**
  * Other specific selectors
  */
-
+const makeSelectRestaurantID = () =>
+  createSelector(selectRestaurantDashboardDomain, dashboard =>
+    dashboard.get('id'),
+  );
 /**
  * Default selector used by RestaurantDashboard
  */
 
 const makeSelectRestaurantDashboard = () =>
-  createSelector(selectRestaurantDashboardDomain, substate => substate.toJS());
+  createSelector(selectRestaurantDashboardDomain, substate => substate);
 
 export default makeSelectRestaurantDashboard;
-export { selectRestaurantDashboardDomain };
+export { selectRestaurantDashboardDomain, makeSelectRestaurantID };

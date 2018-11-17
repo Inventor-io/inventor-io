@@ -1,6 +1,7 @@
 import { call, takeEvery, select } from 'redux-saga/effects';
 import axios from 'axios';
 import { selectRestaurantDomain } from './selectors';
+import { SEND_FORM } from './constants';
 
 // put, select, take,
 export const getRestaurant = state => state.restaurant;
@@ -9,7 +10,7 @@ export const getRestaurant = state => state.restaurant;
 // import SEND_FORM from './constants';
 export default function* restaurantSaga() {
   // See example in containers/HomePage/saga.js
-  yield takeEvery('app/Restaurant/SEND_FORM', getServer);
+  yield takeEvery(SEND_FORM, getServer);
 }
 function* getServer() {
   const { resAddress, resName, resNumber, resWebsite } = yield select(

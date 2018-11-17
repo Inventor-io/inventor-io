@@ -25,6 +25,11 @@ router.post('/create', (req, res) => {
   // res.status(201).send('Success');
 });
 
+router.post('/getit', (req, res) => {
+  console.log('getit', req);
+  res.status(200).end();
+});
+
 /*
 restaurant = {
   restaurant_name,
