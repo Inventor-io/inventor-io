@@ -19,6 +19,7 @@ import Inventory from 'containers/Inventory/Loadable';
 import AddInventory from 'containers/AddInventory/Loadable';
 import RestaurantList from 'containers/RestaurantList/Loadable';
 import RestaurantDashboard from 'containers/RestaurantDashboard/Loadable';
+import Restaurant from 'containers/Restaurant/Loadable';
 
 import GlobalStyle from '../../global-styles';
 export default function App() {
@@ -30,16 +31,18 @@ export default function App() {
         <Route path="/addrecipe" component={AddRecipePage} />
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/landing" component={LandingPage} />
-        <Route
-          path="/recipe"
-          render={() =>
-            sessionStorage.getItem('username') ? (
-              <RecipePage />
-            ) : (
-              <Redirect to="/login" />
-            )
-          }
-        />
+
+        {/* <Route
+//           path="/recipe"
+//           render={() =>
+//             sessionStorage.getItem('username') ? (
+//               <RecipePage />
+//             ) : (
+//               <Redirect to="/login" />
+//             )
+//           }
+//         /> */}
+
         <Route
           path="/inventory"
           render={() =>
@@ -74,7 +77,7 @@ export default function App() {
           path="/addRestaurant"
           render={() =>
             sessionStorage.getItem('username') ? (
-              <RestaurantList />
+              <Restaurant />
             ) : (
               <Redirect to="/login" />
             )
