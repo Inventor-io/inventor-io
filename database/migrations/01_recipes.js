@@ -72,6 +72,11 @@ exports.up = knex =>
         .integer('recipe_id')
         .references('recipe_id')
         .inTable('recipes');
+      table
+        .integer('restaurant_id')
+        .references('id')
+        .inTable('restaurants');
+
       table.float('quantity').defaultTo(0);
       table.timestamp('date').defaultTo(knex.fn.now());
     })
