@@ -5,14 +5,16 @@
  */
 
 import { fromJS } from 'immutable';
-import { DEFAULT_ACTION } from './constants';
+import { MOUNT_DB } from './constants';
 
-export const initialState = fromJS({});
+export const initialState = fromJS({ currentInventory: [] });
 
 function inventoryReducer(state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
+    case MOUNT_DB:
+      return Object.assign({}, state, {
+        currentInventory: action.currentInventory,
+      });
     default:
       return state;
   }

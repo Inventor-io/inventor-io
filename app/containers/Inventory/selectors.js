@@ -16,7 +16,6 @@ const selectInventoryDomain = state => state.get('inventory', initialState);
  */
 
 const makeSelectInventory = () =>
-  createSelector(selectInventoryDomain, substate => substate.toJS());
+  createSelector(selectInventoryDomain, substate => substate.currentInventory);
 
-export default makeSelectInventory;
-export { selectInventoryDomain };
+export { selectInventoryDomain, makeSelectInventory };

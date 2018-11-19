@@ -5,51 +5,30 @@
  */
 
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Button } from 'semantic-ui-react';
+// import { Button } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
-import axios from 'axios';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectInventory from './selectors';
+import { makeSelectInventory } from './selectors';
+import { getInventory } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 
-import Table from '../../components/InventoryTable';
+// import Table from '../../components/InventoryTable';
 
 /* eslint-disable react/prefer-stateless-function */
 
 export class Inventory extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      inventoryList: [],
-    };
-
-    this.handleOrder = this.handleOrder.bind(this);
-  }
+  // constructor(props) {
 
   componentDidMount() {
-    axios.get('/api/inventory').then(res => {
-      this.setState({ inventoryList: res.data });
-    });
-  }
-
-  handleOrder() {
-    const arr = [];
-    this.state.inventoryList.forEach(obj => {
-      if (obj.Selected) {
-        arr.push(obj);
-      }
-    });
-
-    alert(`Order placed for: ${JSON.stringify(arr)}`);
+    this.props.mountData();
   }
 
   render() {
@@ -61,29 +40,64 @@ export class Inventory extends React.Component {
         </Helmet>
 
         <h1>Inventory List</h1>
-        <Table data={this.state.inventoryList} />
 
-        <Button content="Place order" onClick={this.handleOrder} />
+        <table>
+          <thead>
+            <tr>
+              {this.props.currentInventory ? (
+                Object.keys(this.props.currentInventory[0]).map((key, i) => (
+                  <th key={i.toString()}>{key}</th>
+                ))
+              ) : (
+                <th />
+              )}
+            </tr>
+          </thead>
+
+          <tbody>
+            {this.props.currentInventory ? (
+              this.props.currentInventory.map((obj, e) => {
+                const rowData = Object.keys(obj).map((key, i) => {
+                  let val;
+                  if (key === 'Selected') {
+                    val = obj[key] ? 'selected' : 'unselected';
+                  } else {
+                    val = obj[key];
+                  }
+                  return <td key={i.toString()}>{val}</td>;
+                });
+                return <tr key={e.toString()}>{rowData}</tr>;
+              })
+            ) : (
+              <tr />
+            )}
+          </tbody>
+        </table>
+
+        {/* <Button content="Place order" onClick={this.props.handleOrder} /> */}
       </div>
     );
   }
 }
 
-// get to later
-// Inventory.propTypes = {
-//   dispatch: PropTypes.func.isRequired,
-// };
+Inventory.propTypes = {
+  // functions
+  mountData: PropTypes.func,
+  // states
+  currentInventory: PropTypes.any,
+};
 
 const mapStateToProps = createStructuredSelector({
-  inventory: makeSelectInventory(),
+  currentInventory: makeSelectInventory(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    mountData: () => dispatch(getInventory()),
   };
 }
 
+// TODO: dont worry about here
 const withConnect = connect(
   mapStateToProps,
   mapDispatchToProps,

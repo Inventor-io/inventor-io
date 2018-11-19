@@ -4,10 +4,17 @@
  *
  */
 
-import { DEFAULT_ACTION } from './constants';
+import { GET_DB, MOUNT_DB } from './constants';
 
-export function defaultAction() {
+export function getInventory() {
   return {
-    type: DEFAULT_ACTION,
+    type: GET_DB,
+  };
+}
+
+export function mountDB(currentInventory) {
+  return {
+    type: MOUNT_DB,
+    currentInventory,
   };
 }
