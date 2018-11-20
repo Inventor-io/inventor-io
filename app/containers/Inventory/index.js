@@ -10,13 +10,13 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-// import { Button } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { makeSelectInventory } from './selectors';
-import { getInventory } from './actions';
+import { getInventory, addToOrder, order } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -25,8 +25,6 @@ import saga from './saga';
 /* eslint-disable react/prefer-stateless-function */
 
 export class Inventory extends React.Component {
-  // constructor(props) {
-
   componentDidMount() {
     this.props.mountData();
   }
@@ -58,13 +56,19 @@ export class Inventory extends React.Component {
             {this.props.currentInventory ? (
               this.props.currentInventory.map((obj, e) => {
                 const rowData = Object.keys(obj).map((key, i) => {
-                  let val;
                   if (key === 'Selected') {
-                    val = obj[key] ? 'selected' : 'unselected';
-                  } else {
-                    val = obj[key];
+                    return (
+                      <td key={i.toString()}>
+                        <input
+                          type="checkbox"
+                          value={i}
+                          onChange={this.props.toggle}
+                        />
+                      </td>
+                    );
                   }
-                  return <td key={i.toString()}>{val}</td>;
+
+                  return <td key={i.toString()}>{obj[key]}</td>;
                 });
                 return <tr key={e.toString()}>{rowData}</tr>;
               })
@@ -74,7 +78,7 @@ export class Inventory extends React.Component {
           </tbody>
         </table>
 
-        {/* <Button content="Place order" onClick={this.props.handleOrder} /> */}
+        <Button content="Place order" onClick={this.props.handleOrder} />
       </div>
     );
   }
@@ -83,6 +87,8 @@ export class Inventory extends React.Component {
 Inventory.propTypes = {
   // functions
   mountData: PropTypes.func,
+  toggle: PropTypes.func,
+  handleOrder: PropTypes.func,
   // states
   currentInventory: PropTypes.any,
 };
@@ -94,6 +100,11 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     mountData: () => dispatch(getInventory()),
+    toggle: e => dispatch(addToOrder(e.target.value)),
+    handleOrder: e => {
+      e.preventDefault();
+      return dispatch(order());
+    },
   };
 }
 

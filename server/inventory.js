@@ -154,7 +154,6 @@ async function saveInv(ingObj, restaurantID, res) {
     // insert into db
     await saveIngToInventoryDB(filteredObjs); // insert to inventory table
     await addInventoryToRestaurant(filteredObjs, restaurantID); // insert filteredObjs to restaurant_inventory
-
     res.sendStatus(200);
   } catch (e) {
     // console.log('ERROR in async saveInv', e);
@@ -171,3 +170,9 @@ router.post('/addIngToDB', (req, res) => {
 });
 
 module.exports = router;
+
+// POST: /api/inventory/orderInv
+router.post('/orderInv', (req, res) => {
+  console.log('>>> in server', req.body);
+  res.sendStatus(200);
+});

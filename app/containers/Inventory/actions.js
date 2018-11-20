@@ -4,7 +4,7 @@
  *
  */
 
-import { GET_DB, MOUNT_DB } from './constants';
+import { GET_DB, MOUNT_DB, ADD_ORDER, ORDER } from './constants';
 
 export function getInventory() {
   return {
@@ -16,5 +16,18 @@ export function mountDB(currentInventory) {
   return {
     type: MOUNT_DB,
     currentInventory,
+  };
+}
+
+export function addToOrder(i) {
+  return {
+    type: ADD_ORDER,
+    i,
+  };
+}
+
+export function order() {
+  return {
+    type: ORDER,
   };
 }
