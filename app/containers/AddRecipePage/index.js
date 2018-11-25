@@ -61,9 +61,10 @@ export class AddRecipePage extends React.PureComponent {
               size="large"
               placeholder="Price"
             />
+            <Button content="Submit" onClick={this.props.onSubmitForm} />
             <br />
             <div>
-              <Table celled padded>
+              <Table unstackable>
                 <Table.Header>
                   <Table.Row>
                     <Table.HeaderCell>Ingredient</Table.HeaderCell>
@@ -91,8 +92,6 @@ export class AddRecipePage extends React.PureComponent {
                 </Table.Body>
               </Table>
             </div>
-            <br />
-            <Button content="Submit" onClick={this.props.onSubmitForm} />
           </form>
         </div>
       </div>

@@ -4,10 +4,11 @@ require('dotenv').config();
 const db = require('knex')(require('../knexfile').development);
 
 // GET RECIPES
-router.get('/', (req, res) => {
-  console.log('GET received at api/recipes/');
-  const restaurantID = 1;
-  getRecipes(restaurantID, res);
+router.get('/:id', (req, res) => {
+  console.log('GET received at api/recipe');
+  console.log('PATH', req.path);
+  console.log('PARAMETERS:', req.params);
+  getRecipes(req.params.id, res);
 });
 // ADD NEW RECIPE
 router.post('/create', (req, res) => {

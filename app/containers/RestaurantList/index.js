@@ -10,10 +10,10 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Redirect } from 'react-router-dom';
-// import { Button } from 'semantic-ui-react';
-
+import { Button } from 'semantic-ui-react'; // mjw uncommented
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import history from '../../utils/history'; // mjw added
 import makeSelectRestaurantList from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -34,22 +34,26 @@ export class RestaurantList extends React.Component {
   render() {
     return (
       <div>
+        <Button
+          content="Go to Recipe without breaking state"
+          onClick={() => history.push('/recipe')}
+        />
         {this.props.restaurantList.restaurants
           ? this.props.restaurantList.restaurants.map((restaurant, key) => (
-              <RestaurantCard
-                key={key}
-                header={restaurant.restaurants_name}
-                click={this.props.onClick}
-                id={restaurant.id}
-                description={
-                  <ul>
-                    <li>{restaurant.restaurant_address}</li>
-                    <li>{restaurant.restaurant_phone_number}</li>
-                    <li>{restaurant.restaurant_website}</li>
-                  </ul>
-                }
-              />
-            ))
+            <RestaurantCard
+              key={key}
+              header={restaurant.restaurants_name}
+              click={this.props.onClick}
+              id={restaurant.id}
+              description={
+                <ul>
+                  <li>{restaurant.restaurant_address}</li>
+                  <li>{restaurant.restaurant_phone_number}</li>
+                  <li>{restaurant.restaurant_website}</li>
+                </ul>
+              }
+            />
+          ))
           : null}
         {/* <Button content="get Repos" onClick={this.props.onPageLoad} /> */}
       </div>
