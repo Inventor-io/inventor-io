@@ -77,7 +77,7 @@ export class RecipePage extends React.PureComponent {
 //
 RecipePage.propTypes = {
   restaurantList: PropTypes.any,
-  recipeList: PropTypes.array,
+  recipeList: PropTypes.object,
   getRecipeList: PropTypes.func.isRequired,
 };
 

@@ -32,16 +32,18 @@ class RecipeTable extends React.PureComponent {
           <Table.Body>
             {recipeList && recipeList.length ? (
               recipeList.map(row => (
-                <Table.Row>
+                <Table.Row key={row.recipe_id}>
                   <Table.Cell>{row.recipe_name}</Table.Cell>
                   <Table.Cell>{row.price}</Table.Cell>
                   <Table.Cell>TBD</Table.Cell>
                 </Table.Row>
               ))
             ) : (
-              <Table.Cell textAlign="center" colSpan="3">
-                Please make a recipe
-              </Table.Cell>
+              <Table.Row>
+                <Table.Cell textAlign="center" colSpan="3">
+                  Please make a recipe
+                </Table.Cell>
+              </Table.Row>
             )}
           </Table.Body>
         </Table>
@@ -51,7 +53,7 @@ class RecipeTable extends React.PureComponent {
 }
 
 RecipeTable.propTypes = {
-  recipeList: PropTypes.array,
+  recipeList: PropTypes.object,
   // recipeList[recipeList] : PropTypes.any,
 };
 
