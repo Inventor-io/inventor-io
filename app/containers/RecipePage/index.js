@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 // import { FormattedMessage } from 'react-intl';
@@ -68,16 +68,18 @@ export class RecipePage extends React.PureComponent {
             content="Add a new recipe"
             onClick={() => history.push('/addRecipe')}
           />
-          <RecipeTable /* recipeList={this.props.recipeList} */ />
+          <RecipeTable recipeList={this.props.recipeList} />
         </div>
       </div>
     );
   }
 }
 //
-// RecipePage.propTypes = {
-//   dispatch: PropTypes.func.isRequired,
-// };
+RecipePage.propTypes = {
+  restaurantList: PropTypes.any,
+  recipeList: PropTypes.array,
+  getRecipeList: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = createStructuredSelector({
   // recipePage: makeSelectRecipePage(),
@@ -88,10 +90,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    getRecipeList: () => {
-      console.log('getRecipeList called');
-      dispatch(getRecipes());
-    },
+    getRecipeList: () => dispatch(getRecipes()),
   };
 }
 
