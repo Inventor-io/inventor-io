@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Button, Checkbox } from 'semantic-ui-react';
+import { Button, Checkbox, Table } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 
 import injectSaga from 'utils/injectSaga';
@@ -38,46 +38,49 @@ export class Inventory extends React.Component {
         </Helmet>
 
         <h1>Inventory List</h1>
-
-        <table>
-          <thead>
-            <tr>
+        <Table>
+          <Table.Header>
+            <Table.Row>
               {this.props.currentInventory ? (
-                Object.keys(this.props.currentInventory[0]).map((key, i) => (
-                  <th key={i.toString()}>{key}</th>
+                ['ndbno', 'Item', 'Selected', 'Quantity'].map((key, i) => (
+                  <Table.HeaderCell key={i.toString()}>{key}</Table.HeaderCell>
                 ))
               ) : (
-                <th />
+                <Table.Cell />
               )}
-            </tr>
-          </thead>
+            </Table.Row>
+          </Table.Header>
 
-          <tbody>
+          <Table.Body>
             {this.props.currentInventory ? (
               this.props.currentInventory.map((obj, e) => {
-                const rowData = Object.keys(obj).map((key, i) => {
-                  if (key === 'Selected') {
-                    return (
-                      <td key={i.toString()}>
-                        <Checkbox value={e} onChange={this.props.toggle} />
-                        {/* <input
+                const rowData = ['ndbno', 'Item', 'Selected', 'Quantity'].map(
+                  (key, i) => {
+                    if (key === 'Selected') {
+                      return (
+                        <Table.Cell key={i.toString()}>
+                          <Checkbox value={e} onChange={this.props.toggle} />
+                          {/* <input
                           type="checkbox"
                           value={i}
                           onChange={this.props.toggle}
                         /> */}
-                      </td>
-                    );
-                  }
+                        </Table.Cell>
+                      );
+                    }
 
-                  return <td key={i.toString()}>{obj[key]}</td>;
-                });
-                return <tr key={e.toString()}>{rowData}</tr>;
+                    return (
+                      <Table.Cell key={i.toString()}>{obj[key]}</Table.Cell>
+                    );
+                  },
+                );
+                return <Table.Row key={e.toString()}>{rowData}</Table.Row>;
               })
             ) : (
               <tr />
             )}
-          </tbody>
-        </table>
+          </Table.Body>
+        </Table>
 
         <Button content="Place order" onClick={this.props.handleOrder} />
       </div>
