@@ -18,7 +18,7 @@ const makeSelectRecPrice = () =>
 const makeSelectRecId = () =>
   createSelector(selectAddRecipePageDomain, state => state.recId);
 const makeSelectIngredientsList = () =>
-  createSelector(selectAddRecipePageDomain, state => state.IngredientsList);
+  createSelector(selectAddRecipePageDomain, state => state);
 // const makeSelectRecDescription = () =>
 //   createSelector(selectAddRecipePageDomain, substate =>
 //     substate.get('recDescription'),
