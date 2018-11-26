@@ -26,12 +26,12 @@ export default function App() {
   return (
     <div>
       <Switch>
-        <Route exact path="/" component={HomePage} />
+        <Route exact path="/" component={LandingPage} />
         <Route path="/recipe" component={RecipePage} />
         <Route path="/addrecipe" component={AddRecipePage} />
         <Route path="/editrecipe" component={AddRecipePage} />
         <Route exact path="/login" component={LoginPage} />
-        <Route exact path="/landing" component={LandingPage} />
+        <Route exact path="/home" component={HomePage} />
 
         {/* <Route
 //           path="/recipe"
