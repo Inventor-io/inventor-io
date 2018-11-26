@@ -15,6 +15,7 @@ import { Button, Card } from 'semantic-ui-react';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import makeSelectRestaurantList from './selectors';
+import  makeSelectLoginPage from '../LoginPage/selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { getRestaurants } from './actions';
@@ -35,7 +36,7 @@ export class RestaurantList extends React.Component {
     return (
       <div>
         <div>
-          Welcome {sessionStorage.getItem('username')}
+          Welcome {sessionStorage.getItem('username')} {JSON.stringify(this.props.userInfo)}
           <Button floated="right" onClick={this.props.addRestaurant}>
             Add Restaurant
           </Button>
@@ -71,6 +72,7 @@ RestaurantList.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   restaurantList: makeSelectRestaurantList(),
+  userInfo: makeSelectLoginPage(),
 });
 
 function mapDispatchToProps(dispatch) {

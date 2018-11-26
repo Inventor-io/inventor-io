@@ -7,13 +7,14 @@ export default function* restaurantListSaga() {
   yield takeEvery('app/RestaurantList/GET_RESTAURANTS', getList);
 }
 
-function* getList() {
+function* getList(userId = 1) {
   try {
-    const get = {
+    const post = {
       url: '/api/restaurant/list',
       method: 'get',
+      data: userId,
     };
-    const response = yield call(axios, get);
+    const response = yield call(axios, post);
     const { data } = response;
     const restaurants = data;
     // const restaurants = data;

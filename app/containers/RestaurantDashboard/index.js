@@ -34,7 +34,7 @@ export class RestaurantDashboard extends React.Component {
           <div>
             {/* <div>{JSON.stringify(this.props.info)}</div> */}
             <h1>Orders</h1>
-            <Table celled>
+            <Table celled unstackable>
               <Table.Header>
                 <Table.Row>
                   {Object.keys(this.props.info.orders[0])
