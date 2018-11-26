@@ -22,7 +22,7 @@ export function mountDB(currentInventory) {
 export function addToOrder(i) {
   return {
     type: ADD_ORDER,
-    i,
+    i: i.value,
   };
 }
 
