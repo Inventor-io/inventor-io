@@ -32,6 +32,10 @@ export default function App() {
     history.push('/inventory');
   };
 
+  const moveAddInventory = () => {
+    history.push('/addInventory');
+  };
+
   const moveRecipes = () => {
     history.push('/recipe');
   };
@@ -55,7 +59,10 @@ export default function App() {
             Recipes
           </button>
           <button className="item" onClick={moveInventory} type="button">
-            Inventory
+            Current Inventory
+          </button>
+          <button className="item" onClick={moveAddInventory} type="button">
+            Add Inventory
           </button>
           <div className="right menu">
             <button className="item" onClick={logoutClick} type="button">
