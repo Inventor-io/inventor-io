@@ -58,12 +58,14 @@ export class RecipePage extends React.PureComponent {
           <h2>Recipes</h2>
           <div>
             Showing recipes for:
-            <Dropdown
-              placeholder="Select Restaurant"
-              selection
-              options={restaurants}
-              onChange={(trash, target) => console.log(target.value)}
-            />
+            {false && (
+              <Dropdown
+                placeholder="Select Restaurant"
+                selection
+                options={restaurants}
+                onChange={(trash, target) => console.log(target.value)}
+              />
+            )}
             <RecipeTable recipeList={this.props.recipeList} />
             <Button
               color="green"
