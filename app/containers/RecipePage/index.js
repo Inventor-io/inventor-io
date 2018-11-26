@@ -57,7 +57,6 @@ export class RecipePage extends React.PureComponent {
           {/* <FormattedMessage {...messages.header} /> */}
           <h2>Recipes</h2>
           <div>
-            Showing recipes for:
             {false && (
               <Dropdown
                 placeholder="Select Restaurant"
