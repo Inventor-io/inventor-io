@@ -6,12 +6,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-// import styled from 'styled-components';
-
 // import { FormattedMessage } from 'react-intl';
-import { Table, Button, Icon } from 'semantic-ui-react';
 // import messages from './messages';
-
+import { Table, Button, Icon } from 'semantic-ui-react';
+import history from '../../utils/history';
 /* eslint-disable react/prefer-stateless-function */
 class RecipeTable extends React.PureComponent {
   render() {
@@ -41,17 +39,16 @@ class RecipeTable extends React.PureComponent {
                     <Button
                       size="tiny"
                       icon
-                      onClick={() => console.log('EDIT', row.recipe_id)}
+                      onClick={() =>
+                        history.push(
+                          `/editRecipe?id=${row.recipe_id}&name=${
+                            row.recipe_name
+                          }&price=${row.price}`,
+                        )
+                      }
                     >
                       <Icon name="edit" />
                     </Button>
-                    {/* <Button
-                      size="tiny"
-                      icon
-                      onClick={() => console.log('DELETE', row.recipe_id)}
-                    >
-                      <Icon name="trash" />
-                    </Button> */}
                   </Table.Cell>
                 </Table.Row>
               ))

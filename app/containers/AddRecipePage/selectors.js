@@ -12,13 +12,13 @@ const selectAddRecipePageDomain = state =>
  * Other specific selectors
  */
 const makeSelectRecName = () =>
-  createSelector(selectAddRecipePageDomain, substate =>
-    substate.get('recName'),
-  );
+  createSelector(selectAddRecipePageDomain, state => state.recName);
 const makeSelectRecPrice = () =>
-  createSelector(selectAddRecipePageDomain, substate =>
-    substate.get('recPrice'),
-  );
+  createSelector(selectAddRecipePageDomain, state => state.recPrice);
+const makeSelectRecId = () =>
+  createSelector(selectAddRecipePageDomain, state => state.recId);
+const makeSelectIngredientsList = () =>
+  createSelector(selectAddRecipePageDomain, state => state.IngredientsList);
 // const makeSelectRecDescription = () =>
 //   createSelector(selectAddRecipePageDomain, substate =>
 //     substate.get('recDescription'),
@@ -38,7 +38,9 @@ const selectAddRecipe = () => {
 export {
   selectAddRecipePageDomain,
   selectAddRecipe, // mjw - Not sure what this one does.
+  makeSelectRecId,
   makeSelectRecName,
   makeSelectRecPrice,
+  makeSelectIngredientsList,
   // makeSelectRecDescription,
 };

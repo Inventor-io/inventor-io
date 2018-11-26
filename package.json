@@ -90,6 +90,7 @@
     "path": "^0.12.7",
     "pg": "^7.6.1",
     "prop-types": "15.6.2",
+    "query-string": "^6.2.0",
     "react": "16.6.0",
     "react-dom": "16.6.0",
     "react-facebook-login": "^4.1.1",

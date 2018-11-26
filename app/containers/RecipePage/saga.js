@@ -14,7 +14,7 @@ function* getRecs() {
       selectRestaurantDashboardDomain,
     );
     const get = {
-      url: `/api/recipe/${selectedRestaurant}`,
+      url: `/api/recipe/get?restaurant=${selectedRestaurant}`,
       method: 'get',
     };
     // console.log(`Sending GET to${get.url}`);

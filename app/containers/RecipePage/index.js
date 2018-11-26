@@ -20,7 +20,6 @@ import {
   // selectRecipePageDomain,
   makeSelectRecipeList,
 } from './selectors';
-
 import reducer from './reducer';
 import saga from './saga';
 import { getRecipes } from './actions';
@@ -35,14 +34,19 @@ import makeSelectRestaurantId from '../RestaurantDashboard/selectors';
 /* eslint-disable react/prefer-stateless-function */
 
 export class RecipePage extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.props.getRecipeList();
+  }
+
   render() {
+    // Options list for Dropdown
     const restaurants = this.props.restaurantList.restaurants.map(
       restaurant => ({
         text: restaurant.restaurants_name,
         value: restaurant.id,
       }),
     );
-    // console.log('RESTAURANTS', restaurants);
     return (
       <div>
         <Helmet>
@@ -51,12 +55,14 @@ export class RecipePage extends React.PureComponent {
         </Helmet>
 
         {/* <FormattedMessage {...messages.header} /> */}
-        <h2>Recipe Page</h2>
+        <h2>Recipes</h2>
         <div>
           <Button
             content="TEST recipe get"
             onClick={this.props.getRecipeList}
           />
+        </div>
+        <div>
           Showing recipes for:
           <Dropdown
             placeholder="Select Restaurant"
@@ -65,6 +71,7 @@ export class RecipePage extends React.PureComponent {
             onChange={(trash, target) => console.log(target.value)}
           />
           <Button
+            color="green"
             content="Add a new recipe"
             onClick={() => history.push('/addRecipe')}
           />
