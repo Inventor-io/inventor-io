@@ -18,8 +18,8 @@ function inventoryReducer(state = initialState, action) {
     case ADD_ORDER:
       return Object.assign({}, state, {
         selected: state.selected
-          ? state.selected.concat(state.currentInventory[action.i])
-          : [state.currentInventory[action.i]],
+          ? state.selected.concat([state.currentInventory[action.i].ndbno])
+          : [state.currentInventory[action.i].ndbno],
       });
     default:
       return state;

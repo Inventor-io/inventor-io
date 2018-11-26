@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Button } from 'semantic-ui-react';
+import { Button, Checkbox } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 
 import injectSaga from 'utils/injectSaga';
@@ -59,11 +59,12 @@ export class Inventory extends React.Component {
                   if (key === 'Selected') {
                     return (
                       <td key={i.toString()}>
-                        <input
+                        <Checkbox value={e} onChange={this.props.toggle} />
+                        {/* <input
                           type="checkbox"
                           value={i}
                           onChange={this.props.toggle}
-                        />
+                        /> */}
                       </td>
                     );
                   }
@@ -100,7 +101,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     mountData: () => dispatch(getInventory()),
-    toggle: e => dispatch(addToOrder(e.target.value)),
+    toggle: (e, data) => dispatch(addToOrder(data)),
     handleOrder: e => {
       e.preventDefault();
       return dispatch(order());

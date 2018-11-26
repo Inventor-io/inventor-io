@@ -32,7 +32,9 @@ function* sendOrder() {
   };
 
   try {
-    yield call(axios, options);
+    const order = yield call(axios, options);
+    const s = JSON.parse(order.config.data);
+    alert(`Placing order... ${JSON.stringify(s.ingObj)}`);
   } catch (e) {
     console.error(e);
   }
