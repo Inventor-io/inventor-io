@@ -1,6 +1,39 @@
-// import { take, call, put, select } from 'redux-saga/effects';
+import { takeEvery, call, put, select } from 'redux-saga/effects';
+import axios from 'axios';
+import { GET_DB, ORDER } from './constants';
+import { selectInventoryDomain } from './selectors';
+import { mountDB } from './actions';
 
 // Individual exports for testing
 export default function* inventorySaga() {
-  // See example in containers/HomePage/saga.js
+  yield [takeEvery(GET_DB, getInventory), takeEvery(ORDER, sendOrder)];
+}
+
+function* getInventory() {
+  const options = {
+    url: '/api/inventory/',
+  };
+
+  try {
+    const res = yield call(axios, options);
+    yield put(mountDB(res.data));
+  } catch (e) {
+    // console.error(e);
+  }
+}
+
+function* sendOrder() {
+  const { selected } = yield select(selectInventoryDomain);
+
+  const options = {
+    url: '/api/inventory/orderInv',
+    method: 'POST',
+    data: { ingObj: selected },
+  };
+
+  try {
+    yield call(axios, options);
+  } catch (e) {
+    console.error(e);
+  }
 }
