@@ -40,25 +40,23 @@ export class RestaurantList extends React.Component {
             Add Restaurant
           </Button>
         </div>
-        {this.props.restaurantList.restaurants ? (
-
-            this.props.restaurantList.restaurants.map((restaurant, key) => (
-            <RestaurantCard
-              key={key}
-              header={restaurant.restaurants_name}
-              click={this.props.onClick}
-              id={restaurant.id}
-              description={
-                <ul>
-                  <li>{restaurant.restaurant_address}</li>
-                  <li>{restaurant.restaurant_phone_number}</li>
-                  <li>{restaurant.restaurant_website}</li>
-                </ul>
-              }
-            />
-            ))
-
-        ) : null}
+        {this.props.restaurantList.restaurants ?
+          this.props.restaurantList.restaurants.map((restaurant, key) => (
+              <RestaurantCard
+                key={key}
+                header={restaurant.restaurants_name}
+                click={this.props.onClick}
+                id={restaurant.id}
+                description={
+                  <ul>
+                    <li>{restaurant.restaurant_address}</li>
+                    <li>{restaurant.restaurant_phone_number}</li>
+                    <li>{restaurant.restaurant_website}</li>
+                  </ul>
+                }
+              />
+          ))
+          : null}
         {/* <Button content="get Repos" onClick={this.props.onPageLoad} /> */}
       </div>
     );
