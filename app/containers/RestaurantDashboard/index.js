@@ -30,24 +30,6 @@ export class RestaurantDashboard extends React.Component {
   render() {
     return (
       <div>
-<<<<<<< HEAD
-        {this.props.info ? (
-          <div>
-            {/* <div>{JSON.stringify(this.props.info)}</div> */}
-            <h1>Orders</h1>
-            <Table celled unstackable>
-              <Table.Header>
-                <Table.Row>
-                  {Object.keys(this.props.info.orders[0])
-                    .filter(key => key.indexOf('id') === -1)
-                    .map(header => (
-                      <Table.HeaderCell>{header}</Table.HeaderCell>
-                    ))}
-                </Table.Row>
-              </Table.Header>
-              <Table.Body>
-                {this.props.info.orders.map(order => (
-=======
         <Container>
           {this.props.info ? (
             <div>
@@ -55,7 +37,6 @@ export class RestaurantDashboard extends React.Component {
               <h1>Orders</h1>
               <Table celled>
                 <Table.Header>
->>>>>>> ce82dc1e038d0aead78233ab73893e8d92df02fc
                   <Table.Row>
                     {Object.keys(this.props.info.orders[0])
                       .filter(key => key.indexOf('id') === -1)
