@@ -51,6 +51,7 @@ export class AddRecipePage extends React.PureComponent {
 
   render() {
     console.log(`Look I'm using ${this.props.recId}`);
+    console.log('PROPS', this.props.getIngredients);
     return (
       <div>
         <Helmet>
@@ -86,7 +87,7 @@ export class AddRecipePage extends React.PureComponent {
             <Table unstackable="true">
               <Table.Header>
                 <Table.Row>
-                  <Table.HeaderCell>Ingredient</Table.HeaderCell>
+                  <Table.HeaderCell>Ingredient (NDBNO)</Table.HeaderCell>
                   <Table.HeaderCell>Quantity</Table.HeaderCell>
                   <Table.HeaderCell>Unit</Table.HeaderCell>
                 </Table.Row>
@@ -94,8 +95,11 @@ export class AddRecipePage extends React.PureComponent {
 
               <Table.Body>
                 <Table.Row>
-                  <Table.Cell>Cell</Table.Cell>
-                  <Table.Cell>Cell</Table.Cell>
+                  {/* <Table.Cell>ndbno {this.props.addRecipe.ingredientsList[0].ndbno}</Table.Cell> */}
+                  <Table.Cell>
+                    {/* {this.props.ingredientsList[0].measurement} */}{' '}
+                    measurement
+                  </Table.Cell>
                   <Table.Cell>Cell</Table.Cell>
                 </Table.Row>
               </Table.Body>

@@ -10,10 +10,9 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Redirect } from 'react-router-dom';
-import { Button } from 'semantic-ui-react'; // mjw uncommented
+// import { Button } from 'semantic-ui-react';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import history from '../../utils/history'; // mjw added
 import makeSelectRestaurantList from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -34,10 +33,6 @@ export class RestaurantList extends React.Component {
   render() {
     return (
       <div>
-        <Button
-          content="Go to Recipe without breaking state"
-          onClick={() => history.push('/recipe')}
-        />
         {this.props.restaurantList.restaurants
           ? this.props.restaurantList.restaurants.map((restaurant, key) => (
             <RestaurantCard
