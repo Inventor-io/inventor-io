@@ -16,7 +16,13 @@ const selectLandingPageDomain = state => state.get('landingPage', initialState);
  */
 
 const makeSelectLandingPage = () =>
-  createSelector(selectLandingPageDomain, substate => substate.toJS());
+  createSelector(selectLandingPageDomain, substate => substate.get('user'));
+
+// const makeSelectLoginPage = () =>
+// createSelector(selectLoginPageDomain, substate => {
+//   console.log('this is the selector', substate.get('user'));
+//   return substate.get('user');
+// });
 
 export default makeSelectLandingPage;
 export { selectLandingPageDomain };

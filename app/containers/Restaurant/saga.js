@@ -1,6 +1,7 @@
 import { call, takeEvery, select } from 'redux-saga/effects';
 import axios from 'axios';
 import { selectRestaurantDomain } from './selectors';
+import { SEND_FORM } from './constants';
 
 // put, select, take,
 export const getRestaurant = state => state.restaurant;
@@ -9,21 +10,35 @@ export const getRestaurant = state => state.restaurant;
 // import SEND_FORM from './constants';
 export default function* restaurantSaga() {
   // See example in containers/HomePage/saga.js
-  yield takeEvery('app/Restaurant/SEND_FORM', getServer);
+  yield takeEvery(SEND_FORM, getServer);
 }
 function* getServer() {
-  const { resAddress, resName, resNumber } = yield select(
+  const { resAddress, resName, resNumber, resWebsite } = yield select(
     selectRestaurantDomain,
   );
-  const data = { resAddress, resName, resNumber };
+  const data = {
+    restaurants_name: resName,
+    restaurant_address: resAddress,
+    restaurant_phone_number: resNumber,
+    restaurant_website: resWebsite,
+  };
   console.log(data);
+  // let url = null;
+  // const isDev = process.env.NODE_ENV !== 'production';
+
+  // if (isDev) {
+  //   console.log(process.env.CLIENT_HOST);
+  //   url = `${process.env.CLIENT_HOST}/api/restaurant`;
+  // } else {
+  //   url = '/api/restaurant';
+  // }
   try {
     // console.log('SAGAGAGAGA RESTAURANT', state);
 
     const post = {
-      url: '/api/restaurant',
+      url: '/api/restaurant/create',
       method: 'post',
-      data: { resAddress, resName, resNumber },
+      data,
     };
     const response = yield call(axios, post);
     const responseBody = response;

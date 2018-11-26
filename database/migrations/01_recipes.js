@@ -1,5 +1,6 @@
 exports.up = knex =>
   knex.schema
+    // 01 RESTAURANTS
     .createTable('restaurants', table => {
       table.increments('id').primary();
       table
@@ -12,11 +13,11 @@ exports.up = knex =>
         .notNullable();
       table.string('restaurant_phone_number').notNullable();
       table.string('restaurant_website');
-      table.timestamp('created_at');
-      // table.foreign('user_id').references('users.id');
+      table.timestamp('created_at').defaultTo(knex.fn.now());
+      table.integer('user_id'); // foreign('user_id').references('users.id');
     })
 
-    // RECIPES
+    // 02 RECIPES
     .createTable('recipes', table => {
       table.increments('recipe_id');
       table
@@ -30,13 +31,13 @@ exports.up = knex =>
       table.float('price', 8, 2);
     })
 
-    // INVENTORY
+    // 03 INVENTORY
     .createTable('inventory', table => {
-      table.integer('ndbno').unique();
+      table.string('ndbno').unique();
       table.string('inventory_name');
     })
 
-    // RESTAURANT-INVENTORY JOINT TABLE
+    // 04 RESTAURANT-INVENTORY JOINT TABLE
     .createTable('restaurant_inventory', table => {
       table.increments('id');
       table
@@ -44,45 +45,53 @@ exports.up = knex =>
         .references('id')
         .inTable('restaurants');
       table
-        .integer('ndbno')
+        .string('ndbno')
         .references('ndbno')
         .inTable('inventory');
       table.float('quantity').defaultTo(0);
     })
 
-    // RECIPE-INVENTORY JOINT TABLE
+    // 05 RECIPE-INVENTORY JOIN TABLE
     .createTable('recipe_inventory', table => {
       table.increments('id');
       table
-        .integer('restaurant_id')
-        .references('id')
-        .inTable('restaurants');
+        .integer('recipe_id')
+        .references('recipe_id')
+        .inTable('recipes');
       table
-        .integer('ndbno')
+        .string('ndbno')
         .references('ndbno')
         .inTable('inventory');
       table.float('measurement').defaultTo(0);
     })
 
-    // SALES
+    // 06 SALES
     .createTable('sales', table => {
       table.increments('id');
       table
         .integer('recipe_id')
         .references('recipe_id')
         .inTable('recipes');
+      table
+        .integer('restaurant_id')
+        .references('id')
+        .inTable('restaurants');
       table.float('quantity').defaultTo(0);
       table.timestamp('date').defaultTo(knex.fn.now());
     })
 
-    // HISTORICAL ORDERS
+    // 07 HISTORICAL ORDERS
     .createTable('orders', table => {
       table.increments('id');
       table
-        .integer('ndbno')
+        .integer('restaurant_id')
+        .references('id')
+        .inTable('restaurants');
+      table
+        .string('ndbno')
         .references('ndbno')
         .inTable('inventory');
-      table.float('price');
+      table.float('price', 10, 2);
       table.float('quantity');
     });
 

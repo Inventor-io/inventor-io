@@ -10,12 +10,14 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Link } from 'react-router-dom';
-
+import FacebookLogin from 'react-facebook-login';
 import injectReducer from 'utils/injectReducer';
 import makeSelectLandingPage from './selectors';
+import { setUsername } from './actions';
+import { logout } from '../LoginPage/actions';
 import reducer from './reducer';
 import messages from './messages';
+import history from '../../utils/history';
 
 /* eslint-disable react/prefer-stateless-function */
 export class LandingPage extends React.Component {
@@ -24,15 +26,13 @@ export class LandingPage extends React.Component {
       <div>
         <FormattedMessage {...messages.header} />{' '}
         <div>
-          <Link to="/login">Login</Link>
-          <br />
-          <Link to="/signup">Signup</Link>
-          <br />
-          <Link to="/inventory">Inventory</Link>
-          <br />
-          <Link to="/recipe">Recipes</Link>
-          <br />
-          <Link to="/restaurant">Restaurant</Link>
+          <div>
+            <FacebookLogin
+              appId="119762035585891"
+              fields="name,email,picture"
+              callback={this.props.responseFacebook}
+            />
+          </div>
         </div>
       </div>
     );
@@ -40,16 +40,29 @@ export class LandingPage extends React.Component {
 }
 
 LandingPage.propTypes = {
+  responseFacebook: PropTypes.func,
+  logoutClick: PropTypes.func,
   dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  landingPage: makeSelectLandingPage(),
+  user: makeSelectLandingPage(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
+    responseFacebook: response => {
+      sessionStorage.setItem('username', response.name);
+      dispatch(setUsername(response));
+      history.push('/restaurant');
+    },
+    logoutClick: e => {
+      e.preventDefault();
+      sessionStorage.clear();
+      dispatch(logout());
+      history.push('/home');
+    },
   };
 }
 

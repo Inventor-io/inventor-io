@@ -5,14 +5,18 @@
  */
 
 import { fromJS } from 'immutable';
-import { DEFAULT_ACTION } from './constants';
+import { GET_RECIPES, UPDATE_RECIPELIST } from './constants';
 
 export const initialState = fromJS({});
 
 function recipePageReducer(state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
+    case GET_RECIPES:
       return state;
+    case UPDATE_RECIPELIST:
+      return Object.assign({}, state, {
+        recipeList: action.recipeList,
+      });
     default:
       return state;
   }
