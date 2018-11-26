@@ -10,8 +10,9 @@ import {
   LOAD_INFO,
   RECEIVED_RESTAURANT_INFO,
 } from './constants';
+/* eslint-disable */
 import { RECEIVED_RESTAURANTS } from '../RestaurantList/constants';
-
+/* eslint-enable */
 export function defaultAction() {
   return {
     type: DEFAULT_ACTION,

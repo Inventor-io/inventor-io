@@ -173,6 +173,5 @@ module.exports = router;
 
 // POST: /api/inventory/orderInv
 router.post('/orderInv', (req, res) => {
-  console.log('>>> in server', req.body);
-  res.sendStatus(200);
+  res.send(req.body);
 });
