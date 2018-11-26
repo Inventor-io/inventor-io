@@ -57,12 +57,6 @@ export class RecipePage extends React.PureComponent {
         {/* <FormattedMessage {...messages.header} /> */}
         <h2>Recipes</h2>
         <div>
-          <Button
-            content="TEST recipe get"
-            onClick={this.props.getRecipeList}
-          />
-        </div>
-        <div>
           Showing recipes for:
           <Dropdown
             placeholder="Select Restaurant"
@@ -70,12 +64,12 @@ export class RecipePage extends React.PureComponent {
             options={restaurants}
             onChange={(trash, target) => console.log(target.value)}
           />
+          <RecipeTable recipeList={this.props.recipeList} />
           <Button
             color="green"
             content="Add a new recipe"
             onClick={() => history.push('/addRecipe')}
           />
-          <RecipeTable recipeList={this.props.recipeList} />
         </div>
       </div>
     );
