@@ -27,6 +27,7 @@ const formatInventoryData = (inventories, name) => {
     newObj.Quantity = obj.quantity;
     newObj.Item = invDict[obj.ndbno];
     newObj.Selected = false;
+    newObj.ndbno = obj.ndbno;
     return newObj;
   });
   return newArr;
