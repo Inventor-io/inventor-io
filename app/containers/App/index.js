@@ -44,12 +44,8 @@ export default function App() {
     <div>
       {sessionStorage.getItem('username') ? (
         <div className="ui pointing secondary menu">
-          <button
-            className="active item"
-            onClick={moveRestaurants}
-            type="button"
-          >
-            Restaurants
+          <button className="item" onClick={moveRestaurants} type="button">
+            Restaurant Dashboard
           </button>
           <button className="item" onClick={moveRecipes} type="button">
             Recipes
