@@ -10,7 +10,16 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Input, Button, Dropdown } from 'semantic-ui-react';
+import {
+  Input,
+  Button,
+  Dropdown,
+  Container,
+  Header,
+  Divider,
+  List,
+  Form,
+} from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 
 import injectSaga from 'utils/injectSaga';
@@ -35,49 +44,55 @@ export class AddInventory extends React.Component {
           <meta name="description" content="Description of AddInventory" />
         </Helmet>
 
-        <h1>Add an ingredient..!</h1>
-        <form>
-          <Input
-            placeholder="Search Ingredient"
-            onChange={this.props.handleChange}
-            size="large"
-          />
-          <Button
-            content="Search!"
-            onClick={e => this.props.handleSearch(e, this.props.searchTerm)}
-          />
-        </form>
+        <Container>
+          <Header as="h1">Add an ingredient..!</Header>
+          <Form>
+            <Form.Field>
+              <Input
+                placeholder="Search Ingredient"
+                onChange={this.props.handleChange}
+                size="large"
+              />
+            </Form.Field>
+            <Button
+              content="Search!"
+              onClick={e => this.props.handleSearch(e, this.props.searchTerm)}
+            />
+          </Form>
 
-        <Dropdown
-          selection
-          onChange={this.props.handleSelect}
-          placeholder="Select your ingredient"
-          /* eslint-disable */
-          options={
-            this.props.options
-              ? this.props.options.map((obj, i) => ({
-                text: obj.inventory_name,
-                value: i,
-              }))
-              : []
-          }
-          /* eslint-enable */
-        />
-
-        <div>
-          <h3>Selected Items:</h3>
-          {/* eslint-disable */}
-          {this.props.addedIngredients
-            ? this.props.addedIngredients.map((obj, i) => (
-              <li key={i.toString()}>{obj.inventory_name}</li>
-            ))
-            : ''}
-          {/* eslint-enable */}
-          <Button
-            content="Add to inventory list"
-            onClick={e => this.props.saveToDB(e)}
+          <Dropdown
+            selection
+            onChange={this.props.handleSelect}
+            placeholder="Select your ingredient"
+            /* eslint-disable */
+            options={
+              this.props.options
+                ? this.props.options.map((obj, i) => ({
+                  text: obj.inventory_name,
+                  value: i,
+                }))
+                : []
+            }
+            /* eslint-enable */
           />
-        </div>
+          <Divider />
+          <div>
+            <Header as="h3">Selected Items:</Header>
+            {/* eslint-disable */}
+            <List bulleted>
+              {this.props.addedIngredients
+                ? this.props.addedIngredients.map((obj, i) => (
+                  <List.Item key={i.toString()}>{obj.inventory_name}</List.Item>
+                ))
+                : ''}
+            </List>
+            {/* eslint-enable */}
+            <Button
+              content="Add to inventory list"
+              onClick={e => this.props.saveToDB(e)}
+            />
+          </div>
+        </Container>
       </div>
     );
   }
