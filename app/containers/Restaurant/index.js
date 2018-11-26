@@ -63,6 +63,7 @@ export class Restaurant extends React.Component {
             size="large"
             placeholder="Website"
           />
+          <br />
           <Button content="Submit" onClick={this.props.onSubmitForm} />
         </form>
       </div>
