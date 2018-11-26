@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Input, Button } from 'semantic-ui-react';
+import { Input, Button, Dropdown } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 
 import injectSaga from 'utils/injectSaga';
@@ -27,88 +27,6 @@ import saga from './saga';
 
 /* eslint-disable react/prefer-stateless-function */
 export class AddInventory extends React.Component {
-  // constructor(props) {
-  //   super(props);
-
-  //   this.state = {
-  //     options: [],
-  //     searchTerm: '',
-  //     ingredient: [],
-  //     addedIngredients: [],
-  //   };
-
-  // this.handleChange = this.handleChange.bind(this);
-  // this.handleSearch = this.handleSearch.bind(this);
-  // this.handleSelect = this.handleSelect.bind(this);
-  // this.saveToDB = this.saveToDB.bind(this);
-
-  // handleChange(event) {
-  //   event.preventDefault();
-  //   event.persist();
-
-  //   this.setState({
-  //     searchTerm: event.target.value,
-  //   });
-  // }
-
-  // handleSearch(event) {
-  //   event.preventDefault();
-  //   event.persist();
-
-  //   const { searchTerm } = this.state;
-  //   // the rest of the code moved to saga.js
-  //   // const options = {
-  //   //   url: '/api/inventory/usdaSearch',
-  //   //   method: 'post',
-  //   //   data: { searchTerm },
-  //   // };
-
-  //   // axios(options).then(data => {
-  //   //   this.setState({
-  //   //     options: data.data,
-  //   //   });
-  //   // });
-  // }
-
-  // MOVED TO SAGA
-  // handleSelect(event) {
-  //   event.preventDefault();
-  //   event.persist();
-  //   this.setState(
-  //     {
-  //       ingredient: event.target.value, // i
-  //     },
-  //     () => {
-  //       const i = this.state.ingredient;
-  //       // show on screen
-  //       const ingObj = this.state.options[i];
-  //       this.setState(state => ({
-  //         addedIngredients: state.addedIngredients.concat([ingObj]),
-  //       }));
-  //     },
-  //   );
-  // }
-
-  // MOVED TO SAGA
-  // saveToDB() {
-  //   const options = {
-  //     url: '/api/inventory/addIngToDB',
-  //     method: 'post',
-  //     data: { ingObj: this.state.addedIngredients },
-  //   };
-
-  //   // TODO: react routers should redirect to inventoryList page
-  //   axios(options)
-  //     .then(() => {
-  //       alert('added to db!');
-  //     })
-  //     .catch(() => {
-  //       alert(
-  //         'error communicating with server while saving inventory item to db!',
-  //       );
-  //     });
-  // }
-
   render() {
     return (
       <div>
@@ -130,24 +48,31 @@ export class AddInventory extends React.Component {
           />
         </form>
 
-        <select
-          name="ingredients"
+        <Dropdown
+          selection
           onChange={this.props.handleSelect}
           placeholder="Select your ingredient"
-        >
-          {this.props.options
-            ? this.props.options.map((obj, i) => (
-              <option key={i.toString()} value={i} text={obj.name}>{obj.name}</option>
-            ))
-            : ''}
-        </select>
+          /* eslint-disable */
+          options={
+            this.props.options
+              ? this.props.options.map((obj, i) => ({
+                text: obj.inventory_name,
+                value: i,
+              }))
+              : []
+          }
+          /* eslint-enable */
+        />
 
         <div>
           <h3>Selected Items:</h3>
+          {/* eslint-disable */}
           {this.props.addedIngredients
-            ? this.props.addedIngredients.map((obj, i) => <li key={i.toString()}>{obj.inventory_name}</li>)
+            ? this.props.addedIngredients.map((obj, i) => (
+              <li key={i.toString()}>{obj.inventory_name}</li>
+            ))
             : ''}
-
+          {/* eslint-enable */}
           <Button
             content="Add to inventory list"
             onClick={e => this.props.saveToDB(e)}
@@ -194,7 +119,7 @@ function mapDispatchToProps(dispatch) {
       return dispatch(sendQuery(searchTerm));
     },
     // select item from dropdown
-    handleSelect: e => dispatch(updateSelect(e.target.value)),
+    handleSelect: (e, target) => dispatch(updateSelect(target.value)),
     // send all selected items to db
     saveToDB: e => {
       e.preventDefault();

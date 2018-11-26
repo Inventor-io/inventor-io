@@ -37,7 +37,9 @@ function* saveInventoryToDB() {
   };
 
   try {
-    yield call(axios, options);
+    const newInven = yield call(axios, options);
+    const s = JSON.parse(newInven.config.data); // TODO: apply body-parser later
+    alert(`Saving ${JSON.stringify(s.ingObj)} to db`);
   } catch (e) {
     yield console.error(e);
   }
