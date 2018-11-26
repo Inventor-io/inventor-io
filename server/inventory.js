@@ -6,8 +6,8 @@ const router = express.Router();
 const db = require('knex')(require('../knexfile').development);
 
 // GET: /api/inventory
-const retrieveRestaurantInventory = tempID =>
-  db.where({ restaurant_id: tempID }).from('restaurant_inventory');
+const retrieveRestaurantInventory = id =>
+  db.where({ restaurant_id: id }).from('restaurant_inventory');
 
 const retrieveInventoryName = data => {
   const arr = data.map(obj => obj.ndbno);
@@ -45,12 +45,9 @@ async function getInventory(restaurantID, res) {
 }
 
 // MAIN ROUTE
-router.get('/', (req, res) => {
-  // retrieve data from `restaurant_inventory` table
-  // TODO: delete tempID after authorization
-  const restaurantID = 1;
-
-  getInventory(restaurantID, res);
+router.post('/', (req, res) => {
+  const { id } = req.body;
+  getInventory(id, res);
 });
 
 // POST: /api/inventory/usdaSearch
@@ -163,11 +160,8 @@ async function saveInv(ingObj, restaurantID, res) {
 
 router.post('/addIngToDB', (req, res) => {
   // save inventories to db
-  const { ingObj } = req.body;
-
-  // TODO: delete tempID when authorization complete
-  const restaurantID = 1;
-  saveInv(ingObj, restaurantID, res);
+  const { ingObj, id } = req.body;
+  saveInv(ingObj, id, res);
 });
 
 module.exports = router;
