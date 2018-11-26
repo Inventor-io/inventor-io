@@ -8,7 +8,7 @@
  */
 
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import RecipePage from 'containers/RecipePage/Loadable';
 import AddRecipePage from 'containers/AddRecipePage/Loadable';
 import LoginPage from 'containers/LoginPage/Loadable';
@@ -20,13 +20,62 @@ import AddInventory from 'containers/AddInventory/Loadable';
 import RestaurantList from 'containers/RestaurantList/Loadable';
 import RestaurantDashboard from 'containers/RestaurantDashboard/Loadable';
 import Restaurant from 'containers/Restaurant/Loadable';
+import history from '../../utils/history';
 
 import GlobalStyle from '../../global-styles';
 export default function App() {
+  const moveRestaurants = () => {
+    history.push('/dashboard');
+  };
+
+  const moveInventory = () => {
+    history.push('/inventory');
+  };
+
+  const moveRecipes = () => {
+    history.push('/recipe');
+  };
+  const logoutClick = () => {
+    sessionStorage.clear();
+    history.push('/');
+  };
+
   return (
     <div>
+      {sessionStorage.getItem('username') ? (
+        <div className="ui pointing secondary menu">
+          <button
+            className="active item"
+            onClick={moveRestaurants}
+            type="button"
+          >
+            Restaurants
+          </button>
+          <button className="item" onClick={moveRecipes} type="button">
+            Recipes
+          </button>
+          <button className="item" onClick={moveInventory} type="button">
+            Inventory
+          </button>
+          <div className="right menu">
+            <button className="item" onClick={logoutClick} type="button">
+              Logout
+            </button>
+          </div>
+        </div>
+      ) : null}
       <Switch>
-        <Route exact path="/" component={LandingPage} />
+        <Route
+          exact
+          path="/"
+          render={() =>
+            sessionStorage.getItem('username') ? (
+              <RestaurantDashboard />
+            ) : (
+              <LandingPage />
+            )
+          }
+        />
         <Route path="/recipe" component={RecipePage} />
         <Route path="/addrecipe" component={AddRecipePage} />
         <Route path="/editrecipe" component={AddRecipePage} />
@@ -47,11 +96,7 @@ export default function App() {
         <Route
           path="/inventory"
           render={() =>
-            sessionStorage.getItem('username') ? (
-              <Inventory />
-            ) : (
-              <Redirect to="/login" />
-            )
+            sessionStorage.getItem('username') ? <Inventory /> : <LandingPage />
           }
         />
         <Route
@@ -60,7 +105,7 @@ export default function App() {
             sessionStorage.getItem('username') ? (
               <AddInventory />
             ) : (
-              <Redirect to="/login" />
+              <LandingPage />
             )
           }
         />
@@ -70,7 +115,7 @@ export default function App() {
             sessionStorage.getItem('username') ? (
               <RestaurantList />
             ) : (
-              <Redirect to="/login" />
+              <LandingPage />
             )
           }
         />
@@ -80,7 +125,7 @@ export default function App() {
             sessionStorage.getItem('username') ? (
               <Restaurant />
             ) : (
-              <Redirect to="/login" />
+              <LandingPage />
             )
           }
         />
@@ -90,7 +135,7 @@ export default function App() {
             sessionStorage.getItem('username') ? (
               <RestaurantDashboard />
             ) : (
-              <Redirect to="/login" />
+              <LandingPage />
             )
           }
         />
