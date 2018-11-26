@@ -14,7 +14,7 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import 'semantic-ui-css/semantic.min.css'; // TODO - mjw - FIX ME
-import { Dropdown, Button } from 'semantic-ui-react';
+import { Dropdown, Button, Container } from 'semantic-ui-react';
 import {
   // makeSelectRecipePage,
   // selectRecipePageDomain,
@@ -53,30 +53,25 @@ export class RecipePage extends React.PureComponent {
           <title>RecipePage</title>
           <meta name="description" content="Description of RecipePage" />
         </Helmet>
-
-        {/* <FormattedMessage {...messages.header} /> */}
-        <h2>Recipes</h2>
-        <div>
-          <Button
-            content="TEST recipe get"
-            onClick={this.props.getRecipeList}
-          />
-        </div>
-        <div>
-          Showing recipes for:
-          <Dropdown
-            placeholder="Select Restaurant"
-            selection
-            options={restaurants}
-            onChange={(trash, target) => console.log(target.value)}
-          />
-          <Button
-            color="green"
-            content="Add a new recipe"
-            onClick={() => history.push('/addRecipe')}
-          />
-          <RecipeTable recipeList={this.props.recipeList} />
-        </div>
+        <Container>
+          {/* <FormattedMessage {...messages.header} /> */}
+          <h2>Recipes</h2>
+          <div>
+            Showing recipes for:
+            <Dropdown
+              placeholder="Select Restaurant"
+              selection
+              options={restaurants}
+              onChange={(trash, target) => console.log(target.value)}
+            />
+            <RecipeTable recipeList={this.props.recipeList} />
+            <Button
+              color="green"
+              content="Add a new recipe"
+              onClick={() => history.push('/addRecipe')}
+            />
+          </div>
+        </Container>
       </div>
     );
   }

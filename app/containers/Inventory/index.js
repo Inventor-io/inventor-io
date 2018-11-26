@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Button, Checkbox, Table } from 'semantic-ui-react';
+import { Button, Checkbox, Table, Container, Header } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 
 import injectSaga from 'utils/injectSaga';
@@ -37,52 +37,56 @@ export class Inventory extends React.Component {
           <meta name="description" content="Description of Inventory" />
         </Helmet>
 
-        <h1>Inventory List</h1>
-        <Table>
-          <Table.Header>
-            <Table.Row>
+        <Container>
+          <Header as="h1">Inventory List</Header>
+          <Table>
+            <Table.Header>
+              <Table.Row>
+                {this.props.currentInventory ? (
+                  ['ndbno', 'Item', 'Selected', 'Quantity'].map((key, i) => (
+                    <Table.HeaderCell key={i.toString()}>
+                      {key}
+                    </Table.HeaderCell>
+                  ))
+                ) : (
+                  <Table.Cell />
+                )}
+              </Table.Row>
+            </Table.Header>
+
+            <Table.Body>
               {this.props.currentInventory ? (
-                ['ndbno', 'Item', 'Selected', 'Quantity'].map((key, i) => (
-                  <Table.HeaderCell key={i.toString()}>{key}</Table.HeaderCell>
-                ))
-              ) : (
-                <Table.Cell />
-              )}
-            </Table.Row>
-          </Table.Header>
+                this.props.currentInventory.map((obj, e) => {
+                  const rowData = ['ndbno', 'Item', 'Selected', 'Quantity'].map(
+                    (key, i) => {
+                      if (key === 'Selected') {
+                        return (
+                          <Table.Cell key={i.toString()}>
+                            <Checkbox value={e} onChange={this.props.toggle} />
+                            {/* <input
+                            type="checkbox"
+                            value={i}
+                            onChange={this.props.toggle}
+                          /> */}
+                          </Table.Cell>
+                        );
+                      }
 
-          <Table.Body>
-            {this.props.currentInventory ? (
-              this.props.currentInventory.map((obj, e) => {
-                const rowData = ['ndbno', 'Item', 'Selected', 'Quantity'].map(
-                  (key, i) => {
-                    if (key === 'Selected') {
                       return (
-                        <Table.Cell key={i.toString()}>
-                          <Checkbox value={e} onChange={this.props.toggle} />
-                          {/* <input
-                          type="checkbox"
-                          value={i}
-                          onChange={this.props.toggle}
-                        /> */}
-                        </Table.Cell>
+                        <Table.Cell key={i.toString()}>{obj[key]}</Table.Cell>
                       );
-                    }
+                    },
+                  );
+                  return <Table.Row key={e.toString()}>{rowData}</Table.Row>;
+                })
+              ) : (
+                <tr />
+              )}
+            </Table.Body>
+          </Table>
 
-                    return (
-                      <Table.Cell key={i.toString()}>{obj[key]}</Table.Cell>
-                    );
-                  },
-                );
-                return <Table.Row key={e.toString()}>{rowData}</Table.Row>;
-              })
-            ) : (
-              <tr />
-            )}
-          </Table.Body>
-        </Table>
-
-        <Button content="Place order" onClick={this.props.handleOrder} />
+          <Button content="Place order" onClick={this.props.handleOrder} />
+        </Container>
       </div>
     );
   }
