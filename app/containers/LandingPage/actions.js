@@ -4,7 +4,7 @@
  *
  */
 
-import { DEFAULT_ACTION, NAVIGATE } from './constants';
+import { DEFAULT_ACTION, NAVIGATE, SET_USERNAME } from './constants';
 
 export function defaultAction() {
   return {
@@ -16,5 +16,12 @@ export function navigateAction(location) {
   return {
     type: NAVIGATE,
     location,
+  };
+}
+
+export function setUsername(user) {
+  return {
+    type: SET_USERNAME,
+    user,
   };
 }
