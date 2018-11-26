@@ -29,6 +29,7 @@ import {
   sendForm,
   updateWebsite,
 } from './actions';
+import history from '../../utils/history';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Restaurant extends React.Component {
@@ -100,6 +101,7 @@ function mapDispatchToProps(dispatch) {
     onSubmitForm: e => {
       e.preventDefault();
       dispatch(sendForm());
+      history.push('/restaurant');
     },
   };
 }

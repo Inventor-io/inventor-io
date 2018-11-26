@@ -15,7 +15,7 @@ import { Button, Card } from 'semantic-ui-react';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import makeSelectRestaurantList from './selectors';
-import  makeSelectLoginPage from '../LoginPage/selectors';
+import makeSelectLandingPage from '../LandingPage/selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { getRestaurants } from './actions';
@@ -36,13 +36,14 @@ export class RestaurantList extends React.Component {
     return (
       <div>
         <div>
-          Welcome {sessionStorage.getItem('username')} {JSON.stringify(this.props.userInfo)}
+          Welcome {sessionStorage.getItem('username')}
+          {JSON.stringify(this.props.userInfo.id)}
           <Button floated="right" onClick={this.props.addRestaurant}>
             Add Restaurant
           </Button>
         </div>
-        {this.props.restaurantList.restaurants ?
-          this.props.restaurantList.restaurants.map((restaurant, key) => (
+        {this.props.restaurantList.restaurants
+          ? this.props.restaurantList.restaurants.map((restaurant, key) => (
               <RestaurantCard
                 key={key}
                 header={restaurant.restaurants_name}
@@ -72,14 +73,13 @@ RestaurantList.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   restaurantList: makeSelectRestaurantList(),
-  userInfo: makeSelectLoginPage(),
+  userInfo: makeSelectLandingPage(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    onPageLoad: e => {
-      console.log(e);
-      dispatch(getRestaurants());
+    onPageLoad: (userId = 1) => {
+      dispatch(getRestaurants(userId));
     },
     onClick: e => {
       const resID = e.target.id;

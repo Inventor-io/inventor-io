@@ -4,8 +4,8 @@ require('dotenv').config();
 const db = require('knex')(require('../knexfile').development);
 
 router.post('/list', (req, res) => {
-  console.log('inside post to list', req.body);
-  getRestaurants().then(response => {
+  console.log('inside post to list', req.body.userId);
+  getRestaurants(req.body.userId).then(response => {
     console.log(response);
     res.status(200).send(response);
   });
