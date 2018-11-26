@@ -1,6 +1,7 @@
 import { takeEvery, call, select, put } from 'redux-saga/effects';
 import axios from 'axios';
 import { selectAddInventoryDomain } from './selectors';
+import { selectRestaurantDashboardDomain } from '../RestaurantDashboard/selectors';
 
 import { updateDropdownOption } from './actions';
 
@@ -30,10 +31,11 @@ function* getUSDA() {
 
 function* saveInventoryToDB() {
   const { addedIngredients } = yield select(selectAddInventoryDomain);
+  const { selectedRestaurant } = yield select(selectRestaurantDashboardDomain);
   const options = {
     url: '/api/inventory/addIngToDB',
     method: 'post',
-    data: { ingObj: addedIngredients },
+    data: { ingObj: addedIngredients, id: selectedRestaurant },
   };
 
   try {

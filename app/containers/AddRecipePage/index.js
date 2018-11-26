@@ -13,7 +13,7 @@ import { Helmet } from 'react-helmet';
 // import messages from './messages';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Input, Button, Table } from 'semantic-ui-react';
+import { Input, Button } from 'semantic-ui-react';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {
@@ -33,6 +33,7 @@ import {
   // updateDescription,
   sendForm,
 } from './actions';
+import IngredientsTable from '../../components/IngredientsTable';
 
 /* eslint-disable react/prefer-stateless-function */
 
@@ -50,8 +51,7 @@ export class AddRecipePage extends React.PureComponent {
   }
 
   render() {
-    console.log(`Look I'm using ${this.props.recId}`);
-    console.log('PROPS', this.props.getIngredients);
+    console.log(`Look I'm using recId ${this.props.recId}`);
     return (
       <div>
         <Helmet>
@@ -83,29 +83,9 @@ export class AddRecipePage extends React.PureComponent {
             /> */}
           <Button content="Submit" onClick={this.props.onSubmitForm} />
           <br />
-          <div>
-            <Table unstackable="true">
-              <Table.Header>
-                <Table.Row>
-                  <Table.HeaderCell>Ingredient (NDBNO)</Table.HeaderCell>
-                  <Table.HeaderCell>Quantity</Table.HeaderCell>
-                  <Table.HeaderCell>Unit</Table.HeaderCell>
-                </Table.Row>
-              </Table.Header>
-
-              <Table.Body>
-                <Table.Row>
-                  {/* <Table.Cell>ndbno {this.props.addRecipe.ingredientsList[0].ndbno}</Table.Cell> */}
-                  <Table.Cell>
-                    {/* {this.props.ingredientsList[0].measurement} */}{' '}
-                    measurement
-                  </Table.Cell>
-                  <Table.Cell>Cell</Table.Cell>
-                </Table.Row>
-              </Table.Body>
-            </Table>
-          </div>
-          {/* </form> */}
+          <IngredientsTable
+            ingredientsList={this.props.ingredientsList.ingredientsList}
+          />
         </div>
       </div>
     );
@@ -122,6 +102,7 @@ AddRecipePage.propTypes = {
   recName: PropTypes.any,
   recPrice: PropTypes.any,
   getIngredients: PropTypes.func.isRequired,
+  ingredientsList: PropTypes.object,
   // description: PropTypes.any,
   location: PropTypes.any,
 };
