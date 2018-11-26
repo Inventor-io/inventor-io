@@ -27,7 +27,7 @@ const RestaurantCard = props => (
 RestaurantCard.propTypes = {
   header: PropTypes.any,
   description: PropTypes.any,
-  link: PropTypes.any,
+  // link: PropTypes.any,
   click: PropTypes.func,
   id: PropTypes.any,
 };

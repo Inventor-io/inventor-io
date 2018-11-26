@@ -73,6 +73,7 @@ const restaurantRecipes = (restaurant_id = 1) =>
 const recipeInventory = (recipe_id = 1) =>
   db.from('recipe_inventory').where({ recipe_id });
 
+/* eslint-disable */
 const restaurantInventory = (restaurant_id = 1) =>
   db.from('restaurant_inventory').where({ restaurant_id });
 

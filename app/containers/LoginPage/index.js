@@ -20,8 +20,6 @@ import reducer from './reducer';
 import saga from './saga';
 import { setUsername } from './actions';
 
-// import { login } from './actions';
-
 /* eslint-disable react/prefer-stateless-function */
 export class LoginPage extends React.Component {
   render() {
