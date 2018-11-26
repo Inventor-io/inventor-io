@@ -13,7 +13,7 @@ import { Helmet } from 'react-helmet';
 // import messages from './messages';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Input, Button } from 'semantic-ui-react';
+import { Input, Button, Container } from 'semantic-ui-react';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {
@@ -66,45 +66,47 @@ export class AddRecipePage extends React.PureComponent {
           <title>AddRecipePage</title>
           <meta name="description" content="Description of AddRecipePage" />
         </Helmet>
-        {/* <FormattedMessage {...messages.header} /> */}
-        {this.props.location.search ? (
-          <h2>Edit Recipe</h2>
-        ) : (
-          <h2>Create Recipe</h2>
-        )}
-        <div>
-          <Input
-            value={this.props.recName}
-            onChange={e => this.props.changeName(e.target.value)}
-            size="large"
-            placeholder="Name"
-          />
-          <br />
-          <Input
-            value={this.props.recPrice}
-            onChange={e => this.props.changePrice(e.target.value)}
-            size="large"
-            placeholder="Price"
-          />
-          {/* <br />
+        <Container>
+          {/* <FormattedMessage {...messages.header} /> */}
+          {this.props.location.search ? (
+            <h2>Edit Recipe</h2>
+          ) : (
+            <h2>Create Recipe</h2>
+          )}
+          <div>
+            <Input
+              value={this.props.recName}
+              onChange={e => this.props.changeName(e.target.value)}
+              size="large"
+              placeholder="Name"
+            />
+            <br />
+            <Input
+              value={this.props.recPrice}
+              onChange={e => this.props.changePrice(e.target.value)}
+              size="large"
+              placeholder="Price"
+            />
+            {/* <br />
             <Input
               value={this.props.description}
               onChange={this.props.onChangeDescription}
               size="large"
               placeholder="Description"
             /> */}
-          <Button content="Submit" onClick={this.props.onSubmitForm} />
+            <Button content="Submit" onClick={this.props.onSubmitForm} />
+            <br />
+            <IngredientsTable
+              ingredientsList={this.props.ingredientsList.ingredientsList}
+            />
+          </div>
           <br />
-          <IngredientsTable
-            ingredientsList={this.props.ingredientsList.ingredientsList}
+          <Button
+            content="Add an ingredient"
+            color="green"
+            onClick={() => console.log('Add Ingredient clicked')}
           />
-        </div>
-        <br />
-        <Button
-          content="Add an ingredient"
-          color="green"
-          onClick={() => console.log('Add Ingredient clicked')}
-        />
+        </Container>
       </div>
     );
   }
