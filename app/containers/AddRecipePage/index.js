@@ -13,7 +13,7 @@ import { Helmet } from 'react-helmet';
 // import messages from './messages';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Input, Button } from 'semantic-ui-react';
+import { Input, Button, Container } from 'semantic-ui-react';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {
@@ -26,11 +26,12 @@ import {
 import reducer from './reducer';
 import saga from './saga';
 import {
+  updateId,
   updateName,
   updatePrice,
-  updateId,
-  getIngredientsList,
   // updateDescription,
+  getIngredientsList,
+  updateIngredientsList,
   sendForm,
 } from './actions';
 import IngredientsTable from '../../components/IngredientsTable';
@@ -42,51 +43,70 @@ export class AddRecipePage extends React.PureComponent {
     super(props);
     if (this.props.location.search) {
       const params = QueryString.parse(this.props.location.search);
-      console.log('PARAMS', params);
+      // console.log('PARAMS', params);
       this.props.changeId(params.id);
       this.props.changeName(params.name);
       this.props.changePrice(params.price); // mjw - Combine. Now causes 3 renders.
       this.props.getIngredients();
+    } else if (this.props.recName) {
+      // console.log('CLEARING PARAMS');
+      this.props.changeId(null);
+      this.props.changeName('');
+      this.props.changePrice(''); // mjw - Combine. Now causes 3 renders.
+      this.props.changeIngredientList({}); // mjw - selector ingredient array is ingredients.ingredients
     }
   }
 
   render() {
-    console.log(`Look I'm using recId ${this.props.recId}`);
+    console.log(`Hi PropTypes, I'm using recId ${this.props.recId}`);
+
     return (
       <div>
         <Helmet>
           <title>AddRecipePage</title>
           <meta name="description" content="Description of AddRecipePage" />
         </Helmet>
-        {/* <FormattedMessage {...messages.header} /> */}
-        <div>
-          {/* <form onSubmit={() => console.log('filler onSubmit')}> */}
-          <Input
-            value={this.props.recName}
-            onChange={e => this.props.changeName(e.target.value)}
-            size="large"
-            placeholder="Name"
-          />
-          <br />
-          <Input
-            value={this.props.recPrice}
-            onChange={e => this.props.changePrice(e.target.value)}
-            size="large"
-            placeholder="Price"
-          />
-          {/* <br />
+        <Container>
+          {/* <FormattedMessage {...messages.header} /> */}
+          {this.props.location.search ? (
+            <h2>Edit Recipe</h2>
+          ) : (
+            <h2>Create Recipe</h2>
+          )}
+          <div>
+            <Input
+              value={this.props.recName}
+              onChange={e => this.props.changeName(e.target.value)}
+              size="large"
+              placeholder="Name"
+            />
+            <br />
+            <Input
+              value={this.props.recPrice}
+              onChange={e => this.props.changePrice(e.target.value)}
+              size="large"
+              placeholder="Price"
+            />
+            {/* <br />
             <Input
               value={this.props.description}
               onChange={this.props.onChangeDescription}
               size="large"
               placeholder="Description"
             /> */}
-          <Button content="Submit" onClick={this.props.onSubmitForm} />
+            <Button content="Submit" onClick={this.props.onSubmitForm} />
+            <br />
+            <IngredientsTable
+              ingredientsList={this.props.ingredientsList.ingredientsList}
+            />
+          </div>
           <br />
-          <IngredientsTable
-            ingredientsList={this.props.ingredientsList.ingredientsList}
+          <Button
+            content="Add an ingredient"
+            color="green"
+            onClick={() => console.log('Add Ingredient clicked')}
           />
-        </div>
+        </Container>
       </div>
     );
   }
@@ -97,6 +117,7 @@ AddRecipePage.propTypes = {
   changeName: PropTypes.func,
   // onChangeDescription: PropTypes.func,
   changePrice: PropTypes.func,
+  changeIngredientList: PropTypes.func,
   onSubmitForm: PropTypes.func,
   recId: PropTypes.any,
   recName: PropTypes.any,
@@ -126,6 +147,7 @@ function mapDispatchToProps(dispatch) {
     changeName: newName => dispatch(updateName(newName)),
     changePrice: newPrice => dispatch(updatePrice(newPrice)),
     // onChangeDescription: e => dispatch(updateDescription(e.target.value)),
+    changeIngredientList: newList => dispatch(updateIngredientsList(newList)),
     onSubmitForm: e => {
       e.preventDefault();
       console.log('sendForm dispatched!');
