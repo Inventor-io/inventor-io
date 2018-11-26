@@ -56,6 +56,7 @@ export class Restaurant extends React.Component {
             size="large"
             placeholder="Phone Number"
           />
+          <br />
           <Input
             value={this.props.number}
             onChange={this.props.onChangeWebsite}

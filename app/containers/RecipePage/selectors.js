@@ -11,6 +11,9 @@ const selectRecipePageDomain = state => state.get('recipePage', initialState);
  * Other specific selectors
  */
 
+const makeSelectRecipeList = () =>
+  createSelector(selectRecipePageDomain, substate => substate);
+
 /**
  * Default selector used by RecipePage
  */
@@ -18,5 +21,4 @@ const selectRecipePageDomain = state => state.get('recipePage', initialState);
 const makeSelectRecipePage = () =>
   createSelector(selectRecipePageDomain, substate => substate.toJS());
 
-export default makeSelectRecipePage;
-export { selectRecipePageDomain };
+export { makeSelectRecipePage, selectRecipePageDomain, makeSelectRecipeList };

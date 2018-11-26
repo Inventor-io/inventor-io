@@ -6,17 +6,21 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import QueryString from 'query-string';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 // import { FormattedMessage } from 'react-intl';
+// import messages from './messages';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Input, Button } from 'semantic-ui-react';
+import { Input, Button, Table } from 'semantic-ui-react';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {
   makeSelectRecName,
   makeSelectRecPrice,
+  makeSelectRecId,
+  makeSelectIngredientsList,
   // makeSelectRecDescription,
 } from './selectors';
 import reducer from './reducer';
@@ -24,14 +28,30 @@ import saga from './saga';
 import {
   updateName,
   updatePrice,
-  /* updateDescription, */
+  updateId,
+  getIngredientsList,
+  // updateDescription,
   sendForm,
 } from './actions';
-// import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
+
 export class AddRecipePage extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    if (this.props.location.search) {
+      const params = QueryString.parse(this.props.location.search);
+      console.log('PARAMS', params);
+      this.props.changeId(params.id);
+      this.props.changeName(params.name);
+      this.props.changePrice(params.price); // mjw - Combine. Now causes 3 renders.
+      this.props.getIngredients();
+    }
+  }
+
   render() {
+    console.log(`Look I'm using ${this.props.recId}`);
+    console.log('PROPS', this.props.getIngredients);
     return (
       <div>
         <Helmet>
@@ -40,29 +60,52 @@ export class AddRecipePage extends React.PureComponent {
         </Helmet>
         {/* <FormattedMessage {...messages.header} /> */}
         <div>
-          <form onSubmit={() => console.log('filler onSubmit')}>
-            <Input
-              value={this.props.name}
-              onChange={this.props.onChangeName}
-              size="large"
-              placeholder="Name"
-            />
-            {/* <br />
+          {/* <form onSubmit={() => console.log('filler onSubmit')}> */}
+          <Input
+            value={this.props.recName}
+            onChange={e => this.props.changeName(e.target.value)}
+            size="large"
+            placeholder="Name"
+          />
+          <br />
+          <Input
+            value={this.props.recPrice}
+            onChange={e => this.props.changePrice(e.target.value)}
+            size="large"
+            placeholder="Price"
+          />
+          {/* <br />
             <Input
               value={this.props.description}
               onChange={this.props.onChangeDescription}
               size="large"
               placeholder="Description"
             /> */}
-            <br />
-            <Input
-              value={this.props.price}
-              onChange={this.props.onChangePrice}
-              size="large"
-              placeholder="Price"
-            />
-            <Button content="Submit" onClick={this.props.onSubmitForm} />
-          </form>
+          <Button content="Submit" onClick={this.props.onSubmitForm} />
+          <br />
+          <div>
+            <Table unstackable="true">
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell>Ingredient (NDBNO)</Table.HeaderCell>
+                  <Table.HeaderCell>Quantity</Table.HeaderCell>
+                  <Table.HeaderCell>Unit</Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
+
+              <Table.Body>
+                <Table.Row>
+                  {/* <Table.Cell>ndbno {this.props.addRecipe.ingredientsList[0].ndbno}</Table.Cell> */}
+                  <Table.Cell>
+                    {/* {this.props.ingredientsList[0].measurement} */}{' '}
+                    measurement
+                  </Table.Cell>
+                  <Table.Cell>Cell</Table.Cell>
+                </Table.Row>
+              </Table.Body>
+            </Table>
+          </div>
+          {/* </form> */}
         </div>
       </div>
     );
@@ -70,30 +113,37 @@ export class AddRecipePage extends React.PureComponent {
 }
 
 AddRecipePage.propTypes = {
-  // dispatch: PropTypes.func.isRequired,
-  onChangeName: PropTypes.func,
+  changeId: PropTypes.func,
+  changeName: PropTypes.func,
   // onChangeDescription: PropTypes.func,
-  onChangePrice: PropTypes.func,
-  onSubmitForm: PropTypes.func, // USE ME TO SEND DATA TO DB
-  name: PropTypes.any,
+  changePrice: PropTypes.func,
+  onSubmitForm: PropTypes.func,
+  recId: PropTypes.any,
+  recName: PropTypes.any,
+  recPrice: PropTypes.any,
+  getIngredients: PropTypes.func.isRequired,
   // description: PropTypes.any,
-  price: PropTypes.any,
+  location: PropTypes.any,
 };
 
 const mapStateToProps = createStructuredSelector({
   // addRecipePage: makeSelectAddRecipePage()
-  recName: makeSelectRecName,
-  recPrice: makeSelectRecPrice,
+  recName: makeSelectRecName(),
+  recPrice: makeSelectRecPrice(),
+  recId: makeSelectRecId(),
+  ingredientsList: makeSelectIngredientsList(),
   // recDescription: makeSelectRecDescription,
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    onChangeName: e => {
-      console.log('name target value', e.target.value);
-      dispatch(updateName(e.target.value));
+    getIngredients: () => {
+      console.log('GET_INGREDIENTS dispatched!');
+      dispatch(getIngredientsList());
     },
-    onChangePrice: e => dispatch(updatePrice(e.target.value)),
+    changeId: newId => dispatch(updateId(newId)),
+    changeName: newName => dispatch(updateName(newName)),
+    changePrice: newPrice => dispatch(updatePrice(newPrice)),
     // onChangeDescription: e => dispatch(updateDescription(e.target.value)),
     onSubmitForm: e => {
       e.preventDefault();
