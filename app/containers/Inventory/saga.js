@@ -2,6 +2,7 @@ import { takeEvery, call, put, select } from 'redux-saga/effects';
 import axios from 'axios';
 import { GET_DB, ORDER } from './constants';
 import { selectInventoryDomain } from './selectors';
+import { selectRestaurantDashboardDomain } from '../RestaurantDashboard/selectors';
 import { mountDB } from './actions';
 
 // Individual exports for testing
@@ -10,8 +11,11 @@ export default function* inventorySaga() {
 }
 
 function* getInventory() {
+  const { selectedRestaurant } = yield select(selectRestaurantDashboardDomain);
   const options = {
     url: '/api/inventory/',
+    method: 'POST',
+    data: { id: selectedRestaurant },
   };
 
   try {
