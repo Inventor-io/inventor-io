@@ -25,4 +25,4 @@ deploy:
   skip_cleanup: true
   acl: bucket_owner_full_control
   on:
-    branch: master
+    branch: docker
