@@ -15,6 +15,7 @@ import 'semantic-ui-css/semantic.min.css';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import NavBar from 'containers/NavBar/Loadable';
 import { makeSelectInventory } from './selectors';
 import { getInventory, addToOrder, order } from './actions';
 import reducer from './reducer';
@@ -36,7 +37,7 @@ export class Inventory extends React.Component {
           <title>Inventory</title>
           <meta name="description" content="Description of Inventory" />
         </Helmet>
-
+        <NavBar />
         <Container>
           <Header as="h1">Inventory List</Header>
           <Table>

@@ -16,6 +16,7 @@ import { compose } from 'redux';
 import { Input, Button, Container } from 'semantic-ui-react';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import NavBar from 'containers/NavBar/Loadable';
 import {
   makeSelectRecName,
   makeSelectRecPrice,
@@ -66,6 +67,7 @@ export class AddRecipePage extends React.PureComponent {
           <title>AddRecipePage</title>
           <meta name="description" content="Description of AddRecipePage" />
         </Helmet>
+        <NavBar />
         <Container>
           {/* <FormattedMessage {...messages.header} /> */}
           {this.props.location.search ? (

@@ -24,6 +24,8 @@ import 'semantic-ui-css/semantic.min.css';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import NavBar from 'containers/NavBar/Loadable';
+
 import {
   makeOptionsSelect,
   makeSearchTermSelect,
@@ -43,7 +45,7 @@ export class AddInventory extends React.Component {
           <title>AddInventory</title>
           <meta name="description" content="Description of AddInventory" />
         </Helmet>
-
+        <NavBar />
         <Container>
           <Header as="h1">Add an ingredient..!</Header>
           <Form>
