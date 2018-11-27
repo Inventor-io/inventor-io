@@ -21,8 +21,11 @@ deploy:
   access_key_id: $AWS_ACCESS_KEY_ID
   secret_access_key: $AWS_SECRET_ACCESS_KEY
   region: us-east-2
-  local-dir: build
+  app: 'inventorio'
+  env: 'Inventorio-env'
+  # local-dir: build
   skip_cleanup: true
-  acl: bucket_owner_full_control
+  bucket_name: 'elasticbeanstalk-us-east-2-215978141573'
+  # acl: bucket_owner_full_control
   on:
     branch: docker
