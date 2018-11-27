@@ -10,6 +10,8 @@ import {
   UPDATE_SELECT,
   SAVE_INV_TO_DB,
   SEND_QUERY,
+  REMOVE_ITEM,
+  REPLACE_ITEM,
 } from './constants';
 
 export function updateSearchTerm(searchTerm) {
@@ -43,5 +45,19 @@ export function updateSelect(ingredient) {
 export function saveToDB() {
   return {
     type: SAVE_INV_TO_DB,
+  };
+}
+
+export function removeItem(name) {
+  return {
+    type: REMOVE_ITEM,
+    name,
+  };
+}
+
+export function replaceAddedIng(arr) {
+  return {
+    type: REPLACE_ITEM,
+    addedIngredients: arr,
   };
 }

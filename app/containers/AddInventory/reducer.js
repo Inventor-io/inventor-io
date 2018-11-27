@@ -9,6 +9,8 @@ import {
   UPDATE_SEARCHTERM,
   UPDATE_DROPDOWN_OPTIONS,
   UPDATE_SELECT,
+  REMOVE_ITEM,
+  REPLACE_ITEM,
 } from './constants';
 
 export const initialState = fromJS({
@@ -16,6 +18,7 @@ export const initialState = fromJS({
   addedIngredients: [],
   searchTerm: '',
   ingredient: [],
+  remove: '',
 });
 
 function addInventoryReducer(state = initialState, action) {
@@ -29,6 +32,14 @@ function addInventoryReducer(state = initialState, action) {
         addedIngredients: state.addedIngredients
           ? state.addedIngredients.concat(state.options[action.ingredient])
           : [state.options[action.ingredient]],
+      });
+    case REMOVE_ITEM:
+      return Object.assign({}, state, {
+        remove: action.name,
+      });
+    case REPLACE_ITEM:
+      return Object.assign({}, state, {
+        addedIngredients: action.addedIngredients,
       });
     default:
       return state;
