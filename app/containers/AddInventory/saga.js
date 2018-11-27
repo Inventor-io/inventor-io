@@ -1,14 +1,16 @@
 import { takeEvery, call, select, put } from 'redux-saga/effects';
 import axios from 'axios';
+import { push } from 'connected-react-router/immutable';
 import { selectAddInventoryDomain } from './selectors';
 import { selectRestaurantDashboardDomain } from '../RestaurantDashboard/selectors';
-
-import { updateDropdownOption } from './actions';
+import { REMOVE_ITEM, SEND_QUERY, SAVE_INV_TO_DB } from './constants';
+import { updateDropdownOption, replaceAddedIng, redirect } from './actions';
 
 export default function* inventorySaga() {
   yield [
-    takeEvery('app/AddInventory/SEND_QUERY', getUSDA),
-    takeEvery('app/AddInventory/SAVE_INV_TO_DB', saveInventoryToDB),
+    takeEvery(SEND_QUERY, getUSDA),
+    takeEvery(SAVE_INV_TO_DB, saveInventoryToDB),
+    takeEvery(REMOVE_ITEM, deleteItem),
   ];
 }
 
@@ -39,10 +41,17 @@ function* saveInventoryToDB() {
   };
 
   try {
-    const newInven = yield call(axios, options);
-    const s = JSON.parse(newInven.config.data); // TODO: apply body-parser later
-    alert(`Saving ${JSON.stringify(s.ingObj)} to db`);
+    yield call(axios, options);
+    yield put(redirect());
+    yield put(push('/inventory'));
   } catch (e) {
     yield console.error(e);
   }
+}
+
+function* deleteItem() {
+  const { addedIngredients, remove } = yield select(selectAddInventoryDomain);
+  const arr = addedIngredients.slice();
+  arr.splice(arr.indexOf(remove), 1);
+  yield put(replaceAddedIng(arr));
 }
