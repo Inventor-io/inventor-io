@@ -24,6 +24,7 @@ import 'semantic-ui-css/semantic.min.css';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import history from '../../utils/history';
 import {
   makeOptionsSelect,
   makeSearchTermSelect,
@@ -138,6 +139,7 @@ function mapDispatchToProps(dispatch) {
     // send all selected items to db
     saveToDB: e => {
       e.preventDefault();
+      history.push('/inventory');
       return dispatch(saveToDB());
     },
   };
