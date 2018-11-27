@@ -55,7 +55,9 @@ function mapDispatchToProps(dispatch) {
     responseFacebook: response => {
       sessionStorage.setItem('username', response.name);
       dispatch(setUsername(response));
-      history.push('/restaurant');
+      if (sessionStorage.getItem('username') !== 'undefined') {
+        history.push('/restaurant');
+      }
     },
     logoutClick: e => {
       e.preventDefault();

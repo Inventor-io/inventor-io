@@ -41,6 +41,9 @@ export default function App() {
   };
   const logoutClick = () => {
     sessionStorage.clear();
+    if (typeof FB === 'object') {
+      window.FB.logout();
+    }
     history.push('/');
   };
 
