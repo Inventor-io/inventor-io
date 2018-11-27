@@ -4,7 +4,19 @@
  *
  */
 
-import { GET_DB, MOUNT_DB, ADD_ORDER, ORDER } from './constants';
+import {
+  GET_DB,
+  MOUNT_DB,
+  ADD_ORDER,
+  ORDER,
+  DEFAULT_ACTION,
+} from './constants';
+
+export function defaultAction() {
+  return {
+    type: DEFAULT_ACTION,
+  };
+}
 
 export function getInventory() {
   return {

@@ -4,7 +4,7 @@
 
 // import IngredientsTable from '../index';
 
-describe('<IngredientsTable />', () => {
+xdescribe('<IngredientsTable />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });

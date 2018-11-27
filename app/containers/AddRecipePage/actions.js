@@ -12,7 +12,14 @@ import {
   SEND_FORM,
   UPDATE_ID,
   UPDATE_INGREDIENTSLIST,
+  DEFAULT_ACTION,
 } from './constants';
+
+export function defaultAction() {
+  return {
+    type: DEFAULT_ACTION,
+  };
+}
 
 export function updateId(recId) {
   return {

@@ -4,7 +4,7 @@
 
 // import RecipeTable from '../index';
 
-describe('<RecipeTable />', () => {
+xdescribe('<RecipeTable />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });

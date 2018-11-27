@@ -11,3 +11,4 @@ export const UPDATE_INGREDIENTSLIST =
 // export const UPDATE_DESCRIPTION = 'app/AddRecipePage/UPDATE_DESCRIPTION';
 export const SEND_FORM = 'app/AddRecipePage/SEND_FORM';
 export const GET_INGREDIENTSLIST = 'app/AddRecipePage/GET_INGREDIENTSLIST';
+export const DEFAULT_ACTION = 'app/Inventory/DEFAULT_ACTION';
