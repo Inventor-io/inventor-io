@@ -2,9 +2,9 @@
   "AWSEBDockerrunVersion": 2,
   "volumes": [
     {
-      "name": "node",
+      "name": "inventorio",
       "host": {
-        "sourcePath": "/home/jpw/thesis/inventor-io/"
+        "sourcePath": "/var/app/current/inventor-io/"
       }
     },
     {
@@ -16,13 +16,13 @@
   ],
   "containerDefinitions": [
     {
-      "name": "node",
-      "image": "php:fpm",
+      "name": "inventorio",
+      "image": "jpwarren13/inventor-io:latest",
       "essential": true,
       "memory": 128,
       "mountPoints": [
         {
-          "sourceVolume": "node",
+          "sourceVolume": "inventorio",
           "containerPath": "/var/www/html",
           "readOnly": true
         }
@@ -39,10 +39,10 @@
           "containerPort": 80
         }
       ],
-      "links": ["php-app"],
+      "links": ["inventorio"],
       "mountPoints": [
         {
-          "sourceVolume": "php-app",
+          "sourceVolume": "inventorio",
           "containerPath": "/var/www/html",
           "readOnly": true
         },
