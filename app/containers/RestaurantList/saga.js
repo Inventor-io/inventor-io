@@ -8,7 +8,7 @@ export default function* restaurantListSaga() {
   yield takeEvery('app/RestaurantList/GET_RESTAURANTS', getList);
 }
 
-function* getList(userId = 1) {
+function* getList() {
   const userInfo = yield select(makeSelectLandingPage());
   console.log(userInfo.id);
   try {
