@@ -1,0 +1,11 @@
+version: '2'
+services:
+  nginx:
+    image: nginx
+    ports:
+      - '80:80'
+    restart: always
+  inventorio-io:
+    depends_on: [nginx]
+    image: jpwarren13/inventor-io:latest
+    restart: always
