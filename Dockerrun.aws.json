@@ -39,7 +39,6 @@
           "containerPort": 80
         }
       ],
-      "links": ["inventorio"],
       "mountPoints": [
         {
           "sourceVolume": "inventorio",
