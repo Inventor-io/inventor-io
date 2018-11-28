@@ -13,6 +13,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import NavBar from 'containers/NavBar/Loadable';
 import 'semantic-ui-css/semantic.min.css'; // TODO - mjw - FIX ME
 import { Dropdown, Button, Container } from 'semantic-ui-react';
 import {
@@ -53,6 +54,7 @@ export class RecipePage extends React.PureComponent {
           <title>RecipePage</title>
           <meta name="description" content="Description of RecipePage" />
         </Helmet>
+        <NavBar />
         <Container>
           {/* <FormattedMessage {...messages.header} /> */}
           <h2>Recipes</h2>

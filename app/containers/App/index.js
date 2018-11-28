@@ -20,53 +20,12 @@ import AddInventory from 'containers/AddInventory/Loadable';
 import RestaurantList from 'containers/RestaurantList/Loadable';
 import RestaurantDashboard from 'containers/RestaurantDashboard/Loadable';
 import Restaurant from 'containers/Restaurant/Loadable';
-import history from '../../utils/history';
+// import history from '../../utils/history';
 
 import GlobalStyle from '../../global-styles';
 export default function App() {
-  const moveRestaurants = () => {
-    history.push('/dashboard');
-  };
-
-  const moveInventory = () => {
-    history.push('/inventory');
-  };
-
-  const moveAddInventory = () => {
-    history.push('/addInventory');
-  };
-
-  const moveRecipes = () => {
-    history.push('/recipe');
-  };
-  const logoutClick = () => {
-    sessionStorage.clear();
-    history.push('/');
-  };
-
   return (
     <div>
-      {sessionStorage.getItem('username') ? (
-        <div className="ui pointing secondary menu">
-          <button className="item" onClick={moveRestaurants} type="button">
-            Restaurant Dashboard
-          </button>
-          <button className="item" onClick={moveRecipes} type="button">
-            Recipes
-          </button>
-          <button className="item" onClick={moveInventory} type="button">
-            Current Inventory
-          </button>
-          <button className="item" onClick={moveAddInventory} type="button">
-            Add Inventory
-          </button>
-          <div className="right menu">
-            <button className="item" onClick={logoutClick} type="button">
-              Logout
-            </button>
-          </div>
-        </div>
-      ) : null}
       <Switch>
         <Route
           exact

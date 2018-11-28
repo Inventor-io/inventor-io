@@ -13,6 +13,7 @@ import { Redirect } from 'react-router-dom';
 // import { Button } from 'semantic-ui-react';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import NavBar from 'containers/NavBar/Loadable';
 import makeSelectRestaurantList from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -33,6 +34,7 @@ export class RestaurantList extends React.Component {
   render() {
     return (
       <div>
+        <NavBar restaurant="true" />
         {this.props.restaurantList.restaurants
           ? this.props.restaurantList.restaurants.map((restaurant, key) => (
             <RestaurantCard

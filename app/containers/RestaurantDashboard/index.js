@@ -13,6 +13,7 @@ import { Table, Loader, Container } from 'semantic-ui-react';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import NavBar from 'containers/NavBar/Loadable';
 import makeSelectRestaurantDashboard, {
   makeSelectRestaurantInfo,
   makeSelectRestaurantId,
@@ -30,6 +31,7 @@ export class RestaurantDashboard extends React.Component {
   render() {
     return (
       <div>
+        <NavBar />
         <Container>
           {this.props.info ? (
             <div>
