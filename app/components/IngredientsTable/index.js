@@ -14,6 +14,7 @@ import { Table, Button, Icon } from 'semantic-ui-react';
 /* eslint-disable react/prefer-stateless-function */
 class IngredientsTable extends React.PureComponent {
   render() {
+    console.log('IL PROPS:', this.props);
     return (
       <div>
         <Table unstackable="true">
@@ -34,7 +35,13 @@ class IngredientsTable extends React.PureComponent {
                   <Table.Cell>{row.measurement}</Table.Cell>
                   {/* <Table.Cell>Cell</Table.Cell> */}
                   <Table.Cell>
-                    <Button icon size="tiny">
+                    <Button
+                      icon
+                      size="tiny"
+                      onClick={() =>
+                        this.props.removeIngredient(row.recipe_id, row.ndbno)
+                      }
+                    >
                       <Icon name="trash alternate" />
                     </Button>
                   </Table.Cell>
@@ -56,6 +63,7 @@ class IngredientsTable extends React.PureComponent {
 
 IngredientsTable.propTypes = {
   ingredientsList: PropTypes.object,
+  removeIngredient: PropTypes.func,
 };
 
 export default IngredientsTable;

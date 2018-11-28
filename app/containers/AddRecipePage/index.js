@@ -33,6 +33,7 @@ import {
   getIngredientsList,
   updateIngredientsList,
   sendForm,
+  deleteIngredient,
 } from './actions';
 import IngredientsTable from '../../components/IngredientsTable';
 
@@ -58,7 +59,7 @@ export class AddRecipePage extends React.PureComponent {
   }
 
   render() {
-    console.log(`Hi PropTypes, I'm using recId ${this.props.recId}`);
+    console.log(`Using recId for PropTypes: ${this.props.recId}`);
 
     return (
       <div>
@@ -98,6 +99,7 @@ export class AddRecipePage extends React.PureComponent {
             <br />
             <IngredientsTable
               ingredientsList={this.props.ingredientsList.ingredientsList}
+              removeIngredient={this.props.removeIngredient}
             />
           </div>
           <br />
@@ -118,6 +120,7 @@ AddRecipePage.propTypes = {
   // onChangeDescription: PropTypes.func,
   changePrice: PropTypes.func,
   changeIngredientList: PropTypes.func,
+  removeIngredient: PropTypes.func,
   onSubmitForm: PropTypes.func,
   recId: PropTypes.any,
   recName: PropTypes.any,
@@ -139,13 +142,15 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    getIngredients: () => {
-      console.log('GET_INGREDIENTS dispatched!');
-      dispatch(getIngredientsList());
-    },
+    getIngredients: () => dispatch(getIngredientsList()),
     changeId: newId => dispatch(updateId(newId)),
     changeName: newName => dispatch(updateName(newName)),
     changePrice: newPrice => dispatch(updatePrice(newPrice)),
+    removeIngredient: (recipeID, ndbno) => {
+      console.log('Dispatched deleteIngredient for');
+      console.log('recipeID', recipeID, 'ndbno', ndbno);
+      dispatch(deleteIngredient(recipeID, ndbno));
+    },
     // onChangeDescription: e => dispatch(updateDescription(e.target.value)),
     changeIngredientList: newList => dispatch(updateIngredientsList(newList)),
     onSubmitForm: e => {
