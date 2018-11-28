@@ -93,6 +93,7 @@ exports.up = knex =>
         .inTable('inventory');
       table.float('price', 10, 2);
       table.float('quantity');
+      table.timestamp('date').defaultTo(knex.fn.now());
     });
 
 exports.down = knex =>
