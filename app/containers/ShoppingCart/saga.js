@@ -17,7 +17,6 @@ export default function* shoppingCartSaga() {
 function* placeOrder() {
   const { orderList } = yield select(selectShoppingCartDomain);
   const { selectedRestaurant } = yield select(selectRestaurantDashboardDomain);
-  console.log('>>> in saga: orderlist, and id', orderList, selectedRestaurant);
 
   const options = {
     url: '/api/inventory/orderInv',
@@ -25,9 +24,8 @@ function* placeOrder() {
     data: { orderList, id: selectedRestaurant },
   };
 
-  console.log('>>> saga orderlist', orderList);
   try {
-    alert(`Your order has gone through! For: ${orderList}`);
+    alert(`Your order has gone through! For: ${JSON.stringify(orderList)}`);
     yield call(axios, options);
     yield put(wipeCart());
   } catch (e) {
