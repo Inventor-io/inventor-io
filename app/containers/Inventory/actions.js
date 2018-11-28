@@ -9,9 +9,16 @@ import {
   MOUNT_DB,
   ADD_ORDER,
   ORDER,
+  DEFAULT_ACTION,
   DEL_INVEN,
   REPLACE_INVEN,
 } from './constants';
+
+export function defaultAction() {
+  return {
+    type: DEFAULT_ACTION,
+  };
+}
 
 export function getInventory() {
   return {

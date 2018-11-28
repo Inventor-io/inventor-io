@@ -12,8 +12,15 @@ import {
   SEND_FORM,
   UPDATE_ID,
   UPDATE_INGREDIENTSLIST,
+  DEFAULT_ACTION,
   DELETE_INGREDIENT,
 } from './constants';
+
+export function defaultAction() {
+  return {
+    type: DEFAULT_ACTION,
+  };
+}
 
 export function updateId(recId) {
   return {
@@ -52,7 +59,7 @@ export function updateIngredientsList(recipeList) {
 export function deleteIngredient(recipe_id, ndbno) {
   return {
     type: DELETE_INGREDIENT,
-    payload: { recipe_id, ndbno },    
+    payload: { recipe_id, ndbno },
   };
 }
 /* eslint-enable */

@@ -1,11 +1,11 @@
 
-FROM node:alpine
+FROM node:11.2.0
 
 # Create app directory
 WORKDIR /usr/src/app
 
 # Install app dependencies
-COPY package.json .
+COPY package*.json ./
 # For npm@5 or later, copy package-lock.json as well
 # COPY package.json package-lock.json .
 
@@ -16,4 +16,4 @@ COPY . .
 
 EXPOSE 3000
 
-CMD [ "npm", "run", "start:production" ]
+CMD [ "npm", "start" ]

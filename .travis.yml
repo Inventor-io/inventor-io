@@ -1,7 +1,6 @@
 language: node_js
 node_js:
   - node
-  - lts/*
 script:
   - node ./internals/scripts/generate-templates-for-linting
   - npm test -- --maxWorkers=4
@@ -18,13 +17,15 @@ cache:
   directories:
     - node_modules
 deploy:
-  provider: s3
+  provider: elasticbeanstalk
   access_key_id: $AWS_ACCESS_KEY_ID
   secret_access_key: $AWS_SECRET_ACCESS_KEY
-  bucket: hratx-thesis
   region: us-east-2
-  local-dir: build
+  app: 'inventorio'
+  env: 'Inventorio-env'
+  # local-dir: build
   skip_cleanup: true
-  acl: bucket_owner_full_control
+  bucket_name: 'elasticbeanstalk-us-east-2-215978141573'
+  # acl: bucket_owner_full_control
   on:
-    branch: master
+    branch: docker
