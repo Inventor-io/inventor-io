@@ -1,9 +1,10 @@
 import { takeEvery, call, put, select } from 'redux-saga/effects';
 import axios from 'axios';
+import { push } from 'connected-react-router/immutable';
 import { GET_DB, ORDER, DEL_INVEN } from './constants';
 import { selectInventoryDomain } from './selectors';
 import { selectRestaurantDashboardDomain } from '../RestaurantDashboard/selectors';
-import { mountDB, replaceInven } from './actions';
+import { mountDB, replaceInven, formattedOrder } from './actions';
 
 // Individual exports for testing
 export default function* inventorySaga() {
@@ -34,15 +35,15 @@ function* sendOrder() {
   const { selected } = yield select(selectInventoryDomain);
 
   const options = {
-    url: '/api/inventory/orderInv',
+    url: '/api/inventory/formatInv',
     method: 'POST',
-    data: { ingObj: selected },
+    data: { orderndbnos: selected },
   };
 
   try {
-    const order = yield call(axios, options);
-    const s = JSON.parse(order.config.data);
-    alert(`Placing order... ${JSON.stringify(s.ingObj)}`);
+    const result = yield call(axios, options);
+    yield put(formattedOrder(result.data));
+    yield put(push('/shoppingCart'));
   } catch (e) {
     console.error(e);
   }
