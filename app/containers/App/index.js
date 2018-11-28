@@ -17,6 +17,7 @@ import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Inventory from 'containers/Inventory/Loadable';
 import AddInventory from 'containers/AddInventory/Loadable';
+import ShoppingCart from 'containers/ShoppingCart/Loadable';
 import RestaurantList from 'containers/RestaurantList/Loadable';
 import RestaurantDashboard from 'containers/RestaurantDashboard/Loadable';
 import Restaurant from 'containers/Restaurant/Loadable';
@@ -59,6 +60,16 @@ export default function App() {
           path="/inventory"
           render={() =>
             sessionStorage.getItem('username') ? <Inventory /> : <LandingPage />
+          }
+        />
+        <Route
+          path="/shoppingCart"
+          render={() =>
+            sessionStorage.getItem('username') ? (
+              <ShoppingCart />
+            ) : (
+              <LandingPage />
+            )
           }
         />
         <Route
