@@ -10,8 +10,6 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Link } from 'react-router-dom';
-import { Button } from 'semantic-ui-react';
 import FacebookLogin from 'react-facebook-login';
 import injectReducer from 'utils/injectReducer';
 import makeSelectLandingPage from './selectors';
@@ -35,14 +33,6 @@ export class LandingPage extends React.Component {
               callback={this.props.responseFacebook}
             />
           </div>
-          <Link to="/inventory">Inventory</Link>
-          <br />
-          <Link to="/recipe">Recipes</Link>
-          <br />
-          <Link to="/restaurant">Restaurant</Link>
-        </div>
-        <div>
-          <Button onClick={this.props.logoutClick} content="Logout" />
         </div>
       </div>
     );
@@ -65,7 +55,9 @@ function mapDispatchToProps(dispatch) {
     responseFacebook: response => {
       sessionStorage.setItem('username', response.name);
       dispatch(setUsername(response));
-      history.push('/restaurant');
+      if (sessionStorage.getItem('username') !== 'undefined') {
+        history.push('/restaurant');
+      }
     },
     logoutClick: e => {
       e.preventDefault();

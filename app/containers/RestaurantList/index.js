@@ -14,6 +14,7 @@ import { Button, Card } from 'semantic-ui-react';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import NavBar from 'containers/NavBar/Loadable';
 import makeSelectRestaurantList from './selectors';
 import makeSelectLandingPage from '../LandingPage/selectors';
 import reducer from './reducer';
@@ -42,6 +43,7 @@ export class RestaurantList extends React.Component {
             Add Restaurant
           </Button>
         </div>
+        <NavBar restaurant="true" />
         {this.props.restaurantList.restaurants
           ? this.props.restaurantList.restaurants.map((restaurant, key) => (
               <RestaurantCard

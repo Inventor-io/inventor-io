@@ -10,6 +10,8 @@ import {
   ADD_ORDER,
   ORDER,
   DEFAULT_ACTION,
+  DEL_INVEN,
+  REPLACE_INVEN,
 } from './constants';
 
 export function defaultAction() {
@@ -41,5 +43,19 @@ export function addToOrder(i) {
 export function order() {
   return {
     type: ORDER,
+  };
+}
+
+export function delInven(ndbno) {
+  return {
+    type: DEL_INVEN,
+    delete: ndbno,
+  };
+}
+
+export function replaceInven(arr) {
+  return {
+    type: REPLACE_INVEN,
+    currentInventory: arr,
   };
 }
