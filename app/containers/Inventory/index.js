@@ -17,7 +17,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import NavBar from 'containers/NavBar/Loadable';
 import { makeSelectInventory } from './selectors';
-import { getInventory, addToOrder, order } from './actions';
+import { getInventory, addToOrder, order, delInven } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -44,11 +44,13 @@ export class Inventory extends React.Component {
             <Table.Header>
               <Table.Row>
                 {this.props.currentInventory ? (
-                  ['ndbno', 'Item', 'Selected', 'Quantity'].map((key, i) => (
-                    <Table.HeaderCell key={i.toString()}>
-                      {key}
-                    </Table.HeaderCell>
-                  ))
+                  ['ndbno', 'Item', 'Selected', 'Quantity', 'Delete'].map(
+                    (key, i) => (
+                      <Table.HeaderCell key={i.toString()}>
+                        {key}
+                      </Table.HeaderCell>
+                    ),
+                  )
                 ) : (
                   <Table.Cell />
                 )}
@@ -58,26 +60,36 @@ export class Inventory extends React.Component {
             <Table.Body>
               {this.props.currentInventory ? (
                 this.props.currentInventory.map((obj, e) => {
-                  const rowData = ['ndbno', 'Item', 'Selected', 'Quantity'].map(
-                    (key, i) => {
-                      if (key === 'Selected') {
-                        return (
-                          <Table.Cell key={i.toString()}>
-                            <Checkbox value={e} onChange={this.props.toggle} />
-                            {/* <input
-                            type="checkbox"
-                            value={i}
-                            onChange={this.props.toggle}
-                          /> */}
-                          </Table.Cell>
-                        );
-                      }
-
+                  const rowData = [
+                    'ndbno',
+                    'Item',
+                    'Selected',
+                    'Quantity',
+                    'Delete',
+                  ].map((key, i) => {
+                    if (key === 'Selected') {
                       return (
-                        <Table.Cell key={i.toString()}>{obj[key]}</Table.Cell>
+                        <Table.Cell key={i.toString()}>
+                          <Checkbox value={e} onChange={this.props.toggle} />
+                        </Table.Cell>
                       );
-                    },
-                  );
+                    }
+                    if (key === 'Delete') {
+                      return (
+                        <Table.Cell key={i.toString()}>
+                          <Button
+                            icon="trash alternate outline"
+                            value={obj.ndbno}
+                            onClick={this.props.deleteInventory}
+                          />
+                        </Table.Cell>
+                      );
+                    }
+
+                    return (
+                      <Table.Cell key={i.toString()}>{obj[key]}</Table.Cell>
+                    );
+                  });
                   return <Table.Row key={e.toString()}>{rowData}</Table.Row>;
                 })
               ) : (
@@ -98,6 +110,7 @@ Inventory.propTypes = {
   mountData: PropTypes.func,
   toggle: PropTypes.func,
   handleOrder: PropTypes.func,
+  deleteInventory: PropTypes.func,
   // states
   currentInventory: PropTypes.any,
 };
@@ -114,10 +127,14 @@ function mapDispatchToProps(dispatch) {
       e.preventDefault();
       return dispatch(order());
     },
+    deleteInventory: e => {
+      e.preventDefault();
+      const ndbno = e.currentTarget.value;
+      return dispatch(delInven(ndbno));
+    },
   };
 }
 
-// TODO: dont worry about here
 const withConnect = connect(
   mapStateToProps,
   mapDispatchToProps,

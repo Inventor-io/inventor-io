@@ -3,6 +3,31 @@ const router = express.Router();
 require('dotenv').config();
 const db = require('knex')(require('../knexfile').development);
 
+// DELETE INGREDIENT
+router.delete('/ingredients', (req, res) => {
+  console.log('DELETE RECIEVED');
+  console.log('req.query', req.query);
+  /* eslint-disable */
+  const recipe_id = Number.parseInt(req.query.recipe_id);
+  const { ndbno } = req.query.ndbno;
+  deleteIngredient({ recipe_id, ndbno }, res);
+  /* eslint-enable */
+});
+async function deleteIngredient(query, res) {
+  try {
+    console.log('query in async:', query);
+    await deleteTheRow(query);
+    console.log('Response sent.');
+    res.sendStatus(200);
+  } catch (e) {
+    console.log('ERROR in getRecipes:', e);
+  }
+}
+const deleteTheRow = query =>
+  db('recipe_inventory')
+    .where(query)
+    .del();
+
 // GET RECIPES
 router.get('/get', (req, res) => {
   console.log('GET received at api/recipe/get');

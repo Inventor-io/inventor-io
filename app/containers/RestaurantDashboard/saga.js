@@ -9,7 +9,7 @@ import { selectRestaurantDashboardDomain } from './selectors';
 function* getRestaurantInfo() {
   console.log('inside saga for select restaurant');
   const { selectedRestaurant } = yield select(selectRestaurantDashboardDomain);
-  console.log(selectedRestaurant);
+  // console.log(selectedRestaurant);
   try {
     const post = {
       url: '/api/restaurant/getit',
@@ -18,7 +18,7 @@ function* getRestaurantInfo() {
     };
 
     const restaurantQuery = yield call(axios, post);
-    console.log(restaurantQuery.data);
+    // console.log(restaurantQuery.data);
     yield put({
       type: RECEIVED_RESTAURANT_INFO,
       info: restaurantQuery.data,

@@ -4,7 +4,14 @@
  *
  */
 
-import { GET_DB, MOUNT_DB, ADD_ORDER, ORDER } from './constants';
+import {
+  GET_DB,
+  MOUNT_DB,
+  ADD_ORDER,
+  ORDER,
+  DEL_INVEN,
+  REPLACE_INVEN,
+} from './constants';
 
 export function getInventory() {
   return {
@@ -29,5 +36,19 @@ export function addToOrder(i) {
 export function order() {
   return {
     type: ORDER,
+  };
+}
+
+export function delInven(ndbno) {
+  return {
+    type: DEL_INVEN,
+    delete: ndbno,
+  };
+}
+
+export function replaceInven(arr) {
+  return {
+    type: REPLACE_INVEN,
+    currentInventory: arr,
   };
 }

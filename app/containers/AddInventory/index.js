@@ -25,6 +25,7 @@ import 'semantic-ui-css/semantic.min.css';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import NavBar from 'containers/NavBar/Loadable';
+// import history from '../../utils/history';
 
 import {
   makeOptionsSelect,
@@ -32,7 +33,13 @@ import {
   makeIngredientSelect,
   makeAddIngredientSelect,
 } from './selectors';
-import { updateSearchTerm, sendQuery, updateSelect, saveToDB } from './actions';
+import {
+  updateSearchTerm,
+  sendQuery,
+  updateSelect,
+  saveToDB,
+  removeItem,
+} from './actions';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -84,7 +91,10 @@ export class AddInventory extends React.Component {
             <List bulleted>
               {this.props.addedIngredients
                 ? this.props.addedIngredients.map((obj, i) => (
-                  <List.Item key={i.toString()}>{obj.inventory_name}</List.Item>
+                  <List.Item key={i.toString()}>
+                    {obj.inventory_name}
+                    <Button icon="delete" onClick={this.props.handleRemove} value={obj.inventory_name}/>
+                  </List.Item>
                 ))
                 : ''}
             </List>
@@ -106,6 +116,7 @@ AddInventory.propTypes = {
   handleChange: PropTypes.func,
   handleSearch: PropTypes.func,
   handleSelect: PropTypes.func,
+  handleRemove: PropTypes.func,
   saveToDB: PropTypes.func,
   // states
   searchTerm: PropTypes.any,
@@ -135,11 +146,16 @@ function mapDispatchToProps(dispatch) {
       e.preventDefault();
       return dispatch(sendQuery(searchTerm));
     },
+    handleRemove: e => {
+      e.preventDefault();
+      return dispatch(removeItem(e.target.value));
+    },
     // select item from dropdown
     handleSelect: (e, target) => dispatch(updateSelect(target.value)),
     // send all selected items to db
     saveToDB: e => {
       e.preventDefault();
+      // history.push('/inventory');
       return dispatch(saveToDB());
     },
   };
