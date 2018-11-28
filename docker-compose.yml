@@ -1,11 +1,21 @@
-version: '2'
+version: '3'
 services:
   nginx:
-    image: nginx
+    image: nginx:latest
+    container_name: nginx
+    volumes:
+      - /home/jpw/thesis/inventor-io/proxy/conf.d/default.conf
     ports:
       - '80:80'
-    restart: always
-  inventorio-io:
-    depends_on: [nginx]
+    networks:
+      - my-network
+  inventorio:
     image: jpwarren13/inventor-io:latest
-    restart: always
+    container_name: inventorio
+    expose:
+      - '3000'
+    networks:
+      - my-network
+networks:
+  my-network:
+    name: my-network

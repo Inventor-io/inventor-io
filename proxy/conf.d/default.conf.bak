@@ -1,1 +1,31 @@
-h
+upstream inventorio{
+    server inventorio:3000;
+  }
+
+server {
+  listen 80;
+  # server_name localhost;
+  root /var/www/html;
+ 
+  index index.html;
+
+     location /{
+        proxy_pass http://inventorio;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+     }
+}
+
+  #  location / {
+  #   try_files $uri @inventorio;  
+  # }
+
+  # location @nodejs {
+  #   proxy_pass http://inventorio:3000;
+  # }
+
+
+
