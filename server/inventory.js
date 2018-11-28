@@ -26,7 +26,6 @@ const formatInventoryData = (inventories, name) => {
     const newObj = {};
     newObj.Quantity = obj.quantity;
     newObj.Item = invDict[obj.ndbno];
-    newObj.Selected = false;
     newObj.ndbno = obj.ndbno;
     return newObj;
   });
@@ -164,9 +163,33 @@ router.post('/addIngToDB', (req, res) => {
   saveInv(ingObj, id, res);
 });
 
-module.exports = router;
-
 // POST: /api/inventory/orderInv
 router.post('/orderInv', (req, res) => {
   res.send(req.body);
 });
+
+const knexDelInv = ndbno =>
+  db
+    .from('restaurant_inventory')
+    .where({ ndbno })
+    .del()
+    .catch(e => {
+      console.log(e);
+    });
+
+async function deleteInv(ndbno, res) {
+  try {
+    await knexDelInv(ndbno);
+    res.sendStatus(200);
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+// POST: /api/inventory/deleteInventory
+router.post('/deleteInventory', (req, res) => {
+  const { ndbno } = req.body;
+  deleteInv(ndbno, res);
+});
+
+module.exports = router;

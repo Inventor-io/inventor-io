@@ -4,19 +4,19 @@ require('dotenv').config();
 const db = require('knex')(require('../knexfile').development);
 
 router.get('/list', (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   getRestaurants().then(response => {
-    console.log(response);
+    // console.log(response);
     res.status(200).send(response);
   });
 });
 
 router.post('/create', (req, res) => {
-  console.log('SERVER', req.body);
+  // console.log('SERVER', req.body);
 
   createNewRestaurant(req.body)
-    .then(response => {
-      console.log(response);
+    .then(() => {
+      // console.log(response);
       res.status(201).end('DB Save Success');
     })
     .catch(err => {
