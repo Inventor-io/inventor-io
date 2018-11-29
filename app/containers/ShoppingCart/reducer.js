@@ -36,8 +36,8 @@ function shoppingCartReducer(state = initialState, action) {
       return Object.assign({}, state, {
         orderList: state.orderList.map((obj, i) => {
           const nobj = { ...obj };
-          if (i === parseInt(action.modify, 10)) {
-            nobj.Price = action.value;
+          if (i === action.modify) {
+            nobj.Orders = action.value;
           }
           return nobj;
         }),

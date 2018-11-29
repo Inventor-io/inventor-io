@@ -235,7 +235,7 @@ const formatToSaveOrder = (arr, id) =>
     nObj.restaurant_id = id;
     nObj.ndbno = obj.ndbno;
     nObj.price = obj.Price;
-    nObj.quantity = obj.Quantity;
+    nObj.quantity = obj.Orders;
     return nObj;
   });
 

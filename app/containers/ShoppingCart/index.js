@@ -73,7 +73,7 @@ export class ShoppingCart extends React.Component {
                           <Table.Cell>
                             <Input
                               defaultValue={obj.Orders}
-                              onChange={this.props.handleChange}
+                              onChange={e => this.props.handleChange(e, i)}
                               key={i.toString()}
                             />
                           </Table.Cell>
@@ -107,10 +107,10 @@ export class ShoppingCart extends React.Component {
             {' $'}
             {/* eslint-disable */}
             {this.props.orderList
-              ? this.props.orderList.reduce(
-                  (prev, curr) => prev + curr.Price,
+              ?  new Intl.NumberFormat('en-IN', { maximumSignificantDigits: 3 }).format(this.props.orderList.reduce(
+                  (prev, curr) => prev + (curr.Price * curr.Orders),
                   0,
-                )
+                )) 
               : '0'}
             {/* eslint-enable */}
           </Segment>
@@ -147,9 +147,9 @@ function mapDispatchToProps(dispatch) {
       e.preventDefault();
       return dispatch(placeOrder());
     },
-    handleChange: e => {
+    handleChange: (e, i) => {
       e.preventDefault();
-      return dispatch(handleInput(e.currentTarget.key, e.currentTarget.value));
+      return dispatch(handleInput(i, e.target.value));
     },
     mountOrderList: () => dispatch(mountOrder()),
   };

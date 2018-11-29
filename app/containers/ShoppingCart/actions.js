@@ -30,7 +30,7 @@ export function handleInput(i, val) {
   return {
     type: CHANGE_INPUT,
     modify: i,
-    value: val,
+    value: parseInt(val, 10),
   };
 }
 
