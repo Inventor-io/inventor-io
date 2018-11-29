@@ -76,6 +76,7 @@ export class ShoppingCart extends React.Component {
                             <Input
                               defaultValue={obj.Orders}
                               onChange={this.props.handleChange}
+                              key={i.toString()}
                             />
                           </Table.Cell>
                         );
@@ -150,7 +151,7 @@ function mapDispatchToProps(dispatch) {
     },
     handleChange: e => {
       e.preventDefault();
-      return dispatch(handleInput());
+      return dispatch(handleInput(e.currentTarget.key, e.currentTarget.value));
     },
     mountOrderList: () => dispatch(mountOrder()),
   };

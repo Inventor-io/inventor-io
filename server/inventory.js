@@ -181,6 +181,17 @@ router.post('/formatInv', (req, res) => {
 
 const formatToOrder = orders =>
   orders.map(ndbno => {
+    db.whereIn('ndbno', orders).from('inventory');
+    // .then(table => {
+    //   console.log('>>> ndbno names', table);
+    // });
+
+    // get db for item name <-- 'inventory'
+
+    // get db for order <-- 'orders'
+    // get db for quantity <-- 'orders'
+    // get db for price <-- hash function
+
     const obj = {};
     obj.ndbno = ndbno;
     obj.Price = 150; // TODO: fix
