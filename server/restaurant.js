@@ -3,9 +3,9 @@ const router = express.Router();
 require('dotenv').config();
 const db = require('knex')(require('../knexfile').development);
 
-router.get('/list', (req, res) => {
-  // console.log(req.body);
-  getRestaurants().then(response => {
+router.post('/list', (req, res) => {
+  console.log(req.body);
+  getRestaurants(req.body.userId).then(response => {
     // console.log(response);
     res.status(200).send(response);
   });
@@ -26,7 +26,8 @@ router.post('/create', (req, res) => {
 });
 
 router.post('/getit', (req, res) => {
-  const restaurantID = 1;
+  console.log(req.body);
+  const restaurantID = req.body.selectedRestaurant;
   // Object.keys(req.body)[0] ||
   const restaurantInfo = {};
   restaurantOrders(restaurantID).then(orders => {

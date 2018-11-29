@@ -2,9 +2,9 @@
 // import { mount } from 'enzyme';
 // import { enzymeFind } from 'styled-components/test-utils';
 
-// import { AddRecipePage } from '../index';
+// import { ShoppingCart } from '../index';
 
-xdescribe('<AddRecipePage />', () => {
+describe('<ShoppingCart />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });

@@ -7,6 +7,7 @@ import {
   UPDATE_INGREDIENTSLIST,
   DELETE_INGREDIENT,
 } from './constants';
+import { selectRestaurantDashboardDomain } from '../RestaurantDashboard/selectors';
 
 // Individual exports for testing
 export default function* addRecipePageSaga() {
@@ -36,9 +37,11 @@ function* sendRecipe() {
   // selector bits
   console.log('SEND RECIPE CALLED');
   const { recName, recPrice } = yield select(selectAddRecipePageDomain);
+  const userInfo = yield select(selectRestaurantDashboardDomain);
+  const userId = userInfo.selectedRestaurant;
   const data = {
     recipe_name: recName,
-    restaurant_id: 1,
+    restaurant_id: userId,
     price: recPrice,
   };
 

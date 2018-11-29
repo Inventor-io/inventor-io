@@ -9,9 +9,17 @@ import {
   MOUNT_DB,
   ADD_ORDER,
   ORDER,
+  DEFAULT_ACTION,
   DEL_INVEN,
   REPLACE_INVEN,
+  FORMAT_ORDER,
 } from './constants';
+
+export function defaultAction() {
+  return {
+    type: DEFAULT_ACTION,
+  };
+}
 
 export function getInventory() {
   return {
@@ -50,5 +58,12 @@ export function replaceInven(arr) {
   return {
     type: REPLACE_INVEN,
     currentInventory: arr,
+  };
+}
+
+export function formattedOrder(arr) {
+  return {
+    type: FORMAT_ORDER,
+    formatted: arr,
   };
 }

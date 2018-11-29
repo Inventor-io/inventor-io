@@ -4,7 +4,7 @@
 
 // import RestaurantCard from '../index';
 
-describe('<RestaurantCard />', () => {
+xdescribe('<RestaurantCard />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });

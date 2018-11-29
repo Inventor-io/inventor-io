@@ -5,7 +5,14 @@ const axios = require('axios');
 const router = express.Router();
 const db = require('knex')(require('../knexfile').development);
 
-// GET: /api/inventory
+/* 
+  GET: /api/inventory
+*/
+router.post('/', (req, res) => {
+  const { id } = req.body;
+  getInventory(id, res);
+});
+
 const retrieveRestaurantInventory = id =>
   db.where({ restaurant_id: id }).from('restaurant_inventory');
 
@@ -43,13 +50,16 @@ async function getInventory(restaurantID, res) {
   }
 }
 
-// MAIN ROUTE
-router.post('/', (req, res) => {
-  const { id } = req.body;
-  getInventory(id, res);
+/* 
+  POST: /api/inventory/usdaSearch
+*/
+router.post('/usdaSearch', (req, res) => {
+  // make usda api call
+  const { searchTerm } = req.body;
+
+  getUSDA(searchTerm, res);
 });
 
-// POST: /api/inventory/usdaSearch
 const usdaQuerySearch = searchTerm =>
   // make API call to USDA and receive ndbnos
   axios.get(`https://api.nal.usda.gov/ndb/search/?`, {
@@ -84,15 +94,10 @@ async function getUSDA(searchTerm, res) {
   }
 }
 
-// MAIN ROUTE
-router.post('/usdaSearch', (req, res) => {
-  // make usda api call
-  const { searchTerm } = req.body;
+/* 
+  POST: /api/inventory/addIngToDB
+*/
 
-  getUSDA(searchTerm, res);
-});
-
-// POST: /api/inventory/addIngToDB
 const saveIngToInventoryDB = inventoryList =>
   // save inventory to 'inventory' table
   db
@@ -163,9 +168,74 @@ router.post('/addIngToDB', (req, res) => {
   saveInv(ingObj, id, res);
 });
 
-// POST: /api/inventory/orderInv
+/* 
+  POST: /api/inventory/formatInv
+*/
+router.post('/formatInv', (req, res) => {
+  const { orderndbnos } = req.body;
+  const set = new Set(orderndbnos);
+  const filtered = Array.from(set);
+  const formatted = formatToOrder(filtered);
+  res.send(formatted);
+});
+
+const formatToOrder = orders =>
+  orders.map(ndbno => {
+    const obj = {};
+    obj.ndbno = ndbno;
+    obj.Price = 150; // TODO: fix
+    obj.Quantity = 10; // TODO:fix
+    obj.Orders = 30; // TODO:fix
+    obj.Item = 'name'; // TODO: fix
+    return obj;
+  });
+
+/* 
+  POST: /api/inventory/orderInv
+*/
 router.post('/orderInv', (req, res) => {
-  res.send(req.body);
+  const { orderList, id } = req.body;
+  const reformat = formatToSaveOrder(orderList, id);
+  orderAsync(reformat, res);
+});
+
+const formatToSaveOrder = (arr, id) =>
+  arr.map(obj => {
+    const nObj = {};
+    nObj.restaurant_id = id;
+    nObj.ndbno = obj.ndbno;
+    nObj.price = obj.Price;
+    nObj.quantity = obj.Quantity;
+    return nObj;
+  });
+
+async function orderAsync(orderArr, res) {
+  try {
+    await saveOrder(orderArr);
+    res.sendStatus(200);
+  } catch (e) {
+    // console.log(e);
+  }
+}
+
+const saveOrder = orderArr =>
+  db
+    .insert(orderArr)
+    .into('orders')
+    .catch(err => {
+      if (err.code === '23505') {
+        // console.log('Duplicate in inventory db... its ok');
+      } else {
+        console.log('ERROR saving order to db', err);
+      }
+    });
+
+/* 
+POST: /api/inventory/deleteInventory
+*/
+router.post('/deleteInventory', (req, res) => {
+  const { ndbno } = req.body;
+  deleteInv(ndbno, res);
 });
 
 const knexDelInv = ndbno =>
@@ -186,10 +256,7 @@ async function deleteInv(ndbno, res) {
   }
 }
 
-// POST: /api/inventory/deleteInventory
-router.post('/deleteInventory', (req, res) => {
-  const { ndbno } = req.body;
-  deleteInv(ndbno, res);
-});
-
+/*
+  export
+*/
 module.exports = router;
