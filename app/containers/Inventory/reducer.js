@@ -5,12 +5,19 @@
  */
 
 import { fromJS } from 'immutable';
-import { MOUNT_DB, ADD_ORDER, DEL_INVEN, REPLACE_INVEN } from './constants';
+import {
+  MOUNT_DB,
+  ADD_ORDER,
+  DEL_INVEN,
+  REPLACE_INVEN,
+  FORMAT_ORDER,
+} from './constants';
 
 export const initialState = fromJS({
   currentInventory: [],
   selected: [],
   delItem: '',
+  formatted: [],
 });
 
 function inventoryReducer(state = initialState, action) {
@@ -32,6 +39,10 @@ function inventoryReducer(state = initialState, action) {
     case REPLACE_INVEN:
       return Object.assign({}, state, {
         currentInventory: action.currentInventory,
+      });
+    case FORMAT_ORDER:
+      return Object.assign({}, state, {
+        formatted: action.formatted,
       });
     default:
       return state;

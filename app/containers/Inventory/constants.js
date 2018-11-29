@@ -12,3 +12,4 @@ export const ORDER = 'app/Inventory/ORDER';
 export const DEFAULT_ACTION = 'app/Inventory/DEFAULT_ACTION';
 export const DEL_INVEN = 'app/Inventory/DEL_INVEN';
 export const REPLACE_INVEN = 'app/Inventory/REPLACE_INVEN';
+export const FORMAT_ORDER = 'app/Inventory/FORMAT_ORDER';

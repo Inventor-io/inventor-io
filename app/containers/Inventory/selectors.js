@@ -18,4 +18,7 @@ const selectInventoryDomain = state => state.get('inventory', initialState);
 const makeSelectInventory = () =>
   createSelector(selectInventoryDomain, substate => substate.currentInventory);
 
-export { selectInventoryDomain, makeSelectInventory };
+const makeSelectFormatted = () =>
+  createSelector(selectInventoryDomain, substate => substate.formatted);
+
+export { selectInventoryDomain, makeSelectInventory, makeSelectFormatted };
