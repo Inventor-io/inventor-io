@@ -4,6 +4,7 @@ import { PLACE_ORDER, CALL_MOUNT_ORDER } from './constants';
 import { sendMountOrder, wipeCart } from './actions';
 import { selectInventoryDomain } from '../Inventory/selectors';
 import { selectShoppingCartDomain } from './selectors';
+import { wipeChecked } from '../Inventory/actions';
 import { selectRestaurantDashboardDomain } from '../RestaurantDashboard/selectors';
 
 // Individual exports for testing
@@ -28,6 +29,8 @@ function* placeOrder() {
     alert(`Your order has gone through! For: ${JSON.stringify(orderList)}`);
     yield call(axios, options);
     yield put(wipeCart());
+    yield put(wipeChecked()); // clear 'selected' state in inventory
+    yield put(wipeChecked()); // clear 'formatted' state in inventory
   } catch (e) {
     // console.log(e);
   }
