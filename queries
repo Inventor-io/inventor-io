@@ -1,0 +1,16 @@
+//Inventory of restaurant with food names
+
+SELECT price, quantity, inventory_name FROM orders RIGHT JOIN inventory ON orders.ndbno = inventory.ndbno WHERE orders.restaurant_id=1;
+
+
+// Select inventory of specific recipe
+
+SELECT inventory_name, measurement FROM recipe_inventory JOIN inventory ON recipe_inventory.ndbno = inventory.ndbno WHERE recipe_inventory.recipe_id=1;
+
+// Sales of a particular restaurant
+
+select restaurants_name, recipe_name, quantity, price, date FROM sales INNER JOIN recipes ON recipes.recipe_id = sales.recipe_id INNER JOIN restaurants ON sales.restaurant_id = restaurants.id;
+
+//Inventory
+
+select inventory.ndbno, inventory_name, orders.quantity/orders.price  as price_unit, date, restaurant_inventory.quantity, orders.quantity/orders.price * restaurant_inventory.quantity as total from orders INNER JOIN inventory on inventory.ndbno = orders.ndbno RIGHT OUTER JOIN restaurant_inventory on restaurant_inventory.restaurant_id = 1;
