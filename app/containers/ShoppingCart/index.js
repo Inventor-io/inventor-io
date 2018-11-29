@@ -31,7 +31,8 @@ import saga from './saga';
 /* eslint-disable react/prefer-stateless-function */
 export class ShoppingCart extends React.Component {
   componentDidMount() {
-    if (!this.props.orderList || !this.props.orderList.length) {
+    if (!this.props.orderList) {
+      // || !this.props.orderList.length
       this.props.mountOrderList();
     }
   }
@@ -47,7 +48,7 @@ export class ShoppingCart extends React.Component {
 
         <Container>
           <Header as="h1">Shopping Cart</Header>
-          <Table>
+          <Table unstackable>
             <Table.Header>
               <Table.Row>
                 {['ndbno', 'Item', 'Quantity', 'Orders', 'Price', 'Delete'].map(
@@ -61,7 +62,7 @@ export class ShoppingCart extends React.Component {
             <Table.Body>
               {this.props.orderList ? (
                 this.props.orderList.map((obj, i) => (
-                  <Table.Row>
+                  <Table.Row key={obj.ndbno}>
                     {[
                       'ndbno',
                       'Item',

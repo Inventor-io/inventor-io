@@ -71,13 +71,13 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     onPageLoad: e => {
-      console.log(e);
+      // console.log(e);
       dispatch(getRestaurants());
     },
     onClick: e => {
       const resID = e.target.id;
       dispatch(selectedRes(resID));
-      console.log(resID);
+      // console.log(resID);
     },
   };
 }
