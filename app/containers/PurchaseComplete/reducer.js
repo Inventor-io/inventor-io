@@ -5,14 +5,18 @@
  */
 
 import { fromJS } from 'immutable';
-import { DEFAULT_ACTION } from './constants';
+import { PASS_ORDERLIST } from './constants';
 
-export const initialState = fromJS({});
+export const initialState = fromJS({
+  orderList: [],
+});
 
 function purchaseCompleteReducer(state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
+    case PASS_ORDERLIST:
+      return Object.assign({}, state, {
+        orderList: action.orderList,
+      });
     default:
       return state;
   }

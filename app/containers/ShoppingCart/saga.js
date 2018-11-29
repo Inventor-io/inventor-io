@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { push } from 'connected-react-router/immutable';
 import { takeEvery, call, select, put } from 'redux-saga/effects';
 import { PLACE_ORDER, CALL_MOUNT_ORDER } from './constants';
 import { sendMountOrder, wipeCart } from './actions';
@@ -26,11 +27,12 @@ function* placeOrder() {
   };
 
   try {
-    alert(`Your order has gone through! For: ${JSON.stringify(orderList)}`);
+    // alert(`Your order has gone through! For: ${JSON.stringify(orderList)}`);
     yield call(axios, options);
     yield put(wipeCart());
     yield put(wipeChecked()); // clear 'selected' state in inventory
     yield put(wipeChecked()); // clear 'formatted' state in inventory
+    yield put(push('/purchaseComplete'));
   } catch (e) {
     // console.log(e);
   }

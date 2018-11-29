@@ -17,7 +17,7 @@ const selectPurchaseCompleteDomain = state =>
  */
 
 const makeSelectPurchaseComplete = () =>
-  createSelector(selectPurchaseCompleteDomain, substate => substate.toJS());
+  createSelector(selectPurchaseCompleteDomain, substate => substate.orderList);
 
 export default makeSelectPurchaseComplete;
 export { selectPurchaseCompleteDomain };

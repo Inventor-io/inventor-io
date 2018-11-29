@@ -256,7 +256,7 @@ const saveOrder = orderArr =>
       if (err.code === '23505') {
         // console.log('Duplicate in inventory db... its ok');
       } else {
-        console.log('ERROR saving order to db', err);
+        // console.log('ERROR saving order to db', err);
       }
     });
 
@@ -272,19 +272,58 @@ const knexDelInv = ndbno =>
   db
     .from('restaurant_inventory')
     .where({ ndbno })
-    .del()
-    .catch(e => {
-      console.log(e);
-    });
+    .del();
+// .catch(e => {
+//   console.log(e);
+// });
 
 async function deleteInv(ndbno, res) {
   try {
     await knexDelInv(ndbno);
     res.sendStatus(200);
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 }
+
+/*
+POST: /api/inventory/fetchPrevOrders
+*/
+
+router.post('/fetchPrevOrders', (req, res) => {
+  const { id } = req.body;
+  db.from('orders')
+    .where('restaurant_id', id)
+    .orderBy('date', 'desc')
+    .limit(20)
+    .then(arr => formatOrderPretty(arr, res));
+  // .catch(err => {
+  //   console.log(err);
+  // });
+});
+
+const formatOrderPretty = (arr, res) =>
+  retrieveInventoryName(arr)
+    .then(name => {
+      const invDict = {};
+      name.forEach(obj => {
+        invDict[obj.ndbno] = obj.inventory_name;
+      });
+      return invDict;
+    })
+    .then(invDict => {
+      const result = arr.map(obj => {
+        const nObj = {};
+        nObj.ndbno = obj.ndbno;
+        nObj.Item = invDict[obj.ndbno];
+        nObj.Orders = obj.quantity;
+        nObj.Price = obj.price;
+        nObj.Delivered = obj.delivered;
+        nObj.Date = obj.date;
+        return nObj;
+      });
+      res.send(result);
+    });
 
 /*
   export

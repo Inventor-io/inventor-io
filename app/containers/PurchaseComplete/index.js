@@ -6,21 +6,27 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Container, Header, Table, Divider, Segment } from 'semantic-ui-react';
+import { Container, Header, Table } from 'semantic-ui-react';
 
 import NavBar from 'containers/NavBar/Loadable';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import makeSelectPurchaseComplete from './selectors';
+import { fetchOrders } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 
 /* eslint-disable react/prefer-stateless-function */
 export class PurchaseComplete extends React.Component {
+  componentDidMount() {
+    this.props.fetch();
+  }
+
   render() {
     return (
       <div>
@@ -34,26 +40,27 @@ export class PurchaseComplete extends React.Component {
           <Header as="h1">My Orders</Header>
           <Table unstackable>
             <Table.Header>
-              <Table.Row>
-                {['ndbno', 'Item', 'Orders', 'Price', 'Delivered'].map(key => (
-                  <Table.HeaderCell>{key}</Table.HeaderCell>
-                ))}
+              <Table.Row key="header">
+                {['ndbno', 'Item', 'Orders', 'Price', 'Date', 'Delivered'].map(
+                  key => (
+                    <Table.HeaderCell>{key}</Table.HeaderCell>
+                  ),
+                )}
               </Table.Row>
             </Table.Header>
 
             <Table.Body>
-              {[
-                {
-                  ndbno: 1,
-                  Item: 'apple',
-                  Orders: 10,
-                  Price: 320,
-                  Delivered: false,
-                },
-              ].map((obj, i) => (
-                <Table.Row key={i.toString()}>
-                  {['ndbno', 'Item', 'Orders', 'Price', 'Delivered'].map(
-                    key => {
+              {this.props.orderList ? (
+                this.props.orderList.map((obj, i) => (
+                  <Table.Row key={i.toString()}>
+                    {[
+                      'ndbno',
+                      'Item',
+                      'Orders',
+                      'Price',
+                      'Date',
+                      'Delivered',
+                    ].map(key => {
                       if (key === 'Delivered') {
                         return (
                           <Table.Cell>
@@ -61,26 +68,33 @@ export class PurchaseComplete extends React.Component {
                           </Table.Cell>
                         );
                       }
+                      if (key === 'Date') {
+                        return (
+                          <Table.Cell>
+                            {moment(obj[key]).format('MM/DD/YYYY h:mm')}
+                          </Table.Cell>
+                        );
+                      }
                       return <Table.Cell>{obj[key]}</Table.Cell>;
-                    },
-                  )}
-                </Table.Row>
-              ))}
+                    })}
+                  </Table.Row>
+                ))
+              ) : (
+                <Table.Row />
+              )}
             </Table.Body>
           </Table>
-          <Divider />
-          <Segment textAlign="right" size="huge">
+          {/* <Divider /> */}
+          {/* <Segment textAlign="right" size="huge">
             Total:
             {' $'}
-            {/* eslint-disable */}
             {this.props.orderList
               ? this.props.orderList.reduce(
                   (prev, curr) => prev + curr.Price,
                   0,
                 )
               : '0'}
-            {/* eslint-enable */}
-          </Segment>
+          </Segment> */}
         </Container>
       </div>
     );
@@ -89,15 +103,16 @@ export class PurchaseComplete extends React.Component {
 
 PurchaseComplete.propTypes = {
   orderList: PropTypes.any,
+  fetch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
-  purchaseComplete: makeSelectPurchaseComplete(),
+  orderList: makeSelectPurchaseComplete(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    fetch: () => dispatch(fetchOrders()),
   };
 }
 
