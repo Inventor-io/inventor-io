@@ -172,34 +172,53 @@ router.post('/addIngToDB', (req, res) => {
   POST: /api/inventory/formatInv
 */
 router.post('/formatInv', (req, res) => {
-  const { orderndbnos } = req.body;
+  const { orderndbnos, id } = req.body;
   const set = new Set(orderndbnos);
   const filtered = Array.from(set);
-  const formatted = formatToOrder(filtered);
-  res.send(formatted);
+  formatOrderAsync(filtered, id, res);
 });
 
-const formatToOrder = orders =>
-  orders.map(ndbno => {
-    db.whereIn('ndbno', orders).from('inventory');
-    // .then(table => {
-    //   console.log('>>> ndbno names', table);
-    // });
+async function formatOrderAsync(ndbnos, id, res) {
+  // helper function
+  const createForEachDict = (arr, key) => {
+    const d = {};
+    arr.forEach(obj => {
+      d[obj.ndbno] = obj[key];
+    });
+    return d;
+  };
 
-    // get db for item name <-- 'inventory'
+  // get db for item name <-- 'inventory'
+  const nameArr = await db.whereIn('ndbno', ndbnos).from('inventory'); // [{ndbno:'111', inventory_name: 'apple'}]
+  const names = createForEachDict(nameArr, 'inventory_name');
 
-    // get db for order <-- 'orders'
-    // get db for quantity <-- 'orders'
-    // get db for price <-- hash function
+  // get db for ast order amount <-- 'orders'
+  const orderArr = await db
+    .whereIn('ndbno', ndbnos)
+    .andWhere('restaurant_id', id)
+    .from('orders');
+  const orders = createForEachDict(orderArr, 'quantity');
 
-    const obj = {};
-    obj.ndbno = ndbno;
-    obj.Price = 150; // TODO: fix
-    obj.Quantity = 10; // TODO:fix
-    obj.Orders = 30; // TODO:fix
-    obj.Item = 'name'; // TODO: fix
-    return obj;
+  // get db for current quantity <-- 'restaurant_inventory'
+  const quantityArr = await db
+    .whereIn('ndbno', ndbnos)
+    .andWhere('restaurant_id', id)
+    .from('restaurant_inventory');
+  // get db for price <-- hash function
+  const quantities = createForEachDict(quantityArr, 'quantity');
+
+  const result = ndbnos.map(ndbno => {
+    const returnObj = {};
+    returnObj.ndbno = ndbno;
+    returnObj.Price = 150; // TODO: fix
+    returnObj.Quantity = quantities[ndbno];
+    returnObj.Orders = orders[ndbno] ? orders[ndbno] : 0;
+    returnObj.Item = names[ndbno];
+    return returnObj;
   });
+
+  res.send(result);
+}
 
 /* 
   POST: /api/inventory/orderInv
