@@ -48,7 +48,7 @@ exports.up = knex =>
         .string('ndbno')
         .references('ndbno')
         .inTable('inventory');
-      table.float('current_quantity').defaultTo(0);
+      table.float('quantity').defaultTo(0);
     })
 
     // 05 RECIPE-INVENTORY JOIN TABLE
