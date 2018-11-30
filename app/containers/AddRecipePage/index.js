@@ -13,7 +13,7 @@ import { Helmet } from 'react-helmet';
 // import messages from './messages';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Input, Button, Container } from 'semantic-ui-react';
+import { Input, Button, Container, Modal } from 'semantic-ui-react';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import NavBar from 'containers/NavBar/Loadable';
@@ -37,6 +37,7 @@ import {
   deleteIngredient,
 } from './actions';
 import IngredientsTable from '../../components/IngredientsTable';
+import AddIngredients from '../AddIngredients';
 
 /* eslint-disable react/prefer-stateless-function */
 
@@ -105,11 +106,11 @@ export class AddRecipePage extends React.PureComponent {
             />
           </div>
           <br />
-          <Button
-            content="Add an ingredient"
-            color="green"
-            onClick={() => console.log('Add Ingredient clicked')}
-          />
+          <Modal trigger={<Button content="Add an ingredient" color="green" />}>
+            <Modal.Content>
+              <AddIngredients />
+            </Modal.Content>
+          </Modal>
         </Container>
       </div>
     );
