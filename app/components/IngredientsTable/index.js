@@ -14,7 +14,6 @@ import { Table, Button, Icon } from 'semantic-ui-react';
 /* eslint-disable react/prefer-stateless-function */
 class IngredientsTable extends React.PureComponent {
   render() {
-    console.log('IL PROPS:', this.props);
     return (
       <div>
         <Table unstackable="true">

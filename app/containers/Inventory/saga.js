@@ -33,11 +33,12 @@ function* getInventory() {
 
 function* sendOrder() {
   const { selected } = yield select(selectInventoryDomain);
+  const { selectedRestaurant } = yield select(selectRestaurantDashboardDomain);
 
   const options = {
     url: '/api/inventory/formatInv',
     method: 'POST',
-    data: { orderndbnos: selected },
+    data: { orderndbnos: selected, id: selectedRestaurant },
   };
 
   try {

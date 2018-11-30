@@ -5,7 +5,12 @@
  */
 
 import { fromJS } from 'immutable';
-import { DELETE_ITEM, WIPE_CART, SEND_MOUNT_ORDER } from './constants';
+import {
+  DELETE_ITEM,
+  WIPE_CART,
+  SEND_MOUNT_ORDER,
+  CHANGE_INPUT,
+} from './constants';
 
 export const initialState = fromJS({
   orderList: [], // order list to display
@@ -26,6 +31,16 @@ function shoppingCartReducer(state = initialState, action) {
     case SEND_MOUNT_ORDER:
       return Object.assign({}, state, {
         orderList: action.orderList,
+      });
+    case CHANGE_INPUT:
+      return Object.assign({}, state, {
+        orderList: state.orderList.map((obj, i) => {
+          const nobj = { ...obj };
+          if (i === action.modify) {
+            nobj.Orders = action.value;
+          }
+          return nobj;
+        }),
       });
     default:
       return state;

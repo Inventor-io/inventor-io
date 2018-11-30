@@ -79,6 +79,13 @@ export class NavBar extends React.Component {
                 content="Shopping Cart"
                 onClick={this.handleItemClick}
               />
+
+              <Menu.Item
+                name="purchaseComplete"
+                active={activeItem === 'purchaseComplete'}
+                content="My purchases"
+                onClick={this.handleItemClick}
+              />
             </React.Fragment>
           ) : null}
           <Menu.Menu position="right">

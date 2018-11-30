@@ -9,17 +9,11 @@ import {
   MOUNT_DB,
   ADD_ORDER,
   ORDER,
-  DEFAULT_ACTION,
   DEL_INVEN,
   REPLACE_INVEN,
   FORMAT_ORDER,
+  WIPE,
 } from './constants';
-
-export function defaultAction() {
-  return {
-    type: DEFAULT_ACTION,
-  };
-}
 
 export function getInventory() {
   return {
@@ -65,5 +59,11 @@ export function formattedOrder(arr) {
   return {
     type: FORMAT_ORDER,
     formatted: arr,
+  };
+}
+
+export function wipeChecked() {
+  return {
+    type: WIPE,
   };
 }
