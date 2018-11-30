@@ -28,6 +28,7 @@ export class NavBar extends React.Component {
 
   logoutClick = () => {
     sessionStorage.clear();
+    localStorage.clear();
     if (typeof FB === 'object') {
       window.FB.logout();
     }

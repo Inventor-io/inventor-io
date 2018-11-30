@@ -14,12 +14,16 @@ export default function* restaurantListSaga() {
 
 function* getList() {
   const userInfo = yield select(makeSelectLandingPage());
+  let userID;
+  userInfo.id
+    ? (userID = userInfo.id)
+    : (userID = localStorage.getItem('userId'));
   console.log(userInfo.id);
   try {
     const post = {
       url: '/api/restaurant/list',
       method: 'post',
-      data: { userId: userInfo.id },
+      data: { userId: userID },
     };
     const response = yield call(axios, post);
     const { data } = response;
