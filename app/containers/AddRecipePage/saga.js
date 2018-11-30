@@ -21,6 +21,7 @@ export default function* addRecipePageSaga() {
 function* deleteIngredient(action) {
   console.log('SAGA ACTION PAYLOAD', action.payload);
   try {
+    const { ingredientsList } = yield select(selectAddRecipePageDomain);
     const axiosArgs = {
       url: '/api/recipe/ingredients',
       method: 'delete',
@@ -28,6 +29,15 @@ function* deleteIngredient(action) {
     };
     const response = yield call(axios, axiosArgs);
     console.log(response);
+
+    const purgedList = ingredientsList.filter(
+      recipe => recipe.ndbno !== action.payload.ndbno,
+    );
+    console.log('Purged list', purgedList);
+    yield put({
+      type: UPDATE_INGREDIENTSLIST,
+      ingredientsList: purgedList,
+    });
   } catch (e) {
     yield console.error(e);
   }
