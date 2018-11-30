@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Table, Loader, Container } from 'semantic-ui-react';
+// import { Table, Loader, Container } from 'semantic-ui-react';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -23,7 +23,6 @@ import {
   Tooltip,
   Legend,
 } from 'recharts';
-import moment from 'moment';
 import makeSelectRestaurantDashboard, {
   makeSelectRestaurantInfo,
   makeSelectRestaurantId,
@@ -31,7 +30,7 @@ import makeSelectRestaurantDashboard, {
 import reducer from './reducer';
 import saga from './saga';
 import { loadInformation } from './actions';
-import { getRestaurantCosts } from './helpers/dashboard';
+// import { getRestaurantCosts } from './helpers/dashboard';
 
 /* eslint-disable react/prefer-stateless-function */
 export class RestaurantDashboard extends React.Component {
@@ -70,7 +69,13 @@ export class RestaurantDashboard extends React.Component {
             <Tooltip />
             <Legend />
             {this.props
-              ? this.props.info.daySales.map(recipe => <Line type="monotone" dataKey={recipe.recipe_name} stroke="#82ca9d" />)
+              ? this.props.info.daySales.map(recipe => (
+                <Line
+                  type="monotone"
+                  dataKey={recipe.recipe_name}
+                  stroke="#82ca9d"
+                />
+              ))
               : null}
             {/* {this.props.info.daySales ? this.props.info.daySales.rows.map(sale => 
               <Line type="monotone" dataKey={sale.recipe_name} stroke="#82ca9d" />
