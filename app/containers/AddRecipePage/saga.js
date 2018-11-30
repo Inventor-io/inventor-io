@@ -5,23 +5,43 @@ import {
   SEND_FORM,
   GET_INGREDIENTSLIST,
   UPDATE_INGREDIENTSLIST,
+  DELETE_INGREDIENT,
 } from './constants';
+import { selectRestaurantDashboardDomain } from '../RestaurantDashboard/selectors';
 
 // Individual exports for testing
 export default function* addRecipePageSaga() {
   yield all([
     takeEvery(GET_INGREDIENTSLIST, getIngredients),
     takeEvery(SEND_FORM, sendRecipe),
+    takeEvery(DELETE_INGREDIENT, deleteIngredient),
   ]);
+}
+
+function* deleteIngredient(action) {
+  console.log('SAGA ACTION PAYLOAD', action.payload);
+  try {
+    const axiosArgs = {
+      url: '/api/recipe/ingredients',
+      method: 'delete',
+      params: action.payload,
+    };
+    const response = yield call(axios, axiosArgs);
+    console.log(response);
+  } catch (e) {
+    yield console.error(e);
+  }
 }
 
 function* sendRecipe() {
   // selector bits
   console.log('SEND RECIPE CALLED');
   const { recName, recPrice } = yield select(selectAddRecipePageDomain);
+  const userInfo = yield select(selectRestaurantDashboardDomain);
+  const userId = userInfo.selectedRestaurant;
   const data = {
     recipe_name: recName,
-    restaurant_id: 1,
+    restaurant_id: userId,
     price: recPrice,
   };
 

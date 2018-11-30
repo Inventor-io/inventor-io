@@ -14,7 +14,7 @@ function* getRestaurantInfo() {
     const post = {
       url: '/api/restaurant/getit',
       method: 'post',
-      data: Number(selectedRestaurant),
+      data: { selectedRestaurant: Number(selectedRestaurant) },
     };
 
     const restaurantQuery = yield call(axios, post);

@@ -1,19 +1,27 @@
-import { takeEvery, call, put } from 'redux-saga/effects';
+import { takeEvery, call, put, select } from 'redux-saga/effects';
 import axios from 'axios';
 import { RECEIVED_RESTAURANTS } from './constants';
+import { FORM_RESPONSE } from '../Restaurant/constants';
+import makeSelectLandingPage from '../LandingPage/selectors';
 // Individual exports for testing
 export default function* restaurantListSaga() {
   // See example in containers/HomePage/saga.js
-  yield takeEvery('app/RestaurantList/GET_RESTAURANTS', getList);
+  yield [
+    takeEvery('app/RestaurantList/GET_RESTAURANTS', getList),
+    takeEvery(FORM_RESPONSE, getList),
+  ];
 }
 
 function* getList() {
+  const userInfo = yield select(makeSelectLandingPage());
+  console.log(userInfo.id);
   try {
-    const get = {
+    const post = {
       url: '/api/restaurant/list',
-      method: 'get',
+      method: 'post',
+      data: { userId: userInfo.id },
     };
-    const response = yield call(axios, get);
+    const response = yield call(axios, post);
     const { data } = response;
     const restaurants = data;
     // const restaurants = data;
