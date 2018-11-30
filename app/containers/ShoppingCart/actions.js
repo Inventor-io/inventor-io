@@ -26,9 +26,11 @@ export function placeOrder() {
   };
 }
 
-export function handleInput() {
+export function handleInput(i, val) {
   return {
     type: CHANGE_INPUT,
+    modify: i,
+    value: parseInt(val, 10),
   };
 }
 

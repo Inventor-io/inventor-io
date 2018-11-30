@@ -172,23 +172,53 @@ router.post('/addIngToDB', (req, res) => {
   POST: /api/inventory/formatInv
 */
 router.post('/formatInv', (req, res) => {
-  const { orderndbnos } = req.body;
+  const { orderndbnos, id } = req.body;
   const set = new Set(orderndbnos);
   const filtered = Array.from(set);
-  const formatted = formatToOrder(filtered);
-  res.send(formatted);
+  formatOrderAsync(filtered, id, res);
 });
 
-const formatToOrder = orders =>
-  orders.map(ndbno => {
-    const obj = {};
-    obj.ndbno = ndbno;
-    obj.Price = 150; // TODO: fix
-    obj.Quantity = 10; // TODO:fix
-    obj.Orders = 30; // TODO:fix
-    obj.Item = 'name'; // TODO: fix
-    return obj;
+async function formatOrderAsync(ndbnos, id, res) {
+  // helper function
+  const createForEachDict = (arr, key) => {
+    const d = {};
+    arr.forEach(obj => {
+      d[obj.ndbno] = obj[key];
+    });
+    return d;
+  };
+
+  // get db for item name <-- 'inventory'
+  const nameArr = await db.whereIn('ndbno', ndbnos).from('inventory'); // [{ndbno:'111', inventory_name: 'apple'}]
+  const names = createForEachDict(nameArr, 'inventory_name');
+
+  // get db for ast order amount <-- 'orders'
+  const orderArr = await db
+    .whereIn('ndbno', ndbnos)
+    .andWhere('restaurant_id', id)
+    .from('orders');
+  const orders = createForEachDict(orderArr, 'quantity');
+
+  // get db for current quantity <-- 'restaurant_inventory'
+  const quantityArr = await db
+    .whereIn('ndbno', ndbnos)
+    .andWhere('restaurant_id', id)
+    .from('restaurant_inventory');
+  // get db for price <-- hash function
+  const quantities = createForEachDict(quantityArr, 'quantity');
+
+  const result = ndbnos.map(ndbno => {
+    const returnObj = {};
+    returnObj.ndbno = ndbno;
+    returnObj.Price = 150; // TODO: fix
+    returnObj.Quantity = quantities[ndbno];
+    returnObj.Orders = orders[ndbno] ? orders[ndbno] : 0;
+    returnObj.Item = names[ndbno];
+    return returnObj;
   });
+
+  res.send(result);
+}
 
 /* 
   POST: /api/inventory/orderInv
@@ -205,7 +235,7 @@ const formatToSaveOrder = (arr, id) =>
     nObj.restaurant_id = id;
     nObj.ndbno = obj.ndbno;
     nObj.price = obj.Price;
-    nObj.quantity = obj.Quantity;
+    nObj.quantity = obj.Orders;
     return nObj;
   });
 
@@ -226,7 +256,7 @@ const saveOrder = orderArr =>
       if (err.code === '23505') {
         // console.log('Duplicate in inventory db... its ok');
       } else {
-        console.log('ERROR saving order to db', err);
+        // console.log('ERROR saving order to db', err);
       }
     });
 
@@ -242,19 +272,58 @@ const knexDelInv = ndbno =>
   db
     .from('restaurant_inventory')
     .where({ ndbno })
-    .del()
-    .catch(e => {
-      console.log(e);
-    });
+    .del();
+// .catch(e => {
+//   console.log(e);
+// });
 
 async function deleteInv(ndbno, res) {
   try {
     await knexDelInv(ndbno);
     res.sendStatus(200);
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 }
+
+/*
+POST: /api/inventory/fetchPrevOrders
+*/
+
+router.post('/fetchPrevOrders', (req, res) => {
+  const { id } = req.body;
+  db.from('orders')
+    .where('restaurant_id', id)
+    .orderBy('date', 'desc')
+    .limit(20)
+    .then(arr => formatOrderPretty(arr, res));
+  // .catch(err => {
+  //   console.log(err);
+  // });
+});
+
+const formatOrderPretty = (arr, res) =>
+  retrieveInventoryName(arr)
+    .then(name => {
+      const invDict = {};
+      name.forEach(obj => {
+        invDict[obj.ndbno] = obj.inventory_name;
+      });
+      return invDict;
+    })
+    .then(invDict => {
+      const result = arr.map(obj => {
+        const nObj = {};
+        nObj.ndbno = obj.ndbno;
+        nObj.Item = invDict[obj.ndbno];
+        nObj.Orders = obj.quantity;
+        nObj.Price = obj.price;
+        nObj.Delivered = obj.delivered;
+        nObj.Date = obj.date;
+        return nObj;
+      });
+      res.send(result);
+    });
 
 /*
   export

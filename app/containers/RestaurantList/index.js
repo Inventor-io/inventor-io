@@ -86,7 +86,7 @@ function mapDispatchToProps(dispatch) {
     onClick: e => {
       const resID = e.target.id;
       dispatch(selectedRes(resID));
-      console.log(resID);
+      // console.log(resID);
     },
     addRestaurant: () => {
       history.push('/addrestaurant');

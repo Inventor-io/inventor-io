@@ -21,6 +21,7 @@ import ShoppingCart from 'containers/ShoppingCart/Loadable';
 import RestaurantList from 'containers/RestaurantList/Loadable';
 import RestaurantDashboard from 'containers/RestaurantDashboard/Loadable';
 import Restaurant from 'containers/Restaurant/Loadable';
+import PurchaseComplete from 'containers/PurchaseComplete/Loadable';
 // import history from '../../utils/history';
 
 import GlobalStyle from '../../global-styles';
@@ -77,6 +78,16 @@ export default function App() {
           render={() =>
             localStorage.getItem('username') ? (
               <AddInventory />
+            ) : (
+              <LandingPage />
+            )
+          }
+        />
+        <Route
+          path="/purchaseComplete"
+          render={() =>
+            sessionStorage.getItem('username') ? (
+              <PurchaseComplete />
             ) : (
               <LandingPage />
             )
