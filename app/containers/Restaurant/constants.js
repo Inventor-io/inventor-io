@@ -10,3 +10,4 @@ export const UPDATE_ADDRESS = 'app/Restaurant/UPDATE_ADDRESS';
 export const UPDATE_NUMBER = 'app/Restaurant/UPDATE_NUMBER';
 export const DEFAULT_ACTION = 'app/Restaurant/UPDATE_NUMBER';
 export const UPDATE_WEBSITE = 'app/Restaurant/UPDATE_WEBSITE';
+export const FORM_RESPONSE = 'app/Restaurant/FORM_RESPONSE';
