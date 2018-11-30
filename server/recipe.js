@@ -8,30 +8,21 @@ const db = require('knex')(require('../knexfile').development);
 router.post('/ingredients', (req, res) => {
   console.log('ADD INGREDIENTS RECEIVED');
   const { ingObj, recipe, restaurant } = req.body;
-
   saveIngredients(ingObj, recipe, restaurant, res);
 });
 
 async function saveIngredients(ingObj, recID, restaurantID, res) {
   try {
-    console.log('ING OBJ', ingObj);
-    console.log('recID', recID);
-    console.log('restaurantID,', restaurantID);
-    // save inventory to restaurant_inventory table
     // TODO: this is a naive solution... just wanted to get it over with it
     const ndbnos = getndbnos(ingObj); // array of all ndbnos in request
-    console.log('here1');
     const exists = await checkRecipeIngredients(recID, ndbnos); // array of existing objects in restaurant_inventory
-    console.log('Exists', exists);
     const filteredndbnos = filterndbnos(ndbnos, exists); // array of ndbnos not in restaurant_inventory
-
-    console.log('filtered NDB', filteredndbnos);
     const filteredObjs = filterObjs(filteredndbnos, ingObj); // array of objects not in restaurant_inventory
-    console.log('filtered NDB', filteredObjs);
     // insert into db
     await saveIngToInventoryDB(filteredObjs); // insert to inventory table
     await saveIngToRecipeInventoryDB(recID, ndbnos); // insert to inventory table
     await addInventoryToRestaurant(filteredObjs, restaurantID); // insert filteredObjs to restaurant_inventory
+    // TODO add to Inventory_Restaurant?
     console.log('SUCCESS');
     res.sendStatus(200);
   } catch (e) {

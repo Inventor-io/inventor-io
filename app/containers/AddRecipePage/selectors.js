@@ -17,8 +17,10 @@ const makeSelectRecPrice = () =>
   createSelector(selectAddRecipePageDomain, state => state.recPrice);
 const makeSelectRecId = () =>
   createSelector(selectAddRecipePageDomain, state => state.recId);
+const makeSelectModalState = () =>
+  createSelector(selectAddRecipePageDomain, state => state.modalState);
 const makeSelectIngredientsList = () =>
-  createSelector(selectAddRecipePageDomain, state => state);
+  createSelector(selectAddRecipePageDomain, state => state.ingredientsList);
 // const makeSelectRecDescription = () =>
 //   createSelector(selectAddRecipePageDomain, substate =>
 //     substate.get('recDescription'),
@@ -42,5 +44,6 @@ export {
   makeSelectRecName,
   makeSelectRecPrice,
   makeSelectIngredientsList,
+  makeSelectModalState,
   // makeSelectRecDescription,
 };

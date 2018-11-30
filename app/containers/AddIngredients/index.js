@@ -25,8 +25,6 @@ import 'semantic-ui-css/semantic.min.css';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
-// import history from '../../utils/history';
-
 import {
   makeOptionsSelect,
   makeSearchTermSelect,
@@ -55,6 +53,7 @@ export class AddIngredients extends React.Component {
         </Helmet> */}
         <Container>
           <Header as="h1">Search for an ingredient</Header>
+          <Button onClick={() => this.props.close()} />
           <Form>
             <Form.Field>
               <Input
@@ -99,9 +98,14 @@ export class AddIngredients extends React.Component {
                 : ''}
             </List>
             {/* eslint-enable */}
+
             <Button
               content="Add to inventory list"
-              onClick={e => this.props.saveToDB(e)}
+              onClick={e => {
+                this.props.saveToDB(e);
+                this.props.importList(this.props.addedIngredients);
+                this.props.close();
+              }}
             />
           </div>
         </Container>
@@ -118,6 +122,8 @@ AddIngredients.propTypes = {
   handleSelect: PropTypes.func,
   handleRemove: PropTypes.func,
   saveToDB: PropTypes.func,
+  importList: PropTypes.func,
+  close: PropTypes.func,
   // states
   searchTerm: PropTypes.any,
   options: PropTypes.any,

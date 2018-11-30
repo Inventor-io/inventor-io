@@ -33,7 +33,6 @@ function* getUSDA() {
   }
 }
 
-//
 function* saveIngredientsToDB() {
   const { addedIngredients } = yield select(selectAddIngredientsDomain);
   const { recId, recName, recPrice } = yield select(selectAddRecipePageDomain);
