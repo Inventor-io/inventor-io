@@ -1,4 +1,4 @@
-import { takeEvery, call, put, select } from 'redux-saga/effects';
+import { takeEvery, call, put, select, all } from 'redux-saga/effects';
 import axios from 'axios';
 import { push } from 'connected-react-router/immutable';
 import { GET_DB, ORDER, DEL_INVEN } from './constants';
@@ -8,11 +8,11 @@ import { mountDB, replaceInven, formattedOrder } from './actions';
 
 // Individual exports for testing
 export default function* inventorySaga() {
-  yield [
+  yield all([
     takeEvery(GET_DB, getInventory),
     takeEvery(ORDER, sendOrder),
     takeEvery(DEL_INVEN, deleteInventory),
-  ];
+  ]);
 }
 
 function* getInventory() {
