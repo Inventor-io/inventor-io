@@ -21,6 +21,7 @@ import ShoppingCart from 'containers/ShoppingCart/Loadable';
 import RestaurantList from 'containers/RestaurantList/Loadable';
 import RestaurantDashboard from 'containers/RestaurantDashboard/Loadable';
 import Restaurant from 'containers/Restaurant/Loadable';
+import Sales from 'containers/SalesPage/Loadable';
 // import history from '../../utils/history';
 
 import GlobalStyle from '../../global-styles';
@@ -33,7 +34,7 @@ export default function App() {
           path="/"
           render={() =>
             localStorage.getItem('username') ? (
-              <RestaurantDashboard />
+              <RestaurantList />
             ) : (
               <LandingPage />
             )
@@ -44,6 +45,7 @@ export default function App() {
         <Route path="/editrecipe" component={AddRecipePage} />
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/home" component={HomePage} />
+        <Route exact path="/sales" component={Sales} />
 
         {/* <Route
 //           path="/recipe"
