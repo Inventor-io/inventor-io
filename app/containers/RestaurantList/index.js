@@ -36,14 +36,14 @@ export class RestaurantList extends React.Component {
   render() {
     return (
       <div>
+        <NavBar restaurant="true" />
         <div>
-          Welcome {sessionStorage.getItem('username')}
+          Welcome {localStorage.getItem('username')}
           {JSON.stringify(this.props.userInfo.id)}
           <Button floated="right" onClick={this.props.addRestaurant}>
             Add Restaurant
           </Button>
         </div>
-        <NavBar restaurant="true" />
         {this.props.restaurantList.restaurants
           ? this.props.restaurantList.restaurants.map((restaurant, key) => (
               <RestaurantCard

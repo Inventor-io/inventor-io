@@ -11,7 +11,6 @@ export const scope = 'app.containers.LandingPage';
 export default defineMessages({
   header: {
     id: `${scope}.header`,
-    defaultMessage:
-      'This is the LandingPage container, I will style it beautifully later!',
+    defaultMessage: 'Inventorio',
   },
 });

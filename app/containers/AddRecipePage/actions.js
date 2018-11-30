@@ -12,13 +12,21 @@ import {
   SEND_FORM,
   UPDATE_ID,
   UPDATE_INGREDIENTSLIST,
-  DEFAULT_ACTION,
+  // DEFAULT_ACTION,
   DELETE_INGREDIENT,
+  UPDATE_MODAL,
 } from './constants';
 
-export function defaultAction() {
+// export function defaultAction() {
+//   return {
+//     type: DEFAULT_ACTION,
+//   };
+// }
+
+export function updateModalState(modalState) {
   return {
-    type: DEFAULT_ACTION,
+    type: UPDATE_MODAL,
+    modalState,
   };
 }
 
@@ -52,7 +60,7 @@ export function getIngredientsList() {
 export function updateIngredientsList(recipeList) {
   return {
     type: UPDATE_INGREDIENTSLIST,
-    recipeList,
+    ingredientsList: recipeList,
   };
 }
 /* eslint-disable */

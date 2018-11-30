@@ -38,7 +38,11 @@ class IngredientsTable extends React.PureComponent {
                       icon
                       size="tiny"
                       onClick={() =>
-                        this.props.removeIngredient(row.recipe_id, row.ndbno)
+                        this.props.removeIngredient(
+                          row.recipe_id,
+                          row.ndbno,
+                          this.props.ingredientsList,
+                        )
                       }
                     >
                       <Icon name="trash alternate" />
