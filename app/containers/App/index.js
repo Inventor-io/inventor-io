@@ -32,7 +32,7 @@ export default function App() {
           exact
           path="/"
           render={() =>
-            sessionStorage.getItem('username') ? (
+            localStorage.getItem('username') ? (
               <RestaurantDashboard />
             ) : (
               <LandingPage />
@@ -48,7 +48,7 @@ export default function App() {
         {/* <Route
 //           path="/recipe"
 //           render={() =>
-//             sessionStorage.getItem('username') ? (
+//            localStorage.getItem('username') ? (
 //               <RecipePage />
 //             ) : (
 //               <Redirect to="/login" />
@@ -59,13 +59,13 @@ export default function App() {
         <Route
           path="/inventory"
           render={() =>
-            sessionStorage.getItem('username') ? <Inventory /> : <LandingPage />
+            localStorage.getItem('username') ? <Inventory /> : <LandingPage />
           }
         />
         <Route
           path="/shoppingCart"
           render={() =>
-            sessionStorage.getItem('username') ? (
+            localStorage.getItem('username') ? (
               <ShoppingCart />
             ) : (
               <LandingPage />
@@ -75,7 +75,7 @@ export default function App() {
         <Route
           path="/addInventory"
           render={() =>
-            sessionStorage.getItem('username') ? (
+            localStorage.getItem('username') ? (
               <AddInventory />
             ) : (
               <LandingPage />
@@ -85,7 +85,7 @@ export default function App() {
         <Route
           path="/restaurant"
           render={() =>
-            sessionStorage.getItem('username') ? (
+            localStorage.getItem('username') ? (
               <RestaurantList />
             ) : (
               <LandingPage />
@@ -95,17 +95,13 @@ export default function App() {
         <Route
           path="/addRestaurant"
           render={() =>
-            sessionStorage.getItem('username') ? (
-              <Restaurant />
-            ) : (
-              <LandingPage />
-            )
+            localStorage.getItem('username') ? <Restaurant /> : <LandingPage />
           }
         />
         <Route
           path="/dashboard"
           render={() =>
-            sessionStorage.getItem('username') ? (
+            localStorage.getItem('username') ? (
               <RestaurantDashboard />
             ) : (
               <LandingPage />
