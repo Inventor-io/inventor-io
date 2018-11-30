@@ -81,6 +81,13 @@ export class NavBar extends React.Component {
               />
 
               <Menu.Item
+                name="purchaseComplete"
+                active={activeItem === 'purchaseComplete'}
+                content="My purchases"
+                onClick={this.handleItemClick}
+              />
+
+              <Menu.Item
                 name="sales"
                 active={activeItem === 'sales'}
                 content="Sales"

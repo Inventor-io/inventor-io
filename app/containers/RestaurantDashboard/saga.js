@@ -7,7 +7,7 @@ import { selectRestaurantDashboardDomain } from './selectors';
 // Individual exports for testing
 
 function* getRestaurantInfo() {
-  console.log('inside saga for select restaurant');
+  // console.log('inside saga for select restaurant');
   const { selectedRestaurant } = yield select(selectRestaurantDashboardDomain);
   // console.log(selectedRestaurant);
   try {

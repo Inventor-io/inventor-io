@@ -11,6 +11,7 @@ import {
   DEL_INVEN,
   REPLACE_INVEN,
   FORMAT_ORDER,
+  WIPE,
 } from './constants';
 
 export const initialState = fromJS({
@@ -43,6 +44,13 @@ function inventoryReducer(state = initialState, action) {
     case FORMAT_ORDER:
       return Object.assign({}, state, {
         formatted: action.formatted,
+      });
+    case WIPE:
+      return Object.assign({}, state, {
+        currentInventory: [],
+        selected: [],
+        delItem: '',
+        formatted: [],
       });
     default:
       return state;

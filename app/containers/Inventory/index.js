@@ -40,7 +40,7 @@ export class Inventory extends React.Component {
         <NavBar />
         <Container>
           <Header as="h1">Inventory List</Header>
-          <Table>
+          <Table unstackable>
             <Table.Header>
               <Table.Row>
                 {this.props.currentInventory ? (
