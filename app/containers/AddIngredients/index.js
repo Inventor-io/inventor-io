@@ -53,7 +53,6 @@ export class AddIngredients extends React.Component {
         </Helmet> */}
         <Container>
           <Header as="h1">Search for an ingredient</Header>
-          <Button onClick={() => this.props.close()} />
           <Form>
             <Form.Field>
               <Input

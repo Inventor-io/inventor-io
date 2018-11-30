@@ -132,7 +132,10 @@ export class AddRecipePage extends React.PureComponent {
             color="green"
             onClick={() => this.props.changeModal(true)}
           />
-          <Modal open={this.props.modalState}>
+          <Modal
+            open={this.props.modalState}
+            onClose={() => this.props.changeModal(false)}
+          >
             <Modal.Content>
               <AddIngredients
                 close={() => this.props.changeModal(false)}
