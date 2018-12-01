@@ -4,53 +4,37 @@
     {
       "name": "inventorio",
       "host": {
-        "sourcePath": "/var/app/current/inventor-io/"
-      }
-    },
-    {
-      "name": "nginx-proxy-conf",
-      "host": {
-        "sourcePath": "/var/app/current/proxy/conf.d"
+        "sourcePath": "/var/app/current/app"
       }
     }
   ],
   "containerDefinitions": [
     {
       "name": "inventorio",
-      "image": "jpwarren13/inventor-io:latest",
+      "image": "jpwarren13/inventor-io",
       "essential": true,
       "memory": 128,
       "mountPoints": [
         {
           "sourceVolume": "inventorio",
-          "containerPath": "/var/www/html",
+          "containerPath": "/var/opt/app",
           "readOnly": true
         }
       ]
     },
     {
       "name": "nginx-proxy",
-      "image": "nginx",
+      "image": "thehackerati/nginx-reverse-proxy",
       "essential": true,
       "memory": 128,
       "portMappings": [
         {
           "hostPort": 80,
-          "containerPort": 80
+          "containerPort": 8080
         }
       ],
       "links": ["inventorio"],
       "mountPoints": [
-        {
-          "sourceVolume": "inventorio",
-          "containerPath": "/var/www/html",
-          "readOnly": true
-        },
-        {
-          "sourceVolume": "nginx-proxy-conf",
-          "containerPath": "/etc/nginx/conf.d",
-          "readOnly": true
-        },
         {
           "sourceVolume": "awseb-logs-nginx-proxy",
           "containerPath": "/var/log/nginx"
