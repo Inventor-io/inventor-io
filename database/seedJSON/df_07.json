@@ -1,0 +1,1626 @@
+[
+  {
+    "restaurant_id": 1,
+    "ndbno": "13317",
+    "price": 12.323062293,
+    "quantity": 81,
+    "date": "2018-10-21T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 1,
+    "ndbno": "13317",
+    "price": 12.3972234101,
+    "quantity": 30,
+    "date": "2018-11-26T10:49:18-0600",
+    "delivered": false
+  },
+  {
+    "restaurant_id": 1,
+    "ndbno": "13317",
+    "price": 13.1067915007,
+    "quantity": 15,
+    "date": "2018-11-17T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 1,
+    "ndbno": "13317",
+    "price": 11.9705911396,
+    "quantity": 65,
+    "date": "2018-10-16T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 1,
+    "ndbno": "11253",
+    "price": 12.9354436716,
+    "quantity": 47,
+    "date": "2018-11-19T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 1,
+    "ndbno": "11253",
+    "price": 15.9410793381,
+    "quantity": 36,
+    "date": "2018-10-27T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 1,
+    "ndbno": "11253",
+    "price": 18.7288164557,
+    "quantity": 28,
+    "date": "2018-10-25T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 1,
+    "ndbno": "11253",
+    "price": 10.5672317499,
+    "quantity": 30,
+    "date": "2018-10-27T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 1,
+    "ndbno": "01270",
+    "price": 13.916544314,
+    "quantity": 16,
+    "date": "2018-10-30T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 1,
+    "ndbno": "01270",
+    "price": 10.766303258,
+    "quantity": 70,
+    "date": "2018-10-24T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 1,
+    "ndbno": "01270",
+    "price": 10.1237738301,
+    "quantity": 56,
+    "date": "2018-11-08T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 1,
+    "ndbno": "01270",
+    "price": 12.2468918034,
+    "quantity": 78,
+    "date": "2018-10-22T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 1,
+    "ndbno": "11529",
+    "price": 10.7508974826,
+    "quantity": 43,
+    "date": "2018-10-30T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 1,
+    "ndbno": "11529",
+    "price": 14.7049007638,
+    "quantity": 64,
+    "date": "2018-10-16T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 1,
+    "ndbno": "11529",
+    "price": 12.3973305886,
+    "quantity": 65,
+    "date": "2018-11-20T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 1,
+    "ndbno": "11529",
+    "price": 10.6396524065,
+    "quantity": 65,
+    "date": "2018-11-13T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 1,
+    "ndbno": "11282",
+    "price": 13.8398449833,
+    "quantity": 63,
+    "date": "2018-10-28T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 1,
+    "ndbno": "11282",
+    "price": 13.2820322923,
+    "quantity": 29,
+    "date": "2018-10-23T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 1,
+    "ndbno": "11282",
+    "price": 11.474644907,
+    "quantity": 39,
+    "date": "2018-11-12T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 1,
+    "ndbno": "11282",
+    "price": 16.5106041737,
+    "quantity": 88,
+    "date": "2018-10-28T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 1,
+    "ndbno": "18060",
+    "price": 10.4884638102,
+    "quantity": 69,
+    "date": "2018-11-18T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 1,
+    "ndbno": "18060",
+    "price": 15.4207914446,
+    "quantity": 26,
+    "date": "2018-11-03T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 1,
+    "ndbno": "18060",
+    "price": 16.0239413395,
+    "quantity": 23,
+    "date": "2018-11-04T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 1,
+    "ndbno": "18060",
+    "price": 10.3231116107,
+    "quantity": 63,
+    "date": "2018-11-22T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 1,
+    "ndbno": "18060",
+    "price": 11.1414899585,
+    "quantity": 48,
+    "date": "2018-10-25T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 1,
+    "ndbno": "11411",
+    "price": 11.7987436521,
+    "quantity": 16,
+    "date": "2018-10-13T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 1,
+    "ndbno": "11411",
+    "price": 13.1971982577,
+    "quantity": 70,
+    "date": "2018-11-13T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 1,
+    "ndbno": "11411",
+    "price": 11.8892637095,
+    "quantity": 39,
+    "date": "2018-10-15T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "20110",
+    "price": 14.7377760968,
+    "quantity": 30,
+    "date": "2018-11-24T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "20110",
+    "price": 11.7153628559,
+    "quantity": 89,
+    "date": "2018-11-10T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "20110",
+    "price": 19.1117952812,
+    "quantity": 52,
+    "date": "2018-11-23T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "20110",
+    "price": 10.7115062448,
+    "quantity": 77,
+    "date": "2018-11-10T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "20110",
+    "price": 12.5103456223,
+    "quantity": 38,
+    "date": "2018-11-15T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "20110",
+    "price": 13.3859788854,
+    "quantity": 13,
+    "date": "2018-11-06T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "20110",
+    "price": 15.022651163,
+    "quantity": 81,
+    "date": "2018-10-16T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "06629",
+    "price": 10.6259528799,
+    "quantity": 42,
+    "date": "2018-11-23T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "06629",
+    "price": 12.8181504521,
+    "quantity": 87,
+    "date": "2018-11-23T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "06629",
+    "price": 11.2057644039,
+    "quantity": 5,
+    "date": "2018-10-21T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "06629",
+    "price": 11.1559156588,
+    "quantity": 45,
+    "date": "2018-11-04T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "06629",
+    "price": 13.0880728769,
+    "quantity": 52,
+    "date": "2018-10-31T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "01145",
+    "price": 14.6866230758,
+    "quantity": 64,
+    "date": "2018-10-12T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "01145",
+    "price": 10.3218535349,
+    "quantity": 22,
+    "date": "2018-11-25T10:49:18-0600",
+    "delivered": false
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "01145",
+    "price": 10.9436341257,
+    "quantity": 42,
+    "date": "2018-11-18T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "01145",
+    "price": 12.1809410201,
+    "quantity": 71,
+    "date": "2018-10-27T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "07933",
+    "price": 12.8676741843,
+    "quantity": 40,
+    "date": "2018-10-28T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "07933",
+    "price": 15.2140793311,
+    "quantity": 15,
+    "date": "2018-11-14T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "07933",
+    "price": 17.5590637561,
+    "quantity": 27,
+    "date": "2018-11-05T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "07933",
+    "price": 10.7921174137,
+    "quantity": 63,
+    "date": "2018-11-21T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "07933",
+    "price": 10.9953408181,
+    "quantity": 25,
+    "date": "2018-10-22T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "02044",
+    "price": 10.2198953456,
+    "quantity": 27,
+    "date": "2018-10-13T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "02044",
+    "price": 10.8955798023,
+    "quantity": 15,
+    "date": "2018-11-23T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "02044",
+    "price": 15.0326349441,
+    "quantity": 16,
+    "date": "2018-10-17T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "01049",
+    "price": 10.5145746356,
+    "quantity": 76,
+    "date": "2018-11-17T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "01049",
+    "price": 10.9594549201,
+    "quantity": 62,
+    "date": "2018-11-06T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "01049",
+    "price": 13.1180487231,
+    "quantity": 22,
+    "date": "2018-10-12T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "01049",
+    "price": 11.748120348,
+    "quantity": 36,
+    "date": "2018-10-15T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "11243",
+    "price": 10.675499955,
+    "quantity": 20,
+    "date": "2018-11-18T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "11243",
+    "price": 11.230123424,
+    "quantity": 74,
+    "date": "2018-10-20T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "11243",
+    "price": 13.3220054855,
+    "quantity": 77,
+    "date": "2018-10-15T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "20120",
+    "price": 12.9590543388,
+    "quantity": 86,
+    "date": "2018-10-22T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "20120",
+    "price": 10.1326704693,
+    "quantity": 36,
+    "date": "2018-10-25T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "20120",
+    "price": 11.2497730977,
+    "quantity": 11,
+    "date": "2018-11-04T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "15164",
+    "price": 17.6708651956,
+    "quantity": 63,
+    "date": "2018-11-12T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "15164",
+    "price": 15.9703787922,
+    "quantity": 48,
+    "date": "2018-10-21T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "15164",
+    "price": 17.2722539574,
+    "quantity": 48,
+    "date": "2018-10-25T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "15164",
+    "price": 10.2527513308,
+    "quantity": 66,
+    "date": "2018-11-18T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "15270",
+    "price": 12.1830956745,
+    "quantity": 21,
+    "date": "2018-11-04T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "15270",
+    "price": 10.9340443504,
+    "quantity": 64,
+    "date": "2018-11-14T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "15270",
+    "price": 13.9048475113,
+    "quantity": 39,
+    "date": "2018-10-27T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "15270",
+    "price": 15.7030545447,
+    "quantity": 70,
+    "date": "2018-11-26T10:49:18-0600",
+    "delivered": false
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "15270",
+    "price": 10.1766289905,
+    "quantity": 73,
+    "date": "2018-11-10T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "06972",
+    "price": 11.8515591259,
+    "quantity": 62,
+    "date": "2018-10-20T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "06972",
+    "price": 12.2262419571,
+    "quantity": 27,
+    "date": "2018-11-24T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "06972",
+    "price": 13.2356430169,
+    "quantity": 46,
+    "date": "2018-11-18T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "06972",
+    "price": 16.5288500028,
+    "quantity": 60,
+    "date": "2018-11-08T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "06972",
+    "price": 12.6150895015,
+    "quantity": 82,
+    "date": "2018-11-16T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "04053",
+    "price": 12.9525600043,
+    "quantity": 39,
+    "date": "2018-11-26T10:49:18-0600",
+    "delivered": false
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "04053",
+    "price": 11.2503305266,
+    "quantity": 55,
+    "date": "2018-11-05T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "04053",
+    "price": 15.6632894004,
+    "quantity": 37,
+    "date": "2018-10-16T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "04053",
+    "price": 13.7001517072,
+    "quantity": 82,
+    "date": "2018-11-04T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "11282",
+    "price": 15.1150937139,
+    "quantity": 25,
+    "date": "2018-11-15T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "11282",
+    "price": 10.2423054896,
+    "quantity": 9,
+    "date": "2018-10-13T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "11282",
+    "price": 14.8031165999,
+    "quantity": 26,
+    "date": "2018-11-26T10:49:18-0600",
+    "delivered": false
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "11282",
+    "price": 14.1295557954,
+    "quantity": 86,
+    "date": "2018-11-07T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "11282",
+    "price": 10.0409248001,
+    "quantity": 21,
+    "date": "2018-11-10T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "11529",
+    "price": 12.1176645966,
+    "quantity": 77,
+    "date": "2018-11-10T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "11529",
+    "price": 11.096558214,
+    "quantity": 43,
+    "date": "2018-11-20T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "11529",
+    "price": 12.8448059759,
+    "quantity": 8,
+    "date": "2018-11-11T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "11529",
+    "price": 11.4967225054,
+    "quantity": 73,
+    "date": "2018-10-16T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 2,
+    "ndbno": "11529",
+    "price": 11.0639385544,
+    "quantity": 5,
+    "date": "2018-10-13T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "06972",
+    "price": 17.9402642928,
+    "quantity": 7,
+    "date": "2018-10-26T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "06972",
+    "price": 15.9337717058,
+    "quantity": 13,
+    "date": "2018-11-01T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "06972",
+    "price": 12.5177512036,
+    "quantity": 56,
+    "date": "2018-10-14T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "04053",
+    "price": 11.9698863762,
+    "quantity": 72,
+    "date": "2018-10-30T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "04053",
+    "price": 10.1237421928,
+    "quantity": 67,
+    "date": "2018-11-25T10:49:18-0600",
+    "delivered": false
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "04053",
+    "price": 11.7704018603,
+    "quantity": 40,
+    "date": "2018-10-22T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "04053",
+    "price": 16.1116674459,
+    "quantity": 49,
+    "date": "2018-10-30T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "10864",
+    "price": 16.6493582759,
+    "quantity": 46,
+    "date": "2018-11-14T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "10864",
+    "price": 18.583936242,
+    "quantity": 87,
+    "date": "2018-11-19T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "10864",
+    "price": 10.4378333291,
+    "quantity": 68,
+    "date": "2018-11-09T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "10864",
+    "price": 11.2950949163,
+    "quantity": 81,
+    "date": "2018-11-04T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "10864",
+    "price": 12.7321253826,
+    "quantity": 65,
+    "date": "2018-11-17T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "10864",
+    "price": 11.9901973336,
+    "quantity": 36,
+    "date": "2018-11-10T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "18064",
+    "price": 12.2482093661,
+    "quantity": 48,
+    "date": "2018-10-21T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "18064",
+    "price": 10.0117646574,
+    "quantity": 41,
+    "date": "2018-10-29T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "18064",
+    "price": 10.8491677145,
+    "quantity": 76,
+    "date": "2018-10-21T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "07057",
+    "price": 15.3276923232,
+    "quantity": 7,
+    "date": "2018-10-26T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "07057",
+    "price": 12.5091168334,
+    "quantity": 67,
+    "date": "2018-10-30T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "07057",
+    "price": 11.1995333547,
+    "quantity": 7,
+    "date": "2018-11-09T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "07057",
+    "price": 10.4332726835,
+    "quantity": 85,
+    "date": "2018-11-03T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "09195",
+    "price": 12.6409390179,
+    "quantity": 30,
+    "date": "2018-10-15T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "09195",
+    "price": 11.2199558682,
+    "quantity": 42,
+    "date": "2018-11-16T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "09195",
+    "price": 12.4134600023,
+    "quantity": 68,
+    "date": "2018-11-19T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "09195",
+    "price": 16.2007034506,
+    "quantity": 23,
+    "date": "2018-11-25T10:49:18-0600",
+    "delivered": false
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "09195",
+    "price": 10.8856205173,
+    "quantity": 46,
+    "date": "2018-11-13T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "09195",
+    "price": 19.6576271599,
+    "quantity": 21,
+    "date": "2018-10-21T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "16158",
+    "price": 13.1365013396,
+    "quantity": 86,
+    "date": "2018-11-10T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "16158",
+    "price": 10.9370573233,
+    "quantity": 69,
+    "date": "2018-11-26T10:49:18-0600",
+    "delivered": false
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "16158",
+    "price": 13.8989909681,
+    "quantity": 30,
+    "date": "2018-11-17T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "16158",
+    "price": 19.6763662037,
+    "quantity": 86,
+    "date": "2018-11-16T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "16158",
+    "price": 11.210593757,
+    "quantity": 49,
+    "date": "2018-10-31T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "16158",
+    "price": 10.5341432163,
+    "quantity": 51,
+    "date": "2018-10-15T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "11253",
+    "price": 10.307584358,
+    "quantity": 28,
+    "date": "2018-11-19T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "11253",
+    "price": 14.8275577464,
+    "quantity": 72,
+    "date": "2018-11-04T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "11253",
+    "price": 10.9621310458,
+    "quantity": 19,
+    "date": "2018-11-05T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "11253",
+    "price": 14.1223279774,
+    "quantity": 25,
+    "date": "2018-11-25T10:49:18-0600",
+    "delivered": false
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "11253",
+    "price": 10.3229296157,
+    "quantity": 25,
+    "date": "2018-11-16T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "11253",
+    "price": 15.7835294577,
+    "quantity": 56,
+    "date": "2018-11-25T10:49:18-0600",
+    "delivered": false
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "11253",
+    "price": 14.1642879205,
+    "quantity": 25,
+    "date": "2018-11-05T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "01270",
+    "price": 10.3554063737,
+    "quantity": 82,
+    "date": "2018-10-26T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "01270",
+    "price": 14.5306929185,
+    "quantity": 51,
+    "date": "2018-11-11T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "01270",
+    "price": 11.3749862905,
+    "quantity": 76,
+    "date": "2018-10-30T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "01270",
+    "price": 10.6477303296,
+    "quantity": 55,
+    "date": "2018-10-15T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "11529",
+    "price": 14.0873685466,
+    "quantity": 39,
+    "date": "2018-10-26T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "11529",
+    "price": 12.9975792304,
+    "quantity": 83,
+    "date": "2018-11-07T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "11529",
+    "price": 14.409869551,
+    "quantity": 34,
+    "date": "2018-11-07T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "11529",
+    "price": 10.8617206227,
+    "quantity": 75,
+    "date": "2018-11-08T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "11282",
+    "price": 11.9508850285,
+    "quantity": 48,
+    "date": "2018-10-26T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "11282",
+    "price": 11.5464593803,
+    "quantity": 56,
+    "date": "2018-11-19T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "11282",
+    "price": 12.5621950489,
+    "quantity": 47,
+    "date": "2018-11-04T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "11282",
+    "price": 13.5692290592,
+    "quantity": 51,
+    "date": "2018-10-19T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "01145",
+    "price": 10.5977233921,
+    "quantity": 34,
+    "date": "2018-11-04T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "01145",
+    "price": 10.6132663936,
+    "quantity": 20,
+    "date": "2018-10-17T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "01145",
+    "price": 14.6727615757,
+    "quantity": 60,
+    "date": "2018-11-24T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "01145",
+    "price": 11.9366086296,
+    "quantity": 47,
+    "date": "2018-11-17T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 3,
+    "ndbno": "01145",
+    "price": 16.9423400165,
+    "quantity": 58,
+    "date": "2018-10-23T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "20116",
+    "price": 13.7528099963,
+    "quantity": 56,
+    "date": "2018-11-19T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "20116",
+    "price": 13.1080848069,
+    "quantity": 9,
+    "date": "2018-10-17T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "20116",
+    "price": 13.9855022086,
+    "quantity": 27,
+    "date": "2018-11-12T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "20116",
+    "price": 11.4912627963,
+    "quantity": 47,
+    "date": "2018-10-21T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "06172",
+    "price": 13.3532135955,
+    "quantity": 70,
+    "date": "2018-10-17T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "06172",
+    "price": 10.0631086935,
+    "quantity": 78,
+    "date": "2018-10-26T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "06172",
+    "price": 11.3466005241,
+    "quantity": 39,
+    "date": "2018-10-18T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "11116",
+    "price": 10.0833158121,
+    "quantity": 85,
+    "date": "2018-10-29T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "11116",
+    "price": 11.4643862502,
+    "quantity": 88,
+    "date": "2018-10-17T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "11116",
+    "price": 11.0606147073,
+    "quantity": 75,
+    "date": "2018-10-12T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "10165",
+    "price": 14.6888077789,
+    "quantity": 87,
+    "date": "2018-11-09T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "10165",
+    "price": 12.6201961731,
+    "quantity": 18,
+    "date": "2018-11-16T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "10165",
+    "price": 12.6613773746,
+    "quantity": 37,
+    "date": "2018-10-26T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "10165",
+    "price": 16.1292332602,
+    "quantity": 18,
+    "date": "2018-11-13T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "10165",
+    "price": 10.2071791243,
+    "quantity": 69,
+    "date": "2018-11-17T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "16123",
+    "price": 11.5897326458,
+    "quantity": 30,
+    "date": "2018-11-23T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "16123",
+    "price": 11.713464986,
+    "quantity": 81,
+    "date": "2018-11-04T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "16123",
+    "price": 16.7887627356,
+    "quantity": 31,
+    "date": "2018-10-27T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "16123",
+    "price": 10.9380446514,
+    "quantity": 63,
+    "date": "2018-10-28T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "11098",
+    "price": 10.7529857106,
+    "quantity": 69,
+    "date": "2018-10-31T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "11098",
+    "price": 13.397420157,
+    "quantity": 77,
+    "date": "2018-11-03T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "11098",
+    "price": 10.6022804028,
+    "quantity": 30,
+    "date": "2018-10-23T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "11098",
+    "price": 14.0947438293,
+    "quantity": 22,
+    "date": "2018-11-12T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "32013",
+    "price": 10.1034625289,
+    "quantity": 45,
+    "date": "2018-10-23T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "32013",
+    "price": 11.3638851964,
+    "quantity": 40,
+    "date": "2018-11-08T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "32013",
+    "price": 12.8571712259,
+    "quantity": 5,
+    "date": "2018-11-06T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "32013",
+    "price": 16.1428108491,
+    "quantity": 82,
+    "date": "2018-11-12T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "06170",
+    "price": 17.1729489773,
+    "quantity": 39,
+    "date": "2018-11-25T10:49:18-0600",
+    "delivered": false
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "06170",
+    "price": 10.603276312,
+    "quantity": 82,
+    "date": "2018-10-25T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "06170",
+    "price": 10.3624315949,
+    "quantity": 87,
+    "date": "2018-10-12T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "06170",
+    "price": 11.9939338196,
+    "quantity": 59,
+    "date": "2018-11-24T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "05139",
+    "price": 10.3876578438,
+    "quantity": 25,
+    "date": "2018-11-13T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "05139",
+    "price": 10.0839313046,
+    "quantity": 6,
+    "date": "2018-11-05T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "05139",
+    "price": 12.8289055698,
+    "quantity": 64,
+    "date": "2018-11-06T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "05139",
+    "price": 13.4824207721,
+    "quantity": 87,
+    "date": "2018-11-04T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "05139",
+    "price": 18.1365984723,
+    "quantity": 47,
+    "date": "2018-10-23T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "16091",
+    "price": 16.7742401945,
+    "quantity": 34,
+    "date": "2018-10-22T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "16091",
+    "price": 12.3788936001,
+    "quantity": 37,
+    "date": "2018-10-29T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "16091",
+    "price": 11.0078961541,
+    "quantity": 86,
+    "date": "2018-11-02T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "09150",
+    "price": 16.2255409962,
+    "quantity": 51,
+    "date": "2018-10-17T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "09150",
+    "price": 10.1348645431,
+    "quantity": 40,
+    "date": "2018-11-07T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "09150",
+    "price": 10.8419031434,
+    "quantity": 11,
+    "date": "2018-11-10T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "09150",
+    "price": 11.6486574055,
+    "quantity": 76,
+    "date": "2018-10-30T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "15270",
+    "price": 14.34081988,
+    "quantity": 89,
+    "date": "2018-10-27T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "15270",
+    "price": 11.7468463036,
+    "quantity": 68,
+    "date": "2018-11-19T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "15270",
+    "price": 18.4307967994,
+    "quantity": 42,
+    "date": "2018-11-20T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "15270",
+    "price": 15.0273682158,
+    "quantity": 59,
+    "date": "2018-10-27T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "15270",
+    "price": 11.0994244126,
+    "quantity": 59,
+    "date": "2018-10-29T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "07933",
+    "price": 10.4480493503,
+    "quantity": 55,
+    "date": "2018-10-15T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "07933",
+    "price": 10.5028495464,
+    "quantity": 47,
+    "date": "2018-11-02T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "07933",
+    "price": 17.8632671901,
+    "quantity": 86,
+    "date": "2018-11-26T10:49:18-0600",
+    "delivered": false
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "07933",
+    "price": 15.2084385866,
+    "quantity": 23,
+    "date": "2018-10-12T10:49:18-0500",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "11282",
+    "price": 11.1508467625,
+    "quantity": 46,
+    "date": "2018-11-09T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "11282",
+    "price": 11.3375032778,
+    "quantity": 65,
+    "date": "2018-11-17T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "11282",
+    "price": 16.6948562971,
+    "quantity": 26,
+    "date": "2018-11-06T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "11282",
+    "price": 13.8246193772,
+    "quantity": 80,
+    "date": "2018-11-07T10:49:18-0600",
+    "delivered": true
+  },
+  {
+    "restaurant_id": 4,
+    "ndbno": "11282",
+    "price": 10.3086252378,
+    "quantity": 59,
+    "date": "2018-10-23T10:49:18-0500",
+    "delivered": true
+  }
+]
