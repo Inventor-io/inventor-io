@@ -43,7 +43,7 @@ export class PurchaseComplete extends React.Component {
               <Table.Row key="header">
                 {['ndbno', 'Item', 'Orders', 'Price', 'Date', 'Delivered'].map(
                   key => (
-                    <Table.HeaderCell>{key}</Table.HeaderCell>
+                    <Table.HeaderCell key={`${key}`}>{key}</Table.HeaderCell>
                   ),
                 )}
               </Table.Row>
@@ -63,24 +63,28 @@ export class PurchaseComplete extends React.Component {
                     ].map(key => {
                       if (key === 'Delivered') {
                         return (
-                          <Table.Cell>
+                          <Table.Cell key={`${key}${i.toString()}`}>
                             {obj.Delivered ? 'True' : 'False'}
                           </Table.Cell>
                         );
                       }
                       if (key === 'Date') {
                         return (
-                          <Table.Cell>
+                          <Table.Cell key={`${key}${i.toString()}`}>
                             {moment(obj[key]).format('MM/DD/YYYY h:mm')}
                           </Table.Cell>
                         );
                       }
-                      return <Table.Cell>{obj[key]}</Table.Cell>;
+                      return (
+                        <Table.Cell key={`${key}${i.toString()}`}>
+                          {obj[key]}
+                        </Table.Cell>
+                      );
                     })}
                   </Table.Row>
                 ))
               ) : (
-                <Table.Row />
+                <Table.Row key="None" />
               )}
             </Table.Body>
           </Table>
