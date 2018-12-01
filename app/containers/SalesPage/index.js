@@ -15,16 +15,24 @@ import { Table, Input } from 'semantic-ui-react';
 import NavBar from 'containers/NavBar/Loadable';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectSalesPage from './selectors';
+import { selectSalesPageDomain } from './selectors';
 import makeSelectRestaurantList from '../RestaurantList/selectors';
 import { makeSelectRestaurantInfo } from '../RestaurantDashboard/selectors';
-import { handleInput } from './actions';
+import { handleInput, updateSalesList } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SalesPage extends React.Component {
+  componentDidMount() {
+    this.props.handleMount(this.props.recipes);
+  }
+
   render() {
+    console.log(
+      'this is supposed to be the sales page selector: ',
+      this.props.salesPage.salesList,
+    );
     return (
       <div>
         <Helmet>
@@ -32,57 +40,58 @@ export class SalesPage extends React.Component {
           <meta name="description" content="Description of SalesPage" />
         </Helmet>
         <NavBar />
-        <h1>{this.props.restaurant.restaurants[0].restaurants_name}</h1>
         <h2>Enter Sales</h2>
-        <Table unstackable="true" textAlign="right">
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell textAlign="left">Recipe Name</Table.HeaderCell>
-              <Table.HeaderCell>Price</Table.HeaderCell>
-              <Table.HeaderCell>Amount Sold</Table.HeaderCell>
-              <Table.HeaderCell>Total Revenue</Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
+        {this.props.recipes ? (
+          <Table unstackable textAlign="right">
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell textAlign="left">
+                  Recipe Name
+                </Table.HeaderCell>
+                <Table.HeaderCell>Price</Table.HeaderCell>
+                <Table.HeaderCell>Amount Sold</Table.HeaderCell>
+                <Table.HeaderCell>Total Revenue</Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
 
-          <Table.Body>
-            {this.props.recipes.recipes && this.props.recipes.recipes.length ? (
-              this.props.recipes.recipes.map(row => (
+            <Table.Body>
+              {this.props.salesPage.salesList.map(row => (
                 <Table.Row key={row.recipe_id}>
                   <Table.Cell textAlign="left">{row.recipe_name}</Table.Cell>
                   <Table.Cell>${row.price.toFixed(2)}</Table.Cell>
                   <Table.Cell>
                     <Input
                       placeholder="Search Ingredient"
-                      onChange={this.props.handleChange}
-                      value={this.props.value[row.recipe_id]}
+                      onChange={e => this.props.handleChange(e, row.recipe_id)}
                     />
                   </Table.Cell>
-                  <Table.Cell>Hi Nik You Rock!</Table.Cell>
+                  <Table.Cell>{`$${row.price * row.quantity}`}</Table.Cell>
                 </Table.Row>
-              ))
-            ) : (
-              <Table.Row>
-                <Table.Cell textAlign="center" colSpan="4">
-                  Please make a recipe
-                </Table.Cell>
-              </Table.Row>
-            )}
-          </Table.Body>
-        </Table>
+              ))}
+            </Table.Body>
+          </Table>
+        ) : (
+          <Table.Row>
+            <Table.Cell textAlign="center" colSpan="4">
+              Please make a recipe
+            </Table.Cell>
+          </Table.Row>
+        )}
       </div>
     );
   }
 }
 
 SalesPage.propTypes = {
-  restaurant: PropTypes.any,
+  // restaurant: PropTypes.any,
   recipes: PropTypes.any,
   handleChange: PropTypes.func,
-  value: PropTypes.any,
+  handleMount: PropTypes.func,
+  salesPage: PropTypes.any,
 };
 
 const mapStateToProps = createStructuredSelector({
-  salesPage: makeSelectSalesPage(),
+  salesPage: selectSalesPageDomain,
   restaurant: makeSelectRestaurantList(),
   recipes: makeSelectRestaurantInfo(),
 });
@@ -90,10 +99,11 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    handleChange: e => {
+    handleChange: (e, i) => {
       e.preventDefault();
-      return dispatch(handleInput());
+      return dispatch(handleInput(i, e.target.value));
     },
+    handleMount: list => dispatch(updateSalesList(list)),
   };
 }
 

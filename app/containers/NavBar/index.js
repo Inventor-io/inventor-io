@@ -83,7 +83,7 @@ export class NavBar extends React.Component {
               <Menu.Item
                 name="purchaseComplete"
                 active={activeItem === 'purchaseComplete'}
-                content="My purchases"
+                content="My Purchases"
                 onClick={this.handleItemClick}
               />
 

@@ -7,7 +7,7 @@ const Micah = styled.div`
   grid-row-start: 2;
   grid-row-end: 3;
   background-image: url('${image}');
-  background-position: right;
+  background-position-y: 1%;
 
 background-repeat: no-repeat;
 
