@@ -4,7 +4,12 @@
  *
  */
 
-import { FETCH_ORDERLIST, PASS_ORDERLIST } from './constants';
+import {
+  FETCH_ORDERLIST,
+  PASS_ORDERLIST,
+  MAKE_IT_ARRIVE,
+  TELL_EM_IT_ARRIVED,
+} from './constants';
 
 export function fetchOrders() {
   return {
@@ -16,5 +21,20 @@ export function passOrders(arr) {
   return {
     type: PASS_ORDERLIST,
     orderList: arr,
+  };
+}
+
+export function itArrived(i) {
+  return {
+    type: MAKE_IT_ARRIVE,
+    i,
+  };
+}
+
+export function tellemItArrived(i, quantity) {
+  return {
+    type: TELL_EM_IT_ARRIVED,
+    i,
+    quantity,
   };
 }

@@ -11,13 +11,13 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Container, Header, Table } from 'semantic-ui-react';
+import { Container, Header, Table, Button } from 'semantic-ui-react';
 
 import NavBar from 'containers/NavBar/Loadable';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import makeSelectPurchaseComplete from './selectors';
-import { fetchOrders } from './actions';
+import { fetchOrders, itArrived } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -41,11 +41,17 @@ export class PurchaseComplete extends React.Component {
           <Table unstackable>
             <Table.Header>
               <Table.Row key="header">
-                {['ndbno', 'Item', 'Orders', 'Price', 'Date', 'Delivered'].map(
-                  key => (
-                    <Table.HeaderCell key={`${key}`}>{key}</Table.HeaderCell>
-                  ),
-                )}
+                {[
+                  'ndbno',
+                  'Item',
+                  'Orders',
+                  'Price',
+                  'Date',
+                  'Delivered',
+                  'Arrived',
+                ].map(key => (
+                  <Table.HeaderCell key={`${key}`}>{key}</Table.HeaderCell>
+                ))}
               </Table.Row>
             </Table.Header>
 
@@ -60,6 +66,7 @@ export class PurchaseComplete extends React.Component {
                       'Price',
                       'Date',
                       'Delivered',
+                      'Arrived',
                     ].map(key => {
                       if (key === 'Delivered') {
                         return (
@@ -72,6 +79,17 @@ export class PurchaseComplete extends React.Component {
                         return (
                           <Table.Cell key={`${key}${i.toString()}`}>
                             {moment(obj[key]).format('MM/DD/YYYY h:mm')}
+                          </Table.Cell>
+                        );
+                      }
+                      if (key === 'Arrived') {
+                        return (
+                          <Table.Cell key={`${key}${i.toString()}`}>
+                            <Button
+                              value={i}
+                              icon="truck"
+                              onClick={() => this.props.arrived(i)}
+                            />
                           </Table.Cell>
                         );
                       }
@@ -108,6 +126,7 @@ export class PurchaseComplete extends React.Component {
 PurchaseComplete.propTypes = {
   orderList: PropTypes.any,
   fetch: PropTypes.func,
+  arrived: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -117,6 +136,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     fetch: () => dispatch(fetchOrders()),
+    arrived: i => dispatch(itArrived(i)),
   };
 }
 
