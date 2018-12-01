@@ -53,7 +53,6 @@ export class AddIngredients extends React.Component {
         </Helmet> */}
         <Container>
           <Header as="h1">Search for an ingredient</Header>
-          <Button onClick={() => this.props.close()} />
           <Form>
             <Form.Field>
               <Input
@@ -102,9 +101,11 @@ export class AddIngredients extends React.Component {
             <Button
               content="Add to inventory list"
               onClick={e => {
-                this.props.saveToDB(e);
-                this.props.importList(this.props.addedIngredients);
-                this.props.close();
+                const prom1 = new Promise(() => this.props.saveToDB(e));
+                const prom2 = new Promise(() =>
+                  this.props.importList(this.props.addedIngredients),
+                );
+                Promise.all([prom1, prom2]).then(this.props.close);
               }}
             />
           </div>

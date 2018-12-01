@@ -19,7 +19,8 @@ class IngredientsTable extends React.PureComponent {
         <Table unstackable="true">
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell>Ingredient (NDBNO)</Table.HeaderCell>
+              <Table.HeaderCell>Ingredient</Table.HeaderCell>
+              <Table.HeaderCell>NDBNO</Table.HeaderCell>
               <Table.HeaderCell>Quantity</Table.HeaderCell>
               {/* <Table.HeaderCell>Unit</Table.HeaderCell> */}
               <Table.HeaderCell />
@@ -30,6 +31,7 @@ class IngredientsTable extends React.PureComponent {
             {this.props.ingredientsList && this.props.ingredientsList.length ? (
               this.props.ingredientsList.map(row => (
                 <Table.Row key={row.id}>
+                  <Table.Cell>{row.inventory_name}</Table.Cell>
                   <Table.Cell>{row.ndbno}</Table.Cell>
                   <Table.Cell>{row.measurement}</Table.Cell>
                   {/* <Table.Cell>Cell</Table.Cell> */}
@@ -52,7 +54,7 @@ class IngredientsTable extends React.PureComponent {
               ))
             ) : (
               <Table.Row>
-                <Table.Cell textAlign="center" colSpan="2">
+                <Table.Cell textAlign="center" colSpan="3">
                   Please add ingredients.
                 </Table.Cell>
               </Table.Row>
