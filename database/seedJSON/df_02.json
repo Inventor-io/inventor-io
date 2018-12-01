@@ -1,0 +1,14 @@
+[
+  { "restaurant_id": 1, "recipe_name": "hamburgers", "price": 5.5 },
+  { "restaurant_id": 1, "recipe_name": "cheeseburgers", "price": 6.5 },
+  { "restaurant_id": 1, "recipe_name": "french fries", "price": 4.0 },
+  { "restaurant_id": 2, "recipe_name": "pesto linguini", "price": 11.0 },
+  { "restaurant_id": 2, "recipe_name": "cream truffle pasta", "price": 15.0 },
+  { "restaurant_id": 2, "recipe_name": "seafood tomato pasta", "price": 13.0 },
+  { "restaurant_id": 3, "recipe_name": "BLT", "price": 5.0 },
+  { "restaurant_id": 3, "recipe_name": "NY sandwich", "price": 4.3 },
+  { "restaurant_id": 3, "recipe_name": "Turkish sandwich", "price": 6.6 },
+  { "restaurant_id": 4, "recipe_name": "Miso Ramen", "price": 9.7 },
+  { "restaurant_id": 4, "recipe_name": "Wonton soup", "price": 7.7 },
+  { "restaurant_id": 4, "recipe_name": "Peking duck", "price": 20.0 }
+]
