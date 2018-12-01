@@ -88,6 +88,7 @@ function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     responseFacebook: response => {
+      localStorage.setItem('userId', response.id);
       localStorage.setItem('username', response.name);
       dispatch(setUsername(response));
       if (localStorage.getItem('username') !== 'undefined') {

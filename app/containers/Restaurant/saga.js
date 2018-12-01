@@ -16,7 +16,10 @@ export default function* restaurantSaga() {
 }
 function* getServer() {
   const userInfo = yield select(makeSelectLandingPage());
-  console.log(userInfo.id);
+  let userID;
+  userInfo.id
+    ? (userID = userInfo.id)
+    : (userID = localStorage.getItem('userId'));
   const { resAddress, resName, resNumber, resWebsite } = yield select(
     selectRestaurantDomain,
   );
@@ -25,9 +28,9 @@ function* getServer() {
     restaurant_address: resAddress,
     restaurant_phone_number: resNumber,
     restaurant_website: resWebsite,
-    user_id: userInfo.id,
+    user_id: userID,
   };
-  console.log(data);
+  console.log('being sent to database', data);
   // let url = null;
   // const isDev = process.env.NODE_ENV !== 'production';
 
