@@ -198,6 +198,7 @@ async function formatOrderAsync(ndbnos, id, res) {
     .andWhere('restaurant_id', id)
     .from('orders');
   const orders = createForEachDict(orderArr, 'quantity');
+  const prices = createForEachDict(orderArr, 'price');
 
   // get db for current quantity <-- 'restaurant_inventory'
   const quantityArr = await db
@@ -208,9 +209,15 @@ async function formatOrderAsync(ndbnos, id, res) {
   const quantities = createForEachDict(quantityArr, 'quantity');
 
   const result = ndbnos.map(ndbno => {
+    // if prev order record exists, add a random float to it... if not, generate new one
+    let randomnum =
+      Math.random() * Math.floor(Math.random() * 10) + Math.random();
+    randomnum = parseFloat(randomnum.toFixed(2));
     const returnObj = {};
     returnObj.ndbno = ndbno;
-    returnObj.Price = 150; // TODO: fix
+    returnObj.Price = prices[ndbno]
+      ? parseFloat((prices[ndbno] + Math.random()).toFixed(2))
+      : randomnum; // TODO:
     returnObj.Quantity = quantities[ndbno];
     returnObj.Orders = orders[ndbno] ? orders[ndbno] : 0;
     returnObj.Item = names[ndbno];
