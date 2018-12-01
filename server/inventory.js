@@ -249,11 +249,33 @@ const formatToSaveOrder = (arr, id) =>
 async function orderAsync(orderArr, res) {
   try {
     await saveOrder(orderArr);
+    await updateInven(orderArr); // TODO: move to when button is clicked on
     res.sendStatus(200);
   } catch (e) {
     // console.log(e);
   }
 }
+
+const updateInven = orderArr => {
+  // update inventory after placing order
+
+  async function updateOne(obj) {
+    // update one by one
+    try {
+      const arr = await db('restaurant_inventory').where({ ndbno: obj.ndbno });
+      const newNum = arr[0].quantity + obj.quantity;
+      await db('restaurant_inventory')
+        .update({ quantity: newNum })
+        .where({ ndbno: obj.ndbno });
+    } catch (e) {
+      // console.log(e);
+    }
+  }
+
+  orderArr.forEach(obj => {
+    updateOne(obj);
+  });
+};
 
 const saveOrder = orderArr =>
   db
