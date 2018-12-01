@@ -129,6 +129,7 @@ export class AddRecipePage extends React.PureComponent {
                       current.every(oldItem => oldItem.ndbno !== newItem.ndbno),
                     )
                     .map(item => ({
+                      inventory_name: item.inventory_name,
                       ndbno: String(item.ndbno),
                       measurement: 0,
                     }));
