@@ -59,41 +59,32 @@ export class RestaurantDashboard extends React.Component {
     //* {moment(salesInfo[0].date).format('MM/DD/YYYY')} */
     // console.log(JSON.stringify(this.props.info.salesInfo), getRestaurantCosts)
     //          getRestaurantCosts(this.props.info.salesInfo)
-
+    // console.table('daySales############', this.props.info.daySales.rows);
+    // console.table('dayCosts****************', this.props.salesByDate);
+    // console.log('hi');
+    console.log(this.props);
     return (
       <div>
         <NavBar />
         {this.props.info ? (
           <LineChart
-            width={600}
-            height={300}
-            data={this.props.info.daySales.rows}
+            width={1800}
+            height={900}
+            data={this.props.all.salesAndRevenue}
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
           >
             <XAxis dataKey="date" />
             <YAxis />
             <CartesianGrid strokeDasharray="3 3" />
-            <Tooltip />
-            <Legend />
-            {this.props
-              ? this.props.info.daySales.map(recipe => (
-                  <Line
-                    type="monotone"
-                    dataKey={recipe.recipe_name}
-                    stroke="#82ca9d"
-                  />
-                ))
-              : null}
-            {/* {this.props.info.daySales ? this.props.info.daySales.rows.map(sale => 
-              <Line type="monotone" dataKey={sale.recipe_name} stroke="#82ca9d" />
-            ): null} */}
-
-            {/* <Line
-              type="monotone"
-              dataKey="Hamburger"
-              stroke="#8884d8"
-              activeDot={{ r: 8 }}
-            /> */}
+            {/* <Tooltip />
+            <Legend /> */}
+            {this.props ? (
+              <Line
+                type="monotone"
+                dataKey={'hamburgers_revenue'}
+                stroke="#82ca9d"
+              />
+            ) : null}
           </LineChart>
         ) : null}
       </div>
@@ -110,7 +101,7 @@ RestaurantDashboard.propTypes = {
 const mapStateToProps = createStructuredSelector({
   // restaurantDashboard: makeSelectRestaurantDashboard,
   info: makeSelectRestaurantInfo(),
-  all: makeSelectRestaurantDashboard,
+  all: makeSelectRestaurantDashboard(),
   id: makeSelectRestaurantId,
 });
 
@@ -135,4 +126,18 @@ export default compose(
   withConnect,
 )(RestaurantDashboard);
 
+{
+  /* this.props.all.salesAndRevenue.map(recipe => {
+                  for (let key in recipe) {
+                    if (key !== 'date') {
+                      <Line
+                        type="monotone"
+                        dataKey=
+                        stroke="#82ca9d"
+                      />;
+                      console.log(key);
+                    }
+                  }
+                }) */
+}
 /* eslint-enable */
