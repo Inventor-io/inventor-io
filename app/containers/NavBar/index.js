@@ -27,7 +27,6 @@ export class NavBar extends React.Component {
   };
 
   logoutClick = () => {
-    sessionStorage.clear();
     localStorage.clear();
     if (typeof FB === 'object') {
       window.FB.logout();
@@ -78,6 +77,13 @@ export class NavBar extends React.Component {
                 name="shoppingCart"
                 active={activeItem === 'shoppingCart'}
                 content="Shopping Cart"
+                onClick={this.handleItemClick}
+              />
+
+              <Menu.Item
+                name="purchaseComplete"
+                active={activeItem === 'purchaseComplete'}
+                content="My purchases"
                 onClick={this.handleItemClick}
               />
             </React.Fragment>

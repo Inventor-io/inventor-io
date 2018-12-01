@@ -58,7 +58,7 @@ function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     responseFacebook: response => {
-      sessionStorage.setItem('username', response.name);
+      localStorage.setItem('username', response.name);
       dispatch(setUsername(response));
     },
   };

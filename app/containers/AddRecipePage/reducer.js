@@ -12,12 +12,17 @@ import {
   // UPDATE_DESCRIPTION,
   SEND_FORM,
   UPDATE_INGREDIENTSLIST,
+  UPDATE_MODAL,
 } from './constants';
 
 export const initialState = fromJS({});
 
 function addRecipePageReducer(state = initialState, action) {
   switch (action.type) {
+    case UPDATE_MODAL:
+      return Object.assign({}, state, {
+        modalState: action.modalState,
+      });
     case UPDATE_ID:
       return Object.assign({}, state, {
         recId: action.recId,

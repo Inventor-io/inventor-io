@@ -13,7 +13,7 @@ import { Helmet } from 'react-helmet';
 // import messages from './messages';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Input, Button, Container } from 'semantic-ui-react';
+import { Input, Button, Container, Modal } from 'semantic-ui-react';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import NavBar from 'containers/NavBar/Loadable';
@@ -22,6 +22,7 @@ import {
   makeSelectRecPrice,
   makeSelectRecId,
   makeSelectIngredientsList,
+  makeSelectModalState,
   // makeSelectRecDescription,
 } from './selectors';
 import reducer from './reducer';
@@ -35,14 +36,16 @@ import {
   updateIngredientsList,
   sendForm,
   deleteIngredient,
+  updateModalState,
 } from './actions';
 import IngredientsTable from '../../components/IngredientsTable';
-
+import AddIngredients from '../AddIngredients';
 /* eslint-disable react/prefer-stateless-function */
 
 export class AddRecipePage extends React.PureComponent {
   constructor(props) {
     super(props);
+    this.props.changeModal(false);
     if (this.props.location.search) {
       const params = QueryString.parse(this.props.location.search);
       // console.log('PARAMS', params);
@@ -60,8 +63,7 @@ export class AddRecipePage extends React.PureComponent {
   }
 
   render() {
-    console.log(`Using recId for PropTypes: ${this.props.recId}`);
-
+    console.log('PROPS', this.props);
     return (
       <div>
         <Helmet>
@@ -77,6 +79,26 @@ export class AddRecipePage extends React.PureComponent {
             <h2>Create Recipe</h2>
           )}
           <div>
+            <Button
+              content="test"
+              onClick={() => {
+                console.log('THIS', this);
+                this.props.changeIngredientList({
+                  // ingredientsList: {
+                  // ingredientsList: {
+                  ingredientsList: [
+                    {
+                      id: 62,
+                      measurement: 0,
+                      ndbno: '05143',
+                      recipe_id: 6,
+                    },
+                  ],
+                  // },
+                  // },
+                });
+              }}
+            />
             <Input
               value={this.props.recName}
               onChange={e => this.props.changeName(e.target.value)}
@@ -100,7 +122,7 @@ export class AddRecipePage extends React.PureComponent {
             <Button content="Submit" onClick={this.props.onSubmitForm} />
             <br />
             <IngredientsTable
-              ingredientsList={this.props.ingredientsList.ingredientsList}
+              ingredientsList={this.props.ingredientsList}
               removeIngredient={this.props.removeIngredient}
             />
           </div>
@@ -108,8 +130,34 @@ export class AddRecipePage extends React.PureComponent {
           <Button
             content="Add an ingredient"
             color="green"
-            onClick={() => console.log('Add Ingredient clicked')}
+            onClick={() => this.props.changeModal(true)}
           />
+          <Modal open={this.props.modalState}>
+            <Modal.Content>
+              <AddIngredients
+                close={() => this.props.changeModal(false)}
+                importList={newItems => {
+                  console.log(
+                    'Current ingredients',
+                    this.props.ingredientsList,
+                  );
+                  const filtered = newItems.filter(newItem =>
+                    this.props.ingredientsList.every(
+                      oldItem => oldItem.ndbno !== newItem.ndbno,
+                    ),
+                  );
+                  console.log('Filtered new list:', filtered);
+                  console.log(
+                    'New list',
+                    this.props.ingredientsList.concat(filtered),
+                  );
+                  this.props.changeIngredientList(
+                    this.props.ingredientsList.concat(filtered),
+                  );
+                }}
+              />
+            </Modal.Content>
+          </Modal>
         </Container>
       </div>
     );
@@ -122,13 +170,15 @@ AddRecipePage.propTypes = {
   // onChangeDescription: PropTypes.func,
   changePrice: PropTypes.func,
   changeIngredientList: PropTypes.func,
+  changeModal: PropTypes.func,
   removeIngredient: PropTypes.func,
   onSubmitForm: PropTypes.func,
-  recId: PropTypes.any,
+  // recId: PropTypes.any,
   recName: PropTypes.any,
   recPrice: PropTypes.any,
   getIngredients: PropTypes.func.isRequired,
-  ingredientsList: PropTypes.object,
+  ingredientsList: PropTypes.any,
+  modalState: PropTypes.bool,
   // description: PropTypes.any,
   location: PropTypes.any,
 };
@@ -139,6 +189,7 @@ const mapStateToProps = createStructuredSelector({
   recPrice: makeSelectRecPrice(),
   recId: makeSelectRecId(),
   ingredientsList: makeSelectIngredientsList(),
+  modalState: makeSelectModalState(),
   // recDescription: makeSelectRecDescription,
 });
 
@@ -148,6 +199,7 @@ function mapDispatchToProps(dispatch) {
     changeId: newId => dispatch(updateId(newId)),
     changeName: newName => dispatch(updateName(newName)),
     changePrice: newPrice => dispatch(updatePrice(newPrice)),
+    changeModal: newState => dispatch(updateModalState(newState)),
     removeIngredient: (recipeID, ndbno) => {
       console.log('Dispatched deleteIngredient for');
       console.log('recipeID', recipeID, 'ndbno', ndbno);

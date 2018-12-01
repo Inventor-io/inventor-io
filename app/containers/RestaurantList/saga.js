@@ -35,7 +35,7 @@ function* getList() {
       restaurants,
     });
 
-    console.log('getList', restaurants);
+    // console.log('getList', restaurants);
   } catch (err) {
     throw err;
   }

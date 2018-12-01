@@ -38,32 +38,31 @@ export class RestaurantList extends React.Component {
       <div>
         <NavBar restaurant="true" />
         <div>
+          Welcome {localStorage.getItem('username')}
           {JSON.stringify(this.props.userInfo.id)}
           Welcome {sessionStorage.getItem('username')}
           <Button floated="right" onClick={this.props.addRestaurant}>
             Add Restaurant
           </Button>
         </div>
-        <div>
-          {this.props.restaurantList.restaurants
-            ? this.props.restaurantList.restaurants.map((restaurant, key) => (
-                <RestaurantCard
-                  key={key}
-                  header={restaurant.restaurants_name}
-                  click={this.props.onClick}
-                  id={restaurant.id}
-                  description={
-                    <ul>
-                      <li>{restaurant.restaurant_address}</li>
-                      <li>{restaurant.restaurant_phone_number}</li>
-                      <li>{restaurant.restaurant_website}</li>
-                    </ul>
-                  }
-                />
-              ))
-            : null}
-          {/* <Button content="get Repos" onClick={this.props.onPageLoad} /> */}
-        </div>
+        {this.props.restaurantList.restaurants
+          ? this.props.restaurantList.restaurants.map((restaurant, key) => (
+              <RestaurantCard
+                key={key}
+                header={restaurant.restaurants_name}
+                click={this.props.onClick}
+                id={restaurant.id}
+                description={
+                  <ul>
+                    <li>{restaurant.restaurant_address}</li>
+                    <li>{restaurant.restaurant_phone_number}</li>
+                    <li>{restaurant.restaurant_website}</li>
+                  </ul>
+                }
+              />
+            ))
+          : null}
+        {/* <Button content="get Repos" onClick={this.props.onPageLoad} /> */}
       </div>
     );
   }
@@ -88,7 +87,7 @@ function mapDispatchToProps(dispatch) {
     onClick: e => {
       const resID = e.target.id;
       dispatch(selectedRes(resID));
-      console.log(resID);
+      // console.log(resID);
     },
     addRestaurant: () => {
       history.push('/addrestaurant');
