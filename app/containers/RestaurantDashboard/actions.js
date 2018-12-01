@@ -9,10 +9,18 @@ import {
   SELECT_RESTAURANT,
   LOAD_INFO,
   RECEIVED_RESTAURANT_INFO,
+  RESTAURANT_COSTS,
 } from './constants';
 /* eslint-disable */
 import { RECEIVED_RESTAURANTS } from '../RestaurantList/constants';
 /* eslint-enable */
+export function restaurantCosts(resCosts) {
+  return {
+    type: RESTAURANT_COSTS,
+    resCosts,
+  };
+}
+
 export function defaultAction() {
   return {
     type: DEFAULT_ACTION,

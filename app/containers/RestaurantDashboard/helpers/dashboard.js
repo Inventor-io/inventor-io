@@ -1,7 +1,8 @@
+/* eslint-disable */
 import moment from 'moment';
 import makeSelectRestaurantInfo from '../selectors';
 
-export function getRestaurantCosts(salesInfo) {
+export default function getRestaurantCosts(salesInfo) {
   const restaurantInfo = makeSelectRestaurantInfo();
   console.log('SAGA for Dashboard', restaurantInfo);
   // const data = [];
@@ -18,6 +19,7 @@ export function getRestaurantCosts(salesInfo) {
     date[currentDate][recipeName]
       ? date[currentDate][recipeName].push(ingredient)
       : (date[currentDate][recipeName] = [ingredient]);
+    return null;
   });
 
   // console.log(date);
@@ -39,7 +41,12 @@ export function getRestaurantCosts(salesInfo) {
   }
 
   // console.log(costPerDay);
+  // restaurantCosts(costPerDay);
   return costPerDay;
 }
 
-export function getRestaurantRevenue(salesInfo) {}
+export function getRestaurantRevenue(salesInfo) {
+  // TODO MAYBE
+  return salesInfo;
+}
+/* eslint-enable */

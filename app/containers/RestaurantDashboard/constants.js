@@ -9,3 +9,4 @@ export const SELECT_RESTAURANT = 'app/RestaurantDashboard/SELECT_RESTAURANT';
 export const LOAD_INFO = 'app/RestaurantDashboard/LOAD_INFO';
 export const RECEIVED_RESTAURANT_INFO =
   'app/RestaurantDashboard/RECEIVED_RESTAURANT_INFO';
+export const RESTAURANT_COSTS = 'app/RestaurantDashboard/RESTAURANT_COSTS';
