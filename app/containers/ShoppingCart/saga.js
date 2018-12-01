@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { push } from 'connected-react-router/immutable';
-import { takeEvery, call, select, put } from 'redux-saga/effects';
+import { takeEvery, call, select, put, all } from 'redux-saga/effects';
 import { PLACE_ORDER, CALL_MOUNT_ORDER } from './constants';
 import { sendMountOrder, wipeCart } from './actions';
 import { selectInventoryDomain } from '../Inventory/selectors';
@@ -10,10 +10,10 @@ import { selectRestaurantDashboardDomain } from '../RestaurantDashboard/selector
 
 // Individual exports for testing
 export default function* shoppingCartSaga() {
-  yield [
+  yield all([
     takeEvery(PLACE_ORDER, placeOrder),
     takeEvery(CALL_MOUNT_ORDER, mountFromInven),
-  ];
+  ]);
 }
 
 function* placeOrder() {

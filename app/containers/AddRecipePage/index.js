@@ -79,26 +79,6 @@ export class AddRecipePage extends React.PureComponent {
             <h2>Create Recipe</h2>
           )}
           <div>
-            <Button
-              content="test"
-              onClick={() => {
-                console.log('THIS', this);
-                this.props.changeIngredientList({
-                  // ingredientsList: {
-                  // ingredientsList: {
-                  ingredientsList: [
-                    {
-                      id: 62,
-                      measurement: 0,
-                      ndbno: '05143',
-                      recipe_id: 6,
-                    },
-                  ],
-                  // },
-                  // },
-                });
-              }}
-            />
             <Input
               value={this.props.recName}
               onChange={e => this.props.changeName(e.target.value)}
@@ -132,28 +112,31 @@ export class AddRecipePage extends React.PureComponent {
             color="green"
             onClick={() => this.props.changeModal(true)}
           />
-          <Modal open={this.props.modalState}>
+          <Modal
+            open={this.props.modalState}
+            onClose={() => this.props.changeModal(false)}
+          >
             <Modal.Content>
               <AddIngredients
                 close={() => this.props.changeModal(false)}
                 importList={newItems => {
-                  console.log(
-                    'Current ingredients',
-                    this.props.ingredientsList,
-                  );
-                  const filtered = newItems.filter(newItem =>
-                    this.props.ingredientsList.every(
-                      oldItem => oldItem.ndbno !== newItem.ndbno,
-                    ),
-                  );
+                  const current = this.props.ingredientsList
+                    ? this.props.ingredientsList
+                    : [];
+                  console.log('Current ingredients', current);
+                  const filtered = newItems
+                    .filter(newItem =>
+                      current.every(oldItem => oldItem.ndbno !== newItem.ndbno),
+                    )
+                    .map(item => ({
+                      inventory_name: item.inventory_name,
+                      ndbno: String(item.ndbno),
+                      measurement: 0,
+                    }));
                   console.log('Filtered new list:', filtered);
-                  console.log(
-                    'New list',
-                    this.props.ingredientsList.concat(filtered),
-                  );
-                  this.props.changeIngredientList(
-                    this.props.ingredientsList.concat(filtered),
-                  );
+                  console.log('New list', current.concat(filtered));
+                  this.props.changeIngredientList(current.concat(filtered));
+                  this.props.changeModal(false);
                 }}
               />
             </Modal.Content>

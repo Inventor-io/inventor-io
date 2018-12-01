@@ -15,20 +15,33 @@ async function saveIngredients(ingObj, recID, restaurantID, res) {
   try {
     // TODO: this is a naive solution... just wanted to get it over with it
     const ndbnos = getndbnos(ingObj); // array of all ndbnos in request
-    const exists = await checkRecipeIngredients(recID, ndbnos); // array of existing objects in restaurant_inventory
-    const filteredndbnos = filterndbnos(ndbnos, exists); // array of ndbnos not in restaurant_inventory
-    const filteredObjs = filterObjs(filteredndbnos, ingObj); // array of objects not in restaurant_inventory
+    const exists = await checkRecipeIngredients(recID, ndbnos); // array of existing objects in recipe_inventory
+    let filteredndbnos = filterndbnos(ndbnos, exists); // array of ndbnos not in recipe_inventory
+    let filteredObjs = filterObjs(filteredndbnos, ingObj); // array of objects not in recipe_inventory
     // insert into db
     await saveIngToInventoryDB(filteredObjs); // insert to inventory table
-    await saveIngToRecipeInventoryDB(recID, ndbnos); // insert to inventory table
+    await saveIngToRecipeInventoryDB(recID, ndbnos); // insert to recipe_inventory table
+
+    const restaurantNdbnos = await getRestaurantNdbnos(restaurantID);
+    filteredndbnos = filterndbnos(filteredndbnos, restaurantNdbnos);
+    filteredObjs = filterObjs(filteredndbnos, filteredObjs);
     await addInventoryToRestaurant(filteredObjs, restaurantID); // insert filteredObjs to restaurant_inventory
-    // TODO add to Inventory_Restaurant?
     console.log('SUCCESS');
     res.sendStatus(200);
   } catch (e) {
     console.log('ERROR ADDING INGREDIENTS:', e);
   }
 }
+
+const getRestaurantNdbnos = restaurantID =>
+  db('restaurant_inventory')
+    .where({ restaurant_id: restaurantID })
+    .select('ndbno');
+
+const addInventoryToRestaurant = (inventoryList, restaurantID) => {
+  const arr = formatInventoryDataForDB(inventoryList, restaurantID);
+  return db.insert(arr).into('restaurant_inventory');
+};
 
 const formatInventoryDataForDB = (ingObj, tempID) => {
   // for 'restaurant_inventory' table
@@ -40,11 +53,6 @@ const formatInventoryDataForDB = (ingObj, tempID) => {
   });
   console.log('Formatted for Rest-Inv', arr);
   return arr;
-};
-
-const addInventoryToRestaurant = (inventoryList, restaurantID) => {
-  const arr = formatInventoryDataForDB(inventoryList, restaurantID);
-  return db.insert(arr).into('restaurant_inventory');
 };
 
 const saveIngToInventoryDB = inventoryList =>
@@ -163,13 +171,15 @@ router.get('/ingredients', (req, res) => {
 async function getIngredients(recipeID, res) {
   try {
     const data = await queryIngredients(recipeID);
-    console.log('Sending back', data.length, 'rows.');
+    console.log('Sending back', data);
     res.send(data);
   } catch (e) {
     console.log('ERROR in getIngredients:', e);
   }
 }
 const queryIngredients = recipeID =>
-  db.where({ recipe_id: recipeID }).from('recipe_inventory');
+  db('recipe_inventory')
+    .join('inventory', 'recipe_inventory.ndbno', '=', 'inventory.ndbno')
+    .where({ recipe_id: recipeID });
 
 module.exports = router;
