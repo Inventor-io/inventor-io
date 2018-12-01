@@ -29,10 +29,6 @@ export class SalesPage extends React.Component {
   }
 
   render() {
-    console.log(
-      'this is supposed to be the sales page selector: ',
-      this.props.salesPage.salesList,
-    );
     return (
       <div>
         <Helmet>
@@ -65,7 +61,8 @@ export class SalesPage extends React.Component {
                       onChange={e => this.props.handleChange(e, row.recipe_id)}
                     />
                   </Table.Cell>
-                  <Table.Cell>{`$${row.price * row.quantity}`}</Table.Cell>
+                  <Table.Cell>{`$${row.price *
+                    parseInt(row.quantity, 10)}`}</Table.Cell>
                 </Table.Row>
               ))}
             </Table.Body>
