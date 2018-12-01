@@ -40,6 +40,7 @@ export class RestaurantList extends React.Component {
         <div>
           Welcome {localStorage.getItem('username')}
           {JSON.stringify(this.props.userInfo.id)}
+          Welcome {sessionStorage.getItem('username')}
           <Button floated="right" onClick={this.props.addRestaurant}>
             Add Restaurant
           </Button>
@@ -59,7 +60,7 @@ export class RestaurantList extends React.Component {
                   </ul>
                 }
               />
-          ))
+            ))
           : null}
         {/* <Button content="get Repos" onClick={this.props.onPageLoad} /> */}
       </div>

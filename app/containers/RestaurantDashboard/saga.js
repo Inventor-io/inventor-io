@@ -6,6 +6,7 @@ import { LOAD_INFO, RECEIVED_RESTAURANT_INFO } from './constants';
 import { selectRestaurantDashboardDomain } from './selectors';
 // Individual exports for testing
 
+import getRestaurantCosts from './helpers/dashboard';
 function* getRestaurantInfo() {
   // console.log('inside saga for select restaurant');
   const { selectedRestaurant } = yield select(selectRestaurantDashboardDomain);
@@ -18,10 +19,12 @@ function* getRestaurantInfo() {
     };
 
     const restaurantQuery = yield call(axios, post);
-    // console.log(restaurantQuery.data);
+    console.log(restaurantQuery.data);
+    console.log(getRestaurantCosts(restaurantQuery.data.salesInfo));
     yield put({
       type: RECEIVED_RESTAURANT_INFO,
       info: restaurantQuery.data,
+      salesByDate: getRestaurantCosts(restaurantQuery.data.salesInfo),
     });
   } catch (e) {
     // console.error(e);
