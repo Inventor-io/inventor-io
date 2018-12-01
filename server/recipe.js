@@ -171,7 +171,7 @@ router.get('/ingredients', (req, res) => {
 async function getIngredients(recipeID, res) {
   try {
     const data = await queryIngredients(recipeID);
-    console.log('Sending back', data);
+    console.log('Sending back', data.length, 'rows');
     res.send(data);
   } catch (e) {
     console.log('ERROR in getIngredients:', e);

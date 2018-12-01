@@ -13,7 +13,7 @@ import { Helmet } from 'react-helmet';
 // import messages from './messages';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Input, Button, Container, Modal } from 'semantic-ui-react';
+import { Input, Button, Container } from 'semantic-ui-react';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import NavBar from 'containers/NavBar/Loadable';
@@ -39,7 +39,7 @@ import {
   updateModalState,
 } from './actions';
 import IngredientsTable from '../../components/IngredientsTable';
-import AddIngredients from '../AddIngredients';
+
 /* eslint-disable react/prefer-stateless-function */
 
 export class AddRecipePage extends React.PureComponent {
@@ -58,7 +58,7 @@ export class AddRecipePage extends React.PureComponent {
       this.props.changeId(null);
       this.props.changeName('');
       this.props.changePrice(''); // mjw - Combine. Now causes 3 renders.
-      this.props.changeIngredientList({}); // mjw - selector ingredient array is ingredients.ingredients
+      this.props.changeIngredientList([]); // mjw - selector ingredient array is ingredients.ingredients
     }
   }
 
@@ -102,11 +102,18 @@ export class AddRecipePage extends React.PureComponent {
             <Button content="Submit" onClick={this.props.onSubmitForm} />
             <br />
             <IngredientsTable
+              changeIngredientsList={newList =>
+                this.props.changeIngredientList(newList)
+              }
+              modalState={this.props.modalState}
+              changeModal={this.props.changeModal}
+              recipeID={this.props.recId}
+              changeIngredientList={this.props.changeIngredientList}
               ingredientsList={this.props.ingredientsList}
               removeIngredient={this.props.removeIngredient}
             />
           </div>
-          <br />
+          {/* <br />
           <Button
             content="Add an ingredient"
             color="green"
@@ -119,6 +126,7 @@ export class AddRecipePage extends React.PureComponent {
             <Modal.Content>
               <AddIngredients
                 close={() => this.props.changeModal(false)}
+                
                 importList={newItems => {
                   const current = this.props.ingredientsList
                     ? this.props.ingredientsList
@@ -140,7 +148,7 @@ export class AddRecipePage extends React.PureComponent {
                 }}
               />
             </Modal.Content>
-          </Modal>
+          </Modal> */}
         </Container>
       </div>
     );
@@ -156,7 +164,7 @@ AddRecipePage.propTypes = {
   changeModal: PropTypes.func,
   removeIngredient: PropTypes.func,
   onSubmitForm: PropTypes.func,
-  // recId: PropTypes.any,
+  recId: PropTypes.any,
   recName: PropTypes.any,
   recPrice: PropTypes.any,
   getIngredients: PropTypes.func.isRequired,
@@ -183,6 +191,11 @@ function mapDispatchToProps(dispatch) {
     changeName: newName => dispatch(updateName(newName)),
     changePrice: newPrice => dispatch(updatePrice(newPrice)),
     changeModal: newState => dispatch(updateModalState(newState)),
+    // send update of amount to database
+    // changeIngredientAmount: (recipeID, newAmount) => {
+
+    //   dispatch(updateIngredientAmount(recipeID, newAmount))
+    // },
     removeIngredient: (recipeID, ndbno) => {
       console.log('Dispatched deleteIngredient for');
       console.log('recipeID', recipeID, 'ndbno', ndbno);

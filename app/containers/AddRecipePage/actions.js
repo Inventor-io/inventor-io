@@ -23,6 +23,13 @@ import {
 //   };
 // }
 
+// export function updateIngredientAmount(recID, measurement) {
+//   return {
+//     type: UPDATE_INGREDIENT_AMOUNT,
+//     payload: { recipe_id: recID, measurement },
+//   };
+// }
+
 export function updateModalState(modalState) {
   return {
     type: UPDATE_MODAL,
