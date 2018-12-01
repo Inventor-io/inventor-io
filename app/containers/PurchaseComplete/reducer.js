@@ -13,6 +13,7 @@ import {
 
 export const initialState = fromJS({
   orderList: [],
+  i: 0,
 });
 
 function purchaseCompleteReducer(state = initialState, action) {
@@ -30,6 +31,7 @@ function purchaseCompleteReducer(state = initialState, action) {
           }
           return nobj;
         }),
+        i: action.i,
       });
     case TELL_EM_IT_ARRIVED:
       return Object.assign({}, state, {
@@ -40,6 +42,7 @@ function purchaseCompleteReducer(state = initialState, action) {
           }
           return nobj;
         }),
+        // i: action.i,
       });
     default:
       return state;

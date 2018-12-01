@@ -31,6 +31,7 @@ function* fetchOrder() {
 
 function* bringOrder() {
   const { orderList, i } = yield select(selectPurchaseCompleteDomain);
+  console.log('>> orderList, i', orderList, i);
   const changeThis = orderList[i];
   const { selectedRestaurant } = yield select(selectRestaurantDashboardDomain);
 
