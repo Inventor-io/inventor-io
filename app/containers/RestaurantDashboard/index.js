@@ -30,7 +30,7 @@ import makeSelectRestaurantDashboard, {
 import reducer from './reducer';
 import saga from './saga';
 import { loadInformation } from './actions';
-// import getRestaurantCosts from './helpers/dashboard';
+import { getRandomColor } from './helpers/dashboard';
 
 /* eslint-disable react/prefer-stateless-function */
 export class RestaurantDashboard extends React.Component {
@@ -63,6 +63,7 @@ export class RestaurantDashboard extends React.Component {
     // console.table('dayCosts****************', this.props.salesByDate);
     // console.log('hi');
     console.log(this.props);
+    let count = 0;
     return (
       <div>
         <NavBar />
@@ -76,15 +77,56 @@ export class RestaurantDashboard extends React.Component {
             <XAxis dataKey="date" />
             <YAxis />
             <CartesianGrid strokeDasharray="3 3" />
-            {/* <Tooltip />
-            <Legend /> */}
-            {this.props ? (
-              <Line
-                type="monotone"
-                dataKey={'hamburgers_revenue'}
-                stroke="#82ca9d"
-              />
-            ) : null}
+            <Tooltip />
+            <Legend />
+            {this.props
+              ? Object.keys(this.props.all.salesAndRevenue[0]).map(key => {
+                  if (key !== 'date') {
+                    console.log(getRandomColor);
+                    let randomColor = getRandomColor();
+                    return (
+                      <Line
+                        type="monotone"
+                        dataKey={key}
+                        stroke={randomColor}
+                      />
+                    );
+                    console.log(key);
+                  }
+                })
+              : null}
+            {/* this.props.all.salesAndRevenue.map() */}
+          </LineChart>
+        ) : null}
+        {this.props.info ? (
+          <LineChart
+            width={1800}
+            height={900}
+            data={this.props.all.salesAndRevenue}
+            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+          >
+            <XAxis dataKey="date" />
+            <YAxis />
+            <CartesianGrid strokeDasharray="3 3" />
+            <Tooltip />
+            <Legend />
+            {this.props
+              ? Object.keys(this.props.all.salesAndRevenue[0]).map(key => {
+                  if (key !== 'date') {
+                    console.log(getRandomColor);
+                    let randomColor = getRandomColor();
+                    return (
+                      <Line
+                        type="monotone"
+                        dataKey={key}
+                        stroke={randomColor}
+                      />
+                    );
+                    console.log(key);
+                  }
+                })
+              : null}
+            {/* this.props.all.salesAndRevenue.map() */}
           </LineChart>
         ) : null}
       </div>
@@ -141,3 +183,12 @@ export default compose(
                 }) */
 }
 /* eslint-enable */
+//   {/* /* {(
+
+//   <Line
+//     type="monotone"
+//     dataKey={'hamburgers_revenue'}
+//     stroke="#82ca9d"
+//   />
+// )  }*/
+//     null} */}

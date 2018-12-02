@@ -18,3 +18,14 @@ server {
         proxy_cache_bypass $http_upgrade;
      }
 }
+
+  #  location / {
+  #   try_files $uri @inventorio;  
+  # }
+
+  # location @nodejs {
+  #   proxy_pass http://inventorio:3000;
+  # }
+
+
+

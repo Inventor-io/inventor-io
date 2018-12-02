@@ -4,7 +4,13 @@
     {
       "name": "inventorio",
       "host": {
-        "sourcePath": "/var/app/current/app"
+        "sourcePath": "/var/app/current/inventorio"
+      }
+    },
+    {
+      "name": "nginx-proxy-conf",
+      "host": {
+        "sourcePath": "/var/app/current/proxy/conf.d"
       }
     }
   ],
@@ -17,14 +23,14 @@
       "mountPoints": [
         {
           "sourceVolume": "inventorio",
-          "containerPath": "/var/opt/app",
+          "containerPath": "/var/www/html",
           "readOnly": true
         }
       ]
     },
     {
       "name": "nginx-proxy",
-      "image": "thehackerati/nginx-reverse-proxy",
+      "image": "nginx",
       "essential": true,
       "memory": 128,
       "portMappings": [
@@ -35,6 +41,16 @@
       ],
       "links": ["inventorio"],
       "mountPoints": [
+        {
+          "sourceVolume": "inventorio",
+          "containerPath": "/var/www/html",
+          "readOnly": true
+        },
+        {
+          "sourceVolume": "nginx-proxy-conf",
+          "containerPath": "/etc/nginx/conf.d",
+          "readOnly": true
+        },
         {
           "sourceVolume": "awseb-logs-nginx-proxy",
           "containerPath": "/var/log/nginx"
