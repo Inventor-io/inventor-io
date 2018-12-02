@@ -19,7 +19,7 @@ class IngredientsTable extends React.PureComponent {
     console.log('INGREDIENTS TABLE PROPS:', this.props);
     return (
       <div>
-        <Table unstackable="true">
+        <Table unstackable white-space="no-wrap">
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>Ingredient</Table.HeaderCell>
@@ -38,7 +38,10 @@ class IngredientsTable extends React.PureComponent {
                   <Table.Cell>
                     <Input defaultValue={row.measurement} />
                   </Table.Cell>
-                  <Table.Cell>
+                  <Table.Cell width="3">
+                    <Button icon size="tiny">
+                      <Icon name="edit alternate" />
+                    </Button>
                     <Button
                       icon
                       size="tiny"
