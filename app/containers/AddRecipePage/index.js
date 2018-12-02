@@ -13,10 +13,11 @@ import { Helmet } from 'react-helmet';
 // import messages from './messages';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Input, Button, Container } from 'semantic-ui-react';
+import { Header, Input, Button, Container, Modal } from 'semantic-ui-react';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import NavBar from 'containers/NavBar/Loadable';
+import AddIngredients from '../AddIngredients';
 import {
   makeSelectRecName,
   makeSelectRecPrice,
@@ -37,6 +38,7 @@ import {
   sendForm,
   deleteIngredient,
   updateModalState,
+  updateIngredientAmount,
 } from './actions';
 import IngredientsTable from '../../components/IngredientsTable';
 
@@ -73,34 +75,35 @@ export class AddRecipePage extends React.PureComponent {
         <NavBar />
         <Container>
           {/* <FormattedMessage {...messages.header} /> */}
-          {this.props.location.search ? (
-            <h2>Edit Recipe</h2>
+          {!this.props.location.search ? (
+            <div>
+              <Header as="h1">Create Recipe</Header>
+              <Input
+                value={this.props.recName}
+                onChange={e => this.props.changeName(e.target.value)}
+                size="large"
+                placeholder="Name"
+              />
+              <br />
+              <Input
+                value={this.props.recPrice}
+                onChange={e => this.props.changePrice(e.target.value)}
+                size="large"
+                placeholder="Price"
+              />
+              <Button content="Submit" onClick={this.props.onSubmitForm} />
+            </div>
           ) : (
-            <h2>Create Recipe</h2>
+            <Header as="h1">Edit Recipe: {this.props.recName} </Header>
           )}
           <div>
-            <Input
-              value={this.props.recName}
-              onChange={e => this.props.changeName(e.target.value)}
-              size="large"
-              placeholder="Name"
-            />
-            <br />
-            <Input
-              value={this.props.recPrice}
-              onChange={e => this.props.changePrice(e.target.value)}
-              size="large"
-              placeholder="Price"
-            />
             {/* <br />
             <Input
-              value={this.props.description}
-              onChange={this.props.onChangeDescription}
-              size="large"
-              placeholder="Description"
-            /> */}
-            <Button content="Submit" onClick={this.props.onSubmitForm} />
-            <br />
+            value={this.props.description}
+            onChange={this.props.onChangeDescription}
+            size="large"
+            placeholder="Description"
+          /> */}
             <IngredientsTable
               changeIngredientsList={newList =>
                 this.props.changeIngredientList(newList)
@@ -111,9 +114,10 @@ export class AddRecipePage extends React.PureComponent {
               changeIngredientList={this.props.changeIngredientList}
               ingredientsList={this.props.ingredientsList}
               removeIngredient={this.props.removeIngredient}
+              changeIngredientAmount={this.props.changeIngredientAmount}
             />
           </div>
-          {/* <br />
+          <br />
           <Button
             content="Add an ingredient"
             color="green"
@@ -126,7 +130,6 @@ export class AddRecipePage extends React.PureComponent {
             <Modal.Content>
               <AddIngredients
                 close={() => this.props.changeModal(false)}
-                
                 importList={newItems => {
                   const current = this.props.ingredientsList
                     ? this.props.ingredientsList
@@ -137,6 +140,7 @@ export class AddRecipePage extends React.PureComponent {
                       current.every(oldItem => oldItem.ndbno !== newItem.ndbno),
                     )
                     .map(item => ({
+                      recipe_id: this.props.recId,
                       inventory_name: item.inventory_name,
                       ndbno: String(item.ndbno),
                       measurement: 0,
@@ -148,7 +152,7 @@ export class AddRecipePage extends React.PureComponent {
                 }}
               />
             </Modal.Content>
-          </Modal> */}
+          </Modal>
         </Container>
       </div>
     );
@@ -162,6 +166,7 @@ AddRecipePage.propTypes = {
   changePrice: PropTypes.func,
   changeIngredientList: PropTypes.func,
   changeModal: PropTypes.func,
+  changeIngredientAmount: PropTypes.func,
   removeIngredient: PropTypes.func,
   onSubmitForm: PropTypes.func,
   recId: PropTypes.any,
@@ -192,10 +197,10 @@ function mapDispatchToProps(dispatch) {
     changePrice: newPrice => dispatch(updatePrice(newPrice)),
     changeModal: newState => dispatch(updateModalState(newState)),
     // send update of amount to database
-    // changeIngredientAmount: (recipeID, newAmount) => {
-
-    //   dispatch(updateIngredientAmount(recipeID, newAmount))
-    // },
+    changeIngredientAmount: (recipeID, ndbno, newAmount) => {
+      console.log('CHANGE INGREDIENT TRIGGERED');
+      dispatch(updateIngredientAmount(recipeID, ndbno, newAmount));
+    },
     removeIngredient: (recipeID, ndbno) => {
       console.log('Dispatched deleteIngredient for');
       console.log('recipeID', recipeID, 'ndbno', ndbno);

@@ -3,6 +3,29 @@ const router = express.Router();
 require('dotenv').config();
 const db = require('knex')(require('../knexfile').development);
 
+// UPDATE THE AMOUNT USED IN A RECIPE
+router.patch('/ingredients', (req, res) => {
+  console.log('UPDATE INGREDIENT RECEIVED');
+  console.log(req.query);
+  updateIngredientAmount(req.query, res);
+});
+
+async function updateIngredientAmount(query, res) {
+  try {
+    console.log('query in async:', query);
+    await updateTheRow(query);
+    console.log('Response sent.');
+    res.sendStatus(200);
+  } catch (e) {
+    console.log('ERROR in updateIngredient:', e);
+  }
+}
+
+const updateTheRow = query =>
+  db('recipe_inventory')
+    .where({ recipe_id: query.recipe_id, ndbno: query.ndbno })
+    .update({ measurement: query.measurement });
+
 // ADD A LIST OF INGREDIENTS TO A RECIPE
 
 router.post('/ingredients', (req, res) => {
