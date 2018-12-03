@@ -6,6 +6,7 @@ import {
   GET_INGREDIENTSLIST,
   UPDATE_INGREDIENTSLIST,
   DELETE_INGREDIENT,
+  UPDATE_INGREDIENT_AMOUNT,
 } from './constants';
 import { selectRestaurantDashboardDomain } from '../RestaurantDashboard/selectors';
 
@@ -15,11 +16,29 @@ export default function* addRecipePageSaga() {
     takeEvery(GET_INGREDIENTSLIST, getIngredients),
     takeEvery(SEND_FORM, sendRecipe),
     takeEvery(DELETE_INGREDIENT, deleteIngredient),
+    takeEvery(UPDATE_INGREDIENT_AMOUNT, updateIngredientAmount),
   ]);
 }
 
+function* updateIngredientAmount(action) {
+  console.log('UPDATE ACTION PAYLOAD', action.payload);
+  try {
+    // const { ingredientsList } = yield select(selectAddRecipePageDomain);
+    const axiosArgs = {
+      url: '/api/recipe/ingredients',
+      method: 'patch',
+      params: action.payload,
+    };
+    const response = yield call(axios, axiosArgs);
+    console.log(response);
+  } catch (e) {
+    yield console.error(e);
+  }
+}
+
+// Delete an Ingredient from the recipe
 function* deleteIngredient(action) {
-  console.log('SAGA ACTION PAYLOAD', action.payload);
+  console.log('DELETE ACTION PAYLOAD', action.payload);
   try {
     const { ingredientsList } = yield select(selectAddRecipePageDomain);
     const axiosArgs = {
