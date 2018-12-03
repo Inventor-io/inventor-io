@@ -26,8 +26,9 @@ function salesPageReducer(state = initialState, action) {
         }),
       });
     case UPDATE_SALES_LIST:
+      console.log('in reducer: ', action);
       return Object.assign({}, state, {
-        salesList: action.list.recipes.map(obj =>
+        salesList: action.list.map(obj =>
           Object.assign({}, obj, { quantity: '' }),
         ),
       });
