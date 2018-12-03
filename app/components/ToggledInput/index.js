@@ -16,15 +16,22 @@ import PropTypes from 'prop-types';
 class ToggledInput extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = { isLocked: !this.startsLocked, value: this.props.value };
-    this.toggle = this.toggle.bind(this);
+    this.state = { buttonShown: false, value: this.props.value };
+    this.open = this.open.bind(this);
+    this.close = this.close.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
-  toggle() {
-    this.setState(state => ({
-      isLocked: !state.isLocked,
-    }));
+  open() {
+    this.setState({
+      buttonShown: true,
+    });
+  }
+
+  close() {
+    this.setState({
+      buttonShown: false,
+    });
   }
 
   handleChange(e) {
@@ -37,8 +44,12 @@ class ToggledInput extends React.PureComponent {
     console.log('STATE', this.state);
     return (
       <div>
-        <Input defaultValue={this.props.value} onChange={this.handleChange} />
-        {this.state.isLocked && (
+        <Input
+          defaultValue={this.props.value}
+          onChange={this.handleChange}
+          onClick={this.open}
+        />
+        {this.state.buttonShown && (
           <Button
             content="Submit"
             size="tiny"
@@ -52,7 +63,7 @@ class ToggledInput extends React.PureComponent {
                 console.log('Sending', newMeasurement);
                 console.log('UPDATE func', this.props.update);
                 this.props.update(Number.parseFloat(newMeasurement));
-                this.toggle();
+                this.close();
               } else {
                 alert('Please enter a non-negative number');
               }

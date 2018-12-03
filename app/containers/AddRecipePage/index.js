@@ -40,6 +40,7 @@ import {
   updateModalState,
   updateIngredientAmount,
 } from './actions';
+import history from '../../utils/history';
 import IngredientsTable from '../../components/IngredientsTable';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -49,6 +50,7 @@ export class AddRecipePage extends React.PureComponent {
     super(props);
     this.props.changeModal(false);
     if (this.props.location.search) {
+      this.state = { showCreateModal: false };
       const params = QueryString.parse(this.props.location.search);
       // console.log('PARAMS', params);
       this.props.changeId(params.id);
@@ -56,16 +58,25 @@ export class AddRecipePage extends React.PureComponent {
       this.props.changePrice(params.price); // mjw - Combine. Now causes 3 renders.
       this.props.getIngredients();
     } else if (this.props.recName) {
+      this.state = { showCreateModal: true };
       // console.log('CLEARING PARAMS');
       this.props.changeId(null);
       this.props.changeName('');
       this.props.changePrice(''); // mjw - Combine. Now causes 3 renders.
       this.props.changeIngredientList([]); // mjw - selector ingredient array is ingredients.ingredients
     }
+    this.toggleCreateModal = this.toggleCreateModal.bind(this);
+  }
+
+  toggleCreateModal() {
+    this.setState(prevState => ({
+      showCreateModal: !prevState.showCreateModal,
+    }));
   }
 
   render() {
-    console.log('PROPS', this.props);
+    console.log('ADD REC PROPS', this.props);
+    console.log('ADD REC STATE', this.state);
     return (
       <div>
         <Helmet>
@@ -77,7 +88,7 @@ export class AddRecipePage extends React.PureComponent {
           {/* <FormattedMessage {...messages.header} /> */}
           {!this.props.location.search ? (
             <div>
-              <Header as="h1">Create Recipe</Header>
+              <Header as="h1">Name your recipe:</Header>
               <Input
                 value={this.props.recName}
                 onChange={e => this.props.changeName(e.target.value)}
@@ -91,38 +102,50 @@ export class AddRecipePage extends React.PureComponent {
                 size="large"
                 placeholder="Price"
               />
-              <Button content="Submit" onClick={this.props.onSubmitForm} />
+              <br />
+              <Button
+                content="Cancel"
+                onClick={() => history.push('/recipe')}
+              />
+              <Button
+                content="Submit"
+                onClick={() => {
+                  if (
+                    this.props.recName !== '' &&
+                    (!this.props.ingredientsList ||
+                      this.props.ingredientsList.every(
+                        row => row.name !== this.props.recName,
+                      ))
+                  ) {
+                    console.log('NEW NAME');
+                    this.props.onSubmitForm();
+                  }
+                }}
+              />
             </div>
           ) : (
-            <Header as="h1">Edit Recipe: {this.props.recName} </Header>
+            <div>
+              <Header as="h1">Edit Recipe: {this.props.recName} </Header>
+              <IngredientsTable
+                changeIngredientsList={newList =>
+                  this.props.changeIngredientList(newList)
+                }
+                modalState={this.props.modalState}
+                changeModal={this.props.changeModal}
+                recipeID={this.props.recId}
+                changeIngredientList={this.props.changeIngredientList}
+                ingredientsList={this.props.ingredientsList}
+                removeIngredient={this.props.removeIngredient}
+                changeIngredientAmount={this.props.changeIngredientAmount}
+              />
+              <Button
+                content="Add an ingredient"
+                color="green"
+                onClick={() => this.props.changeModal(true)}
+              />
+            </div>
           )}
-          <div>
-            {/* <br />
-            <Input
-            value={this.props.description}
-            onChange={this.props.onChangeDescription}
-            size="large"
-            placeholder="Description"
-          /> */}
-            <IngredientsTable
-              changeIngredientsList={newList =>
-                this.props.changeIngredientList(newList)
-              }
-              modalState={this.props.modalState}
-              changeModal={this.props.changeModal}
-              recipeID={this.props.recId}
-              changeIngredientList={this.props.changeIngredientList}
-              ingredientsList={this.props.ingredientsList}
-              removeIngredient={this.props.removeIngredient}
-              changeIngredientAmount={this.props.changeIngredientAmount}
-            />
-          </div>
           <br />
-          <Button
-            content="Add an ingredient"
-            color="green"
-            onClick={() => this.props.changeModal(true)}
-          />
           <Modal
             open={this.props.modalState}
             onClose={() => this.props.changeModal(false)}
@@ -159,6 +182,15 @@ export class AddRecipePage extends React.PureComponent {
   }
 }
 
+// AddDescription (Possible addition)
+/* <br />
+<Input
+value={this.props.description}
+onChange={this.props.onChangeDescription}
+size="large"
+placeholder="Description"
+/> */
+
 AddRecipePage.propTypes = {
   changeId: PropTypes.func,
   changeName: PropTypes.func,
@@ -172,7 +204,7 @@ AddRecipePage.propTypes = {
   recId: PropTypes.any,
   recName: PropTypes.any,
   recPrice: PropTypes.any,
-  getIngredients: PropTypes.func.isRequired,
+  getIngredients: PropTypes.func,
   ingredientsList: PropTypes.any,
   modalState: PropTypes.bool,
   // description: PropTypes.any,
@@ -208,10 +240,14 @@ function mapDispatchToProps(dispatch) {
     },
     // onChangeDescription: e => dispatch(updateDescription(e.target.value)),
     changeIngredientList: newList => dispatch(updateIngredientsList(newList)),
-    onSubmitForm: e => {
-      e.preventDefault();
+    onSubmitForm: () => {
       console.log('sendForm dispatched!');
       dispatch(sendForm());
+      history.push(
+        `/editRecipe?id=${this.props.recId}&name=${this.props.recName}&price=${
+          this.props.recPrice
+        }`,
+      );
     },
   };
 }

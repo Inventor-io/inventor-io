@@ -22,7 +22,6 @@ export function formResponse() {
 
 export function sendForm() {
   // const data = { resAddress, resName, resNumber };
-
   return {
     type: SEND_FORM,
   };
