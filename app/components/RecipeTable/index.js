@@ -20,7 +20,7 @@ class RecipeTable extends React.PureComponent {
 
   toggleDeleteModal() {
     this.setState(prevState => ({
-      showDeleteModal: prevState.showDeleteModal,
+      showDeleteModal: !prevState.showDeleteModal,
     }));
   }
 
@@ -75,21 +75,21 @@ class RecipeTable extends React.PureComponent {
                     >
                       <Modal.Header>
                         <div>
-                          Are you sure you want to delete &#34 {row.recipe_name}{' '}
-                          &#34?
+                          Are you sure you want to delete &#34;{' '}
+                          {row.recipe_name} &#34;?
                         </div>
                       </Modal.Header>
                       <Modal.Content>
+                        <Button
+                          content="Cancel"
+                          onClick={this.toggleDeleteModal}
+                        />
                         <Button
                           color="red"
                           content="Delete"
                           onClick={() =>
                             console.log('Deleting', row.recipe_name)
                           }
-                        />
-                        <Button
-                          content="Cancel"
-                          onClick={this.toggleDeleteModal}
                         />
                       </Modal.Content>
                     </Modal>
