@@ -17,7 +17,7 @@
   "containerDefinitions": [
     {
       "name": "inventorio",
-      "image": "jpwarren13/inventor-io:dev",
+      "image": "jpwarren13/inventor-io:docker",
       "essential": true,
       "memory": 128,
       "mountPoints": [

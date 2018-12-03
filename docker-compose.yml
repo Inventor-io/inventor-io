@@ -14,8 +14,3 @@ services:
     container_name: inventorio
     expose:
       - '3000'
-    networks:
-      - my-network
-networks:
-  my-network:
-    name: my-network
