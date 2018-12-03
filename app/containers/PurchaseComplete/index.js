@@ -93,6 +93,13 @@ export class PurchaseComplete extends React.Component {
                           </Table.Cell>
                         );
                       }
+                      if (key === 'Price') {
+                        return (
+                          <Table.Cell key={`${key}${i.toString()}`}>
+                            {`$${obj[key].toFixed(2)}`}
+                          </Table.Cell>
+                        );
+                      }
                       return (
                         <Table.Cell key={`${key}${i.toString()}`}>
                           {obj[key]}
