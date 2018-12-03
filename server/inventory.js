@@ -302,25 +302,25 @@ const saveOrder = orderArr =>
 POST: /api/inventory/deleteInventory
 */
 router.post('/deleteInventory', (req, res) => {
-  const { ndbno } = req.body;
-  deleteInv(ndbno, res);
+  const { ndbno, id } = req.body;
+  deleteInv(ndbno, id, res);
 });
 
-const knexDelInv = ndbno =>
+const knexDelInv = (ndbno, id) =>
   db
     .from('restaurant_inventory')
-    .where({ ndbno })
-    .del();
-// .catch(e => {
-//   console.log(e);
-// });
+    .where({ ndbno, restaurant_id: id })
+    .del()
+    .catch(e => {
+      console.log(e);
+    });
 
-async function deleteInv(ndbno, res) {
+async function deleteInv(ndbno, id, res) {
   try {
-    await knexDelInv(ndbno);
+    await knexDelInv(ndbno, id);
     res.sendStatus(200);
   } catch (e) {
-    // console.log(e);
+    console.log(e);
   }
 }
 
