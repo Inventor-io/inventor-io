@@ -81,15 +81,15 @@ class RecipeTable extends React.PureComponent {
                       </Modal.Header>
                       <Modal.Content>
                         <Button
+                          content="Cancel"
+                          onClick={this.toggleDeleteModal}
+                        />
+                        <Button
                           color="red"
                           content="Delete"
                           onClick={() =>
                             console.log('Deleting', row.recipe_name)
                           }
-                        />
-                        <Button
-                          content="Cancel"
-                          onClick={this.toggleDeleteModal}
                         />
                       </Modal.Content>
                     </Modal>
