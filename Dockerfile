@@ -2,7 +2,7 @@
 FROM node:11.2.0
 
 # Create app directory
-WORKDIR /usr/src/app
+WORKDIR /var/app/current
 
 # Install app dependencies
 COPY package*.json ./
