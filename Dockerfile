@@ -3,13 +3,13 @@ FROM node:11.2.0
 
 # Create app directory
 #RUN mkdir -p /usr/src/app
-WORKDIR /var/www/html
+WORKDIR /usr/src/app
 # Install app dependencies
 COPY package*.json ./
 # For npm@5 or later, copy package-lock.json as well
 # COPY package.json package-lock.json .
 
-RUN npm install
+RUN npm install -g
 
 # Bundle app source
 COPY . .

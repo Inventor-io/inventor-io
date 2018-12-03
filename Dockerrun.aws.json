@@ -1,67 +1,18 @@
 {
-  "AWSEBDockerrunVersion": 2,
-  "volumes": [
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "jpwarren13/inventor-io:latest",
+    "Update": "true"
+  },
+  "Ports": [
     {
-      "name": "inventorio",
-      "host": {
-        "sourcePath": "/var/app/current/inventorio"
-      }
-    },
-    {
-      "name": "nginx-proxy-conf",
-      "host": {
-        "sourcePath": "/var/app/current/proxy/conf.d"
-      }
+      "ContainerPort": "3000"
     }
   ],
-  "containerDefinitions": [
+  "Volumes": [
     {
-      "name": "inventorio",
-      "image": "jpwarren13/inventor-io:docker",
-      "essential": true,
-      "memory": 128,
-      "portMappings": [
-        {
-          "hostPort": 3000,
-          "containerPort": 3000
-        }
-      ],
-      "mountPoints": [
-        {
-          "sourceVolume": "inventorio",
-          "containerPath": "/var/www/html",
-          "readOnly": true
-        }
-      ]
-    },
-    {
-      "name": "nginx-proxy",
-      "image": "nginx",
-      "essential": true,
-      "memory": 128,
-      "portMappings": [
-        {
-          "hostPort": 80,
-          "containerPort": 80
-        }
-      ],
-      "links": ["inventorio"],
-      "mountPoints": [
-        {
-          "sourceVolume": "inventorio",
-          "containerPath": "/var/www/html",
-          "readOnly": true
-        },
-        {
-          "sourceVolume": "nginx-proxy-conf",
-          "containerPath": "/etc/nginx/conf.d",
-          "readOnly": true
-        },
-        {
-          "sourceVolume": "awseb-logs-nginx-proxy",
-          "containerPath": "/var/log/nginx"
-        }
-      ]
+      "HostDirectory": "/var/app/current",
+      "ContainerDirectory": "/var/lib/docker/containers"
     }
   ]
 }
