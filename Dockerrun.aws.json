@@ -4,7 +4,7 @@
     {
       "name": "inventorio",
       "host": {
-        "sourcePath": "/usr/src/app"
+        "sourcePath": "/var/app/current/inventorio"
       }
     },
     {
@@ -17,13 +17,19 @@
   "containerDefinitions": [
     {
       "name": "inventorio",
-      "image": "jpwarren13/inventor-io:latest",
+      "image": "jpwarren13/inventor-io:docker",
       "essential": true,
       "memory": 128,
+      "portMappings": [
+        {
+          "hostPort": 3000,
+          "containerPort": 3000
+        }
+      ],
       "mountPoints": [
         {
           "sourceVolume": "inventorio",
-          "containerPath": "/usr/src/app",
+          "containerPath": "/var/www/html",
           "readOnly": true
         }
       ]
@@ -43,7 +49,7 @@
       "mountPoints": [
         {
           "sourceVolume": "inventorio",
-          "containerPath": "/usr/src/app",
+          "containerPath": "/var/www/html",
           "readOnly": true
         },
         {

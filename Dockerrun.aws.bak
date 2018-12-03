@@ -23,7 +23,7 @@
       "mountPoints": [
         {
           "sourceVolume": "inventorio",
-          "containerPath": "/var/www/html",
+          "containerPath": "/",
           "readOnly": true
         }
       ]
