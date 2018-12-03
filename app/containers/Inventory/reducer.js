@@ -28,11 +28,13 @@ function inventoryReducer(state = initialState, action) {
         currentInventory: action.currentInventory,
       });
     case ADD_ORDER:
+    /* eslint-disable */
       return Object.assign({}, state, {
         selected: state.selected
-          ? state.selected.concat([state.currentInventory[action.i].ndbno])
-          : [state.currentInventory[action.i].ndbno],
+          ? (action.checked ? state.selected.concat([state.currentInventory[action.i].ndbno]) : state.selected.filter(ndbno => ndbno !== state.currentInventory[action.i].ndbno))
+          : (action.checked ? [state.currentInventory[action.i].ndbno] : []),
       });
+    /* eslint-enable */
     case DEL_INVEN:
       return Object.assign({}, state, {
         delItem: action.delete,
