@@ -244,9 +244,10 @@ function mapDispatchToProps(dispatch) {
       console.log('sendForm dispatched!');
       dispatch(sendForm());
       history.push(
-        `/editRecipe?id=${this.props.recId}&name=${this.props.recName}&price=${
-          this.props.recPrice
-        }`,
+        '/recipe',
+        // `/editRecipe?id=${this.props.recId}&name=${this.props.recName}&price=${
+        //   this.props.recPrice
+        // }`,
       );
     },
   };
