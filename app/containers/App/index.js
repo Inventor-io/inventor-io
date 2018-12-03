@@ -86,7 +86,7 @@ export default function App() {
         <Route
           path="/purchaseComplete"
           render={() =>
-            sessionStorage.getItem('username') ? (
+            localStorage.getItem('username') ? (
               <PurchaseComplete />
             ) : (
               <LandingPage />
