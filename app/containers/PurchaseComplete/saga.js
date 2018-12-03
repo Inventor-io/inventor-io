@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { call, put, select, takeEvery } from 'redux-saga/effects';
 import { FETCH_ORDERLIST, MAKE_IT_ARRIVE } from './constants';
-import { passOrders, tellemItArrived } from './actions';
+import { passOrders } from './actions';
 import { selectRestaurantDashboardDomain } from '../RestaurantDashboard/selectors';
 import { selectPurchaseCompleteDomain } from './selectors';
 
@@ -31,7 +31,6 @@ function* fetchOrder() {
 
 function* bringOrder() {
   const { orderList, i } = yield select(selectPurchaseCompleteDomain);
-  console.log('>> orderList, i', orderList, i);
   const changeThis = orderList[i];
   const { selectedRestaurant } = yield select(selectRestaurantDashboardDomain);
 
@@ -43,7 +42,7 @@ function* bringOrder() {
 
   try {
     yield call(axios, options);
-    yield put(tellemItArrived(i, changeThis.quantity));
+    // yield put(tellemItArrived(i, changeThis.quantity));
   } catch (e) {
     console.log(e);
   }

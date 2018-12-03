@@ -8,7 +8,7 @@ import {
   FETCH_ORDERLIST,
   PASS_ORDERLIST,
   MAKE_IT_ARRIVE,
-  TELL_EM_IT_ARRIVED,
+  // TELL_EM_IT_ARRIVED,
 } from './constants';
 
 export function fetchOrders() {
@@ -31,10 +31,9 @@ export function itArrived(i) {
   };
 }
 
-export function tellemItArrived(i, quantity) {
-  return {
-    type: TELL_EM_IT_ARRIVED,
-    i,
-    quantity,
-  };
-}
+// export function tellemItArrived(table) {
+//   return {
+//     type: TELL_EM_IT_ARRIVED,
+//     table,
+//   };
+// }

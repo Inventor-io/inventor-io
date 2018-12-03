@@ -215,9 +215,7 @@ async function formatOrderAsync(ndbnos, id, res) {
     randomnum = parseFloat(randomnum.toFixed(2));
     const returnObj = {};
     returnObj.ndbno = ndbno;
-    returnObj.Price = prices[ndbno]
-      ? parseFloat((prices[ndbno] + Math.random()).toFixed(2))
-      : randomnum; // TODO:
+    returnObj.Price = prices[ndbno] ? prices[ndbno] : randomnum; // TODO:
     returnObj.Quantity = quantities[ndbno];
     returnObj.Orders = orders[ndbno] ? orders[ndbno] : 0;
     returnObj.Item = names[ndbno];
@@ -232,32 +230,31 @@ async function formatOrderAsync(ndbnos, id, res) {
 */
 router.post('/deliverIt', (req, res) => {
   const { changeThis, id } = req.body;
-  console.log('>>> deliverit server', changeThis, id);
   updateOne(changeThis, id, res);
-  console.log('>>> delivering to front');
-  res.sendStatus(200);
 });
 
-async function updateOne(obj, id) {
+async function updateOne(obj, id, res) {
   // update one by one
   try {
     const arr = await db('restaurant_inventory').where({
       ndbno: obj.ndbno,
       restaurant_id: id,
-      date: obj.Date,
     });
-    console.log('>>> IN SERVER arr', arr);
-    const newNum = arr[0].quantity + obj.quantity; // TODO: this is prob gonna be undefined
-    // `UPDATE "restaurant_inventory" SET "status" = 'archived' WHERE`
+
+    const quantity = obj.Orders;
+    const newNum = arr[0].quantity + quantity; // TODO:
     await db('restaurant_inventory')
       .update({ quantity: newNum })
-      .where({ ndbno: obj.ndbno });
-    console.log('>>> server date', obj.Date);
+      .where({ ndbno: obj.ndbno, restaurant_id: id });
+
+    // update delivered:true
     await db('orders')
-      .update({ delivered: true })
-      .where({ ndbno: obj.ndbno, restaurant_id: id, date: obj.Date });
+      .where({ ndbno: obj.ndbno, restaurant_id: id })
+      .andWhereRaw(`date >= '${obj.Date}'::date;`)
+      .update({ delivered: true });
+    res.sendStatus(200);
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 }
 

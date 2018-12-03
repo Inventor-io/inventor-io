@@ -8,7 +8,7 @@ import { fromJS } from 'immutable';
 import {
   PASS_ORDERLIST,
   MAKE_IT_ARRIVE,
-  TELL_EM_IT_ARRIVED,
+  // TELL_EM_IT_ARRIVED,
 } from './constants';
 
 export const initialState = fromJS({
@@ -33,17 +33,16 @@ function purchaseCompleteReducer(state = initialState, action) {
         }),
         i: action.i,
       });
-    case TELL_EM_IT_ARRIVED:
-      return Object.assign({}, state, {
-        orderList: state.orderList.map((obj, i) => {
-          const nobj = { ...obj };
-          if (i === action.i) {
-            nobj.quantity = obj.quantity + action.quantity;
-          }
-          return nobj;
-        }),
-        // i: action.i,
-      });
+    // case TELL_EM_IT_ARRIVED:
+    //   return Object.assign({}, state, {
+    //     orderList: state.orderList.map((obj, i) => {
+    //       const nobj = { ...obj };
+    //       if (i === action.i) {
+    //         nobj.quantity = obj.quantity + action.quantity;
+    //       }
+    //       return nobj;
+    //     }),
+    //   });
     default:
       return state;
   }
