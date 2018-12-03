@@ -7,8 +7,6 @@ services:
       - /home/jpw/thesis/inventor-io/proxy/conf.d/default.conf
     ports:
       - '80:80'
-    networks:
-      - my-network
   inventorio:
     image: jpwarren13/inventor-io:latest
     container_name: inventorio
