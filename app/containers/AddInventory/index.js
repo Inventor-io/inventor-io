@@ -11,7 +11,6 @@ import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import {
-  Input,
   Button,
   Dropdown,
   Container,
@@ -57,7 +56,7 @@ export class AddInventory extends React.Component {
           <Header as="h1">Add an ingredient..!</Header>
           <Form>
             <Form.Field>
-              <Input
+              <input
                 placeholder="Search Ingredient"
                 onChange={this.props.handleChange}
                 size="large"

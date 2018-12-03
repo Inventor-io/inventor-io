@@ -9,33 +9,48 @@ import PropTypes from 'prop-types';
 // import { FormattedMessage } from 'react-intl';
 // import messages from './messages';
 import { Table, Button, Icon } from 'semantic-ui-react';
+// import AddIngredients from '../../containers/AddIngredients';
+import ToggledInput from '../ToggledInput';
 // import history from '../../utils/history';
 
 /* eslint-disable react/prefer-stateless-function */
+/* eslint-enable */
 class IngredientsTable extends React.PureComponent {
   render() {
+    console.log('INGREDIENTS TABLE PROPS:', this.props);
     return (
       <div>
-        <Table unstackable="true">
+        <Table unstackable fixed selectable>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell>Ingredient</Table.HeaderCell>
-              <Table.HeaderCell>NDBNO</Table.HeaderCell>
-              <Table.HeaderCell>Quantity</Table.HeaderCell>
-              {/* <Table.HeaderCell>Unit</Table.HeaderCell> */}
-              <Table.HeaderCell />
+              <Table.HeaderCell width="6">Ingredient</Table.HeaderCell>
+              <Table.HeaderCell width="2">NDBNO</Table.HeaderCell>
+              <Table.HeaderCell width="4">Quantity</Table.HeaderCell>
+              <Table.HeaderCell width="2" />
             </Table.Row>
           </Table.Header>
 
           <Table.Body>
             {this.props.ingredientsList && this.props.ingredientsList.length ? (
               this.props.ingredientsList.map(row => (
-                <Table.Row key={row.id}>
+                <Table.Row key={row.ndbno}>
                   <Table.Cell>{row.inventory_name}</Table.Cell>
                   <Table.Cell>{row.ndbno}</Table.Cell>
-                  <Table.Cell>{row.measurement}</Table.Cell>
-                  {/* <Table.Cell>Cell</Table.Cell> */}
                   <Table.Cell>
+                    <ToggledInput
+                      value={row.measurement}
+                      startsLocked="true"
+                      update={newMeasurement => {
+                        console.log('UPDATE CALLED');
+                        this.props.changeIngredientAmount(
+                          row.recipe_id,
+                          row.ndbno,
+                          newMeasurement,
+                        );
+                      }}
+                    />
+                  </Table.Cell>
+                  <Table.Cell textAlign="center">
                     <Button
                       icon
                       size="tiny"
@@ -69,6 +84,9 @@ class IngredientsTable extends React.PureComponent {
 IngredientsTable.propTypes = {
   ingredientsList: PropTypes.object,
   removeIngredient: PropTypes.func,
+  // changeIngredientList: PropTypes.func,
+  changeIngredientAmount: PropTypes.func,
+  // recipeID: PropTypes.number,
 };
 
 export default IngredientsTable;

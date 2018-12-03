@@ -8,10 +8,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // import { FormattedMessage } from 'react-intl';
 // import messages from './messages';
-import { Table, Button, Icon } from 'semantic-ui-react';
+import { Table, Button, Icon, Modal } from 'semantic-ui-react';
 import history from '../../utils/history';
 /* eslint-disable react/prefer-stateless-function */
 class RecipeTable extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = { showDeleteModal: false };
+    this.toggleDeleteModal = this.toggleDeleteModal.bind(this);
+  }
+
+  toggleDeleteModal() {
+    this.setState(prevState => ({
+      showDeleteModal: prevState.showDeleteModal,
+    }));
+  }
+
   render() {
     const { recipeList } = this.props.recipeList;
     console.log('RECIPE LIST', recipeList);
@@ -49,6 +61,38 @@ class RecipeTable extends React.PureComponent {
                     >
                       <Icon name="edit" />
                     </Button>
+                    <Modal
+                      trigger={
+                        <Button
+                          size="tiny"
+                          icon
+                          onClick={this.toggleDeleteModal}
+                        >
+                          <Icon name="trash alternate" />
+                        </Button>
+                      }
+                      open={this.state.showDeleteModal}
+                    >
+                      <Modal.Header>
+                        <div>
+                          Are you sure you want to delete &#34 {row.recipe_name}{' '}
+                          &#34?
+                        </div>
+                      </Modal.Header>
+                      <Modal.Content>
+                        <Button
+                          color="red"
+                          content="Delete"
+                          onClick={() =>
+                            console.log('Deleting', row.recipe_name)
+                          }
+                        />
+                        <Button
+                          content="Cancel"
+                          onClick={this.toggleDeleteModal}
+                        />
+                      </Modal.Content>
+                    </Modal>
                   </Table.Cell>
                 </Table.Row>
               ))
