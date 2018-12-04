@@ -1,17 +1,15 @@
 import styled from 'styled-components';
-import image from '../images/Nik.jpg';
+import image from '../images/KakaoTalk_Photo_2018-09-12-17-21-37.jpg';
 
-const Nik = styled.div`
+const Yirey = styled.div`
   grid-column-start: 2;
   grid-column-end: 3;
   grid-row-start: 6;
   grid-row-end: 7;
   background-image: url('${image}');
-  background-position: right;
-
-background-repeat: no-repeat;
-
-background-size: cover;
+  background-position-y: 25%;
+  background-repeat: no-repeat;
+  background-size: cover;
 `;
 
-export default Nik;
+export default Yirey;

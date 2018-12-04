@@ -15,6 +15,7 @@ import {
   // DEFAULT_ACTION,
   DELETE_INGREDIENT,
   UPDATE_MODAL,
+  UPDATE_INGREDIENT_AMOUNT,
 } from './constants';
 
 // export function defaultAction() {
@@ -22,6 +23,13 @@ import {
 //     type: DEFAULT_ACTION,
 //   };
 // }
+
+export function updateIngredientAmount(recID, ndbno, measurement) {
+  return {
+    type: UPDATE_INGREDIENT_AMOUNT,
+    payload: { recipe_id: recID, ndbno, measurement },
+  };
+}
 
 export function updateModalState(modalState) {
   return {

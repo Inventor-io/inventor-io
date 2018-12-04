@@ -15,7 +15,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import NavBar from 'containers/NavBar/Loadable';
 import 'semantic-ui-css/semantic.min.css'; // TODO - mjw - FIX ME
-import { Dropdown, Button, Container } from 'semantic-ui-react';
+import { Dropdown, Button, Container, Header } from 'semantic-ui-react';
 import {
   // makeSelectRecipePage,
   // selectRecipePageDomain,
@@ -23,7 +23,7 @@ import {
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { getRecipes } from './actions';
+import { getRecipes, deleteRecipe } from './actions';
 import history from '../../utils/history';
 import RecipeTable from '../../components/RecipeTable';
 // import messages from './messages';
@@ -57,7 +57,7 @@ export class RecipePage extends React.PureComponent {
         <NavBar />
         <Container>
           {/* <FormattedMessage {...messages.header} /> */}
-          <h2>Recipes</h2>
+          <Header as="h1">Recipes</Header>
           <div>
             {false && (
               <Dropdown
@@ -67,7 +67,10 @@ export class RecipePage extends React.PureComponent {
                 onChange={(trash, target) => console.log(target.value)}
               />
             )}
-            <RecipeTable recipeList={this.props.recipeList} />
+            <RecipeTable
+              recipeList={this.props.recipeList}
+              deleteRecipe={this.props.dispatchDeleteRecipe}
+            />
             <Button
               color="green"
               content="Add a new recipe"
@@ -84,6 +87,7 @@ RecipePage.propTypes = {
   restaurantList: PropTypes.any,
   recipeList: PropTypes.object,
   getRecipeList: PropTypes.func.isRequired,
+  dispatchDeleteRecipe: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -95,6 +99,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
+    dispatchDeleteRecipe: recipeID => dispatch(deleteRecipe(recipeID)),
     getRecipeList: () => dispatch(getRecipes()),
   };
 }

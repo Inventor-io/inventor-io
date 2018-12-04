@@ -3,6 +3,59 @@ const router = express.Router();
 require('dotenv').config();
 const db = require('knex')(require('../knexfile').development);
 
+// DELETE A RECIPE
+router.delete('/', (req, res) => {
+  console.log('DELETE RECIPE RECEIVED');
+  console.log(req.query);
+  deleteRecipe(req.query, res);
+});
+
+async function deleteRecipe(query, res) {
+  try {
+    console.log('query in async:', query);
+    await deleteRelatedIngredients(query);
+    await deleteRecipeItself(query);
+    const data = await queryRecipes(query.restaurant_id);
+    console.log('Sending back', data.length, 'rows.');
+    res.send(data);
+    console.log('Response sent.');
+  } catch (e) {
+    console.log('ERROR in deleteRecipe:', e);
+  }
+}
+const deleteRelatedIngredients = query =>
+  db('recipe_inventory')
+    .where({ recipe_id: query.recipe_id })
+    .del();
+
+const deleteRecipeItself = query =>
+  db('recipes')
+    .where({ recipe_id: query.recipe_id })
+    .del();
+
+// UPDATE THE AMOUNT USED IN A RECIPE
+router.patch('/ingredients', (req, res) => {
+  console.log('UPDATE INGREDIENT RECEIVED');
+  console.log(req.query);
+  updateIngredientAmount(req.query, res);
+});
+
+async function updateIngredientAmount(query, res) {
+  try {
+    console.log('query in async:', query);
+    await updateTheRow(query);
+    console.log('Response sent.');
+    res.sendStatus(200);
+  } catch (e) {
+    console.log('ERROR in updateIngredient:', e);
+  }
+}
+
+const updateTheRow = query =>
+  db('recipe_inventory')
+    .where({ recipe_id: query.recipe_id, ndbno: query.ndbno })
+    .update({ measurement: query.measurement });
+
 // ADD A LIST OF INGREDIENTS TO A RECIPE
 
 router.post('/ingredients', (req, res) => {
@@ -116,7 +169,7 @@ async function deleteIngredient(query, res) {
     console.log('Response sent.');
     res.sendStatus(200);
   } catch (e) {
-    console.log('ERROR in getRecipes:', e);
+    console.log('ERROR in deleteIngredient:', e);
   }
 }
 const deleteTheRow = query =>
@@ -134,7 +187,7 @@ router.get('/get', (req, res) => {
 async function getRecipes(restaurantID, res) {
   try {
     const data = await queryRecipes(restaurantID);
-    console.log('Response sent.');
+    console.log('Sending back', data.length, 'rows.');
     res.send(data);
   } catch (e) {
     console.log('ERROR in getRecipes:', e);
@@ -171,7 +224,7 @@ router.get('/ingredients', (req, res) => {
 async function getIngredients(recipeID, res) {
   try {
     const data = await queryIngredients(recipeID);
-    console.log('Sending back', data);
+    console.log('Sending back', data.length, 'rows');
     res.send(data);
   } catch (e) {
     console.log('ERROR in getIngredients:', e);

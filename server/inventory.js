@@ -198,6 +198,7 @@ async function formatOrderAsync(ndbnos, id, res) {
     .andWhere('restaurant_id', id)
     .from('orders');
   const orders = createForEachDict(orderArr, 'quantity');
+  const prices = createForEachDict(orderArr, 'price');
 
   // get db for current quantity <-- 'restaurant_inventory'
   const quantityArr = await db
@@ -208,9 +209,13 @@ async function formatOrderAsync(ndbnos, id, res) {
   const quantities = createForEachDict(quantityArr, 'quantity');
 
   const result = ndbnos.map(ndbno => {
+    // if prev order record exists, add a random float to it... if not, generate new one
+    let randomnum =
+      Math.random() * Math.floor(Math.random() * 10) + Math.random();
+    randomnum = parseFloat(randomnum.toFixed(2));
     const returnObj = {};
     returnObj.ndbno = ndbno;
-    returnObj.Price = 150; // TODO: fix
+    returnObj.Price = prices[ndbno] ? prices[ndbno] : randomnum; // TODO:
     returnObj.Quantity = quantities[ndbno];
     returnObj.Orders = orders[ndbno] ? orders[ndbno] : 0;
     returnObj.Item = names[ndbno];
@@ -218,6 +223,39 @@ async function formatOrderAsync(ndbnos, id, res) {
   });
 
   res.send(result);
+}
+
+/* 
+  POST: /api/inventory/deliverIt
+*/
+router.post('/deliverIt', (req, res) => {
+  const { changeThis, id } = req.body;
+  updateOne(changeThis, id, res);
+});
+
+async function updateOne(obj, id, res) {
+  // update one by one
+  try {
+    const arr = await db('restaurant_inventory').where({
+      ndbno: obj.ndbno,
+      restaurant_id: id,
+    });
+
+    const quantity = obj.Orders;
+    const newNum = arr[0].quantity + quantity; // TODO:
+    await db('restaurant_inventory')
+      .update({ quantity: newNum })
+      .where({ ndbno: obj.ndbno, restaurant_id: id });
+
+    // update delivered:true
+    await db('orders')
+      .where({ ndbno: obj.ndbno, restaurant_id: id })
+      .andWhereRaw(`date >= '${obj.Date}'::date;`)
+      .update({ delivered: true });
+    res.sendStatus(200);
+  } catch (e) {
+    // console.log(e);
+  }
 }
 
 /* 
@@ -264,25 +302,25 @@ const saveOrder = orderArr =>
 POST: /api/inventory/deleteInventory
 */
 router.post('/deleteInventory', (req, res) => {
-  const { ndbno } = req.body;
-  deleteInv(ndbno, res);
+  const { ndbno, id } = req.body;
+  deleteInv(ndbno, id, res);
 });
 
-const knexDelInv = ndbno =>
+const knexDelInv = (ndbno, id) =>
   db
     .from('restaurant_inventory')
-    .where({ ndbno })
-    .del();
-// .catch(e => {
-//   console.log(e);
-// });
+    .where({ ndbno, restaurant_id: id })
+    .del()
+    .catch(e => {
+      console.log(e);
+    });
 
-async function deleteInv(ndbno, res) {
+async function deleteInv(ndbno, id, res) {
   try {
-    await knexDelInv(ndbno);
+    await knexDelInv(ndbno, id);
     res.sendStatus(200);
   } catch (e) {
-    // console.log(e);
+    console.log(e);
   }
 }
 

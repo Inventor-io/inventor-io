@@ -13,3 +13,5 @@ export const DELETE_INGREDIENT = 'app/AddRecipePage/DELETE_INGREDIENT';
 export const SEND_FORM = 'app/AddRecipePage/SEND_FORM';
 export const GET_INGREDIENTSLIST = 'app/AddRecipePage/GET_INGREDIENTSLIST';
 export const UPDATE_MODAL = 'app/AddRecipePage/UPDATE_MODAL';
+export const UPDATE_INGREDIENT_AMOUNT =
+  'app/AddRecipePage/UPDATE_INGREDIENT_AMOUNT';
