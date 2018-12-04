@@ -47,10 +47,10 @@ export class ShoppingCart extends React.Component {
           <Header as="h1">Shopping Cart</Header>
           <Table unstackable>
             <Table.Header>
-              <Table.Row>
+              <Table.Row key="header">
                 {['ndbno', 'Item', 'Quantity', 'Orders', 'Price', 'Delete'].map(
                   key => (
-                    <Table.HeaderCell>{key}</Table.HeaderCell>
+                    <Table.HeaderCell key={key}>{key}</Table.HeaderCell>
                   ),
                 )}
               </Table.Row>
@@ -70,7 +70,7 @@ export class ShoppingCart extends React.Component {
                     ].map(key => {
                       if (key === 'Orders') {
                         return (
-                          <Table.Cell>
+                          <Table.Cell key={`${key}${i.toString()}`}>
                             <Input
                               defaultValue={obj.Orders}
                               onChange={e => this.props.handleChange(e, i)}
@@ -81,7 +81,7 @@ export class ShoppingCart extends React.Component {
                       }
                       if (key === 'Delete') {
                         return (
-                          <Table.Cell>
+                          <Table.Cell key={`${key}${i.toString()}`}>
                             <Button
                               value={i}
                               icon="trash alternate outline"
@@ -91,7 +91,11 @@ export class ShoppingCart extends React.Component {
                         );
                       }
 
-                      return <Table.Cell>{obj[key]}</Table.Cell>;
+                      return (
+                        <Table.Cell key={`${key}${i.toString()}`}>
+                          {obj[key]}
+                        </Table.Cell>
+                      );
                     })}
                   </Table.Row>
                 ))

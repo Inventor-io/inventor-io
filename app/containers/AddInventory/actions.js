@@ -11,7 +11,6 @@ import {
   SAVE_INV_TO_DB,
   SEND_QUERY,
   REMOVE_ITEM,
-  REPLACE_ITEM,
   REDIRECT,
 } from './constants';
 
@@ -49,17 +48,10 @@ export function saveToDB() {
   };
 }
 
-export function removeItem(name) {
+export function removeItem(i) {
   return {
     type: REMOVE_ITEM,
-    name,
-  };
-}
-
-export function replaceAddedIng(arr) {
-  return {
-    type: REPLACE_ITEM,
-    addedIngredients: arr,
+    i,
   };
 }
 

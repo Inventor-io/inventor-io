@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import image from '../images/Nik.jpg';
+import image from '../images/IMG_6667.jpg';
 
-const Nik = styled.div`
+const John = styled.div`
   grid-column-start: 4;
   grid-column-end: 5;
   grid-row-start: 8;
@@ -14,4 +14,4 @@ background-repeat: no-repeat;
 background-size: cover;
 `;
 
-export default Nik;
+export default John;
