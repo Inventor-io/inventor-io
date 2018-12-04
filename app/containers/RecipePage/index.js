@@ -37,20 +37,9 @@ import makeSelectRestaurantId from '../RestaurantDashboard/selectors';
 export class RecipePage extends React.PureComponent {
   constructor(props) {
     super(props);
-    // this.state = { showCreateModal: false, newName: '' };
+
     this.props.getRecipeList();
-    this.toggleCreateModal = this.toggleCreateModal.bind(this);
   }
-
-  toggleCreateModal() {
-    this.setState(prevState => ({
-      showCreateModal: !prevState.showCreateModal,
-    }));
-  }
-
-  // handleChange(e) {
-  //   this.setState({ newName: e.target.value });
-  // }
 
   render() {
     // Options list for Dropdown
