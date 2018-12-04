@@ -38,7 +38,7 @@ class RecipeTable extends React.PureComponent {
             <Table.Row>
               <Table.HeaderCell textAlign="left">Name</Table.HeaderCell>
               <Table.HeaderCell>Price</Table.HeaderCell>
-              <Table.HeaderCell>Left in Stock</Table.HeaderCell>
+              {/* <Table.HeaderCell>Left in Stock</Table.HeaderCell> */}
               <Table.HeaderCell />
             </Table.Row>
           </Table.Header>
@@ -49,7 +49,7 @@ class RecipeTable extends React.PureComponent {
                 <Table.Row key={row.recipe_id}>
                   <Table.Cell textAlign="left">{row.recipe_name}</Table.Cell>
                   <Table.Cell>${row.price.toFixed(2)}</Table.Cell>
-                  <Table.Cell>TBD</Table.Cell>
+                  {/* <Table.Cell>TBD</Table.Cell> */}
                   <Table.Cell>
                     <Button
                       size="tiny"
