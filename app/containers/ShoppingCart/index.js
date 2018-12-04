@@ -115,11 +115,13 @@ export class ShoppingCart extends React.Component {
           <Divider />
           <Segment textAlign="right" size="huge">
             Total:
-            {' $'}
             {/* eslint-disable */}
             {this.props.orderList
-              ?  new Intl.NumberFormat('en-IN', { maximumSignificantDigits: 3 }).format(this.props.orderList.reduce(
-                  (prev, curr) => prev + (curr.Price * curr.Orders),
+              ?  new Intl.NumberFormat('en-IN', {currency: 'USD', style: 'currency' }).format(this.props.orderList.reduce(
+                  (prev, curr) => {
+                    console.log('>>> prev, curr.Price, curr.Orders', prev, curr.Price, curr.Orders) 
+                    return prev + (curr.Price * curr.Orders)
+                    },
                   0,
                 )) 
               : '0'}
