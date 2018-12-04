@@ -23,7 +23,8 @@ exports.up = knex =>
       table
         .integer('restaurant_id')
         .references('id')
-        .inTable('restaurants');
+        .inTable('restaurants')
+        .onDelete('CASCADE');
       table
         .string('recipe_name')
         .unique()
@@ -43,7 +44,8 @@ exports.up = knex =>
       table
         .integer('restaurant_id')
         .references('id')
-        .inTable('restaurants');
+        .inTable('restaurants')
+        .onDelete('CASCADE');
       table
         .string('ndbno')
         .references('ndbno')
@@ -75,7 +77,8 @@ exports.up = knex =>
       table
         .integer('restaurant_id')
         .references('id')
-        .inTable('restaurants');
+        .inTable('restaurants')
+        .onDelete('CASCADE');
       table.float('quantity').defaultTo(0);
       table.timestamp('date').defaultTo(knex.fn.now());
     })
@@ -86,7 +89,8 @@ exports.up = knex =>
       table
         .integer('restaurant_id')
         .references('id')
-        .inTable('restaurants');
+        .inTable('restaurants')
+        .onDelete('CASCADE');
       table
         .string('ndbno')
         .references('ndbno')

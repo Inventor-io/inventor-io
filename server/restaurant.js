@@ -27,7 +27,14 @@ router.post('/create', (req, res) => {
 
 router.post('/delete', (req, res) => {
   console.log(req.body);
-  res.status(201).end('hi');
+  deleteRestaurant(req.body.id)
+    .then(response => {
+      console.log(response);
+      res.status(201).end('hi');
+    })
+    .catch(err => {
+      throw err;
+    });
 });
 
 router.post('/getit', (req, res) => {
@@ -113,6 +120,32 @@ const getSalesByDay = (restaurant_id = 1) => {
 const getInventoryData = (restaurantId = 1) => {
   return db.raw(
     "SELECT  restaurant_inventory.quantity, inventory_name, sub.price_item*restaurant_inventory.quantity AS total_value, sub.* FROM (select ndbno, price/quantity AS price_item, date from (select ndbno, price, quantity, price/quantity AS price_item, date, row_number() over (partition by ndbno order by date desc) as rn from orders WHERE delivered='t') as T where rn=1) sub JOIN inventory ON inventory.ndbno = sub.ndbno JOIN restaurant_inventory ON sub.ndbno = restaurant_inventory.ndbno WHERE restaurant_inventory.restaurant_id=" +
+      restaurantId +
+      ';',
+  );
+};
+
+const deleteRestaurant = restaurantId => {
+  return db.raw('DELETE FROM restaurants WHERE id=' + restaurantId + ';');
+};
+
+const updateRestaurant = (
+  restaurantId,
+  name,
+  address,
+  phoneNumber,
+  website,
+) => {
+  return db.raw(
+    "UPDATE restaurants SET restaurants_name='" +
+      name +
+      "', restaurant_address='" +
+      address +
+      "', restaurant_phone_number=" +
+      phoneNumber +
+      ", restaurant_website='" +
+      website +
+      "' WHERE id=" +
       restaurantId +
       ';',
   );

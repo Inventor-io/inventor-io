@@ -49,7 +49,7 @@ function* deleteRestaurant({ restaurantId }) {
   try {
     const post = {
       url: '/api/restaurant/delete',
-      method: 'get',
+      method: 'post',
       data: { id: restaurantId },
     };
     const response = yield call(axios, post);
