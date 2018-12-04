@@ -87,7 +87,7 @@ const restaurantInventory = (restaurant_id = 1) =>
 
 const getSalesData = (restaurant_id = 1) =>
   db.raw(
-    'SELECT recipe_name, recipes.price, inventory_name, sales.quantity, measurement, recipe_inventory.measurement*sales.quantity AS total_quantity,ROUND(CAST((orders.quantity/orders.price)*recipe_inventory.measurement AS numeric), 2) AS price_ingredient,  ROUND(CAST((orders.quantity/orders.price)*recipe_inventory.measurement*sales.quantity AS numeric), 2) AS total_cost_ingredient,sales.date FROM sales JOIN recipe_inventory ON sales.recipe_id=recipe_inventory.recipe_id JOIN inventory ON inventory.ndbno=recipe_inventory.ndbno JOIN recipes ON recipes.recipe_id=sales.recipe_id JOIN orders ON orders.ndbno=recipe_inventory.ndbno AND orders.date =(SELECT MAX(orders.date) FROM orders where orders.ndbno=recipe_inventory.ndbno) WHERE sales.restaurant_id=' +
+    'SELECT recipe_name, recipes.price, inventory_name, sales.quantity, measurement, recipe_inventory.measurement*sales.quantity AS total_quantity,ROUND(CAST((orders.price/orders.quantity)*recipe_inventory.measurement AS numeric), 2) AS price_ingredient,  ROUND(CAST((orders.price/orders.quantity)*recipe_inventory.measurement*sales.quantity AS numeric), 2) AS total_cost_ingredient,sales.date FROM sales JOIN recipe_inventory ON sales.recipe_id=recipe_inventory.recipe_id JOIN inventory ON inventory.ndbno=recipe_inventory.ndbno JOIN recipes ON recipes.recipe_id=sales.recipe_id JOIN orders ON orders.ndbno=recipe_inventory.ndbno AND orders.date =(SELECT MAX(orders.date) FROM orders where orders.ndbno=recipe_inventory.ndbno) WHERE sales.restaurant_id=' +
       restaurant_id +
       ';',
   );
