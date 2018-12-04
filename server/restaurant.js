@@ -25,6 +25,11 @@ router.post('/create', (req, res) => {
   // res.status(201).send('Success');
 });
 
+router.post('/delete', (req, res) => {
+  console.log(req.body);
+  res.status(201).end('hi');
+});
+
 router.post('/getit', (req, res) => {
   console.log(req.body);
   const restaurantID = req.body.selectedRestaurant;
@@ -37,13 +42,18 @@ router.post('/getit', (req, res) => {
       Object.assign(restaurantInfo, { sales });
       restaurantRecipes(restaurantID).then(recipes => {
         Object.assign(restaurantInfo, { recipes });
-        recipeInventory().then(resInv => {
+        recipeInventory(restaurantID).then(resInv => {
           Object.assign(restaurantInfo, { resInv });
-          getSalesData().then(salesInfo => {
+          getSalesData(restaurantID).then(salesInfo => {
             Object.assign(restaurantInfo, { salesInfo: salesInfo.rows });
-            getSalesByDay().then(daySales => {
+            getSalesByDay(restaurantID).then(daySales => {
               Object.assign(restaurantInfo, { daySales: daySales.rows });
-              res.status(201).json(restaurantInfo);
+              getInventoryData(restaurantID).then(inventoryData => {
+                Object.assign(restaurantInfo, {
+                  inventoryData: inventoryData.rows,
+                });
+                res.status(201).json(restaurantInfo);
+              });
             });
           });
         });
@@ -97,6 +107,14 @@ const getSalesByDay = (restaurant_id = 1) => {
     'SELECT recipe_name, SUM(price), date(date) as date FROM (SELECT recipe_name, price, quantity, date FROM sales JOIN recipes ON sales.recipe_id = recipes.recipe_id WHERE sales.restaurant_id=' +
       restaurant_id +
       ') as sales GROUP BY sales.recipe_name, sales.date order by date;',
+  );
+};
+
+const getInventoryData = (restaurantId = 1) => {
+  return db.raw(
+    "SELECT  restaurant_inventory.quantity, inventory_name, sub.price_item*restaurant_inventory.quantity AS total_value, sub.* FROM (select ndbno, price/quantity AS price_item, date from (select ndbno, price, quantity, price/quantity AS price_item, date, row_number() over (partition by ndbno order by date desc) as rn from orders WHERE delivered='t') as T where rn=1) sub JOIN inventory ON inventory.ndbno = sub.ndbno JOIN restaurant_inventory ON sub.ndbno = restaurant_inventory.ndbno WHERE restaurant_inventory.restaurant_id=" +
+      restaurantId +
+      ';',
   );
 };
 
