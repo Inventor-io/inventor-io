@@ -36,12 +36,10 @@ class ToggledInput extends React.PureComponent {
 
   handleChange(e) {
     const targetVal = e.target.value;
-    console.log(targetVal);
     this.setState({ value: targetVal });
   }
 
   render() {
-    console.log('STATE', this.state);
     return (
       <div>
         <Input
@@ -60,8 +58,6 @@ class ToggledInput extends React.PureComponent {
                 newMeasurement >= 0 &&
                 newMeasurement < Infinity
               ) {
-                console.log('Sending', newMeasurement);
-                console.log('UPDATE func', this.props.update);
                 this.props.update(Number.parseFloat(newMeasurement));
                 this.close();
               } else {
