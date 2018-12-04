@@ -46,7 +46,7 @@ import {
   deleteIngredient,
   updateModalState,
   updateIngredientAmount,
-  saveRecChanges,
+  applyRecChanges,
 } from './actions';
 import history from '../../utils/history';
 import IngredientsTable from '../../components/IngredientsTable';
@@ -103,7 +103,7 @@ export class AddRecipePage extends React.PureComponent {
               />
               <br />
               <Input
-                value={this.props.recPrice}
+                // value={this.props.recPrice}
                 onChange={e => this.props.changePrice(e.target.value)}
                 size="large"
                 placeholder="Price"
@@ -271,7 +271,7 @@ function mapDispatchToProps(dispatch) {
       //   // }`,
       // );
     },
-    applyChanges: () => dispatch(saveRecChanges()),
+    applyChanges: () => dispatch(applyRecChanges()),
   };
 }
 
