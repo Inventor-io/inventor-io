@@ -1,13 +1,18 @@
-import { takeEvery, call, put, select } from 'redux-saga/effects';
+import { takeEvery, call, put, select, all } from 'redux-saga/effects';
 import axios from 'axios';
-import { GET_DB, ORDER } from './constants';
+import { push } from 'connected-react-router/immutable';
+import { GET_DB, ORDER, DEL_INVEN } from './constants';
 import { selectInventoryDomain } from './selectors';
 import { selectRestaurantDashboardDomain } from '../RestaurantDashboard/selectors';
-import { mountDB } from './actions';
+import { mountDB, replaceInven, formattedOrder } from './actions';
 
 // Individual exports for testing
 export default function* inventorySaga() {
-  yield [takeEvery(GET_DB, getInventory), takeEvery(ORDER, sendOrder)];
+  yield all([
+    takeEvery(GET_DB, getInventory),
+    takeEvery(ORDER, sendOrder),
+    takeEvery(DEL_INVEN, deleteInventory),
+  ]);
 }
 
 function* getInventory() {
@@ -28,17 +33,38 @@ function* getInventory() {
 
 function* sendOrder() {
   const { selected } = yield select(selectInventoryDomain);
+  const { selectedRestaurant } = yield select(selectRestaurantDashboardDomain);
 
   const options = {
-    url: '/api/inventory/orderInv',
+    url: '/api/inventory/formatInv',
     method: 'POST',
-    data: { ingObj: selected },
+    data: { orderndbnos: selected, id: selectedRestaurant },
   };
 
   try {
-    const order = yield call(axios, options);
-    const s = JSON.parse(order.config.data);
-    alert(`Placing order... ${JSON.stringify(s.ingObj)}`);
+    const result = yield call(axios, options);
+    yield put(formattedOrder(result.data));
+    yield put(push('/shoppingCart'));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+function* deleteInventory() {
+  const { delItem, currentInventory } = yield select(selectInventoryDomain);
+  const { selectedRestaurant } = yield select(selectRestaurantDashboardDomain);
+
+  const options = {
+    url: '/api/inventory/deleteInventory',
+    method: 'POST',
+    data: { ndbno: delItem, id: selectedRestaurant },
+  };
+
+  try {
+    let arr = currentInventory.slice();
+    arr = arr.filter(obj => obj.ndbno !== delItem);
+    yield call(axios, options); // delete in db
+    yield put(replaceInven(arr)); // send to front end
   } catch (e) {
     console.error(e);
   }

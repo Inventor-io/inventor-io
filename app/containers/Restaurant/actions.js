@@ -10,12 +10,18 @@ import {
   UPDATE_NUMBER,
   UPDATE_WEBSITE,
   SEND_FORM,
+  FORM_RESPONSE,
 } from './constants';
 import { DEFAULT_ACTION } from '../LoginPage/constants';
 
+export function formResponse() {
+  return {
+    type: FORM_RESPONSE,
+  };
+}
+
 export function sendForm() {
   // const data = { resAddress, resName, resNumber };
-
   return {
     type: SEND_FORM,
   };

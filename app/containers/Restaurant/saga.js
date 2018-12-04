@@ -1,7 +1,9 @@
-import { call, takeEvery, select } from 'redux-saga/effects';
+import { call, takeEvery, select, put } from 'redux-saga/effects';
 import axios from 'axios';
 import { selectRestaurantDomain } from './selectors';
 import { SEND_FORM } from './constants';
+import makeSelectLandingPage from '../LandingPage/selectors';
+import formResponse from './actions';
 
 // put, select, take,
 export const getRestaurant = state => state.restaurant;
@@ -13,6 +15,11 @@ export default function* restaurantSaga() {
   yield takeEvery(SEND_FORM, getServer);
 }
 function* getServer() {
+  const userInfo = yield select(makeSelectLandingPage());
+  let userID;
+  userInfo.id
+    ? (userID = userInfo.id)
+    : (userID = localStorage.getItem('userId'));
   const { resAddress, resName, resNumber, resWebsite } = yield select(
     selectRestaurantDomain,
   );
@@ -21,8 +28,9 @@ function* getServer() {
     restaurant_address: resAddress,
     restaurant_phone_number: resNumber,
     restaurant_website: resWebsite,
+    user_id: userID,
   };
-  console.log(data);
+  console.log('being sent to database', data);
   // let url = null;
   // const isDev = process.env.NODE_ENV !== 'production';
 
@@ -43,6 +51,7 @@ function* getServer() {
     const response = yield call(axios, post);
     const responseBody = response;
     console.log('INSIDE SAGA!!!!!!!!!!!!!!', responseBody);
+    yield put(formResponse());
   } catch (e) {
     yield console.error(e);
   }

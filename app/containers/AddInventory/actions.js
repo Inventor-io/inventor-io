@@ -10,6 +10,8 @@ import {
   UPDATE_SELECT,
   SAVE_INV_TO_DB,
   SEND_QUERY,
+  REMOVE_ITEM,
+  REDIRECT,
 } from './constants';
 
 export function updateSearchTerm(searchTerm) {
@@ -43,5 +45,18 @@ export function updateSelect(ingredient) {
 export function saveToDB() {
   return {
     type: SAVE_INV_TO_DB,
+  };
+}
+
+export function removeItem(i) {
+  return {
+    type: REMOVE_ITEM,
+    i,
+  };
+}
+
+export function redirect() {
+  return {
+    type: REDIRECT,
   };
 }

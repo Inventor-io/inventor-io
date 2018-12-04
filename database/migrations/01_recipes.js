@@ -14,7 +14,7 @@ exports.up = knex =>
       table.string('restaurant_phone_number').notNullable();
       table.string('restaurant_website');
       table.timestamp('created_at').defaultTo(knex.fn.now());
-      table.integer('user_id'); // foreign('user_id').references('users.id');
+      table.string('user_id'); // foreign('user_id').references('users.id');
     })
 
     // 02 RECIPES
@@ -93,6 +93,8 @@ exports.up = knex =>
         .inTable('inventory');
       table.float('price', 10, 2);
       table.float('quantity');
+      table.timestamp('date').defaultTo(knex.fn.now());
+      table.boolean('delivered').defaultTo(false);
     });
 
 exports.down = knex =>

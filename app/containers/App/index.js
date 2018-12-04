@@ -17,63 +17,25 @@ import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Inventory from 'containers/Inventory/Loadable';
 import AddInventory from 'containers/AddInventory/Loadable';
+import ShoppingCart from 'containers/ShoppingCart/Loadable';
 import RestaurantList from 'containers/RestaurantList/Loadable';
 import RestaurantDashboard from 'containers/RestaurantDashboard/Loadable';
 import Restaurant from 'containers/Restaurant/Loadable';
-import history from '../../utils/history';
+import Sales from 'containers/SalesPage/Loadable';
+import PurchaseComplete from 'containers/PurchaseComplete/Loadable';
+// import history from '../../utils/history';
 
 import GlobalStyle from '../../global-styles';
 export default function App() {
-  const moveRestaurants = () => {
-    history.push('/dashboard');
-  };
-
-  const moveInventory = () => {
-    history.push('/inventory');
-  };
-
-  const moveAddInventory = () => {
-    history.push('/addInventory');
-  };
-
-  const moveRecipes = () => {
-    history.push('/recipe');
-  };
-  const logoutClick = () => {
-    sessionStorage.clear();
-    history.push('/');
-  };
-
   return (
     <div>
-      {sessionStorage.getItem('username') ? (
-        <div className="ui pointing secondary menu">
-          <button className="item" onClick={moveRestaurants} type="button">
-            Restaurant Dashboard
-          </button>
-          <button className="item" onClick={moveRecipes} type="button">
-            Recipes
-          </button>
-          <button className="item" onClick={moveInventory} type="button">
-            Current Inventory
-          </button>
-          <button className="item" onClick={moveAddInventory} type="button">
-            Add Inventory
-          </button>
-          <div className="right menu">
-            <button className="item" onClick={logoutClick} type="button">
-              Logout
-            </button>
-          </div>
-        </div>
-      ) : null}
       <Switch>
         <Route
           exact
           path="/"
           render={() =>
-            sessionStorage.getItem('username') ? (
-              <RestaurantDashboard />
+            localStorage.getItem('username') ? (
+              <RestaurantList />
             ) : (
               <LandingPage />
             )
@@ -84,11 +46,12 @@ export default function App() {
         <Route path="/editrecipe" component={AddRecipePage} />
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/home" component={HomePage} />
+        <Route exact path="/sales" component={Sales} />
 
         {/* <Route
 //           path="/recipe"
 //           render={() =>
-//             sessionStorage.getItem('username') ? (
+//            localStorage.getItem('username') ? (
 //               <RecipePage />
 //             ) : (
 //               <Redirect to="/login" />
@@ -99,14 +62,34 @@ export default function App() {
         <Route
           path="/inventory"
           render={() =>
-            sessionStorage.getItem('username') ? <Inventory /> : <LandingPage />
+            localStorage.getItem('username') ? <Inventory /> : <LandingPage />
+          }
+        />
+        <Route
+          path="/shoppingCart"
+          render={() =>
+            localStorage.getItem('username') ? (
+              <ShoppingCart />
+            ) : (
+              <LandingPage />
+            )
           }
         />
         <Route
           path="/addInventory"
           render={() =>
-            sessionStorage.getItem('username') ? (
+            localStorage.getItem('username') ? (
               <AddInventory />
+            ) : (
+              <LandingPage />
+            )
+          }
+        />
+        <Route
+          path="/purchaseComplete"
+          render={() =>
+            localStorage.getItem('username') ? (
+              <PurchaseComplete />
             ) : (
               <LandingPage />
             )
@@ -115,7 +98,7 @@ export default function App() {
         <Route
           path="/restaurant"
           render={() =>
-            sessionStorage.getItem('username') ? (
+            localStorage.getItem('username') ? (
               <RestaurantList />
             ) : (
               <LandingPage />
@@ -125,17 +108,13 @@ export default function App() {
         <Route
           path="/addRestaurant"
           render={() =>
-            sessionStorage.getItem('username') ? (
-              <Restaurant />
-            ) : (
-              <LandingPage />
-            )
+            localStorage.getItem('username') ? <Restaurant /> : <LandingPage />
           }
         />
         <Route
           path="/dashboard"
           render={() =>
-            sessionStorage.getItem('username') ? (
+            localStorage.getItem('username') ? (
               <RestaurantDashboard />
             ) : (
               <LandingPage />

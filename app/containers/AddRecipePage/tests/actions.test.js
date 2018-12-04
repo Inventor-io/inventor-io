@@ -1,13 +1,13 @@
-// import { defaultAction } from '../actions';
-// import { DEFAULT_ACTION } from '../constants';
+import { updateName } from '../actions';
+import { UPDATE_NAME } from '../constants';
 
-// describe('AddRecipePage actions', () => {
-//   describe('Default Action', () => {
-//     it('has a type of DEFAULT_ACTION', () => {
-//       const expected = {
-//         type: DEFAULT_ACTION,
-//       };
-//       expect(defaultAction()).toEqual(expected);
-//     });
-//   });
-// });
+xdescribe('AddRecipePage actions', () => {
+  xdescribe('Default Action', () => {
+    it('has a type of DEFAULT_ACTION', () => {
+      const expected = {
+        type: UPDATE_NAME,
+      };
+      expect(updateName()).toEqual(expected);
+    });
+  });
+});

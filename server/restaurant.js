@@ -3,20 +3,20 @@ const router = express.Router();
 require('dotenv').config();
 const db = require('knex')(require('../knexfile').development);
 
-router.get('/list', (req, res) => {
+router.post('/list', (req, res) => {
   console.log(req.body);
-  getRestaurants().then(response => {
-    console.log(response);
+  getRestaurants(req.body.userId).then(response => {
+    // console.log(response);
     res.status(200).send(response);
   });
 });
 
 router.post('/create', (req, res) => {
-  console.log('SERVER', req.body);
+  // console.log('SERVER', req.body);
 
   createNewRestaurant(req.body)
-    .then(response => {
-      console.log(response);
+    .then(() => {
+      // console.log(response);
       res.status(201).end('DB Save Success');
     })
     .catch(err => {
@@ -26,7 +26,9 @@ router.post('/create', (req, res) => {
 });
 
 router.post('/getit', (req, res) => {
-  const restaurantID = 1;
+  console.log(req.body);
+  const restaurantID = req.body.selectedRestaurant;
+
   // Object.keys(req.body)[0] ||
   const restaurantInfo = {};
   restaurantOrders(restaurantID).then(orders => {
@@ -37,7 +39,13 @@ router.post('/getit', (req, res) => {
         Object.assign(restaurantInfo, { recipes });
         recipeInventory().then(resInv => {
           Object.assign(restaurantInfo, { resInv });
-          res.status(201).json(restaurantInfo);
+          getSalesData().then(salesInfo => {
+            Object.assign(restaurantInfo, { salesInfo: salesInfo.rows });
+            getSalesByDay().then(daySales => {
+              Object.assign(restaurantInfo, { daySales: daySales.rows });
+              res.status(201).json(restaurantInfo);
+            });
+          });
         });
       });
     });
@@ -76,5 +84,20 @@ const recipeInventory = (recipe_id = 1) =>
 /* eslint-disable */
 const restaurantInventory = (restaurant_id = 1) =>
   db.from('restaurant_inventory').where({ restaurant_id });
+
+const getSalesData = (restaurant_id = 1) =>
+  db.raw(
+    'SELECT recipe_name, recipes.price, inventory_name, sales.quantity, measurement, recipe_inventory.measurement*sales.quantity AS total_quantity,ROUND(CAST((orders.quantity/orders.price)*recipe_inventory.measurement AS numeric), 2) AS price_ingredient,  ROUND(CAST((orders.quantity/orders.price)*recipe_inventory.measurement*sales.quantity AS numeric), 2) AS total_cost_ingredient,sales.date FROM sales JOIN recipe_inventory ON sales.recipe_id=recipe_inventory.recipe_id JOIN inventory ON inventory.ndbno=recipe_inventory.ndbno JOIN recipes ON recipes.recipe_id=sales.recipe_id JOIN orders ON orders.ndbno=recipe_inventory.ndbno AND orders.date =(SELECT MAX(orders.date) FROM orders where orders.ndbno=recipe_inventory.ndbno) WHERE sales.restaurant_id=' +
+      restaurant_id +
+      ';',
+  );
+
+const getSalesByDay = (restaurant_id = 1) => {
+  return db.raw(
+    'SELECT recipe_name, SUM(price), date(date) as date FROM (SELECT recipe_name, price, quantity, date FROM sales JOIN recipes ON sales.recipe_id = recipes.recipe_id WHERE sales.restaurant_id=' +
+      restaurant_id +
+      ') as sales GROUP BY sales.recipe_name, sales.date order by date;',
+  );
+};
 
 module.exports = router;

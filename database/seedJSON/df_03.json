@@ -1,0 +1,67 @@
+[
+  {
+    "ndbno": "13317",
+    "inventory_name": "Beef, ground, patties, frozen, cooked, broiled"
+  },
+  { "ndbno": "11253", "inventory_name": "Lettuce, green leaf, raw" },
+  { "ndbno": "01270", "inventory_name": "Cheese, cheddar, sharp, sliced" },
+  {
+    "ndbno": "11529",
+    "inventory_name": "Tomatoes, red, ripe, raw, year round average"
+  },
+  { "ndbno": "11282", "inventory_name": "Onions, raw" },
+  { "ndbno": "18060", "inventory_name": "Bread, rye" },
+  {
+    "ndbno": "11411",
+    "inventory_name": "Potatoes, french fried, steak fries, salt added in processing, frozen, as purchased"
+  },
+  { "ndbno": "20110", "inventory_name": "Noodles, egg, enriched, cooked" },
+  {
+    "ndbno": "06629",
+    "inventory_name": "Sauce, pesto, CLASSICO, basil pesto, ready-to-serve"
+  },
+  { "ndbno": "01145", "inventory_name": "Butter, without salt" },
+  {
+    "ndbno": "07933",
+    "inventory_name": "Chicken breast, oven-roasted, fat-free, sliced"
+  },
+  { "ndbno": "02044", "inventory_name": "Basil, fresh" },
+  { "ndbno": "01049", "inventory_name": "Cream, fluid, half and half" },
+  { "ndbno": "11243", "inventory_name": "Mushrooms, portabella, grilled" },
+  { "ndbno": "20120", "inventory_name": "Pasta, dry, enriched" },
+  { "ndbno": "15164", "inventory_name": "Mollusks, mussel, blue, raw" },
+  { "ndbno": "15270", "inventory_name": "Crustaceans, shrimp, raw" },
+  {
+    "ndbno": "06972",
+    "inventory_name": "Sauce, tomato chili sauce, bottled, with salt"
+  },
+  { "ndbno": "04053", "inventory_name": "Oil, olive, salad or cooking" },
+  { "ndbno": "10864", "inventory_name": "Pork, bacon, rendered fat, cooked" },
+  { "ndbno": "18064", "inventory_name": "Bread, wheat" },
+  { "ndbno": "07057", "inventory_name": "Pepperoni, beef and pork, sliced" },
+  {
+    "ndbno": "09195",
+    "inventory_name": "Olives, pickled, canned or bottled, green"
+  },
+  { "ndbno": "16158", "inventory_name": "Hummus, commercial" },
+  { "ndbno": "20116", "inventory_name": "Noodles, japanese, somen, dry" },
+  { "ndbno": "06172", "inventory_name": "Soup, stock, chicken, home-prepared" },
+  { "ndbno": "11116", "inventory_name": "Cabbage, chinese (pak-choi), raw" },
+  { "ndbno": "10165", "inventory_name": "Pork, cured, salt pork, raw" },
+  {
+    "ndbno": "16123",
+    "inventory_name": "Soy sauce made from soy and wheat (shoyu)"
+  },
+  { "ndbno": "11098", "inventory_name": "Brussels sprouts, raw" },
+  {
+    "ndbno": "32013",
+    "inventory_name": "Potsticker or wonton, pork and vegetable, frozen, unprepared"
+  },
+  { "ndbno": "06170", "inventory_name": "Soup, stock, beef, home-prepared" },
+  {
+    "ndbno": "05139",
+    "inventory_name": "Duck, domesticated, meat and skin, raw"
+  },
+  { "ndbno": "16091", "inventory_name": "Peanuts, spanish, raw" },
+  { "ndbno": "09150", "inventory_name": "Lemons, raw, without peel" }
+]

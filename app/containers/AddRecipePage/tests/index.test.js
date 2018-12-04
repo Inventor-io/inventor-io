@@ -4,7 +4,7 @@
 
 // import { AddRecipePage } from '../index';
 
-describe('<AddRecipePage />', () => {
+xdescribe('<AddRecipePage />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });

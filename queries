@@ -1,0 +1,30 @@
+//Inventory of restaurant with food names
+
+SELECT price, quantity, inventory_name FROM orders RIGHT JOIN inventory ON orders.ndbno = inventory.ndbno WHERE orders.restaurant_id=1;
+
+
+// Select inventory of specific recipe
+
+SELECT inventory_name, measurement FROM recipe_inventory JOIN inventory ON recipe_inventory.ndbno = inventory.ndbno WHERE recipe_inventory.recipe_id=1;
+
+// Sales of a particular restaurant
+
+select restaurants_name, recipe_name, quantity, price, quantity * price as total_sales, date FROM sales INNER JOIN recipes ON recipes.recipe_id = sales.recipe_id INNER JOIN restaurants ON sales.restaurant_id = restaurants.id WHERE restaurants.id=1;
+//Inventory
+
+select inventory.ndbno, inventory_name, orders.quantity/orders.price  as price_unit, date, restaurant_inventory.quantity, orders.quantity/orders.price * restaurant_inventory.quantity as total from orders INNER JOIN inventory on inventory.ndbno = orders.ndbno RIGHT OUTER JOIN restaurant_inventory on restaurant_inventory.restaurant_id = 1;
+
+
+//Better starting point for sales
+SELECT recipe_name, inventory_name, measurement, measurement*quantity AS total_quantity, date FROM sales JOIN recipe_inventory ON sales.re^Cpe_id=recipe_inventory.recipe_id JOIN inventory ON inventory.ndbno=recipe_inventory.ndbno JOIN recipes ON recipes.recipe_id=sales.recipe_id;
+
+//SALES figures
+
+ SELECT recipe_name, inventory_name, sales.quantity, measurement, recipe_inventory.measurement*sales.quantity AS total_quantity,ROUND(CAST((orders.quantity/orders.price)*recipe_inventory.measurement AS numeric), 2) AS price_ingredient,  ROUND(CAST((orders.quantity/orders.price)*recipe_inventory.measurement*sales.quantity AS numeric), 2) AS total_cost_ingredient,sales.date FROM sales JOIN recipe_inventory ON sales.recipe_id=recipe_inventory.recipe_id JOIN inventory ON inventory.ndbno=recipe_inventory.ndbno JOIN recipes ON recipes.recipe_id=sales.recipe_id JOIN orders ON orders.ndbno=recipe_inventory.ndbno AND orders.date =(SELECT MAX(orders.date) FROM orders where orders.ndbno=recipe_inventory.ndbno) WHERE sales.restaurant_id=1;
+
+ //All sales by day
+
+SELECT recipe_name, SUM(price), date(date) as date  
+from (SELECT recipe_name, price, quantity, date FROM sales JOIN recipes ON sales.recipe_id = recipes.recipe_id WHERE sales.restaurant_id=1) as sales
+GROUP BY sales.recipe_name, sales.date 
+order by date;

@@ -3,16 +3,26 @@
  * RestaurantDashboard
  *
  */
-
+/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Table, Loader, Container } from 'semantic-ui-react';
+// import { Table, Loader, Container } from 'semantic-ui-react';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import NavBar from 'containers/NavBar/Loadable';
+import {
+  LineChart,
+  Line,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+} from 'recharts';
 import makeSelectRestaurantDashboard, {
   makeSelectRestaurantInfo,
   makeSelectRestaurantId,
@@ -20,6 +30,7 @@ import makeSelectRestaurantDashboard, {
 import reducer from './reducer';
 import saga from './saga';
 import { loadInformation } from './actions';
+// import getRestaurantCosts from './helpers/dashboard';
 
 /* eslint-disable react/prefer-stateless-function */
 export class RestaurantDashboard extends React.Component {
@@ -28,101 +39,63 @@ export class RestaurantDashboard extends React.Component {
   }
 
   render() {
+    // console.table(
+    // //   this.props.info.salesInfo.rows.map(
+    // //     ingredient =>
+    // //       (ingredient.price_ingredient = Number(ingredient.price_ingredient)),
+    // //   ),
+    // // );
+
+    // const salesInfo = this.props.info.salesInfo.rows;
+    // console.table(salesInfo);
+    // console.table(this.props.info);
+    // this.props.info.salesInfo ? getRestaurantCosts(this.props.info.salesInfo.rows) : null;
+    // async function getCost(){
+    //   const salesInfo = this.props.info.salesInfo.rows;
+    //   getRestaurantCosts(salesInfo);
+    // }
+    // getCost();
+
+    //* {moment(salesInfo[0].date).format('MM/DD/YYYY')} */
+    // console.log(JSON.stringify(this.props.info.salesInfo), getRestaurantCosts)
+    //          getRestaurantCosts(this.props.info.salesInfo)
+
     return (
       <div>
-        <Container>
-          {this.props.info ? (
-            <div>
-              {/* <div>{JSON.stringify(this.props.info)}</div> */}
-              <h1>Orders</h1>
-              <Table celled>
-                <Table.Header>
-                  <Table.Row>
-                    {Object.keys(this.props.info.orders[0])
-                      .filter(key => key.indexOf('id') === -1)
-                      .map(header => (
-                        <Table.HeaderCell>{header}</Table.HeaderCell>
-                      ))}
-                  </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                  {this.props.info.orders.map(order => (
-                    <Table.Row>
-                      <Table.Cell>{order.ndbno}</Table.Cell>
-                      <Table.Cell>{order.price}</Table.Cell>
-                      <Table.Cell>{order.quantity}</Table.Cell>
-                    </Table.Row>
-                  ))}
-                </Table.Body>
-              </Table>
-              <h1>Sales</h1>
-              <Table celled>
-                <Table.Header>
-                  <Table.Row>
-                    {Object.keys(this.props.info.sales[0])
-                      .filter(key => key !== 'id' && key !== 'restaurant_id')
-                      .map(header => (
-                        <Table.HeaderCell>{header}</Table.HeaderCell>
-                      ))}
-                  </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                  {this.props.info.sales.map(sales => (
-                    <Table.Row>
-                      <Table.Cell>{sales.recipe_id}</Table.Cell>
-                      <Table.Cell>{sales.quantity}</Table.Cell>
-                      <Table.Cell>{sales.date}</Table.Cell>
-                    </Table.Row>
-                  ))}
-                </Table.Body>
-              </Table>
-              <h1>Recipes</h1>
-              <Table celled>
-                <Table.Header>
-                  <Table.Row>
-                    {Object.keys(this.props.info.recipes[0])
-                      .filter(key => key.indexOf('id') === -1)
-                      .map(header => (
-                        <Table.HeaderCell>{header}</Table.HeaderCell>
-                      ))}
-                  </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                  {this.props.info.recipes.map(recipe => (
-                    <Table.Row>
-                      <Table.Cell>{recipe.recipe_name}</Table.Cell>
-                      <Table.Cell>{recipe.price}</Table.Cell>
-                    </Table.Row>
-                  ))}
-                </Table.Body>
-              </Table>
-              <h1>Restaurant Inventory</h1>
-              <Table celled>
-                <Table.Header>
-                  <Table.Row>
-                    {Object.keys(this.props.info.resInv[0])
-                      .filter(key => key.indexOf('id') === -1)
-                      .map(header => (
-                        <Table.HeaderCell>{header}</Table.HeaderCell>
-                      ))}
-                  </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                  {this.props.info.resInv.map(inventory => (
-                    <Table.Row>
-                      <Table.Cell>{inventory.ndbno}</Table.Cell>
-                      <Table.Cell>{inventory.measurement}</Table.Cell>
-                    </Table.Row>
-                  ))}
-                </Table.Body>
-              </Table>
-              {/* </Table.Header> */}
-              {/* </Table> */}
-            </div>
-          ) : (
-            <Loader active inline="centered" />
-          )}
-        </Container>
+        <NavBar />
+        {this.props.info ? (
+          <LineChart
+            width={600}
+            height={300}
+            data={this.props.info.daySales.rows}
+            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+          >
+            <XAxis dataKey="date" />
+            <YAxis />
+            <CartesianGrid strokeDasharray="3 3" />
+            <Tooltip />
+            <Legend />
+            {this.props
+              ? this.props.info.daySales.map(recipe => (
+                  <Line
+                    type="monotone"
+                    dataKey={recipe.recipe_name}
+                    stroke="#82ca9d"
+                  />
+                ))
+              : null}
+            {/* {this.props.info.daySales ? this.props.info.daySales.rows.map(sale => 
+              <Line type="monotone" dataKey={sale.recipe_name} stroke="#82ca9d" />
+            ): null} */}
+
+            {/* <Line
+              type="monotone"
+              dataKey="Hamburger"
+              stroke="#8884d8"
+              activeDot={{ r: 8 }}
+            /> */}
+          </LineChart>
+        ) : null}
       </div>
     );
   }
@@ -161,3 +134,5 @@ export default compose(
   withSaga,
   withConnect,
 )(RestaurantDashboard);
+
+/* eslint-enable */

@@ -1,13 +1,13 @@
-import { defaultAction } from '../actions';
-import { DEFAULT_ACTION } from '../constants';
+import { getInventory } from '../actions';
+import { GET_DB } from '../constants';
 
-describe('Inventory actions', () => {
-  describe('Default Action', () => {
+xdescribe('Inventory actions', () => {
+  xdescribe('Default Action', () => {
     it('has a type of DEFAULT_ACTION', () => {
       const expected = {
-        type: DEFAULT_ACTION,
+        type: GET_DB,
       };
-      expect(defaultAction()).toEqual(expected);
+      expect(getInventory()).toEqual(expected);
     });
   });
 });

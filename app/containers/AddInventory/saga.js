@@ -1,15 +1,16 @@
-import { takeEvery, call, select, put } from 'redux-saga/effects';
+import { takeEvery, call, select, put, all } from 'redux-saga/effects';
 import axios from 'axios';
+import { push } from 'connected-react-router/immutable';
 import { selectAddInventoryDomain } from './selectors';
 import { selectRestaurantDashboardDomain } from '../RestaurantDashboard/selectors';
-
-import { updateDropdownOption } from './actions';
+import { SEND_QUERY, SAVE_INV_TO_DB } from './constants';
+import { updateDropdownOption, redirect } from './actions';
 
 export default function* inventorySaga() {
-  yield [
-    takeEvery('app/AddInventory/SEND_QUERY', getUSDA),
-    takeEvery('app/AddInventory/SAVE_INV_TO_DB', saveInventoryToDB),
-  ];
+  yield all([
+    takeEvery(SEND_QUERY, getUSDA),
+    takeEvery(SAVE_INV_TO_DB, saveInventoryToDB),
+  ]);
 }
 
 function* getUSDA() {
@@ -39,9 +40,9 @@ function* saveInventoryToDB() {
   };
 
   try {
-    const newInven = yield call(axios, options);
-    const s = JSON.parse(newInven.config.data); // TODO: apply body-parser later
-    alert(`Saving ${JSON.stringify(s.ingObj)} to db`);
+    yield call(axios, options);
+    yield put(redirect());
+    yield put(push('/inventory'));
   } catch (e) {
     yield console.error(e);
   }

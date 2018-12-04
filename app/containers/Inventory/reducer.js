@@ -5,9 +5,21 @@
  */
 
 import { fromJS } from 'immutable';
-import { MOUNT_DB, ADD_ORDER } from './constants';
+import {
+  MOUNT_DB,
+  ADD_ORDER,
+  DEL_INVEN,
+  REPLACE_INVEN,
+  FORMAT_ORDER,
+  WIPE,
+} from './constants';
 
-export const initialState = fromJS({ currentInventory: [], selected: [] });
+export const initialState = fromJS({
+  currentInventory: [],
+  selected: [],
+  delItem: '',
+  formatted: [],
+});
 
 function inventoryReducer(state = initialState, action) {
   switch (action.type) {
@@ -16,10 +28,31 @@ function inventoryReducer(state = initialState, action) {
         currentInventory: action.currentInventory,
       });
     case ADD_ORDER:
+    /* eslint-disable */
       return Object.assign({}, state, {
         selected: state.selected
-          ? state.selected.concat([state.currentInventory[action.i].ndbno])
-          : [state.currentInventory[action.i].ndbno],
+          ? (action.checked ? state.selected.concat([state.currentInventory[action.i].ndbno]) : state.selected.filter(ndbno => ndbno !== state.currentInventory[action.i].ndbno))
+          : (action.checked ? [state.currentInventory[action.i].ndbno] : []),
+      });
+    /* eslint-enable */
+    case DEL_INVEN:
+      return Object.assign({}, state, {
+        delItem: action.delete,
+      });
+    case REPLACE_INVEN:
+      return Object.assign({}, state, {
+        currentInventory: action.currentInventory,
+      });
+    case FORMAT_ORDER:
+      return Object.assign({}, state, {
+        formatted: action.formatted,
+      });
+    case WIPE:
+      return Object.assign({}, state, {
+        currentInventory: [],
+        selected: [],
+        delItem: '',
+        formatted: [],
       });
     default:
       return state;
