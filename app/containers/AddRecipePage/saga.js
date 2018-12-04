@@ -7,6 +7,7 @@ import {
   UPDATE_INGREDIENTSLIST,
   DELETE_INGREDIENT,
   UPDATE_INGREDIENT_AMOUNT,
+  APPLY_REC_CHANGES,
 } from './constants';
 import { selectRestaurantDashboardDomain } from '../RestaurantDashboard/selectors';
 import history from '../../utils/history';
@@ -18,11 +19,11 @@ export default function* addRecipePageSaga() {
     takeEvery(SEND_FORM, sendRecipe),
     takeEvery(DELETE_INGREDIENT, deleteIngredient),
     takeEvery(UPDATE_INGREDIENT_AMOUNT, updateIngredientAmount),
+    takeEvery(APPLY_REC_CHANGES, updateRecipe),
   ]);
 }
 
 function* updateIngredientAmount(action) {
-  console.log('UPDATE ACTION PAYLOAD', action.payload);
   try {
     // const { ingredientsList } = yield select(selectAddRecipePageDomain);
     const axiosArgs = {
@@ -30,16 +31,14 @@ function* updateIngredientAmount(action) {
       method: 'patch',
       params: action.payload,
     };
-    const response = yield call(axios, axiosArgs);
-    console.log(response);
+    yield call(axios, axiosArgs);
   } catch (e) {
-    yield console.error(e);
+    // yield console.error(e);
   }
 }
 
 // Delete an Ingredient from the recipe
 function* deleteIngredient(action) {
-  console.log('DELETE ACTION PAYLOAD', action.payload);
   try {
     const { ingredientsList } = yield select(selectAddRecipePageDomain);
     const axiosArgs = {
@@ -47,25 +46,22 @@ function* deleteIngredient(action) {
       method: 'delete',
       params: action.payload,
     };
-    const response = yield call(axios, axiosArgs);
-    console.log(response);
+    yield call(axios, axiosArgs);
 
     const purgedList = ingredientsList.filter(
       recipe => recipe.ndbno !== action.payload.ndbno,
     );
-    console.log('Purged list', purgedList);
     yield put({
       type: UPDATE_INGREDIENTSLIST,
       ingredientsList: purgedList,
     });
   } catch (e) {
-    yield console.error(e);
+    // yield console.error(e);
   }
 }
 
 function* sendRecipe() {
   // selector bits
-  console.log('SEND RECIPE CALLED');
   const { recName, recPrice } = yield select(selectAddRecipePageDomain);
   const userInfo = yield select(selectRestaurantDashboardDomain);
   const userId = userInfo.selectedRestaurant;
@@ -81,11 +77,9 @@ function* sendRecipe() {
       method: 'post',
       data,
     };
-    const response = yield call(axios, post);
-    const responseBody = response;
-    console.log('INSIDE SAGA!!!!!!!!!!!!!!', responseBody);
+    yield call(axios, post);
   } catch (e) {
-    yield console.error(e);
+    // yield console.error(e);
   }
   history.push('/recipe');
 }
@@ -97,15 +91,36 @@ function* getIngredients() {
       url: `/api/recipe/ingredients?recipe=${recId}`,
       method: 'get',
     };
-    console.log(`Sending GET to ${get.url}`);
     const response = yield call(axios, get);
     const ingredientsList = response.data;
-    console.log('Response:', ingredientsList);
     yield put({
       type: UPDATE_INGREDIENTSLIST,
       ingredientsList,
     });
   } catch (err) {
-    throw err;
+    // throw err;
+  }
+}
+
+function* updateRecipe() {
+  const { recName, recPrice } = yield select(selectAddRecipePageDomain);
+  const userInfo = yield select(selectRestaurantDashboardDomain);
+  const userId = userInfo.selectedRestaurant;
+  const data = {
+    recipe_name: recName,
+    restaurant_id: userId,
+    price: recPrice,
+  };
+
+  try {
+    const post = {
+      url: '/api/recipe/upsert',
+      method: 'post',
+      data,
+    };
+    yield call(axios, post);
+    history.push('/recipe');
+  } catch (e) {
+    // console.log(e)
   }
 }
