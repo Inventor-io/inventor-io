@@ -14,14 +14,17 @@ import history from '../../utils/history';
 class RecipeTable extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = { showDeleteModal: false };
+    this.state = { showDeleteModal: false, modalRow: null };
     this.toggleDeleteModal = this.toggleDeleteModal.bind(this);
   }
 
-  toggleDeleteModal() {
-    this.setState(prevState => ({
-      showDeleteModal: !prevState.showDeleteModal,
-    }));
+  toggleDeleteModal(row) {
+    this.setState(prevState => {
+      if (prevState.showDeleteModal) {
+        return { showDeleteModal: false, modalRow: null };
+      }
+      return { showDeleteModal: true, modalRow: row };
+    });
   }
 
   render() {
@@ -66,7 +69,10 @@ class RecipeTable extends React.PureComponent {
                         <Button
                           size="tiny"
                           icon
-                          onClick={this.toggleDeleteModal}
+                          onClick={() => {
+                            console.log('DELETE?', row.recipe_name);
+                            this.toggleDeleteModal(row);
+                          }}
                         >
                           <Icon name="trash alternate" />
                         </Button>
@@ -74,10 +80,11 @@ class RecipeTable extends React.PureComponent {
                       open={this.state.showDeleteModal}
                     >
                       <Modal.Header>
-                        <div>
-                          Are you sure you want to delete &#34;{' '}
-                          {row.recipe_name} &#34;?
-                        </div>
+                        Are you sure you want to delete &#34;
+                        {this.state.modalRow
+                          ? this.state.modalRow.recipe_name
+                          : null}
+                        &#34;?
                       </Modal.Header>
                       <Modal.Content>
                         <Button
@@ -87,9 +94,16 @@ class RecipeTable extends React.PureComponent {
                         <Button
                           color="red"
                           content="Delete"
-                          onClick={() =>
-                            console.log('Deleting', row.recipe_name)
-                          }
+                          onClick={() => {
+                            console.log(
+                              'Deleting recipe:',
+                              this.state.modalRow.recipe_id,
+                            );
+                            this.props.deleteRecipe(
+                              this.state.modalRow.recipe_id,
+                            );
+                            this.toggleDeleteModal();
+                          }}
                         />
                       </Modal.Content>
                     </Modal>
@@ -111,6 +125,7 @@ class RecipeTable extends React.PureComponent {
 }
 
 RecipeTable.propTypes = {
+  deleteRecipe: PropTypes.func,
   recipeList: PropTypes.object,
   // recipeList[recipeList] : PropTypes.any,
 };

@@ -23,7 +23,7 @@ import {
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { getRecipes } from './actions';
+import { getRecipes, deleteRecipe } from './actions';
 import history from '../../utils/history';
 import RecipeTable from '../../components/RecipeTable';
 // import messages from './messages';
@@ -79,7 +79,10 @@ export class RecipePage extends React.PureComponent {
                 onChange={(trash, target) => console.log(target.value)}
               />
             )}
-            <RecipeTable recipeList={this.props.recipeList} />
+            <RecipeTable
+              recipeList={this.props.recipeList}
+              deleteRecipe={this.props.dispatchDeleteRecipe}
+            />
             <Button
               color="green"
               content="Add a new recipe"
@@ -96,6 +99,7 @@ RecipePage.propTypes = {
   restaurantList: PropTypes.any,
   recipeList: PropTypes.object,
   getRecipeList: PropTypes.func.isRequired,
+  dispatchDeleteRecipe: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -107,6 +111,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
+    dispatchDeleteRecipe: recipeID => dispatch(deleteRecipe(recipeID)),
     getRecipeList: () => dispatch(getRecipes()),
   };
 }

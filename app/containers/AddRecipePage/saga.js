@@ -9,6 +9,7 @@ import {
   UPDATE_INGREDIENT_AMOUNT,
 } from './constants';
 import { selectRestaurantDashboardDomain } from '../RestaurantDashboard/selectors';
+import history from '../../utils/history';
 
 // Individual exports for testing
 export default function* addRecipePageSaga() {
@@ -86,6 +87,7 @@ function* sendRecipe() {
   } catch (e) {
     yield console.error(e);
   }
+  history.push('/recipe');
 }
 
 function* getIngredients() {

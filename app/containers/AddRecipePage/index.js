@@ -75,8 +75,6 @@ export class AddRecipePage extends React.PureComponent {
   }
 
   render() {
-    console.log('ADD REC PROPS', this.props);
-    console.log('ADD REC STATE', this.state);
     return (
       <div>
         <Helmet>
@@ -243,12 +241,12 @@ function mapDispatchToProps(dispatch) {
     onSubmitForm: () => {
       console.log('sendForm dispatched!');
       dispatch(sendForm());
-      history.push(
-        '/recipe',
-        // `/editRecipe?id=${this.props.recId}&name=${this.props.recName}&price=${
-        //   this.props.recPrice
-        // }`,
-      );
+      // history.push(
+      //   '/recipe',
+      //   // `/editRecipe?id=${this.props.recId}&name=${this.props.recName}&price=${
+      //   //   this.props.recPrice
+      //   // }`,
+      // );
     },
   };
 }
