@@ -37,7 +37,6 @@ import makeSelectRestaurantId from '../RestaurantDashboard/selectors';
 export class RecipePage extends React.PureComponent {
   constructor(props) {
     super(props);
-
     this.props.getRecipeList();
   }
 
