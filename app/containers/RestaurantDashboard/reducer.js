@@ -25,7 +25,7 @@ function restaurantDashboardReducer(state = initialState, action) {
     case RECEIVED_RESTAURANT_INFO:
       return Object.assign({}, state, {
         info: action.info,
-        salesByDate: action.salesByDate,
+        salesAndRevenue: action.salesAndRevenue,
       });
     case LOAD_INFO:
       return state;

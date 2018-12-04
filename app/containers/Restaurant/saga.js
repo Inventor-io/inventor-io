@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { call, takeEvery, select, put } from 'redux-saga/effects';
 import axios from 'axios';
 import { selectRestaurantDomain } from './selectors';
@@ -30,7 +32,7 @@ function* getServer() {
     restaurant_website: resWebsite,
     user_id: userID,
   };
-  console.log('being sent to database', data);
+  // console.log('being sent to database', data);
   // let url = null;
   // const isDev = process.env.NODE_ENV !== 'production';
 
@@ -56,3 +58,4 @@ function* getServer() {
     yield console.error(e);
   }
 }
+/* eslint-enable */

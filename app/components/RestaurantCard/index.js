@@ -7,7 +7,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Card, Icon } from 'semantic-ui-react';
+import { Card, Button } from 'semantic-ui-react';
 
 const RestaurantCard = props => (
   <Card>
@@ -15,7 +15,13 @@ const RestaurantCard = props => (
     <Card.Content description={props.description} />
     <Card.Content extra>
       <Link to="/dashboard">
-        <Icon onClick={props.click} name="info" id={props.id} />
+        <Button
+          content="Select Restaurant"
+          onClick={props.click}
+          id={props.id}
+          floated="right"
+        />
+        {/* <Icon onClick={props.click} name="info" id={props.id} /> */}
       </Link>
     </Card.Content>
     {/* <Card.Content extra>
