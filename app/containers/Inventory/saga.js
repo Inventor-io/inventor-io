@@ -41,12 +41,16 @@ function* sendOrder() {
     data: { orderndbnos: selected, id: selectedRestaurant },
   };
 
-  try {
-    const result = yield call(axios, options);
-    yield put(formattedOrder(result.data));
-    yield put(push('/shoppingCart'));
-  } catch (e) {
-    console.error(e);
+  if (!selected.length) {
+    alert('Please select an item');
+  } else {
+    try {
+      const result = yield call(axios, options);
+      yield put(formattedOrder(result.data));
+      yield put(push('/shoppingCart'));
+    } catch (e) {
+      console.error(e);
+    }
   }
 }
 

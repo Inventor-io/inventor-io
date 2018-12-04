@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { push } from 'connected-react-router/immutable';
 import { takeEvery, call, select, put, all } from 'redux-saga/effects';
-import { PLACE_ORDER, CALL_MOUNT_ORDER } from './constants';
+import { PLACE_ORDER, CALL_MOUNT_ORDER, DELETE_ITEM } from './constants';
 import { sendMountOrder, wipeCart } from './actions';
 import { selectInventoryDomain } from '../Inventory/selectors';
 import { selectShoppingCartDomain } from './selectors';
-import { wipeChecked } from '../Inventory/actions';
+import { wipeChecked, delFromOrderList } from '../Inventory/actions';
 import { selectRestaurantDashboardDomain } from '../RestaurantDashboard/selectors';
 
 // Individual exports for testing
@@ -13,6 +13,7 @@ export default function* shoppingCartSaga() {
   yield all([
     takeEvery(PLACE_ORDER, placeOrder),
     takeEvery(CALL_MOUNT_ORDER, mountFromInven),
+    takeEvery(DELETE_ITEM, deleteItem),
   ]);
 }
 
@@ -44,4 +45,10 @@ function* mountFromInven() {
     const copy = formatted.slice();
     yield put(sendMountOrder(copy));
   }
+}
+
+function* deleteItem() {
+  const { orderList } = yield select(selectShoppingCartDomain);
+
+  yield put(delFromOrderList(orderList));
 }

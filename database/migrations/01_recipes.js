@@ -30,6 +30,7 @@ exports.up = knex =>
         .unique()
         .notNullable();
       table.float('price', 8, 2);
+      table.boolean('deleted').defaultTo(false);
     })
 
     // 03 INVENTORY

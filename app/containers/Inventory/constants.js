@@ -13,3 +13,4 @@ export const DEL_INVEN = 'app/Inventory/DEL_INVEN';
 export const REPLACE_INVEN = 'app/Inventory/REPLACE_INVEN';
 export const FORMAT_ORDER = 'app/Inventory/FORMAT_ORDER';
 export const WIPE = 'app/Inventory/WIPE';
+export const DEL_FROM_ORDER_LIST = 'app/Inventory/DEL_FROM_ORDER_LIST';
