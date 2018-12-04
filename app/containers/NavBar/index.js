@@ -74,13 +74,6 @@ export class NavBar extends React.Component {
               />
 
               <Menu.Item
-                name="shoppingCart"
-                active={activeItem === 'shoppingCart'}
-                content="Shopping Cart"
-                onClick={this.handleItemClick}
-              />
-
-              <Menu.Item
                 name="purchaseComplete"
                 active={activeItem === 'purchaseComplete'}
                 content="My Purchases"
@@ -95,6 +88,7 @@ export class NavBar extends React.Component {
               />
             </React.Fragment>
           ) : null}
+
           <Menu.Menu position="right">
             <Menu.Item
               name="logout"
