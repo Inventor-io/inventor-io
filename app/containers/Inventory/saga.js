@@ -52,11 +52,12 @@ function* sendOrder() {
 
 function* deleteInventory() {
   const { delItem, currentInventory } = yield select(selectInventoryDomain);
+  const { selectedRestaurant } = yield select(selectRestaurantDashboardDomain);
 
   const options = {
     url: '/api/inventory/deleteInventory',
     method: 'POST',
-    data: { ndbno: delItem },
+    data: { ndbno: delItem, id: selectedRestaurant },
   };
 
   try {
