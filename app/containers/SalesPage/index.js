@@ -64,12 +64,10 @@ export class SalesPage extends React.Component {
       //   date: this.state.startDate,
       //   salesList: this.props.salesPage,
       // });
-    } else alert('please input sales data for all recipes');
+    } else alert('please input amounts or zero for all recipes');
   }
 
   render() {
-    console.log('restaurant at load => ', this.props.restaurant.recipes);
-    console.log('salesPage at load => ', this.props.salesPage);
     return (
       <div>
         <Helmet>

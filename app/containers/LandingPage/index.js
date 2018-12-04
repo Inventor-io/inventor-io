@@ -41,7 +41,9 @@ export class LandingPage extends React.Component {
           </div>
           <TopLeft />
           <TopRight />
-          <BottomLeft />
+          <BottomLeft>
+            <i className="fas fa-angle-double-down landing-icon" />
+          </BottomLeft>
           <BottomRight />
         </div>
         <div className="people">

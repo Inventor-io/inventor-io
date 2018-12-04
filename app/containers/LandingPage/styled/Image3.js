@@ -11,6 +11,7 @@ const BottomLeft = styled.div`
   background-image: url('${image}');
   background-attachment: fixed;
   background-repeat: no-repeat;
+  font-size: 7em;
 `;
 
 export default BottomLeft;
