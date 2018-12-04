@@ -15,10 +15,12 @@ export default function* restaurantListSaga() {
 function* getList() {
   const userInfo = yield select(makeSelectLandingPage());
   let userID;
+  /* eslint-disable */
   userInfo.id
     ? (userID = userInfo.id)
     : (userID = localStorage.getItem('userId'));
   console.log(userInfo.id);
+  /* eslint-enable */
   try {
     const post = {
       url: '/api/restaurant/list',

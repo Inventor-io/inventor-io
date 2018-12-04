@@ -122,7 +122,9 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     mountData: () => dispatch(getInventory()),
-    toggle: (e, data) => dispatch(addToOrder(data)),
+    toggle: (_, data) => {
+      dispatch(addToOrder(data));
+    },
     handleOrder: e => {
       e.preventDefault();
       return dispatch(order());

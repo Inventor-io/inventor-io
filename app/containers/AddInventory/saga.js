@@ -3,14 +3,13 @@ import axios from 'axios';
 import { push } from 'connected-react-router/immutable';
 import { selectAddInventoryDomain } from './selectors';
 import { selectRestaurantDashboardDomain } from '../RestaurantDashboard/selectors';
-import { REMOVE_ITEM, SEND_QUERY, SAVE_INV_TO_DB } from './constants';
-import { updateDropdownOption, replaceAddedIng, redirect } from './actions';
+import { SEND_QUERY, SAVE_INV_TO_DB } from './constants';
+import { updateDropdownOption, redirect } from './actions';
 
 export default function* inventorySaga() {
   yield all([
     takeEvery(SEND_QUERY, getUSDA),
     takeEvery(SAVE_INV_TO_DB, saveInventoryToDB),
-    takeEvery(REMOVE_ITEM, deleteItem),
   ]);
 }
 
@@ -47,11 +46,4 @@ function* saveInventoryToDB() {
   } catch (e) {
     yield console.error(e);
   }
-}
-
-function* deleteItem() {
-  const { addedIngredients, remove } = yield select(selectAddInventoryDomain);
-  const arr = addedIngredients.slice();
-  arr.splice(arr.indexOf(remove), 1);
-  yield put(replaceAddedIng(arr));
 }

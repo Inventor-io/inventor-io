@@ -92,7 +92,7 @@ export class AddInventory extends React.Component {
                 ? this.props.addedIngredients.map((obj, i) => (
                   <List.Item key={i.toString()}>
                     {obj.inventory_name}
-                    <Button icon="delete" onClick={this.props.handleRemove} value={obj.inventory_name}/>
+                    <Button icon="delete" onClick={() => this.props.handleRemove(i)} value={obj.inventory_name}/>
                   </List.Item>
                 ))
                 : ''}
@@ -109,7 +109,6 @@ export class AddInventory extends React.Component {
   }
 }
 
-// TODO: worry about stuff here
 AddInventory.propTypes = {
   // functions
   handleChange: PropTypes.func,
@@ -145,22 +144,17 @@ function mapDispatchToProps(dispatch) {
       e.preventDefault();
       return dispatch(sendQuery(searchTerm));
     },
-    handleRemove: e => {
-      e.preventDefault();
-      return dispatch(removeItem(e.target.value));
-    },
+    handleRemove: i => dispatch(removeItem(i)),
     // select item from dropdown
     handleSelect: (e, target) => dispatch(updateSelect(target.value)),
     // send all selected items to db
     saveToDB: e => {
       e.preventDefault();
-      // history.push('/inventory');
       return dispatch(saveToDB());
     },
   };
 }
 
-// TODO: don't worry about stuff down here
 const withConnect = connect(
   mapStateToProps,
   mapDispatchToProps,
