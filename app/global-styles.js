@@ -176,6 +176,11 @@ const GlobalStyle = createGlobalStyle`
   grid-row-start: 2;
   grid-row-end: 9;
 }
+
+.dash-graph {
+  height: 40%;
+  width: 40%;
+}
 `;
 
 export default GlobalStyle;

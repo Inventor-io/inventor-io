@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import image from '../images/jay-wennington-2065-unsplash.jpg';
+import image from '../images/jay-wennington-2065-unsplash-min.jpg';
 
 const BottomLeft = styled.div`
   grid-column-start: 1;

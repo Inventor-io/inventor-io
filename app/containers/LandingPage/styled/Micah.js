@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import image from '../images/Micah.jpg';
+import image from '../images/Micah-min.jpg';
 
 const Micah = styled.div`
   grid-column-start: 2;

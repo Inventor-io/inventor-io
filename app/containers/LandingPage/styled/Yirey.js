@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import image from '../images/KakaoTalk_Photo_2018-09-12-17-21-37.jpg';
+import image from '../images/KakaoTalk_Photo_2018-09-12-17-21-37-min (3).jpg';
 
 const Yirey = styled.div`
   grid-column-start: 2;
