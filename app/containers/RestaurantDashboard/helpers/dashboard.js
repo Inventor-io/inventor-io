@@ -1,10 +1,11 @@
 /* eslint-disable */
 import moment from 'moment';
 import makeSelectRestaurantInfo from '../selectors';
+import flatten from 'flat';
 
-export default function getRestaurantCosts(salesInfo) {
-  const restaurantInfo = makeSelectRestaurantInfo();
-  console.log('SAGA for Dashboard', restaurantInfo);
+export function getRestaurantCosts(salesInfo) {
+  //const restaurantInfo = await makeSelectRestaurantInfo();
+  //console.log('SAGA for Dashboard', restaurantInfo);
   // const data = [];
   const date = {};
   // const recipes = {};
@@ -45,8 +46,51 @@ export default function getRestaurantCosts(salesInfo) {
   return costPerDay;
 }
 
-export function getRestaurantRevenue(salesInfo) {
-  // TODO MAYBE
-  return salesInfo;
+export function combineRevenueAndSales(costs, sales) {
+  sales.map(sale => {
+    // console.log(ingredient);
+    const currentDate = moment(sale.date).format('MM/DD/YYYY');
+    const recipeName = sale.recipe_name;
+    // if (!date[currentDate]) {
+    //   date[currentDate] = {};
+    // }
+    costs[currentDate][`${recipeName}_revenue`] = sale.sum;
+  });
+
+  console.log('COSTS', costs);
+  const array = [];
+  for (let key in costs) {
+    array.push(Object.assign({ date: key }, costs[key]));
+  }
+
+  for (let i = 0; i < array.length; i++) {
+    for (let key in array[i]) {
+      if (array[i][key].cost) {
+        array[i][`${key}_cost`] = array[i][key].cost;
+        delete array[i][key];
+      }
+    }
+  }
+  console.log(array);
+  array.sort((a, b) => {
+    let splitA = a.date.split('/');
+    let splitB = b.date.split('/');
+
+    return splitA[0] + splitA[1] - (splitB[0] + splitB[1]);
+  });
+
+  console.log(array);
+
+  return array;
+}
+
+export function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  console.log('color', color);
+  return color;
 }
 /* eslint-enable */

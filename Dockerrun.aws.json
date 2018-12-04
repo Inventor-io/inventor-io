@@ -4,7 +4,7 @@
     {
       "name": "inventorio",
       "host": {
-        "sourcePath": "/var/app/current/inventor-io/"
+        "sourcePath": "/var/app/current/inventorio"
       }
     },
     {
