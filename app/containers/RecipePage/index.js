@@ -23,7 +23,7 @@ import {
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { getRecipes } from './actions';
+import { getRecipes, deleteRecipe } from './actions';
 import history from '../../utils/history';
 import RecipeTable from '../../components/RecipeTable';
 // import messages from './messages';
@@ -37,20 +37,8 @@ import makeSelectRestaurantId from '../RestaurantDashboard/selectors';
 export class RecipePage extends React.PureComponent {
   constructor(props) {
     super(props);
-    // this.state = { showCreateModal: false, newName: '' };
     this.props.getRecipeList();
-    this.toggleCreateModal = this.toggleCreateModal.bind(this);
   }
-
-  toggleCreateModal() {
-    this.setState(prevState => ({
-      showCreateModal: !prevState.showCreateModal,
-    }));
-  }
-
-  // handleChange(e) {
-  //   this.setState({ newName: e.target.value });
-  // }
 
   render() {
     // Options list for Dropdown
@@ -79,7 +67,10 @@ export class RecipePage extends React.PureComponent {
                 onChange={(trash, target) => console.log(target.value)}
               />
             )}
-            <RecipeTable recipeList={this.props.recipeList} />
+            <RecipeTable
+              recipeList={this.props.recipeList}
+              deleteRecipe={this.props.dispatchDeleteRecipe}
+            />
             <Button
               color="green"
               content="Add a new recipe"
@@ -96,6 +87,7 @@ RecipePage.propTypes = {
   restaurantList: PropTypes.any,
   recipeList: PropTypes.object,
   getRecipeList: PropTypes.func.isRequired,
+  dispatchDeleteRecipe: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -107,6 +99,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
+    dispatchDeleteRecipe: recipeID => dispatch(deleteRecipe(recipeID)),
     getRecipeList: () => dispatch(getRecipes()),
   };
 }
