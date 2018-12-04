@@ -32,6 +32,7 @@ export function addToOrder(i) {
   return {
     type: ADD_ORDER,
     i: i.value,
+    checked: i.checked,
   };
 }
 
