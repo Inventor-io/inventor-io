@@ -330,10 +330,10 @@ async function deleteInv(ndbno, id, res) {
 
     if (elsewhere.length > 1) {
       // send alert
-      res.send('alert');
+      res.send(['alert', elsewhere]);
     } else {
       await knexDelInv(ndbno, id);
-      res.sendStatus(200);
+      res.send([null, elsewhere]);
     }
   } catch (e) {
     // console.log(e);
