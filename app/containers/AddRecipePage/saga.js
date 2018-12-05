@@ -8,9 +8,11 @@ import {
   DELETE_INGREDIENT,
   // UPDATE_INGREDIENT_AMOUNT,
   APPLY_REC_CHANGES,
+  UPDATE_MODAL,
 } from './constants';
 import { selectRestaurantDashboardDomain } from '../RestaurantDashboard/selectors';
 import history from '../../utils/history';
+import { clearState } from '../AddIngredients/actions';
 
 // Individual exports for testing
 export default function* addRecipePageSaga() {
@@ -20,6 +22,7 @@ export default function* addRecipePageSaga() {
     takeEvery(DELETE_INGREDIENT, deleteIngredient),
     // takeEvery(UPDATE_INGREDIENT_AMOUNT, updateIngredientAmount),
     takeEvery(APPLY_REC_CHANGES, updateRecipe),
+    takeEvery(UPDATE_MODAL, clearModal),
   ]);
 }
 
@@ -141,4 +144,8 @@ function* updateRecipe() {
   } catch (e) {
     // console.log(e);
   }
+}
+
+function* clearModal() {
+  yield put(clearState());
 }
