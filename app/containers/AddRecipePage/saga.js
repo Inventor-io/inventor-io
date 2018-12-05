@@ -33,7 +33,7 @@ function* updateIngredientAmount(action) {
     };
     yield call(axios, axiosArgs);
   } catch (e) {
-    // yield console.error(e);
+    yield console.error(e);
   }
 }
 
@@ -103,24 +103,49 @@ function* getIngredients() {
 }
 
 function* updateRecipe() {
-  const { recName, recPrice } = yield select(selectAddRecipePageDomain);
+  const { recName, recPrice, ingredientsList } = yield select(
+    selectAddRecipePageDomain,
+  );
   const userInfo = yield select(selectRestaurantDashboardDomain);
   const userId = userInfo.selectedRestaurant;
-  const data = {
-    recipe_name: recName,
-    restaurant_id: userId,
-    price: recPrice,
-  };
+  /* eslint-disable */
+  const { inventory_name, ndbno, measurement, recipe_id } = ingredientsList;
 
   try {
+    // save to inventory table
+    const dataInventory = { ndbno, inventory_name };
+    const postInven = {
+      url: '/api/inventory/addIngToDB',
+      method: 'POST',
+      data: { ingObj: dataInventory, id: userId },
+    };
+    yield call(axios, postInven);
+
+    // save to recipe_inventory
+    const dataRecipeInven = { recipe_id, ndbno, measurement };
+    const postRecInven = {
+      url: '/api/recipe/ingredients',
+      method: 'POST',
+      data: dataRecipeInven,
+    };
+    yield call(axios, postRecInven);
+    /* eslint-enable */
+    // upsert price
+    const data = {
+      recipe_name: recName,
+      restaurant_id: userId,
+      price: recPrice,
+    };
+
     const post = {
-      url: '/api/recipe/upsert',
+      url: '/api/recipe/upsertPrice',
       method: 'post',
       data,
     };
     yield call(axios, post);
+
     history.push('/recipe');
   } catch (e) {
-    // console.log(e)
+    console.log(e);
   }
 }

@@ -71,7 +71,7 @@ async function saveIngredients(ingObj, recID, restaurantID, res) {
     await addInventoryToRestaurant(filteredObjs, restaurantID); // insert filteredObjs to restaurant_inventory
     res.sendStatus(200);
   } catch (e) {
-    // console.log('ERROR ADDING INGREDIENTS:', e);
+    console.log('ERROR ADDING INGREDIENTS:', e);
   }
 }
 
@@ -219,6 +219,6 @@ async function upsertPrice(data, res) {
   res.sendStatus(200);
 }
 
-router.post('/upsert', (req, res) => {
+router.post('/upsertPrice', (req, res) => {
   upsertPrice(req.body, res);
 });
