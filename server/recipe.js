@@ -64,10 +64,10 @@ async function saveIngredients(ingObj, recID, restaurantID, res) {
     // insert into db
     await saveIngToInventoryDB(filteredObjs); // insert to inventory table
     await saveIngToRecipeInventoryDB(recID, ndbnos); // insert to recipe_inventory table
-
     const restaurantNdbnos = await getRestaurantNdbnos(restaurantID);
     filteredndbnos = filterndbnos(filteredndbnos, restaurantNdbnos);
     filteredObjs = filterObjs(filteredndbnos, filteredObjs);
+
     await addInventoryToRestaurant(filteredObjs, restaurantID); // insert filteredObjs to restaurant_inventory
     res.sendStatus(200);
   } catch (e) {

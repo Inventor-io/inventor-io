@@ -6,7 +6,7 @@ import {
   GET_INGREDIENTSLIST,
   UPDATE_INGREDIENTSLIST,
   DELETE_INGREDIENT,
-  UPDATE_INGREDIENT_AMOUNT,
+  // UPDATE_INGREDIENT_AMOUNT,
   APPLY_REC_CHANGES,
 } from './constants';
 import { selectRestaurantDashboardDomain } from '../RestaurantDashboard/selectors';
@@ -18,35 +18,34 @@ export default function* addRecipePageSaga() {
     takeEvery(GET_INGREDIENTSLIST, getIngredients),
     takeEvery(SEND_FORM, sendRecipe),
     takeEvery(DELETE_INGREDIENT, deleteIngredient),
-    takeEvery(UPDATE_INGREDIENT_AMOUNT, updateIngredientAmount),
+    // takeEvery(UPDATE_INGREDIENT_AMOUNT, updateIngredientAmount),
     takeEvery(APPLY_REC_CHANGES, updateRecipe),
   ]);
 }
 
-function* updateIngredientAmount(action) {
-  try {
-    // const { ingredientsList } = yield select(selectAddRecipePageDomain);
-    const axiosArgs = {
-      url: '/api/recipe/ingredients',
-      method: 'patch',
-      params: action.payload,
-    };
-    yield call(axios, axiosArgs);
-  } catch (e) {
-    yield console.error(e);
-  }
-}
+// function* updateIngredientAmount(action) {
+//   try {
+//     // const axiosArgs = {
+//     //   url: '/api/recipe/ingredients',
+//     //   method: 'patch',
+//     //   params: action.payload,
+//     // };
+//     // disabled for testing yield call(axios, axiosArgs);
+//   } catch (e) {
+//     yield console.error(e);
+//   }
+// }
 
 // Delete an Ingredient from the recipe
 function* deleteIngredient(action) {
   try {
     const { ingredientsList } = yield select(selectAddRecipePageDomain);
-    const axiosArgs = {
-      url: '/api/recipe/ingredients',
-      method: 'delete',
-      params: action.payload,
-    };
-    yield call(axios, axiosArgs);
+    // const axiosArgs = {
+    //   url: '/api/recipe/ingredients',
+    //   method: 'delete',
+    //   params: action.payload,
+    // };
+    // yield call(axios, axiosArgs);
 
     const purgedList = ingredientsList.filter(
       recipe => recipe.ndbno !== action.payload.ndbno,
@@ -116,7 +115,6 @@ function* updateRecipe() {
       data: { ingObj: ingredientsList, id: userId },
     };
     yield call(axios, postInven);
-
     // save ingredients to recipe_inventory
     const postRecInven = {
       url: '/api/recipe/upsertIngredients',
