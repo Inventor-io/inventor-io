@@ -29,16 +29,15 @@ class RecipeTable extends React.PureComponent {
 
   render() {
     const { recipeList } = this.props.recipeList;
-    console.log('RECIPE LIST', recipeList);
     return (
       <div>
         {/* <FormattedMessage {...messages.header} /> */}
-        <Table unstackable="true" textAlign="right">
+        <Table unstackable textAlign="right">
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell textAlign="left">Name</Table.HeaderCell>
               <Table.HeaderCell>Price</Table.HeaderCell>
-              <Table.HeaderCell>Left in Stock</Table.HeaderCell>
+              {/* <Table.HeaderCell>Left in Stock</Table.HeaderCell> */}
               <Table.HeaderCell />
             </Table.Row>
           </Table.Header>
@@ -49,7 +48,7 @@ class RecipeTable extends React.PureComponent {
                 <Table.Row key={row.recipe_id}>
                   <Table.Cell textAlign="left">{row.recipe_name}</Table.Cell>
                   <Table.Cell>${row.price.toFixed(2)}</Table.Cell>
-                  <Table.Cell>TBD</Table.Cell>
+                  {/* <Table.Cell>TBD</Table.Cell> */}
                   <Table.Cell>
                     <Button
                       size="tiny"
@@ -70,7 +69,6 @@ class RecipeTable extends React.PureComponent {
                           size="tiny"
                           icon
                           onClick={() => {
-                            console.log('DELETE?', row.recipe_name);
                             this.toggleDeleteModal(row);
                           }}
                         >
@@ -95,10 +93,6 @@ class RecipeTable extends React.PureComponent {
                           color="red"
                           content="Delete"
                           onClick={() => {
-                            console.log(
-                              'Deleting recipe:',
-                              this.state.modalRow.recipe_id,
-                            );
                             this.props.deleteRecipe(
                               this.state.modalRow.recipe_id,
                             );

@@ -16,6 +16,7 @@ import {
   DELETE_INGREDIENT,
   UPDATE_MODAL,
   UPDATE_INGREDIENT_AMOUNT,
+  APPLY_REC_CHANGES,
 } from './constants';
 
 // export function defaultAction() {
@@ -91,5 +92,11 @@ export function sendForm() {
   // const data = { resAddress, resName, resNumber };
   return {
     type: SEND_FORM,
+  };
+}
+
+export function applyRecChanges() {
+  return {
+    type: APPLY_REC_CHANGES,
   };
 }

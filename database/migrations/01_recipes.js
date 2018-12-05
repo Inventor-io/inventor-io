@@ -26,7 +26,7 @@ exports.up = knex =>
         .inTable('restaurants');
       table
         .string('recipe_name')
-        .unique()
+        .unique() // TODO: delete.... other restaurants/users should be allowed to have same recipe names
         .notNullable();
       table.float('price', 8, 2);
       table.boolean('deleted').defaultTo(false);

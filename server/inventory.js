@@ -310,17 +310,33 @@ const knexDelInv = (ndbno, id) =>
   db
     .from('restaurant_inventory')
     .where({ ndbno, restaurant_id: id })
-    .del()
-    .catch(e => {
-      console.log(e);
-    });
+    .del();
+// .catch(e => {
+//   console.log(e);
+// });
 
 async function deleteInv(ndbno, id, res) {
   try {
-    await knexDelInv(ndbno, id);
-    res.sendStatus(200);
+    // find recipes of restaurant
+    let recipeIDs = await db('recipes').where({ restaurant_id: id });
+    recipeIDs = recipeIDs.map(obj => obj.recipe_id);
+    let set = new Set(recipeIDs);
+    set = Array.from(set);
+
+    // find restaurant recipes that use certain ndbno
+    const elsewhere = await db('recipe_inventory')
+      .whereIn('recipe_id', set)
+      .andWhere({ ndbno });
+
+    if (elsewhere.length > 1) {
+      // send alert
+      res.send('alert');
+    } else {
+      await knexDelInv(ndbno, id);
+      res.sendStatus(200);
+    }
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 }
 

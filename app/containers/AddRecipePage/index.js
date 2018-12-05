@@ -13,7 +13,14 @@ import { Helmet } from 'react-helmet';
 // import messages from './messages';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Header, Input, Button, Container, Modal } from 'semantic-ui-react';
+import {
+  Header,
+  Input,
+  Button,
+  Container,
+  Modal,
+  Label,
+} from 'semantic-ui-react';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import NavBar from 'containers/NavBar/Loadable';
@@ -39,6 +46,7 @@ import {
   deleteIngredient,
   updateModalState,
   updateIngredientAmount,
+  applyRecChanges,
 } from './actions';
 import history from '../../utils/history';
 import IngredientsTable from '../../components/IngredientsTable';
@@ -95,7 +103,7 @@ export class AddRecipePage extends React.PureComponent {
               />
               <br />
               <Input
-                value={this.props.recPrice}
+                // value={this.props.recPrice}
                 onChange={e => this.props.changePrice(e.target.value)}
                 size="large"
                 placeholder="Price"
@@ -115,7 +123,6 @@ export class AddRecipePage extends React.PureComponent {
                         row => row.name !== this.props.recName,
                       ))
                   ) {
-                    console.log('NEW NAME');
                     this.props.onSubmitForm();
                   }
                 }}
@@ -124,23 +131,45 @@ export class AddRecipePage extends React.PureComponent {
           ) : (
             <div>
               <Header as="h1">Edit Recipe: {this.props.recName} </Header>
-              <IngredientsTable
-                changeIngredientsList={newList =>
-                  this.props.changeIngredientList(newList)
-                }
-                modalState={this.props.modalState}
-                changeModal={this.props.changeModal}
-                recipeID={this.props.recId}
-                changeIngredientList={this.props.changeIngredientList}
-                ingredientsList={this.props.ingredientsList}
-                removeIngredient={this.props.removeIngredient}
-                changeIngredientAmount={this.props.changeIngredientAmount}
-              />
-              <Button
-                content="Add an ingredient"
-                color="green"
-                onClick={() => this.props.changeModal(true)}
-              />
+              <Input labelPosition="right" type="text" placeholder="Amount">
+                <Input
+                  defaultValue={
+                    this.props.recPrice
+                      ? parseFloat(this.props.recPrice).toFixed(2)
+                      : 0
+                  }
+                  onChange={e => this.props.changePrice(e.target.value)}
+                />
+                <Label basic>$</Label>
+              </Input>
+              <div>
+                <Button
+                  content="Add an ingredient"
+                  color="green"
+                  onClick={() => this.props.changeModal(true)}
+                  floated="right"
+                />
+
+                <IngredientsTable
+                  changeIngredientsList={newList =>
+                    this.props.changeIngredientList(newList)
+                  }
+                  modalState={this.props.modalState}
+                  changeModal={this.props.changeModal}
+                  recipeID={this.props.recId}
+                  changeIngredientList={this.props.changeIngredientList}
+                  ingredientsList={this.props.ingredientsList}
+                  removeIngredient={this.props.removeIngredient}
+                  changeIngredientAmount={this.props.changeIngredientAmount}
+                />
+
+                <Button
+                  content="Apply Changes"
+                  color="green"
+                  floated="right"
+                  onClick={() => this.props.applyChanges()}
+                />
+              </div>
             </div>
           )}
           <br />
@@ -155,7 +184,6 @@ export class AddRecipePage extends React.PureComponent {
                   const current = this.props.ingredientsList
                     ? this.props.ingredientsList
                     : [];
-                  console.log('Current ingredients', current);
                   const filtered = newItems
                     .filter(newItem =>
                       current.every(oldItem => oldItem.ndbno !== newItem.ndbno),
@@ -166,8 +194,6 @@ export class AddRecipePage extends React.PureComponent {
                       ndbno: String(item.ndbno),
                       measurement: 0,
                     }));
-                  console.log('Filtered new list:', filtered);
-                  console.log('New list', current.concat(filtered));
                   this.props.changeIngredientList(current.concat(filtered));
                   this.props.changeModal(false);
                 }}
@@ -207,6 +233,7 @@ AddRecipePage.propTypes = {
   modalState: PropTypes.bool,
   // description: PropTypes.any,
   location: PropTypes.any,
+  applyChanges: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -228,18 +255,14 @@ function mapDispatchToProps(dispatch) {
     changeModal: newState => dispatch(updateModalState(newState)),
     // send update of amount to database
     changeIngredientAmount: (recipeID, ndbno, newAmount) => {
-      console.log('CHANGE INGREDIENT TRIGGERED');
       dispatch(updateIngredientAmount(recipeID, ndbno, newAmount));
     },
     removeIngredient: (recipeID, ndbno) => {
-      console.log('Dispatched deleteIngredient for');
-      console.log('recipeID', recipeID, 'ndbno', ndbno);
       dispatch(deleteIngredient(recipeID, ndbno));
     },
     // onChangeDescription: e => dispatch(updateDescription(e.target.value)),
     changeIngredientList: newList => dispatch(updateIngredientsList(newList)),
     onSubmitForm: () => {
-      console.log('sendForm dispatched!');
       dispatch(sendForm());
       // history.push(
       //   '/recipe',
@@ -248,6 +271,7 @@ function mapDispatchToProps(dispatch) {
       //   // }`,
       // );
     },
+    applyChanges: () => dispatch(applyRecChanges()),
   };
 }
 
