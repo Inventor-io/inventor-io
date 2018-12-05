@@ -71,7 +71,7 @@ async function saveIngredients(ingObj, recID, restaurantID, res) {
     await addInventoryToRestaurant(filteredObjs, restaurantID); // insert filteredObjs to restaurant_inventory
     res.sendStatus(200);
   } catch (e) {
-    // console.log('ERROR ADDING INGREDIENTS:', e);
+    console.log('ERROR ADDING INGREDIENTS:', e);
   }
 }
 
@@ -219,6 +219,50 @@ async function upsertPrice(data, res) {
   res.sendStatus(200);
 }
 
-router.post('/upsert', (req, res) => {
+router.post('/upsertPrice', (req, res) => {
   upsertPrice(req.body, res);
 });
+
+router.post('/upsertIngredients', (req, res) => {
+  upsertIng(req.body, res);
+});
+
+async function upsertIng(ingObj, res) {
+  try {
+    const queries = []; // Promise.all
+
+    ingObj.forEach(obj => {
+      queries.push(
+        db('recipe_inventory')
+          .where({
+            recipe_id: obj.recipe_id,
+            ndbno: obj.ndbno,
+          })
+          .then(exists => {
+            if (exists.length) {
+              // check recipe_id ndbno pair exists
+              // update measurement
+              return db('recipe_inventory')
+                .where({
+                  recipe_id: obj.recipe_id,
+                  ndbno: obj.ndbno,
+                })
+                .update({ measurement: obj.measurement });
+            }
+            // insert
+            return db
+              .insert({
+                recipe_id: obj.recipe_id,
+                ndbno: obj.ndbno,
+                measurement: obj.measurement,
+              })
+              .into('recipe_inventory');
+          }),
+      );
+    });
+    Promise.all(queries).then(() => res.sendStatus(200));
+    // .catch(err => console.log(err));
+  } catch (e) {
+    // console.log(e);
+  }
+}
