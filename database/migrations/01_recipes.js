@@ -50,7 +50,8 @@ exports.up = knex =>
       table
         .string('ndbno')
         .references('ndbno')
-        .inTable('inventory');
+        .inTable('inventory')
+        .onDelete('CASCADE');
       table.float('quantity').defaultTo(0);
     })
 
@@ -60,11 +61,13 @@ exports.up = knex =>
       table
         .integer('recipe_id')
         .references('recipe_id')
-        .inTable('recipes');
+        .inTable('recipes')
+        .onDelete('CASCADE');
       table
         .string('ndbno')
         .references('ndbno')
-        .inTable('inventory');
+        .inTable('inventory')
+        .onDelete('CASCADE');
       table.float('measurement').defaultTo(0);
     })
 
@@ -74,7 +77,8 @@ exports.up = knex =>
       table
         .integer('recipe_id')
         .references('recipe_id')
-        .inTable('recipes');
+        .inTable('recipes')
+        .onDelete('CASCADE');
       table
         .integer('restaurant_id')
         .references('id')
@@ -95,7 +99,8 @@ exports.up = knex =>
       table
         .string('ndbno')
         .references('ndbno')
-        .inTable('inventory');
+        .inTable('inventory')
+        .onDelete('CASCADE');
       table.float('price', 10, 2);
       table.float('quantity');
       table.timestamp('date').defaultTo(knex.fn.now());
