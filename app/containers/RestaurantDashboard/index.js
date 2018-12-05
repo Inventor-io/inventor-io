@@ -25,6 +25,7 @@ import {
   BarChart,
   Bar,
   ResponsiveContainer,
+  Cell,
 } from 'recharts';
 import makeSelectRestaurantDashboard, {
   makeSelectRestaurantInfo,
@@ -120,6 +121,10 @@ export class RestaurantDashboard extends React.Component {
               <Legend />
 
               <Bar dataKey="quantity" fill={getRandomColor()} />
+              {this.props.info.inventoryData.map((entry, index) => {
+                const color = getRandomColor();
+                return <Cell fill={color} />;
+              })}
               {/* {this.props
               ? this.props.info.inventoryData.map(entry => {
                   console.log(entry);
