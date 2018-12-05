@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Redirect } from 'react-router-dom';
-import { Button, Card } from 'semantic-ui-react';
+import { Button, Card, Container, Modal } from 'semantic-ui-react';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -19,12 +19,16 @@ import makeSelectRestaurantList from './selectors';
 import makeSelectLandingPage from '../LandingPage/selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { getRestaurants } from './actions';
+import { getRestaurants, deleteRestaurant } from './actions';
 import RestaurantCard from '../../components/RestaurantCard';
 import { selectedRes } from '../RestaurantDashboard/actions';
 import history from '../../utils/history';
 /* eslint-disable react/prefer-stateless-function */
 export class RestaurantList extends React.Component {
+  constructor() {
+    super();
+    this.state = { modalOpen: false };
+  }
   // componentDidMount() {
   //   this.props.onPageLoad();
   // }
@@ -45,24 +49,58 @@ export class RestaurantList extends React.Component {
             Add Restaurant
           </Button>
         </div>
-        {this.props.restaurantList.restaurants
-          ? this.props.restaurantList.restaurants.map((restaurant, key) => (
-              <RestaurantCard
-                key={key}
-                header={restaurant.restaurants_name}
-                click={this.props.onClick}
-                id={restaurant.id}
-                description={
-                  <ul>
-                    <li>{restaurant.restaurant_address}</li>
-                    <li>{restaurant.restaurant_phone_number}</li>
-                    <li>{restaurant.restaurant_website}</li>
-                  </ul>
-                }
-              />
-            ))
-          : null}
-        {/* <Button content="get Repos" onClick={this.props.onPageLoad} /> */}
+        <Container text>
+          <Card.Group>
+            {this.props.restaurantList.restaurants
+              ? this.props.restaurantList.restaurants.map((restaurant, key) => (
+                  <RestaurantCard
+                    key={key}
+                    header={restaurant.restaurants_name}
+                    delete={this.props.onDelete}
+                    edit={this.props.onEdit}
+                    id={restaurant.id}
+                    description={
+                      <div>
+                        <div>
+                          {' '}
+                          <b>Address:</b>
+                          <br /> {restaurant.restaurant_address}
+                        </div>
+                        <div>
+                          <b>Phone Number:</b> <br />
+                          {restaurant.restaurant_phone_number}
+                        </div>
+                        <div>
+                          <b>Website: </b> <br />
+                          {restaurant.restaurant_website}
+                        </div>
+                      </div>
+                    }
+                  />
+                ))
+              : null}
+          </Card.Group>
+          {/* <Button content="get Repos" onClick={this.props.onPageLoad} /> */}
+        </Container>
+        {/* <Modal
+          trigger={<Button onClick={this.handleOpen}>Show Modal</Button>}
+          open={this.state.modalOpen}
+          onClose={this.handleClose}
+          basic
+          size="small"
+        >
+          <Header icon="browser" content="Cookies policy" />
+          <Modal.Content>
+            <h3>
+              This website uses cookies to ensure the best user experience.
+            </h3>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button color="green" onClick={this.handleClose} inverted>
+              <Icon name="checkmark" /> Got it
+            </Button>
+          </Modal.Actions>
+        </Modal> */}
       </div>
     );
   }
@@ -85,12 +123,24 @@ function mapDispatchToProps(dispatch) {
       dispatch(getRestaurants(userId));
     },
     onClick: e => {
+      console.log('CLICKED');
       const resID = e.target.id;
       dispatch(selectedRes(resID));
       // console.log(resID);
     },
     addRestaurant: () => {
       history.push('/addrestaurant');
+    },
+    onEdit: () => {
+      console.log('EDIT CLICKED');
+      this.setState({ modalOpen: true });
+    },
+    onDelete: e => {
+      console.log('DELETE CLICKED', e.target.id);
+      dispatch(deleteRestaurant(e.target.id));
+    },
+    onClose: e => {
+      this.setState({ modalOpen: false });
     },
   };
 }

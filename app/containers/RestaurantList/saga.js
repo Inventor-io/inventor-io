@@ -1,14 +1,16 @@
 import { takeEvery, call, put, select, all } from 'redux-saga/effects';
 import axios from 'axios';
-import { RECEIVED_RESTAURANTS } from './constants';
+import { RECEIVED_RESTAURANTS, DELETE_RESTAURANT } from './constants';
 import { FORM_RESPONSE } from '../Restaurant/constants';
 import makeSelectLandingPage from '../LandingPage/selectors';
+import { restaurantSuccesfullyDeleted } from './actions';
 // Individual exports for testing
 export default function* restaurantListSaga() {
   // See example in containers/HomePage/saga.js
   yield all([
     takeEvery('app/RestaurantList/GET_RESTAURANTS', getList),
     takeEvery(FORM_RESPONSE, getList),
+    takeEvery(DELETE_RESTAURANT, deleteRestaurant),
   ]);
 }
 
@@ -43,4 +45,19 @@ function* getList() {
   }
 }
 
+function* deleteRestaurant({ restaurantId }) {
+  console.log('DELETE SAGA', restaurantId);
+  try {
+    const post = {
+      url: '/api/restaurant/delete',
+      method: 'post',
+      data: { id: restaurantId },
+    };
+    const response = yield call(axios, post);
+    console.log(response);
+    yield put(restaurantSuccesfullyDeleted(restaurantId));
+  } catch (err) {
+    throw err;
+  }
+}
 // Individual exports for testing

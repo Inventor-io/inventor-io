@@ -28,3 +28,12 @@ SELECT recipe_name, SUM(price), date(date) as date
 from (SELECT recipe_name, price, quantity, date FROM sales JOIN recipes ON sales.recipe_id = recipes.recipe_id WHERE sales.restaurant_id=1) as sales
 GROUP BY sales.recipe_name, sales.date 
 order by date;
+
+
+/// Inventory
+
+SELECT  restaurant_inventory.quantity, inventory_name, sub.price_item*restaurant_inventory.quantity AS total_value, sub.* FROM (select ndbno, price/quantity AS price_item, date from (select ndbno, price, quantity, price/quantity AS price_item, date, row_number() over (partition by ndbno order by date desc) as rn from orders WHERE delivered='t') as T where rn=1) sub JOIN inventory ON inventory.ndbno = sub.ndbno JOIN restaurant_inventory ON sub.ndbno = restaurant_inventory.ndbno WHERE restaurant_inventory.restaurant_id=1;
+
+
+//DELETE EXTRA HAMBURGER
+DELETE FROM sales WHERE sales.id=ANY(select id from sales WHERE recipe_id = 1 AND cast(date as date)='2018-10-26 16:15:47+00' AND quantity>10);
