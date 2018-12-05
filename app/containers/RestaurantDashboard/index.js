@@ -22,9 +22,6 @@ import {
   YAxis,
   Tooltip,
   Legend,
-  BarChart,
-  Bar,
-  ResponsiveContainer,
 } from 'recharts';
 import makeSelectRestaurantDashboard, {
   makeSelectRestaurantInfo,
@@ -34,7 +31,6 @@ import reducer from './reducer';
 import saga from './saga';
 import { loadInformation } from './actions';
 import { getRandomColor } from './helpers/dashboard';
-import { Segment, Dimmer, Loader, Image } from 'semantic-ui-react';
 
 /* eslint-disable react/prefer-stateless-function */
 export class RestaurantDashboard extends React.Component {
@@ -66,77 +62,73 @@ export class RestaurantDashboard extends React.Component {
     // console.table('daySales############', this.props.info.daySales.rows);
     // console.table('dayCosts****************', this.props.salesByDate);
     // console.log('hi');
-    // console.log(this.props);
+    console.log(this.props);
     let count = 0;
     return (
       <div>
         <NavBar />
-        <h2>Costs & Revenue</h2>
         {this.props.info ? (
-          <ResponsiveContainer width="100%" aspect={8.0 / 3.0}>
-            <LineChart
-              data={this.props.all.salesAndRevenue}
-              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-            >
-              <XAxis dataKey="date" />
-              <YAxis />
-              <CartesianGrid strokeDasharray="3 3" />
-              <Tooltip />
-              <Legend onClick={this.props.clickHandler} />
-              {this.props
-                ? Object.keys(this.props.all.salesAndRevenue[0]).map(key => {
-                    if (key !== 'date') {
-                      //console.log(getRandomColor);
-                      let randomColor = getRandomColor();
-                      return (
-                        <Line
-                          type="monotone"
-                          dataKey={key}
-                          stroke={randomColor}
-                        />
-                      );
-                      console.log(key);
-                    }
-                  })
-                : null}
-              {/* this.props.all.salesAndRevenue.map() */}
-            </LineChart>
-          </ResponsiveContainer>
-        ) : null}
-
-        <h2>Inventory</h2>
-        <ResponsiveContainer width="100%" aspect={8.0 / 3.0}>
-          {this.props.info ? (
-            <BarChart
-              width={1800}
-              height={900}
-              data={this.props.info.inventoryData}
-              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="inventory_name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-
-              <Bar dataKey="quantity" fill={getRandomColor()} />
-              {/* {this.props
-              ? this.props.info.inventoryData.map(entry => {
-                  console.log(entry);
-                  if (entry !== 'date') {
-                    //console.log(getRandomColor);
+          <LineChart
+            width={1800}
+            height={900}
+            data={this.props.all.salesAndRevenue}
+            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+          >
+            <XAxis dataKey="date" />
+            <YAxis />
+            <CartesianGrid strokeDasharray="3 3" />
+            <Tooltip />
+            <Legend />
+            {this.props
+              ? Object.keys(this.props.all.salesAndRevenue[0]).map(key => {
+                  if (key !== 'date') {
+                    console.log(getRandomColor);
                     let randomColor = getRandomColor();
-                    return <Bar dataKey="quantity" fill={randomColor} />;
+                    return (
+                      <Line
+                        type="monotone"
+                        dataKey={key}
+                        stroke={randomColor}
+                      />
+                    );
                     console.log(key);
                   }
                 })
-              : null} */}
-              {/* this.props.all.salesAndRevenue.map() */}
-            </BarChart>
-          ) : (
-            <Loader active size="massive" inline="centered" />
-          )}
-        </ResponsiveContainer>
+              : null}
+            {/* this.props.all.salesAndRevenue.map() */}
+          </LineChart>
+        ) : null}
+        {this.props.info ? (
+          <LineChart
+            width={1800}
+            height={900}
+            data={this.props.all.salesAndRevenue}
+            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+          >
+            <XAxis dataKey="date" />
+            <YAxis />
+            <CartesianGrid strokeDasharray="3 3" />
+            <Tooltip />
+            <Legend />
+            {this.props
+              ? Object.keys(this.props.all.salesAndRevenue[0]).map(key => {
+                  if (key !== 'date') {
+                    console.log(getRandomColor);
+                    let randomColor = getRandomColor();
+                    return (
+                      <Line
+                        type="monotone"
+                        dataKey={key}
+                        stroke={randomColor}
+                      />
+                    );
+                    console.log(key);
+                  }
+                })
+              : null}
+            {/* this.props.all.salesAndRevenue.map() */}
+          </LineChart>
+        ) : null}
       </div>
     );
   }
@@ -159,9 +151,6 @@ function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     onLoad: () => dispatch(loadInformation()),
-    clickHandler: e => {
-      console.log(e.value);
-    },
   };
 }
 
