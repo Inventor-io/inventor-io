@@ -13,6 +13,7 @@ import {
   REPLACE_INVEN,
   FORMAT_ORDER,
   WIPE,
+  DEL_FROM_ORDER_LIST,
 } from './constants';
 
 export function getInventory() {
@@ -66,5 +67,12 @@ export function formattedOrder(arr) {
 export function wipeChecked() {
   return {
     type: WIPE,
+  };
+}
+
+export function delFromOrderList(orderList) {
+  return {
+    type: DEL_FROM_ORDER_LIST,
+    orderList,
   };
 }

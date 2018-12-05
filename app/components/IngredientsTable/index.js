@@ -17,7 +17,6 @@ import ToggledInput from '../ToggledInput';
 /* eslint-enable */
 class IngredientsTable extends React.PureComponent {
   render() {
-    console.log('INGREDIENTS TABLE PROPS:', this.props);
     return (
       <div>
         <Table unstackable fixed selectable>
@@ -41,7 +40,6 @@ class IngredientsTable extends React.PureComponent {
                       value={row.measurement}
                       startsLocked="true"
                       update={newMeasurement => {
-                        console.log('UPDATE CALLED');
                         this.props.changeIngredientAmount(
                           row.recipe_id,
                           row.ndbno,

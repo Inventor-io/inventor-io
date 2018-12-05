@@ -12,13 +12,14 @@ import {
   REPLACE_INVEN,
   FORMAT_ORDER,
   WIPE,
+  DEL_FROM_ORDER_LIST,
 } from './constants';
 
 export const initialState = fromJS({
-  currentInventory: [],
-  selected: [],
-  delItem: '',
-  formatted: [],
+  currentInventory: [], // list to render
+  selected: [], // selected ndbnos
+  delItem: '', // item to delete
+  formatted: [], // arr to pass to next page
 });
 
 function inventoryReducer(state = initialState, action) {
@@ -53,6 +54,10 @@ function inventoryReducer(state = initialState, action) {
         selected: [],
         delItem: '',
         formatted: [],
+      });
+    case DEL_FROM_ORDER_LIST:
+      return Object.assign({}, state, {
+        formatted: action.orderList,
       });
     default:
       return state;

@@ -33,7 +33,7 @@ function addRecipePageReducer(state = initialState, action) {
       });
     case UPDATE_PRICE:
       return Object.assign({}, state, {
-        recPrice: action.recPrice,
+        recPrice: parseFloat(action.recPrice),
       });
     case UPDATE_INGREDIENTSLIST:
       return Object.assign({}, state, {
