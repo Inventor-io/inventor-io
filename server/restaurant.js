@@ -51,11 +51,11 @@ router.post('/getit', (req, res) => {
         Object.assign(restaurantInfo, { recipes });
         recipeInventory(restaurantID).then(resInv => {
           Object.assign(restaurantInfo, { resInv });
-          getSalesData(restaurantID).then(salesInfo => {
+          getSalesData().then(salesInfo => {
             Object.assign(restaurantInfo, { salesInfo: salesInfo.rows });
-            getSalesByDay(restaurantID).then(daySales => {
+            getSalesByDay().then(daySales => {
               Object.assign(restaurantInfo, { daySales: daySales.rows });
-              getInventoryData(restaurantID).then(inventoryData => {
+              getInventoryData().then(inventoryData => {
                 Object.assign(restaurantInfo, {
                   inventoryData: inventoryData.rows,
                 });

@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Redirect } from 'react-router-dom';
-import { Button, Card, Container } from 'semantic-ui-react';
+import { Button, Card, Container, Modal } from 'semantic-ui-react';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -25,6 +25,10 @@ import { selectedRes } from '../RestaurantDashboard/actions';
 import history from '../../utils/history';
 /* eslint-disable react/prefer-stateless-function */
 export class RestaurantList extends React.Component {
+  constructor() {
+    super();
+    this.state = { modalOpen: false };
+  }
   // componentDidMount() {
   //   this.props.onPageLoad();
   // }
@@ -78,6 +82,25 @@ export class RestaurantList extends React.Component {
           </Card.Group>
           {/* <Button content="get Repos" onClick={this.props.onPageLoad} /> */}
         </Container>
+        {/* <Modal
+          trigger={<Button onClick={this.handleOpen}>Show Modal</Button>}
+          open={this.state.modalOpen}
+          onClose={this.handleClose}
+          basic
+          size="small"
+        >
+          <Header icon="browser" content="Cookies policy" />
+          <Modal.Content>
+            <h3>
+              This website uses cookies to ensure the best user experience.
+            </h3>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button color="green" onClick={this.handleClose} inverted>
+              <Icon name="checkmark" /> Got it
+            </Button>
+          </Modal.Actions>
+        </Modal> */}
       </div>
     );
   }
@@ -110,10 +133,14 @@ function mapDispatchToProps(dispatch) {
     },
     onEdit: () => {
       console.log('EDIT CLICKED');
+      this.setState({ modalOpen: true });
     },
     onDelete: e => {
       console.log('DELETE CLICKED', e.target.id);
       dispatch(deleteRestaurant(e.target.id));
+    },
+    onClose: e => {
+      this.setState({ modalOpen: false });
     },
   };
 }

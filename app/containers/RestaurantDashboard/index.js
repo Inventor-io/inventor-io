@@ -33,6 +33,7 @@ import reducer from './reducer';
 import saga from './saga';
 import { loadInformation } from './actions';
 import { getRandomColor } from './helpers/dashboard';
+import { Segment, Dimmer, Loader, Image } from 'semantic-ui-react';
 
 /* eslint-disable react/prefer-stateless-function */
 export class RestaurantDashboard extends React.Component {
@@ -130,7 +131,9 @@ export class RestaurantDashboard extends React.Component {
               : null} */}
             {/* this.props.all.salesAndRevenue.map() */}
           </BarChart>
-        ) : null}
+        ) : (
+          <Loader active size="massive" inline="centered" />
+        )}
       </div>
     );
   }
