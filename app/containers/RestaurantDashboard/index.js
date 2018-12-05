@@ -83,7 +83,7 @@ export class RestaurantDashboard extends React.Component {
               <YAxis />
               <CartesianGrid strokeDasharray="3 3" />
               <Tooltip />
-              <Legend onClick={this.props.clickHandler} layout="vertical" />
+              <Legend onClick={this.props.clickHandler} />
               {this.props
                 ? Object.keys(this.props.all.salesAndRevenue[0]).map(key => {
                     if (key !== 'date') {

@@ -10,11 +10,18 @@ import {
   RECEIVED_RESTAURANTS,
   DELETE_RESTAURANT,
   RESTAURANT_SUCCESFULLY_DELETED,
+  UPDATE_RESTAURANT,
 } from './constants';
 
 export function defaultAction() {
   return {
     type: DEFAULT_ACTION,
+  };
+}
+export function updateRestaurant(restaurantUpdate) {
+  return {
+    type: UPDATE_RESTAURANT,
+    restaurantUpdate,
   };
 }
 export function deleteRestaurant(restaurantId) {

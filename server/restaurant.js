@@ -37,12 +37,49 @@ router.post('/delete', (req, res) => {
     });
 });
 
+router.post('/update', (req, res) => {
+  console.log('UPDATE', req.body);
+  // {restaurantId, name, address, phoneNumber, website} = req.body;
+  updateRestaurant(
+    req.body.restaurantId,
+    req.body.name,
+    req.body.address,
+    req.body.phoneNumber,
+    req.body.website,
+  ).then(response => {
+    console.log(response);
+    res.status(201).end('done');
+  });
+});
+
 router.post('/getit', (req, res) => {
   console.log(req.body);
   const restaurantID = req.body.selectedRestaurant;
 
   // Object.keys(req.body)[0] ||
   const restaurantInfo = {};
+
+  // const order = restaurantOrders(restaurantID);
+  // const sales = restaurantSales(restaurantID);
+  // const recipes = restaurantRecipes(restaurantID);
+  // const recipInventory = recipeInventory(restaurantID);
+  // const salesData = getSalesData(restaurantID);
+  // const salesByDay = getSalesByDay(restaurantID);
+  // const inventoryData = getInventoryData(restaurantID);
+
+  // Promise.all([
+  //   order,
+  //   sales,
+  //   recipes,
+  //   recipInventory,
+  //   salesData,
+  //   salesByDay,
+  //   inventoryData,
+  // ]).then(response => {
+  //   console.log('PROMISE ALLLLLL', response);
+  //   console.log(response[0]);
+  //   // res.status(201).json(response);
+  // });
   restaurantOrders(restaurantID).then(orders => {
     Object.assign(restaurantInfo, { orders });
     restaurantSales(restaurantID).then(sales => {
@@ -59,6 +96,7 @@ router.post('/getit', (req, res) => {
                 Object.assign(restaurantInfo, {
                   inventoryData: inventoryData.rows,
                 });
+                // console.log(restaurantInfo);
                 res.status(201).json(restaurantInfo);
               });
             });

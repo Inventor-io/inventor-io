@@ -1,16 +1,22 @@
 import { takeEvery, call, put, select, all } from 'redux-saga/effects';
 import axios from 'axios';
-import { RECEIVED_RESTAURANTS, DELETE_RESTAURANT } from './constants';
+import {
+  RECEIVED_RESTAURANTS,
+  DELETE_RESTAURANT,
+  UPDATE_RESTAURANT,
+  GET_RESTAURANTS,
+} from './constants';
 import { FORM_RESPONSE } from '../Restaurant/constants';
 import makeSelectLandingPage from '../LandingPage/selectors';
-import { restaurantSuccesfullyDeleted } from './actions';
+import { restaurantSuccesfullyDeleted, getRestaurants } from './actions';
 // Individual exports for testing
 export default function* restaurantListSaga() {
   // See example in containers/HomePage/saga.js
   yield all([
-    takeEvery('app/RestaurantList/GET_RESTAURANTS', getList),
+    takeEvery(GET_RESTAURANTS, getList),
     takeEvery(FORM_RESPONSE, getList),
     takeEvery(DELETE_RESTAURANT, deleteRestaurant),
+    takeEvery(UPDATE_RESTAURANT, updateRestaurant),
   ]);
 }
 
@@ -56,6 +62,29 @@ function* deleteRestaurant({ restaurantId }) {
     const response = yield call(axios, post);
     console.log(response);
     yield put(restaurantSuccesfullyDeleted(restaurantId));
+  } catch (err) {
+    throw err;
+  }
+}
+
+function* updateRestaurant({ restaurantUpdate }) {
+  console.log('UpdateRestaurant', restaurantUpdate);
+  // {id, name, address, phoneNumber, website} = restaurantUpdate;
+  try {
+    const post = {
+      url: '/api/restaurant/update',
+      method: 'post',
+      data: {
+        restaurantId: restaurantUpdate.id,
+        name: restaurantUpdate.name,
+        address: restaurantUpdate.address,
+        phoneNumber: restaurantUpdate.phoneNumber,
+        website: restaurantUpdate.website,
+      },
+    };
+    const response = yield call(axios, post);
+    yield put(getRestaurants());
+    console.log('update response recieved', response);
   } catch (err) {
     throw err;
   }

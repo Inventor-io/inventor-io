@@ -6,6 +6,7 @@ import { selectRestaurantDomain } from './selectors';
 import { SEND_FORM } from './constants';
 import makeSelectLandingPage from '../LandingPage/selectors';
 import formResponse from './actions';
+import getRestaurants from '../RestaurantList/actions';
 
 // put, select, take,
 export const getRestaurant = state => state.restaurant;
@@ -54,6 +55,9 @@ function* getServer() {
     const responseBody = response;
     console.log('INSIDE SAGA!!!!!!!!!!!!!!', responseBody);
     yield put(formResponse());
+    yield put({
+      type: GET_RESTAURANTS,
+    });
   } catch (e) {
     yield console.error(e);
   }
