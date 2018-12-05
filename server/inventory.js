@@ -349,7 +349,7 @@ router.post('/fetchPrevOrders', (req, res) => {
   db.from('orders')
     .where('restaurant_id', id)
     .orderBy('date', 'desc')
-    .limit(20)
+    // .limit(20)
     .then(arr => formatOrderPretty(arr, res));
   // .catch(err => {
   //   console.log(err);
