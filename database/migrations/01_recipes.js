@@ -23,8 +23,7 @@ exports.up = knex =>
       table
         .integer('restaurant_id')
         .references('id')
-        .inTable('restaurants')
-        .onDelete('CASCADE');
+        .inTable('restaurants');
       table
         .string('recipe_name')
         .unique() // TODO: delete.... other restaurants/users should be allowed to have same recipe names
@@ -45,13 +44,11 @@ exports.up = knex =>
       table
         .integer('restaurant_id')
         .references('id')
-        .inTable('restaurants')
-        .onDelete('CASCADE');
+        .inTable('restaurants');
       table
         .string('ndbno')
         .references('ndbno')
-        .inTable('inventory')
-        .onDelete('CASCADE');
+        .inTable('inventory');
       table.float('quantity').defaultTo(0);
     })
 
@@ -61,13 +58,11 @@ exports.up = knex =>
       table
         .integer('recipe_id')
         .references('recipe_id')
-        .inTable('recipes')
-        .onDelete('CASCADE');
+        .inTable('recipes');
       table
         .string('ndbno')
         .references('ndbno')
-        .inTable('inventory')
-        .onDelete('CASCADE');
+        .inTable('inventory');
       table.float('measurement').defaultTo(0);
     })
 
@@ -77,13 +72,11 @@ exports.up = knex =>
       table
         .integer('recipe_id')
         .references('recipe_id')
-        .inTable('recipes')
-        .onDelete('CASCADE');
+        .inTable('recipes');
       table
         .integer('restaurant_id')
         .references('id')
-        .inTable('restaurants')
-        .onDelete('CASCADE');
+        .inTable('restaurants');
       table.float('quantity').defaultTo(0);
       table.timestamp('date').defaultTo(knex.fn.now());
     })
@@ -94,13 +87,11 @@ exports.up = knex =>
       table
         .integer('restaurant_id')
         .references('id')
-        .inTable('restaurants')
-        .onDelete('CASCADE');
+        .inTable('restaurants');
       table
         .string('ndbno')
         .references('ndbno')
-        .inTable('inventory')
-        .onDelete('CASCADE');
+        .inTable('inventory');
       table.float('price', 10, 2);
       table.float('quantity');
       table.timestamp('date').defaultTo(knex.fn.now());
