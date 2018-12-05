@@ -102,17 +102,8 @@ function* getIngredients() {
 }
 
 function* updateRecipe() {
-  console.log('updateRecipe called');
   const { recName, recPrice, ingredientsList } = yield select(
     selectAddRecipePageDomain,
-  );
-  console.log(
-    'recName',
-    recName,
-    'recPrice',
-    recPrice,
-    'ingredientsList',
-    ingredientsList,
   );
   const userInfo = yield select(selectRestaurantDashboardDomain);
   const userId = userInfo.selectedRestaurant;
@@ -123,12 +114,7 @@ function* updateRecipe() {
       method: 'POST',
       data: { ingObj: ingredientsList, id: userId },
     };
-    console.log(
-      'sending post to /api/inventory/addIngToDB with data',
-      postInven.data,
-    );
     yield call(axios, postInven);
-    console.log('log after postInven');
     // save ingredients to recipe_inventory
     const postRecInven = {
       url: '/api/recipe/upsertIngredients',

@@ -271,10 +271,7 @@ function mapDispatchToProps(dispatch) {
       //   // }`,
       // );
     },
-    applyChanges: () => {
-      console.log('applyChanges called');
-      dispatch(applyRecChanges());
-    },
+    applyChanges: () => dispatch(applyRecChanges()),
   };
 }
 
