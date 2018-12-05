@@ -108,28 +108,23 @@ function* updateRecipe() {
   );
   const userInfo = yield select(selectRestaurantDashboardDomain);
   const userId = userInfo.selectedRestaurant;
-  /* eslint-disable */
-  const { inventory_name, ndbno, measurement, recipe_id } = ingredientsList;
-
   try {
     // save to inventory table
-    const dataInventory = { ndbno, inventory_name };
     const postInven = {
       url: '/api/inventory/addIngToDB',
       method: 'POST',
-      data: { ingObj: dataInventory, id: userId },
+      data: { ingObj: ingredientsList, id: userId },
     };
     yield call(axios, postInven);
 
-    // save to recipe_inventory
-    const dataRecipeInven = { recipe_id, ndbno, measurement };
+    // save ingredients to recipe_inventory
     const postRecInven = {
-      url: '/api/recipe/ingredients',
+      url: '/api/recipe/upsertIngredients',
       method: 'POST',
-      data: dataRecipeInven,
+      data: ingredientsList,
     };
     yield call(axios, postRecInven);
-    /* eslint-enable */
+
     // upsert price
     const data = {
       recipe_name: recName,
@@ -146,6 +141,6 @@ function* updateRecipe() {
 
     history.push('/recipe');
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 }
