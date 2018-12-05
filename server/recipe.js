@@ -229,6 +229,21 @@ router.post('/upsertIngredients', (req, res) => {
 
 async function upsertIng(ingObj, res) {
   try {
+    // delete items not in the db
+    const allIngredients = await db('recipe_inventory').where({
+      recipe_id: ingObj[0].recipe_id,
+    });
+    const ndbnos = ingObj.map(obj => obj.ndbno);
+    const deleteThese = allIngredients.filter(
+      obj => !ndbnos.includes(obj.ndbno),
+    );
+    const deletendbnos = deleteThese.map(obj => obj.ndbno);
+    await db
+      .whereIn('ndbno', deletendbnos)
+      .andWhere({ recipe_id: ingObj[0].recipe_id })
+      .del();
+
+    // insert or upsert new ingredient info
     const queries = []; // Promise.all
 
     ingObj.forEach(obj => {
