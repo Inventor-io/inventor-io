@@ -164,6 +164,8 @@ async function saveInv(ingObj, restaurantID, res) {
 
 router.post('/addIngToDB', (req, res) => {
   // save inventories to db
+  console.log('post to /addIngToDB received');
+  // console.log('req.body', req.body);
   const { ingObj, id } = req.body;
   saveInv(ingObj, id, res);
 });

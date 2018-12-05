@@ -50,6 +50,8 @@ const updateTheRow = query =>
 // ADD A LIST OF INGREDIENTS TO A RECIPE
 
 router.post('/ingredients', (req, res) => {
+  console.log('REQ.BODY', req.body);
+  console.log(JSON.stringify(req.body));
   const { ingObj, recipe, restaurant } = req.body;
   saveIngredients(ingObj, recipe, restaurant, res);
 });
@@ -63,11 +65,13 @@ async function saveIngredients(ingObj, recID, restaurantID, res) {
     let filteredObjs = filterObjs(filteredndbnos, ingObj); // array of objects not in recipe_inventory
     // insert into db
     await saveIngToInventoryDB(filteredObjs); // insert to inventory table
+    console.log('log before saveIngToRecipeInventoryDB');
     await saveIngToRecipeInventoryDB(recID, ndbnos); // insert to recipe_inventory table
 
     const restaurantNdbnos = await getRestaurantNdbnos(restaurantID);
     filteredndbnos = filterndbnos(filteredndbnos, restaurantNdbnos);
     filteredObjs = filterObjs(filteredndbnos, filteredObjs);
+
     await addInventoryToRestaurant(filteredObjs, restaurantID); // insert filteredObjs to restaurant_inventory
     res.sendStatus(200);
   } catch (e) {
