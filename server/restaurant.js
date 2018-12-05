@@ -43,19 +43,19 @@ router.post('/getit', (req, res) => {
 
   // Object.keys(req.body)[0] ||
   const restaurantInfo = {};
-  restaurantOrders().then(orders => {
+  restaurantOrders(restaurantID).then(orders => {
     Object.assign(restaurantInfo, { orders });
-    restaurantSales().then(sales => {
+    restaurantSales(restaurantID).then(sales => {
       Object.assign(restaurantInfo, { sales });
-      restaurantRecipes().then(recipes => {
+      restaurantRecipes(restaurantID).then(recipes => {
         Object.assign(restaurantInfo, { recipes });
-        recipeInventory().then(resInv => {
+        recipeInventory(restaurantID).then(resInv => {
           Object.assign(restaurantInfo, { resInv });
-          getSalesData().then(salesInfo => {
+          getSalesData(restaurantID).then(salesInfo => {
             Object.assign(restaurantInfo, { salesInfo: salesInfo.rows });
-            getSalesByDay().then(daySales => {
+            getSalesByDay(restaurantID).then(daySales => {
               Object.assign(restaurantInfo, { daySales: daySales.rows });
-              getInventoryData().then(inventoryData => {
+              getInventoryData(restaurantID).then(inventoryData => {
                 Object.assign(restaurantInfo, {
                   inventoryData: inventoryData.rows,
                 });

@@ -57,7 +57,7 @@ export function combineRevenueAndSales(costs, sales) {
     costs[currentDate][`${recipeName}_revenue`] = sale.sum;
   });
 
-  console.log('COSTS', costs);
+  //console.log('COSTS', costs);
   const array = [];
   for (let key in costs) {
     array.push(Object.assign({ date: key }, costs[key]));
@@ -71,7 +71,7 @@ export function combineRevenueAndSales(costs, sales) {
       }
     }
   }
-  console.log(array);
+  //console.log(array);
   array.sort((a, b) => {
     let splitA = a.date.split('/');
     let splitB = b.date.split('/');
@@ -79,7 +79,7 @@ export function combineRevenueAndSales(costs, sales) {
     return splitA[0] + splitA[1] - (splitB[0] + splitB[1]);
   });
 
-  console.log(array);
+  //console.log(array);
 
   return array;
 }
@@ -90,7 +90,7 @@ export function getRandomColor() {
   for (var i = 0; i < 6; i++) {
     color += letters[Math.floor(Math.random() * 16)];
   }
-  console.log('color', color);
+  // console.log('color', color);
   return color;
 }
 /* eslint-enable */

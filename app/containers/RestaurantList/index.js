@@ -56,6 +56,7 @@ export class RestaurantList extends React.Component {
                   <RestaurantCard
                     key={key}
                     header={restaurant.restaurants_name}
+                    click={this.props.onClick}
                     delete={this.props.onDelete}
                     edit={this.props.onEdit}
                     id={restaurant.id}
@@ -120,11 +121,13 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     onPageLoad: (userId = 1) => {
+      console.log('onPageLoad', userId);
       dispatch(getRestaurants(userId));
     },
     onClick: e => {
       console.log('CLICKED', e.target.id);
       const resID = e.target.id;
+      console.log('restaruant CLICKED', resID);
       dispatch(selectedRes(resID));
       // console.log(resID);
     },

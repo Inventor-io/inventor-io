@@ -74,7 +74,7 @@ export class RestaurantDashboard extends React.Component {
         <NavBar />
         <h2>Costs & Revenue</h2>
         {this.props.info ? (
-          <ResponsiveContainer width="100%" aspect={8.0 / 3.0}>
+          <ResponsiveContainer width="80%" aspect={8.0 / 3.0}>
             <LineChart
               data={this.props.all.salesAndRevenue}
               margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
@@ -83,7 +83,7 @@ export class RestaurantDashboard extends React.Component {
               <YAxis />
               <CartesianGrid strokeDasharray="3 3" />
               <Tooltip />
-              <Legend onClick={this.props.clickHandler} />
+              <Legend onClick={this.props.clickHandler} layout="vertical" />
               {this.props
                 ? Object.keys(this.props.all.salesAndRevenue[0]).map(key => {
                     if (key !== 'date') {

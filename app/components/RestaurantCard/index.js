@@ -19,7 +19,7 @@ const RestaurantCard = props => (
       </Link>
       <Button content="Edit" onClick={props.edit} id={props.id} />
       <Button icon floated="right" onClick={props.delete} id={props.id}>
-        <Icon name="window close" />
+        <Icon name="window close" onClick={props.delete} id={props.id} />
       </Button>
 
       {/* <Icon onClick={props.click} name="info" id={props.id} /> */}
