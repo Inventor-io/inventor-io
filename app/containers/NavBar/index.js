@@ -46,9 +46,16 @@ export class NavBar extends React.Component {
           {!this.props.restaurant ? (
             <React.Fragment>
               <Menu.Item
+                name="restaurant"
+                // content="Home"
+                icon="home"
+                active={activeItem === 'restaurant'}
+                onClick={this.handleItemClick}
+              />
+              <Menu.Item
                 name="dashboard"
                 active={activeItem === 'dashboard'}
-                content="Restaurant Dashboard"
+                content="Dashboard"
                 onClick={this.handleItemClick}
               />
 
