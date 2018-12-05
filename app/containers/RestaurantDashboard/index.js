@@ -24,6 +24,7 @@ import {
   Legend,
   BarChart,
   Bar,
+  ResponsiveContainer,
 } from 'recharts';
 import makeSelectRestaurantDashboard, {
   makeSelectRestaurantInfo,
@@ -72,53 +73,54 @@ export class RestaurantDashboard extends React.Component {
         <NavBar />
         <h2>Costs & Revenue</h2>
         {this.props.info ? (
-          <LineChart
-            width={1800}
-            height={900}
-            data={this.props.all.salesAndRevenue}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-          >
-            <XAxis dataKey="date" />
-            <YAxis />
-            <CartesianGrid strokeDasharray="3 3" />
-            <Tooltip />
-            <Legend onClick={this.props.clickHandler} />
-            {this.props
-              ? Object.keys(this.props.all.salesAndRevenue[0]).map(key => {
-                  if (key !== 'date') {
-                    //console.log(getRandomColor);
-                    let randomColor = getRandomColor();
-                    return (
-                      <Line
-                        type="monotone"
-                        dataKey={key}
-                        stroke={randomColor}
-                      />
-                    );
-                    console.log(key);
-                  }
-                })
-              : null}
-            {/* this.props.all.salesAndRevenue.map() */}
-          </LineChart>
+          <ResponsiveContainer width="100%" aspect={8.0 / 3.0}>
+            <LineChart
+              data={this.props.all.salesAndRevenue}
+              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+            >
+              <XAxis dataKey="date" />
+              <YAxis />
+              <CartesianGrid strokeDasharray="3 3" />
+              <Tooltip />
+              <Legend onClick={this.props.clickHandler} />
+              {this.props
+                ? Object.keys(this.props.all.salesAndRevenue[0]).map(key => {
+                    if (key !== 'date') {
+                      //console.log(getRandomColor);
+                      let randomColor = getRandomColor();
+                      return (
+                        <Line
+                          type="monotone"
+                          dataKey={key}
+                          stroke={randomColor}
+                        />
+                      );
+                      console.log(key);
+                    }
+                  })
+                : null}
+              {/* this.props.all.salesAndRevenue.map() */}
+            </LineChart>
+          </ResponsiveContainer>
         ) : null}
 
         <h2>Inventory</h2>
-        {this.props.info ? (
-          <BarChart
-            width={1800}
-            height={900}
-            data={this.props.info.inventoryData}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="inventory_name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
+        <ResponsiveContainer width="100%" aspect={8.0 / 3.0}>
+          {this.props.info ? (
+            <BarChart
+              width={1800}
+              height={900}
+              data={this.props.info.inventoryData}
+              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="inventory_name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
 
-            <Bar dataKey="quantity" fill={getRandomColor()} />
-            {/* {this.props
+              <Bar dataKey="quantity" fill={getRandomColor()} />
+              {/* {this.props
               ? this.props.info.inventoryData.map(entry => {
                   console.log(entry);
                   if (entry !== 'date') {
@@ -129,11 +131,12 @@ export class RestaurantDashboard extends React.Component {
                   }
                 })
               : null} */}
-            {/* this.props.all.salesAndRevenue.map() */}
-          </BarChart>
-        ) : (
-          <Loader active size="massive" inline="centered" />
-        )}
+              {/* this.props.all.salesAndRevenue.map() */}
+            </BarChart>
+          ) : (
+            <Loader active size="massive" inline="centered" />
+          )}
+        </ResponsiveContainer>
       </div>
     );
   }
