@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Table, Input } from 'semantic-ui-react';
+import { Table, Input, Button, Container } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -18,16 +18,19 @@ import NavBar from 'containers/NavBar/Loadable';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { selectSalesPageDomain } from './selectors';
-import makeSelectRestaurantList from '../RestaurantList/selectors';
-import { selectRecipePageDomain } from '../RecipePage/selectors';
+import { makeSelectRestaurantInfo } from '../RestaurantDashboard/selectors';
 import { handleInput, updateSalesList } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 
+const styles = {
+  textAlign: 'right',
+};
+
 /* eslint-disable react/prefer-stateless-function */
 export class SalesPage extends React.Component {
   componentDidMount() {
-    this.props.handleMount(this.props.recipeList.recipeList);
+    this.props.handleMount(this.props.restaurant.recipes);
   }
 
   state = {
@@ -61,7 +64,7 @@ export class SalesPage extends React.Component {
       //   date: this.state.startDate,
       //   salesList: this.props.salesPage,
       // });
-    } else alert('please input sales data for all recipes');
+    } else alert('please input amounts or zero for all recipes');
   }
 
   render() {
@@ -72,89 +75,108 @@ export class SalesPage extends React.Component {
           <meta name="description" content="Description of SalesPage" />
         </Helmet>
         <NavBar />
-        <h2>Enter Sales</h2>
-        {this.props.salesPage.salesList ? (
-          <Table unstackable textAlign="right">
-            <Table.Header>
-              <Table.Row>
-                <Table.HeaderCell textAlign="left">
-                  Recipe Name
-                </Table.HeaderCell>
-                <Table.HeaderCell>Price</Table.HeaderCell>
-                <Table.HeaderCell>Amount Sold</Table.HeaderCell>
-                <Table.HeaderCell>Revenue</Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
-
-            <Table.Body>
-              {this.props.salesPage.salesList.map(row => (
-                <Table.Row key={row.recipe_id}>
-                  <Table.Cell textAlign="left">{row.recipe_name}</Table.Cell>
-                  <Table.Cell>${row.price.toFixed(2)}</Table.Cell>
-                  <Table.Cell>
-                    <Input
-                      placeholder="Quantity"
-                      onChange={e => this.props.handleChange(e, row.recipe_id)}
-                    />
-                  </Table.Cell>
-                  <Table.Cell>{`$${(
-                    row.price * parseInt(row.quantity, 10)
-                  ).toFixed(2)}`}</Table.Cell>
+        <Container>
+          <br />
+          <h2>Enter Sales</h2>
+          {this.props.salesPage.salesList ? (
+            <Table unstackable textAlign="right">
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell textAlign="left">
+                    Recipe Name
+                  </Table.HeaderCell>
+                  <Table.HeaderCell>Price</Table.HeaderCell>
+                  <Table.HeaderCell>Amount Sold</Table.HeaderCell>
+                  <Table.HeaderCell>Revenue</Table.HeaderCell>
                 </Table.Row>
-              ))}
-            </Table.Body>
-          </Table>
-        ) : (
-          <Table unstackable textAlign="right">
-            <Table.Header>
-              <Table.Row>
-                <Table.HeaderCell textAlign="left">
-                  Recipe Name
-                </Table.HeaderCell>
-                <Table.HeaderCell>Price</Table.HeaderCell>
-                <Table.HeaderCell>Amount Sold</Table.HeaderCell>
-                <Table.HeaderCell>Total Revenue</Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
+              </Table.Header>
 
-            <Table.Body>
-              {this.props.recipeList.recipeList.map(row => (
-                <Table.Row key={row.recipe_id}>
-                  <Table.Cell textAlign="left">{row.recipe_name}</Table.Cell>
-                  <Table.Cell>${row.price.toFixed(2)}</Table.Cell>
-                  <Table.Cell>
-                    <Input
-                      placeholder="Quantity"
-                      onChange={e => this.props.handleChange(e, row.recipe_id)}
-                    />
-                  </Table.Cell>
-                  <Table.Cell>{`$${(
-                    row.price * parseInt(row.quantity, 10)
-                  ).toFixed(2)}`}</Table.Cell>
+              <Table.Body>
+                {this.props.salesPage.salesList.map(row => (
+                  <Table.Row key={row.recipe_id}>
+                    <Table.Cell textAlign="left">{row.recipe_name}</Table.Cell>
+                    <Table.Cell>${row.price.toFixed(2)}</Table.Cell>
+                    <Table.Cell>
+                      <Input
+                        type="number"
+                        pattern="[0-9]"
+                        name="quantity"
+                        placeholder="Quantity"
+                        onChange={e =>
+                          this.props.handleChange(e, row.recipe_id)
+                        }
+                      />
+                    </Table.Cell>
+                    {/* eslint-disable */}
+                    <Table.Cell>
+                      {row.quantity
+                        ? `$${(row.price * parseInt(row.quantity, 10)).toFixed(
+                            2,
+                          )}`
+                        : '$0'}
+                    </Table.Cell>
+                    {/* eslint-enable */}
+                  </Table.Row>
+                ))}
+              </Table.Body>
+            </Table>
+          ) : (
+            <Table unstackable textAlign="right">
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell textAlign="left">
+                    Recipe Name
+                  </Table.HeaderCell>
+                  <Table.HeaderCell>Price</Table.HeaderCell>
+                  <Table.HeaderCell>Amount Sold</Table.HeaderCell>
+                  <Table.HeaderCell>Total Revenue</Table.HeaderCell>
                 </Table.Row>
-              ))}
-            </Table.Body>
-          </Table>
-        )}
-        {/* eslint-disable */}
-        <div>
+              </Table.Header>
+
+              <Table.Body>
+                {this.props.restaurant.recipes.map(row => (
+                  <Table.Row key={row.recipe_id}>
+                    <Table.Cell textAlign="left">{row.recipe_name}</Table.Cell>
+                    <Table.Cell>${row.price.toFixed(2)}</Table.Cell>
+                    <Table.Cell>
+                      <Input
+                        type="number"
+                        name="quantity"
+                        placeholder="Quantity"
+                        onChange={e =>
+                          this.props.handleChange(e, row.recipe_id)
+                        }
+                      />
+                    </Table.Cell>
+                    {/* eslint-disable */}
+                    <Table.Cell>
+                      {row.quantity === 1
+                        ? `$${(row.price * parseInt(row.quantity, 10)).toFixed(
+                            2,
+                          )}`
+                        : '$0'}
+                    </Table.Cell>
+                    {/* eslint-enable */}
+                  </Table.Row>
+                ))}
+              </Table.Body>
+            </Table>
+          )}
+          {/* eslint-disable */}
+        <h2 style={styles}>
           Total Revenue: $
           {this.props.salesPage.salesList
-            ? new Intl.NumberFormat('en-IN', {
-              maximumSignificantDigits: 10,
-            }).format(
+            ?
               this.props.salesPage.salesList.reduce(
-                (prev, curr) =>
-                  prev + parseInt(curr.quantity, 10) * curr.price,
+                (prev, curr) => 
+                  prev + (parseInt(curr.quantity, 10) ? parseInt(curr.quantity, 10): 0) * curr.price,
                 0,
-              ),
-            )
+              ).toFixed(2)
             : '0'}
-          0
-        </div>
+        </h2>
         <br />
         <div>
-          <div>Sold on :</div>
+          <h2>Sold on :</h2>
           <br />
           <DatePicker
             inline
@@ -163,11 +185,11 @@ export class SalesPage extends React.Component {
           />
         </div>
         <br />
-        <div>{JSON.stringify(this.state.startDate)}</div>
         <br />
-        <button type="button" onClick={this.handleSubmit}>
-          HI NIK YOU ROCK
-        </button>
+        <Button type="button" onClick={this.handleSubmit}>
+          Add Sales Information
+        </Button>
+        </Container>
         {/* eslint-enable */}
       </div>
     );
@@ -176,16 +198,15 @@ export class SalesPage extends React.Component {
 
 SalesPage.propTypes = {
   // restaurant: PropTypes.any,
-  recipeList: PropTypes.any,
   handleChange: PropTypes.func,
   handleMount: PropTypes.func,
   salesPage: PropTypes.any,
+  restaurant: PropTypes.any,
 };
 
 const mapStateToProps = createStructuredSelector({
   salesPage: selectSalesPageDomain,
-  restaurant: makeSelectRestaurantList(),
-  recipeList: selectRecipePageDomain,
+  restaurant: makeSelectRestaurantInfo(),
 });
 
 function mapDispatchToProps(dispatch) {

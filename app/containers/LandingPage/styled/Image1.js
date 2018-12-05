@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import image from '../images/joshua-rodriguez-422768-unsplash.jpg';
+import image from '../images/joshua-rodriguez-422768-unsplash-min.jpg';
 
 const TopLeft = styled.div`
   grid-column-start: 1;
