@@ -72,7 +72,6 @@ export class LandingPage extends React.Component {
           <div className="sales-graph center">Sales Graph</div>
           <div className="sales-desc center">Sales Description</div>
         </div>
-        <div className="contact">Contact Us</div>
       </div>
     );
   }
