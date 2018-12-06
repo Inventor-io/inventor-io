@@ -96,7 +96,7 @@ router.post('/getit', (req, res) => {
                 Object.assign(restaurantInfo, {
                   inventoryData: inventoryData.rows,
                 });
-                // console.log(restaurantInfo);
+                console.log(restaurantInfo);
                 res.status(201).json(restaurantInfo);
               });
             });

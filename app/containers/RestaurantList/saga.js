@@ -22,6 +22,7 @@ export default function* restaurantListSaga() {
 }
 
 function* getList() {
+  console.log('GETTING TO SAGA');
   const userInfo = yield select(makeSelectLandingPage());
   let userID;
   /* eslint-disable */

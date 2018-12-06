@@ -35,6 +35,7 @@ import reducer from './reducer';
 import saga from './saga';
 import { loadInformation } from './actions';
 import { getRandomColor } from './helpers/dashboard';
+import { Segment, Dimmer, Loader, Image } from 'semantic-ui-react';
 
 /* eslint-disable react/prefer-stateless-function */
 export class RestaurantDashboard extends React.Component {
@@ -66,7 +67,7 @@ export class RestaurantDashboard extends React.Component {
     // console.table('daySales############', this.props.info.daySales.rows);
     // console.table('dayCosts****************', this.props.salesByDate);
     // console.log('hi');
-    console.log(this.props);
+    // console.log(this.props);
     let count = 0;
     return (
       <div>
@@ -132,8 +133,22 @@ export class RestaurantDashboard extends React.Component {
                 const color = getRandomColor();
                 return <Cell fill={color} />;
               })}
+              {/* {this.props
+              ? this.props.info.inventoryData.map(entry => {
+                  console.log(entry);
+                  if (entry !== 'date') {
+                    //console.log(getRandomColor);
+                    let randomColor = getRandomColor();
+                    return <Bar dataKey="quantity" fill={randomColor} />;
+                    console.log(key);
+                  }
+                })
+              : null} */}
+              {/* this.props.all.salesAndRevenue.map() */}
             </BarChart>
-          ) : null}
+          ) : (
+            <Loader active size="massive" inline="centered" />
+          )}
         </ResponsiveContainer>
       </div>
     );
@@ -157,6 +172,9 @@ function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     onLoad: () => dispatch(loadInformation()),
+    clickHandler: e => {
+      console.log(e.value);
+    },
   };
 }
 

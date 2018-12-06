@@ -15,13 +15,8 @@ const RestaurantCard = props => (
     <Card.Content description={props.description} />
     <Card.Content extra>
       <Link to="/dashboard">
-        <Button
-          content="Select Restaurant"
-          onClick={props.click}
-          id={props.id}
-          floated="right"
-        />
         {/* <Icon onClick={props.click} name="info" id={props.id} /> */}
+        <Button content="Select" onClick={props.click} id={props.id} />
       </Link>
       <Button content="Edit" onClick={props.edit} id={props.id} />
       <Button icon floated="right" onClick={props.delete} id={props.id}>
