@@ -243,6 +243,13 @@ async function upsertIng(ingObj, res) {
       .andWhere({ recipe_id: ingObj[0].recipe_id })
       .del();
 
+    // add to inventory table if not already there  // inventory_name
+    let values = ingObj.map(obj => `(${obj.ndbno}, ${obj.inventory_name})`);
+    values = values.join(', ');
+    await db.raw(`
+      INSERT INTO inventory (ndbno, inventory_name) VALUES ${values} ON CONFLICT (ndbno) DO NOTHING;
+    `);
+
     // insert or upsert new ingredient info
     const queries = []; // Promise.all
 
