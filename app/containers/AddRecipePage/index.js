@@ -133,14 +133,23 @@ export class AddRecipePage extends React.PureComponent {
             </div>
           ) : (
             <div>
+              <br />
               <Header as="h1">Edit Recipe: {this.props.recName} </Header>
-              <Input labelPosition="right" type="text" placeholder="Amount">
+
+              <Input labelPosition="left" type="text" placeholder="Amount">
+                <Label basic size="large">
+                  Price
+                </Label>
                 <Input
-                  defaultValue={this.props.location ? params.price : 0}
+                  defaultValue={
+                    this.props.location
+                      ? parseFloat(params.price).toFixed(2)
+                      : 0
+                  }
                   onChange={e => this.props.changePrice(e.target.value)}
                 />
-                <Label basic>$</Label>
               </Input>
+
               <div>
                 <Button
                   content="Add an ingredient"
