@@ -13,6 +13,7 @@ import {
   SEND_FORM,
   UPDATE_INGREDIENTSLIST,
   UPDATE_MODAL,
+  UPDATE_INGREDIENT_AMOUNT,
 } from './constants';
 
 export const initialState = fromJS({});
@@ -43,6 +44,16 @@ function addRecipePageReducer(state = initialState, action) {
     //   return Object.assign({}, state, {
     //     recDescription: action.recDescription,
     //   });
+    case UPDATE_INGREDIENT_AMOUNT:
+      return Object.assign({}, state, {
+        ingredientsList: state.ingredientsList.map(obj => {
+          const nObj = { ...obj };
+          if (obj.ndbno === action.payload.ndbno) {
+            nObj.measurement = action.payload.measurement;
+          }
+          return nObj;
+        }),
+      });
     case SEND_FORM:
       return state;
     default:

@@ -23,6 +23,7 @@ function* getRestaurantInfo() {
     };
 
     const restaurantQuery = yield call(axios, post);
+    console.table('RESTAURANT QUERY', restaurantQuery);
     const sales = restaurantQuery.data.daySales;
     const costs = getRestaurantCosts(restaurantQuery.data.salesInfo);
 

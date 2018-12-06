@@ -64,14 +64,14 @@ async function saveIngredients(ingObj, recID, restaurantID, res) {
     // insert into db
     await saveIngToInventoryDB(filteredObjs); // insert to inventory table
     await saveIngToRecipeInventoryDB(recID, ndbnos); // insert to recipe_inventory table
-
     const restaurantNdbnos = await getRestaurantNdbnos(restaurantID);
     filteredndbnos = filterndbnos(filteredndbnos, restaurantNdbnos);
     filteredObjs = filterObjs(filteredndbnos, filteredObjs);
+
     await addInventoryToRestaurant(filteredObjs, restaurantID); // insert filteredObjs to restaurant_inventory
     res.sendStatus(200);
   } catch (e) {
-    // console.log('ERROR ADDING INGREDIENTS:', e);
+    console.log('ERROR ADDING INGREDIENTS:', e);
   }
 }
 
@@ -219,6 +219,80 @@ async function upsertPrice(data, res) {
   res.sendStatus(200);
 }
 
-router.post('/upsert', (req, res) => {
+router.post('/upsertPrice', (req, res) => {
   upsertPrice(req.body, res);
 });
+
+router.post('/upsertIngredients', (req, res) => {
+  upsertIng(req.body, res);
+});
+
+/* eslint-disable */
+async function upsertIng(ingObj, res) {
+  try {
+    if (ingObj.recId) {
+      // delete ingredient in recipe
+      
+      await db('recipe_inventory').where({recipe_id: ingObj.recId}).del();
+      return res.sendStatus(200);
+    }
+    // 1. delete items not in the db
+    const { recipe_id } = ingObj[0];
+    // get all ingredient list for recipe id
+    const allIngredients = await db.raw(`SELECT * FROM recipe_inventory WHERE recipe_id = ${recipe_id}`);
+    // get list of ndbnos to delete
+    const ndbnos = ingObj.map(obj => obj.ndbno);
+    const deleteThese = allIngredients.rows.filter(
+      obj => !ndbnos.includes(obj.ndbno),
+    );
+    const deletendbnos = deleteThese.map(obj => obj.ndbno);
+    // delete ndbnos no longer on recipe
+    if (deletendbnos.length) {
+      await db
+        .from('recipe_inventory')
+        .whereIn('ndbno', deletendbnos)
+        .andWhere({ recipe_id })
+        .del();
+    }
+
+    // 2. insert or upsert new ingredient info
+    const queries = []; // Promise.all
+
+    ingObj.forEach(obj => {
+      queries.push(
+        db('recipe_inventory')
+          .where({
+            recipe_id: obj.recipe_id,
+            ndbno: obj.ndbno,
+          })
+          .then(exists => {
+            if (exists.length) {
+              // check recipe_id ndbno pair exists
+              // update measurement
+              return db('recipe_inventory')
+                .where({
+                  recipe_id: obj.recipe_id,
+                  ndbno: obj.ndbno,
+                })
+                .update({ measurement: obj.measurement });
+            }
+            // insert
+            return db
+              .insert({
+                recipe_id: obj.recipe_id,
+                ndbno: obj.ndbno,
+                measurement: obj.measurement,
+              })
+              .into('recipe_inventory');
+          }),
+      );
+    });
+    Promise.all(queries)
+      .then(() => res.sendStatus(200))
+      .catch(err => console.log(err));
+    return
+  } catch (e) {
+    console.log(e);
+  }
+}
+/* eslint-enable */

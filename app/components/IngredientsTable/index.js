@@ -8,9 +8,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // import { FormattedMessage } from 'react-intl';
 // import messages from './messages';
-import { Table, Button, Icon } from 'semantic-ui-react';
+import { Table, Button, Icon, Input } from 'semantic-ui-react';
 // import AddIngredients from '../../containers/AddIngredients';
-import ToggledInput from '../ToggledInput';
+// import ToggledInput from '../ToggledInput';
 // import history from '../../utils/history';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -36,7 +36,7 @@ class IngredientsTable extends React.PureComponent {
                   <Table.Cell>{row.inventory_name}</Table.Cell>
                   <Table.Cell>{row.ndbno}</Table.Cell>
                   <Table.Cell>
-                    <ToggledInput
+                    {/* <ToggledInput
                       value={row.measurement}
                       startsLocked="true"
                       update={newMeasurement => {
@@ -44,6 +44,16 @@ class IngredientsTable extends React.PureComponent {
                           row.recipe_id,
                           row.ndbno,
                           newMeasurement,
+                        );
+                      }}
+                    /> */}
+                    <Input
+                      value={row.measurement}
+                      onChange={e => {
+                        this.props.changeIngredientAmount(
+                          row.recipe_id,
+                          row.ndbno,
+                          e.target.value,
                         );
                       }}
                     />

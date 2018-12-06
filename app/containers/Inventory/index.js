@@ -10,7 +10,14 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Button, Checkbox, Table, Container, Header } from 'semantic-ui-react';
+import {
+  Button,
+  Checkbox,
+  Table,
+  Container,
+  Header,
+  Confirm,
+} from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 
 import injectSaga from 'utils/injectSaga';
@@ -26,6 +33,14 @@ import saga from './saga';
 /* eslint-disable react/prefer-stateless-function */
 
 export class Inventory extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
+      selectedForDeletion: {},
+    };
+  }
+
   componentDidMount() {
     this.props.mountData();
   }
@@ -80,7 +95,12 @@ export class Inventory extends React.Component {
                           <Button
                             icon="trash alternate outline"
                             value={obj.ndbno}
-                            onClick={this.props.deleteInventory}
+                            onClick={() => {
+                              this.setState({
+                                open: true,
+                                selectedForDeletion: obj.ndbno,
+                              });
+                            }}
                           />
                         </Table.Cell>
                       );
@@ -99,6 +119,16 @@ export class Inventory extends React.Component {
           </Table>
 
           <Button content="Place order" onClick={this.props.handleOrder} />
+
+          <Confirm
+            content="Delete this inventory?"
+            open={this.state.open}
+            onCancel={() => this.setState({ open: false })}
+            onConfirm={() => {
+              this.setState({ open: false });
+              this.props.deleteInventory(this.state.selectedForDeletion);
+            }}
+          />
         </Container>
       </div>
     );
@@ -129,11 +159,7 @@ function mapDispatchToProps(dispatch) {
       e.preventDefault();
       return dispatch(order());
     },
-    deleteInventory: e => {
-      e.preventDefault();
-      const ndbno = e.currentTarget.value;
-      return dispatch(delInven(ndbno));
-    },
+    deleteInventory: ndbno => dispatch(delInven(ndbno)),
   };
 }
 

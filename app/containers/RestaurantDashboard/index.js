@@ -22,6 +22,10 @@ import {
   YAxis,
   Tooltip,
   Legend,
+  BarChart,
+  Bar,
+  ResponsiveContainer,
+  Cell,
 } from 'recharts';
 import makeSelectRestaurantDashboard, {
   makeSelectRestaurantInfo,
@@ -31,6 +35,7 @@ import reducer from './reducer';
 import saga from './saga';
 import { loadInformation } from './actions';
 import { getRandomColor } from './helpers/dashboard';
+import { Segment, Dimmer, Loader, Image } from 'semantic-ui-react';
 
 /* eslint-disable react/prefer-stateless-function */
 export class RestaurantDashboard extends React.Component {
@@ -62,73 +67,89 @@ export class RestaurantDashboard extends React.Component {
     // console.table('daySales############', this.props.info.daySales.rows);
     // console.table('dayCosts****************', this.props.salesByDate);
     // console.log('hi');
-    console.log(this.props);
+    // console.log(this.props);
     let count = 0;
     return (
       <div>
         <NavBar />
+        <h1 align="center">Costs & Revenue</h1>
         {this.props.info ? (
-          <LineChart
-            width={1800}
-            height={900}
-            data={this.props.all.salesAndRevenue}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-          >
-            <XAxis dataKey="date" />
-            <YAxis />
-            <CartesianGrid strokeDasharray="3 3" />
-            <Tooltip />
-            <Legend />
-            {this.props
-              ? Object.keys(this.props.all.salesAndRevenue[0]).map(key => {
-                  if (key !== 'date') {
-                    console.log(getRandomColor);
+          <ResponsiveContainer width="100%" aspect={8.0 / 3.0}>
+            <LineChart
+              data={this.props.all.salesAndRevenue}
+              margin={{ top: 5, right: 100, left: 100, bottom: 5 }}
+            >
+              <XAxis dataKey="date" />
+              <YAxis
+                viewBox={{ y: -80, width: 100, height: 100 }}
+                label={{
+                  value: 'US Dollars ($)',
+                  angle: -90,
+                  position: 'left',
+                }}
+                offset="100"
+              />
+              <CartesianGrid strokeDasharray="3 3" />
+              <Tooltip />
+              <Legend onClick={this.props.clickHandler} />
+              {this.props
+                ? Object.keys(this.props.all.salesAndRevenue[0]).map(key => {
+                    if (key !== 'date') {
+                      //console.log(getRandomColor);
+                      let randomColor = getRandomColor();
+                      return (
+                        <Line
+                          type="monotone"
+                          dataKey={key}
+                          stroke={randomColor}
+                        />
+                      );
+                      console.log(key);
+                    }
+                  })
+                : null}
+              {/* this.props.all.salesAndRevenue.map() */}
+            </LineChart>
+          </ResponsiveContainer>
+        ) : null}
+
+        <h1 align="center">Inventory</h1>
+        <ResponsiveContainer width="100%" aspect={8.0 / 3.0}>
+          {this.props.info ? (
+            <BarChart
+              width={1800}
+              height={900}
+              data={this.props.info.inventoryData}
+              margin={{ top: 5, right: 100, left: 100, bottom: 5 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="inventory_name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+
+              <Bar dataKey="quantity" fill={getRandomColor()} />
+              {this.props.info.inventoryData.map((entry, index) => {
+                const color = getRandomColor();
+                return <Cell fill={color} />;
+              })}
+              {/* {this.props
+              ? this.props.info.inventoryData.map(entry => {
+                  console.log(entry);
+                  if (entry !== 'date') {
+                    //console.log(getRandomColor);
                     let randomColor = getRandomColor();
-                    return (
-                      <Line
-                        type="monotone"
-                        dataKey={key}
-                        stroke={randomColor}
-                      />
-                    );
+                    return <Bar dataKey="quantity" fill={randomColor} />;
                     console.log(key);
                   }
                 })
-              : null}
-            {/* this.props.all.salesAndRevenue.map() */}
-          </LineChart>
-        ) : null}
-        {this.props.info ? (
-          <LineChart
-            width={1800}
-            height={900}
-            data={this.props.all.salesAndRevenue}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-          >
-            <XAxis dataKey="date" />
-            <YAxis />
-            <CartesianGrid strokeDasharray="3 3" />
-            <Tooltip />
-            <Legend />
-            {this.props
-              ? Object.keys(this.props.all.salesAndRevenue[0]).map(key => {
-                  if (key !== 'date') {
-                    console.log(getRandomColor);
-                    let randomColor = getRandomColor();
-                    return (
-                      <Line
-                        type="monotone"
-                        dataKey={key}
-                        stroke={randomColor}
-                      />
-                    );
-                    console.log(key);
-                  }
-                })
-              : null}
-            {/* this.props.all.salesAndRevenue.map() */}
-          </LineChart>
-        ) : null}
+              : null} */}
+              {/* this.props.all.salesAndRevenue.map() */}
+            </BarChart>
+          ) : (
+            <Loader active size="massive" inline="centered" />
+          )}
+        </ResponsiveContainer>
       </div>
     );
   }
@@ -151,6 +172,9 @@ function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     onLoad: () => dispatch(loadInformation()),
+    clickHandler: e => {
+      console.log(e.value);
+    },
   };
 }
 

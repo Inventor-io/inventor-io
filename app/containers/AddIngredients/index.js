@@ -35,7 +35,7 @@ import {
   updateSearchTerm,
   sendQuery,
   updateSelect,
-  saveToDB,
+  // saveToDB,
   removeItem,
 } from './actions';
 import reducer from './reducer';
@@ -44,13 +44,8 @@ import saga from './saga';
 /* eslint-disable react/prefer-stateless-function */
 export class AddIngredients extends React.Component {
   render() {
-    console.log('ADDINV PROPS', this.props);
     return (
       <div>
-        {/* <Helmet>
-          <title>AddIngredients</title>
-          <meta name="description" content="Description of AddIngredients" />
-        </Helmet> */}
         <Container>
           <Header as="h1">Search for an ingredient</Header>
           <Form>
@@ -100,12 +95,12 @@ export class AddIngredients extends React.Component {
 
             <Button
               content="Add to inventory list"
-              onClick={e => {
-                const prom1 = new Promise(() => this.props.saveToDB(e));
+              onClick={() => {
+                // const prom1 = new Promise(() => this.props.saveToDB(e));
                 const prom2 = new Promise(() =>
                   this.props.importList(this.props.addedIngredients),
                 );
-                Promise.all([prom1, prom2]).then(this.props.close);
+                Promise.all([prom2]).then(this.props.close);
               }}
             />
           </div>
@@ -122,7 +117,6 @@ AddIngredients.propTypes = {
   handleSearch: PropTypes.func,
   handleSelect: PropTypes.func,
   handleRemove: PropTypes.func,
-  saveToDB: PropTypes.func,
   importList: PropTypes.func,
   close: PropTypes.func,
   // states
@@ -160,11 +154,11 @@ function mapDispatchToProps(dispatch) {
     // select item from dropdown
     handleSelect: (e, target) => dispatch(updateSelect(target.value)),
     // send all selected items to db
-    saveToDB: e => {
-      e.preventDefault();
-      // history.push('/inventory');
-      return dispatch(saveToDB());
-    },
+    // saveToDB: e => {
+    //   e.preventDefault();
+    //   // history.push('/inventory');
+    //   return dispatch(saveToDB());
+    // },
     // Clear the state (unmount)
     // handleUnmount: () => dispatch(clearState),
   };

@@ -16,9 +16,7 @@ export default function* ingredientsSaga() {
 }
 
 function* getUSDA() {
-  console.log('GET USDA CALLED');
   const { searchTerm } = yield select(selectAddIngredientsDomain);
-  console.log('SearchTerm', searchTerm);
   const options = {
     url: '/api/inventory/usdaSearch', // TODO
     method: 'post',
@@ -46,7 +44,6 @@ function* saveIngredientsToDB() {
       restaurant: selectedRestaurant,
     },
   };
-  console.log('SENDING', options.data);
   try {
     yield call(axios, options);
     yield put(redirect());
