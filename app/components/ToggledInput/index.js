@@ -43,7 +43,7 @@ class ToggledInput extends React.PureComponent {
     return (
       <div>
         <Input
-          defaultValue={this.props.value.toFixed(2)}
+          // defaultValue={this.props.value.toFixed(2)}
           onChange={this.handleChange}
           onClick={this.open}
         />
