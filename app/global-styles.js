@@ -230,8 +230,8 @@ const GlobalStyle = createGlobalStyle`
 .sales-total {
   grid-column-start: 2;
   grid-column-end: 3;
-  grid-row-start: 3;
-  grid-row-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 2;
 }
 
 .sales-sold {
