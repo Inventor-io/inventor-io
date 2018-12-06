@@ -50,7 +50,7 @@ export class RestaurantList extends React.Component {
     this.handleClose = this.handleClose.bind(this);
     this.onChangeName = this.onChangeName.bind(this);
     this.onChangeAddress = this.onChangeAddress.bind(this);
-    this.onChangeNumber = this.onChangeName.bind(this);
+    this.onChangeNumber = this.onChangeNumber.bind(this);
     this.onChangeWebsite - this.onChangeWebsite.bind(this);
     this.onSubmitForm = this.onSubmitForm.bind(this);
     this.verifyDelete = this.verifyDelete.bind(this);
