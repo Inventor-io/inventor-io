@@ -81,7 +81,7 @@ export class SalesPage extends React.Component {
         <NavBar />
         <div className="salesPage">
           <br />
-          <h2 className="sales-header">Enter Sales</h2>
+          <h1 className="sales-header">Enter Sales</h1>
           {this.props.salesPage.salesList ? (
             <Table unstackable textAlign="right" className="sales-table">
               <Table.Header>
