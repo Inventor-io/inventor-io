@@ -12,6 +12,8 @@ const BottomLeft = styled.div`
   background-attachment: fixed;
   background-repeat: no-repeat;
   font-size: 7em;
+  filter: blur(1px);
+  -webkit-filter: blur(1px);
 `;
 
 export default BottomLeft;
