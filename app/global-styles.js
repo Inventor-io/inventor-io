@@ -268,6 +268,8 @@ const GlobalStyle = createGlobalStyle`
  .bigger {
    font-size: 1.5em;
    padding-right: 1em;
+   color: white;
+    text-shadow: 2px 2px 10px rgba(0,0,0,.4);
  }
 
  .bigger-logo {
