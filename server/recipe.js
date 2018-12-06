@@ -227,30 +227,35 @@ router.post('/upsertIngredients', (req, res) => {
   upsertIng(req.body, res);
 });
 
+/* eslint-disable */
 async function upsertIng(ingObj, res) {
   try {
-    // delete items not in the db
-    const allIngredients = await db('recipe_inventory').where({
-      recipe_id: ingObj[0].recipe_id,
-    });
+    if (ingObj.recId) {
+      // delete ingredient in recipe
+      
+      await db('recipe_inventory').where({recipe_id: ingObj.recId}).del();
+      return res.sendStatus(200);
+    }
+    // 1. delete items not in the db
+    const { recipe_id } = ingObj[0];
+    // get all ingredient list for recipe id
+    const allIngredients = await db.raw(`SELECT * FROM recipe_inventory WHERE recipe_id = ${recipe_id}`);
+    // get list of ndbnos to delete
     const ndbnos = ingObj.map(obj => obj.ndbno);
-    const deleteThese = allIngredients.filter(
+    const deleteThese = allIngredients.rows.filter(
       obj => !ndbnos.includes(obj.ndbno),
     );
     const deletendbnos = deleteThese.map(obj => obj.ndbno);
-    await db
-      .whereIn('ndbno', deletendbnos)
-      .andWhere({ recipe_id: ingObj[0].recipe_id })
-      .del();
+    // delete ndbnos no longer on recipe
+    if (deletendbnos.length) {
+      await db
+        .from('recipe_inventory')
+        .whereIn('ndbno', deletendbnos)
+        .andWhere({ recipe_id })
+        .del();
+    }
 
-    // add to inventory table if not already there  // inventory_name
-    let values = ingObj.map(obj => `(${obj.ndbno}, ${obj.inventory_name})`);
-    values = values.join(', ');
-    await db.raw(`
-      INSERT INTO inventory (ndbno, inventory_name) VALUES ${values} ON CONFLICT (ndbno) DO NOTHING;
-    `);
-
-    // insert or upsert new ingredient info
+    // 2. insert or upsert new ingredient info
     const queries = []; // Promise.all
 
     ingObj.forEach(obj => {
@@ -282,9 +287,12 @@ async function upsertIng(ingObj, res) {
           }),
       );
     });
-    Promise.all(queries).then(() => res.sendStatus(200));
-    // .catch(err => console.log(err));
+    Promise.all(queries)
+      .then(() => res.sendStatus(200))
+      .catch(err => console.log(err));
+    return
   } catch (e) {
-    // console.log(e);
+    console.log(e);
   }
 }
+/* eslint-enable */
