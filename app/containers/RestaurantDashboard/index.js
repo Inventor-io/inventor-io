@@ -72,15 +72,23 @@ export class RestaurantDashboard extends React.Component {
     return (
       <div>
         <NavBar />
-        <h2>Costs & Revenue</h2>
+        <h1 align="center">Costs & Revenue</h1>
         {this.props.info ? (
-          <ResponsiveContainer width="80%" aspect={8.0 / 3.0}>
+          <ResponsiveContainer width="100%" aspect={8.0 / 3.0}>
             <LineChart
               data={this.props.all.salesAndRevenue}
-              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+              margin={{ top: 5, right: 100, left: 100, bottom: 5 }}
             >
               <XAxis dataKey="date" />
-              <YAxis />
+              <YAxis
+                viewBox={{ y: -80, width: 100, height: 100 }}
+                label={{
+                  value: 'US Dollars ($)',
+                  angle: -90,
+                  position: 'left',
+                }}
+                offset="100"
+              />
               <CartesianGrid strokeDasharray="3 3" />
               <Tooltip />
               <Legend onClick={this.props.clickHandler} />
@@ -105,14 +113,14 @@ export class RestaurantDashboard extends React.Component {
           </ResponsiveContainer>
         ) : null}
 
-        <h2>Inventory</h2>
+        <h1 align="center">Inventory</h1>
         <ResponsiveContainer width="100%" aspect={8.0 / 3.0}>
           {this.props.info ? (
             <BarChart
               width={1800}
               height={900}
               data={this.props.info.inventoryData}
-              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+              margin={{ top: 5, right: 100, left: 100, bottom: 5 }}
             >
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="inventory_name" />

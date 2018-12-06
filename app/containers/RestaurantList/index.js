@@ -18,6 +18,8 @@ import {
   Header,
   Icon,
   Input,
+  Grid,
+  Image,
 } from 'semantic-ui-react';
 
 import injectSaga from 'utils/injectSaga';
@@ -127,45 +129,53 @@ export class RestaurantList extends React.Component {
       <div>
         <NavBar restaurant="true" />
         <div>
-          Welcome {localStorage.getItem('username')}
           <Button floated="right" onClick={this.props.addRestaurant}>
             Add Restaurant
           </Button>
         </div>
-        <Container text>
-          <Card.Group>
-            {this.props.restaurantList.restaurants
-              ? this.props.restaurantList.restaurants.map((restaurant, key) => (
-                  <RestaurantCard
-                    key={key}
-                    header={restaurant.restaurants_name}
-                    click={this.props.onClick}
-                    delete={this.verifyDelete}
-                    edit={this.handleOpen}
-                    id={restaurant.id}
-                    description={
-                      <div>
-                        <div>
-                          {' '}
-                          <b>Address:</b>
-                          <br /> {restaurant.restaurant_address}
-                        </div>
-                        <div>
-                          <b>Phone Number:</b> <br />
-                          {restaurant.restaurant_phone_number}
-                        </div>
-                        <div>
-                          <b>Website: </b> <br />
-                          {restaurant.restaurant_website}
-                        </div>
-                      </div>
-                    }
-                  />
-                ))
-              : null}
-          </Card.Group>
+        <Grid>
+          <Grid.Column width={1} />
+          <Grid.Column width={10}>
+            Welcome {localStorage.getItem('username')}
+            <br />
+            <Card.Group>
+              {this.props.restaurantList.restaurants
+                ? this.props.restaurantList.restaurants.map(
+                    (restaurant, key) => (
+                      <RestaurantCard
+                        key={key}
+                        header={restaurant.restaurants_name}
+                        click={this.props.onClick}
+                        delete={this.verifyDelete}
+                        edit={this.handleOpen}
+                        id={restaurant.id}
+                        description={
+                          <div>
+                            <div>
+                              {' '}
+                              <b>Address:</b>
+                              <br /> {restaurant.restaurant_address}
+                            </div>
+                            <div>
+                              <b>Phone Number:</b> <br />
+                              {restaurant.restaurant_phone_number}
+                            </div>
+                            <div>
+                              <b>Website: </b> <br />
+                              {restaurant.restaurant_website}
+                            </div>
+                          </div>
+                        }
+                      />
+                    ),
+                  )
+                : null}
+            </Card.Group>
+          </Grid.Column>
           {/* <Button content="get Repos" onClick={this.props.onPageLoad} /> */}
-        </Container>
+          <Grid.Column width={1} />
+        </Grid>
+
         <Modal
           //trigger={<Button onClick={this.handleOpen}>Show Modal</Button>}
           open={this.state.modalOpen}

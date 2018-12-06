@@ -176,6 +176,10 @@ const GlobalStyle = createGlobalStyle`
   grid-row-start: 2;
   grid-row-end: 9;
 }
+
+tspan{
+  padding-top: 5em !important
+}
 `;
 
 export default GlobalStyle;

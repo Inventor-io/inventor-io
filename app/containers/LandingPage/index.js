@@ -57,6 +57,8 @@ export class LandingPage extends React.Component {
           <Yirey />
           <div className="bottom-left-people center">
             {' '}
+            Hi, {`I'm`} John <br />
+            <br />
             {`I'm`} interested in full system architectures from full stack
             application engineering to deployment and continuous integration
             systems. <br />
