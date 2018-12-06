@@ -270,7 +270,6 @@ function mapDispatchToProps(dispatch) {
       dispatch(getRestaurants(userId));
     },
     onClick: e => {
-      console.log('CLICKED', e.target.id);
       const resID = e.target.id;
       console.log('restaruant CLICKED', resID);
       dispatch(selectedRes(resID));

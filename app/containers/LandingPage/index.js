@@ -41,7 +41,9 @@ export class LandingPage extends React.Component {
           </div>
           <TopLeft />
           <TopRight />
-          <BottomLeft />
+          <BottomLeft>
+            <i className="fas fa-angle-double-down landing-icon" />
+          </BottomLeft>
           <BottomRight />
         </div>
         <div className="people">
@@ -80,7 +82,6 @@ export class LandingPage extends React.Component {
           <div className="sales-graph center">Sales Graph</div>
           <div className="sales-desc center">Sales Description</div>
         </div>
-        <div className="contact">Contact Us</div>
       </div>
     );
   }

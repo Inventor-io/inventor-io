@@ -177,8 +177,17 @@ const GlobalStyle = createGlobalStyle`
   grid-row-end: 9;
 }
 
-tspan{
-  padding-top: 5em !important
+.dash-graph {
+  height: 40%;
+  width: 40%;
+}
+
+.landing-icon {
+  color: rgba(255, 255, 255, .70);
+  z-index: 80;
+  position: relative;
+  top: 50%;
+  left: 71%;
 }
 `;
 

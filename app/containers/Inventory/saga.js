@@ -49,7 +49,7 @@ function* sendOrder() {
       yield put(formattedOrder(result.data));
       yield put(push('/shoppingCart'));
     } catch (e) {
-      console.error(e);
+      // console.error(e);
     }
   }
 }
@@ -67,8 +67,13 @@ function* deleteInventory() {
   try {
     let arr = currentInventory.slice();
     arr = arr.filter(obj => obj.ndbno !== delItem);
-    yield call(axios, options); // delete in db
-    yield put(replaceInven(arr)); // send to front end
+    const result = yield call(axios, options); // delete in db
+
+    if (result.data === 'alert') {
+      alert(`Please modify recipes using ndbno ${delItem}`);
+    } else {
+      yield put(replaceInven(arr)); // send to front end
+    }
   } catch (e) {
     console.error(e);
   }

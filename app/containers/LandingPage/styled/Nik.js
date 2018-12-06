@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import image from '../images/Niik.jpg';
+import image from '../images/Niik-min.jpg';
 
 const Nik = styled.div`
   grid-column-start: 4;

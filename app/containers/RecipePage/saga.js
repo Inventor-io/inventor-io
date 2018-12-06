@@ -24,10 +24,9 @@ function* sagaDeleteRecipe(action) {
         restaurant_id: Number.parseInt(selectedRestaurant, 10),
       },
     };
-    console.log('DelteRecipe saga fired. Payload:', del.params);
+
     const response = yield call(axios, del);
     const recipeList = response.data;
-    console.log('Recipe List?', recipeList);
     yield put({
       type: UPDATE_RECIPELIST,
       recipeList,

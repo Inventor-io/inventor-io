@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import image from '../images/toa-heftiba-578073-unsplash.jpg';
+import image from '../images/toa-heftiba-578073-unsplash-min.jpg';
 
 const TopRight = styled.div`
   grid-column-start: 2;

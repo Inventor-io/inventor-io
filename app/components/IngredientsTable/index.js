@@ -8,16 +8,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // import { FormattedMessage } from 'react-intl';
 // import messages from './messages';
-import { Table, Button, Icon } from 'semantic-ui-react';
+import { Table, Button, Icon, Input } from 'semantic-ui-react';
 // import AddIngredients from '../../containers/AddIngredients';
-import ToggledInput from '../ToggledInput';
+// import ToggledInput from '../ToggledInput';
 // import history from '../../utils/history';
 
 /* eslint-disable react/prefer-stateless-function */
 /* eslint-enable */
 class IngredientsTable extends React.PureComponent {
   render() {
-    console.log('INGREDIENTS TABLE PROPS:', this.props);
     return (
       <div>
         <Table unstackable fixed selectable>
@@ -37,15 +36,24 @@ class IngredientsTable extends React.PureComponent {
                   <Table.Cell>{row.inventory_name}</Table.Cell>
                   <Table.Cell>{row.ndbno}</Table.Cell>
                   <Table.Cell>
-                    <ToggledInput
+                    {/* <ToggledInput
                       value={row.measurement}
                       startsLocked="true"
                       update={newMeasurement => {
-                        console.log('UPDATE CALLED');
                         this.props.changeIngredientAmount(
                           row.recipe_id,
                           row.ndbno,
                           newMeasurement,
+                        );
+                      }}
+                    /> */}
+                    <Input
+                      value={row.measurement}
+                      onChange={e => {
+                        this.props.changeIngredientAmount(
+                          row.recipe_id,
+                          row.ndbno,
+                          e.target.value,
                         );
                       }}
                     />

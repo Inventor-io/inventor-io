@@ -5,22 +5,17 @@ const db = require('knex')(require('../knexfile').development);
 
 // DELETE A RECIPE
 router.delete('/', (req, res) => {
-  console.log('DELETE RECIPE RECEIVED');
-  console.log(req.query);
   deleteRecipe(req.query, res);
 });
 
 async function deleteRecipe(query, res) {
   try {
-    console.log('query in async:', query);
     await deleteRelatedIngredients(query);
     await deleteRecipeItself(query);
     const data = await queryRecipes(query.restaurant_id);
-    console.log('Sending back', data.length, 'rows.');
     res.send(data);
-    console.log('Response sent.');
   } catch (e) {
-    console.log('ERROR in deleteRecipe:', e);
+    // console.log(e)
   }
 }
 const deleteRelatedIngredients = query =>
@@ -35,19 +30,15 @@ const deleteRecipeItself = query =>
 
 // UPDATE THE AMOUNT USED IN A RECIPE
 router.patch('/ingredients', (req, res) => {
-  console.log('UPDATE INGREDIENT RECEIVED');
-  console.log(req.query);
   updateIngredientAmount(req.query, res);
 });
 
 async function updateIngredientAmount(query, res) {
   try {
-    console.log('query in async:', query);
     await updateTheRow(query);
-    console.log('Response sent.');
     res.sendStatus(200);
   } catch (e) {
-    console.log('ERROR in updateIngredient:', e);
+    // console.log('ERROR in updateIngredient:', e);
   }
 }
 
@@ -59,7 +50,6 @@ const updateTheRow = query =>
 // ADD A LIST OF INGREDIENTS TO A RECIPE
 
 router.post('/ingredients', (req, res) => {
-  console.log('ADD INGREDIENTS RECEIVED');
   const { ingObj, recipe, restaurant } = req.body;
   saveIngredients(ingObj, recipe, restaurant, res);
 });
@@ -74,12 +64,11 @@ async function saveIngredients(ingObj, recID, restaurantID, res) {
     // insert into db
     await saveIngToInventoryDB(filteredObjs); // insert to inventory table
     await saveIngToRecipeInventoryDB(recID, ndbnos); // insert to recipe_inventory table
-
     const restaurantNdbnos = await getRestaurantNdbnos(restaurantID);
     filteredndbnos = filterndbnos(filteredndbnos, restaurantNdbnos);
     filteredObjs = filterObjs(filteredndbnos, filteredObjs);
+
     await addInventoryToRestaurant(filteredObjs, restaurantID); // insert filteredObjs to restaurant_inventory
-    console.log('SUCCESS');
     res.sendStatus(200);
   } catch (e) {
     console.log('ERROR ADDING INGREDIENTS:', e);
@@ -104,7 +93,6 @@ const formatInventoryDataForDB = (ingObj, tempID) => {
     newObj.ndbno = obj.ndbno;
     return newObj;
   });
-  console.log('Formatted for Rest-Inv', arr);
   return arr;
 };
 
@@ -145,17 +133,13 @@ const saveIngToRecipeInventoryDB = (recID, ndbnos) => {
     recipe_id: Number.parseInt(recID, 10),
     ndbno,
   }));
-  console.log('newRows', newRows);
-  db.insert(newRows)
-    .into('recipe_inventory')
-    .then(() => console.log('SUCCESS!!'))
-    .catch(e => console.log(e));
+  db.insert(newRows).into('recipe_inventory');
+  // .then(() => console.log('SUCCESS!!'))
+  // .catch(e => console.log(e));
 };
 
 // DELETE INGREDIENT
 router.delete('/ingredients', (req, res) => {
-  console.log('DELETE RECIEVED');
-  console.log('req.query', req.query);
   /* eslint-disable */
   const recipe_id = Number.parseInt(req.query.recipe_id);
   const ndbno = req.query.ndbno;
@@ -164,12 +148,10 @@ router.delete('/ingredients', (req, res) => {
 });
 async function deleteIngredient(query, res) {
   try {
-    console.log('query in async:', query);
     await deleteTheRow(query);
-    console.log('Response sent.');
     res.sendStatus(200);
   } catch (e) {
-    console.log('ERROR in deleteIngredient:', e);
+    // console.log('ERROR in deleteIngredient:', e);
   }
 }
 const deleteTheRow = query =>
@@ -179,18 +161,14 @@ const deleteTheRow = query =>
 
 // GET RECIPES
 router.get('/get', (req, res) => {
-  console.log('GET received at api/recipe/get');
-  console.log('PATH', req.path);
-  console.log('QUERY:', req.query);
   getRecipes(req.query.restaurant, res);
 });
 async function getRecipes(restaurantID, res) {
   try {
     const data = await queryRecipes(restaurantID);
-    console.log('Sending back', data.length, 'rows.');
     res.send(data);
   } catch (e) {
-    console.log('ERROR in getRecipes:', e);
+    // console.log('ERROR in getRecipes:', e);
   }
 }
 const queryRecipes = restaurantID =>
@@ -198,36 +176,29 @@ const queryRecipes = restaurantID =>
 
 // ADD NEW RECIPE
 router.post('/create', (req, res) => {
-  console.log('POST received at api/recipe/create');
   addRecipe(req.body, res);
 });
 async function addRecipe(recipe, res) {
   try {
-    console.log('TRYING TO INSERT', recipe);
     const data = await insertRecipe(recipe);
-    console.log('Response sent.');
     res.send(data);
   } catch (e) {
-    console.log('ERROR in addRecipe:', e);
+    // console.log('ERROR in addRecipe:', e);
   }
 }
 const insertRecipe = recipe => db.insert(recipe).into('recipes');
 
 // GET LIST OF INGREDIENTS FOR A GIVEN RECIPE ID
 router.get('/ingredients', (req, res) => {
-  console.log('GET received at api/recipe/ingredients');
-  console.log('PATH', req.path);
-  console.log('QUERY:', req.query);
   getIngredients(req.query.recipe, res);
 });
 
 async function getIngredients(recipeID, res) {
   try {
     const data = await queryIngredients(recipeID);
-    console.log('Sending back', data.length, 'rows');
     res.send(data);
   } catch (e) {
-    console.log('ERROR in getIngredients:', e);
+    // console.log('ERROR in getIngredients:', e);
   }
 }
 const queryIngredients = recipeID =>
@@ -236,3 +207,92 @@ const queryIngredients = recipeID =>
     .where({ recipe_id: recipeID });
 
 module.exports = router;
+
+async function upsertPrice(data, res) {
+  const recName = data.recipe_name;
+  const recPrice = data.price;
+
+  await db.raw(
+    `INSERT INTO recipes (recipe_name, price) VALUES ('${recName}',${recPrice}) ON CONFLICT (recipe_name) DO UPDATE SET price = ${recPrice};`,
+  );
+
+  res.sendStatus(200);
+}
+
+router.post('/upsertPrice', (req, res) => {
+  upsertPrice(req.body, res);
+});
+
+router.post('/upsertIngredients', (req, res) => {
+  upsertIng(req.body, res);
+});
+
+/* eslint-disable */
+async function upsertIng(ingObj, res) {
+  try {
+    if (ingObj.recId) {
+      // delete ingredient in recipe
+      
+      await db('recipe_inventory').where({recipe_id: ingObj.recId}).del();
+      return res.sendStatus(200);
+    }
+    // 1. delete items not in the db
+    const { recipe_id } = ingObj[0];
+    // get all ingredient list for recipe id
+    const allIngredients = await db.raw(`SELECT * FROM recipe_inventory WHERE recipe_id = ${recipe_id}`);
+    // get list of ndbnos to delete
+    const ndbnos = ingObj.map(obj => obj.ndbno);
+    const deleteThese = allIngredients.rows.filter(
+      obj => !ndbnos.includes(obj.ndbno),
+    );
+    const deletendbnos = deleteThese.map(obj => obj.ndbno);
+    // delete ndbnos no longer on recipe
+    if (deletendbnos.length) {
+      await db
+        .from('recipe_inventory')
+        .whereIn('ndbno', deletendbnos)
+        .andWhere({ recipe_id })
+        .del();
+    }
+
+    // 2. insert or upsert new ingredient info
+    const queries = []; // Promise.all
+
+    ingObj.forEach(obj => {
+      queries.push(
+        db('recipe_inventory')
+          .where({
+            recipe_id: obj.recipe_id,
+            ndbno: obj.ndbno,
+          })
+          .then(exists => {
+            if (exists.length) {
+              // check recipe_id ndbno pair exists
+              // update measurement
+              return db('recipe_inventory')
+                .where({
+                  recipe_id: obj.recipe_id,
+                  ndbno: obj.ndbno,
+                })
+                .update({ measurement: obj.measurement });
+            }
+            // insert
+            return db
+              .insert({
+                recipe_id: obj.recipe_id,
+                ndbno: obj.ndbno,
+                measurement: obj.measurement,
+              })
+              .into('recipe_inventory');
+          }),
+      );
+    });
+    Promise.all(queries)
+      .then(() => res.sendStatus(200))
+      .catch(err => console.log(err));
+    return
+  } catch (e) {
+    console.log(e);
+  }
+}
+/* eslint-enable */

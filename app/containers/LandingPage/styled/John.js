@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import image from '../images/IMG_6667.jpg';
+import image from '../images/IMG_6667-min (1).jpg';
 
 const John = styled.div`
   grid-column-start: 4;

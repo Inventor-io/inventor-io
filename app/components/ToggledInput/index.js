@@ -36,16 +36,14 @@ class ToggledInput extends React.PureComponent {
 
   handleChange(e) {
     const targetVal = e.target.value;
-    console.log(targetVal);
     this.setState({ value: targetVal });
   }
 
   render() {
-    console.log('STATE', this.state);
     return (
       <div>
         <Input
-          defaultValue={this.props.value}
+          // defaultValue={this.props.value.toFixed(2)}
           onChange={this.handleChange}
           onClick={this.open}
         />
@@ -60,8 +58,6 @@ class ToggledInput extends React.PureComponent {
                 newMeasurement >= 0 &&
                 newMeasurement < Infinity
               ) {
-                console.log('Sending', newMeasurement);
-                console.log('UPDATE func', this.props.update);
                 this.props.update(Number.parseFloat(newMeasurement));
                 this.close();
               } else {
