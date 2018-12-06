@@ -172,7 +172,7 @@ const GlobalStyle = createGlobalStyle`
     grid-row-end: 8;
 }
 .background-tour {
-  background: #ffeeb9;
+  background: #e2873d;
   grid-column-start: 2;
   grid-column-end: 7;
   grid-row-start: 2;
@@ -268,6 +268,15 @@ const GlobalStyle = createGlobalStyle`
  .bigger {
    font-size: 1.5em;
    padding-right: 1em;
+   color: white;
+    text-shadow: 2px 2px 10px rgba(0,0,0,.4);
+ }
+
+ .bigger-logo {
+  font-weight: 900;
+  font-size: 4em;
+  color: white;
+  text-shadow: 2px 2px 10px rgba(0,0,0,.4);
  }
 
  .small {

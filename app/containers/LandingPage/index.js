@@ -70,11 +70,16 @@ export class LandingPage extends React.Component {
 
           <Micah />
           <div className="middle-left-people center big">
-            Nik is a former chef who enjoys creating wonderful new recipes.
+            Nik is a former chef who enjoys creating wonderful new recipes. As a
+            full-stack software engineer, he enjoys sovling problems that affect
+            daily life.
           </div>
           <Nik />
           <div className="middle-right-people center big">
-            This one is for Yirey
+            A full-stack engineer, fluent in all stacks. Loves clean code,
+            building apps, fast-paced environments, and challenges. Comes
+            equipped with python and machine learning experience. Note: Puppies
+            are fatal weakness.
           </div>
           <Yirey />
           <div className="bottom-left-people center big">
@@ -95,13 +100,13 @@ export class LandingPage extends React.Component {
         </div>
         <div className="tour">
           <div className="background-tour" />
-          <Graph1 className="bigger">Cost and Revenue Charts</Graph1>
+          <Graph1 className="bigger-logo">Cost and Revenue Charts</Graph1>
           <div className="recipe-desc center bigger">
             Our constantly updating charts will keep you up to date with every
             change in price! Optimize your menu with our profit maximizing
             algorithms
           </div>
-          <Graph2 className="bigger">Inventory Graphs</Graph2>
+          <Graph2 className="bigger-logo">Inventory Graphs</Graph2>
           <div className="inventory-desc center bigger">
             Our inventory graphs will constantly update with deliveries in real
             time making managing your stock a breeze. Craft your specials with

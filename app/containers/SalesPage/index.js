@@ -14,11 +14,13 @@ import { Table, Input, Button } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
+import axios from 'axios';
 
 import NavBar from 'containers/NavBar/Loadable';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { selectSalesPageDomain } from './selectors';
+import history from '../../utils/history';
 import { makeSelectRestaurantInfo } from '../RestaurantDashboard/selectors';
 import { handleInput, updateSalesList } from './actions';
 import reducer from './reducer';
@@ -60,11 +62,12 @@ export class SalesPage extends React.Component {
       return result;
     };
     if (checkSubmit()) {
-      alert('Successfully posted (just comment out to add to db)');
-      // axios.post('/api/auth/sales', {
-      //   date: this.state.startDate,
-      //   salesList: this.props.salesPage,
-      // });
+      // alert('Successfully posted (just comment out to add to db)');
+      axios.post('/api/auth/sales', {
+        date: this.state.startDate,
+        salesList: this.props.salesPage,
+      });
+      history.push('/dashboard');
     } else alert('please input amounts or zero for all recipes');
   }
 
