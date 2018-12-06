@@ -44,13 +44,8 @@ import saga from './saga';
 /* eslint-disable react/prefer-stateless-function */
 export class AddIngredients extends React.Component {
   render() {
-    console.log('ADDINV PROPS', this.props);
     return (
       <div>
-        {/* <Helmet>
-          <title>AddIngredients</title>
-          <meta name="description" content="Description of AddIngredients" />
-        </Helmet> */}
         <Container>
           <Header as="h1">Search for an ingredient</Header>
           <Form>

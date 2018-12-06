@@ -60,14 +60,12 @@ export class AddRecipePage extends React.PureComponent {
     if (this.props.location.search) {
       this.state = { showCreateModal: false };
       const params = QueryString.parse(this.props.location.search);
-      // console.log('PARAMS', params);
       this.props.changeId(params.id);
       this.props.changeName(params.name);
       this.props.changePrice(params.price); // mjw - Combine. Now causes 3 renders.
       this.props.getIngredients();
     } else if (this.props.recName) {
       this.state = { showCreateModal: true };
-      // console.log('CLEARING PARAMS');
       this.props.changeId(null);
       this.props.changeName('');
       this.props.changePrice(''); // mjw - Combine. Now causes 3 renders.
