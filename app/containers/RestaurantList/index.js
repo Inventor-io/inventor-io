@@ -136,7 +136,10 @@ export class RestaurantList extends React.Component {
         <Grid>
           <Grid.Column width={1} />
           <Grid.Column width={10}>
-            Welcome {localStorage.getItem('username')}
+          <br/>
+            <Header as="h1" >
+              Welcome {localStorage.getItem('username')}
+            </Header>
             <br />
             <Card.Group>
               {this.props.restaurantList.restaurants
