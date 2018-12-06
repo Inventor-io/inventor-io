@@ -11,7 +11,14 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Container, Header, Table, Button } from 'semantic-ui-react';
+import {
+  Container,
+  Header,
+  Table,
+  Button,
+  Menu,
+  Icon,
+} from 'semantic-ui-react';
 
 import NavBar from 'containers/NavBar/Loadable';
 import injectSaga from 'utils/injectSaga';
@@ -23,11 +30,39 @@ import saga from './saga';
 
 /* eslint-disable react/prefer-stateless-function */
 export class PurchaseComplete extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      start: 0,
+    };
+  }
+
   componentDidMount() {
     this.props.fetch();
   }
 
+  moveToPage(i) {
+    if (i > 0) {
+      this.setState(() => this.setState({ start: (i - 1) * 10 }));
+    }
+  }
+
+  incrementPage() {
+    if (this.state.start + 10 < this.props.orderList.length) {
+      this.setState(state => this.setState({ start: state.start + 10 }));
+    }
+  }
+
+  decrementPage() {
+    if (this.state.start) {
+      this.setState(state => this.setState({ start: state.start + 10 }));
+    }
+  }
+
   render() {
+    const totalPages = this.props.orderList
+      ? Math.ceil(this.props.orderList.length / 10)
+      : 0;
     return (
       <div>
         <Helmet>
@@ -57,62 +92,79 @@ export class PurchaseComplete extends React.Component {
 
             <Table.Body>
               {this.props.orderList ? (
-                this.props.orderList.map((obj, i) => (
-                  <Table.Row key={i.toString()}>
-                    {[
-                      'ndbno',
-                      'Item',
-                      'Orders',
-                      'Price',
-                      'Date',
-                      'Delivered',
-                      'Arrived',
-                    ].map(key => {
-                      if (key === 'Delivered') {
+                this.props.orderList
+                  .slice(this.state.start, this.state.start + 10)
+                  .map((obj, i) => (
+                    <Table.Row key={i.toString()}>
+                      {[
+                        'ndbno',
+                        'Item',
+                        'Orders',
+                        'Price',
+                        'Date',
+                        'Delivered',
+                        'Arrived',
+                      ].map(key => {
+                        if (key === 'Delivered') {
+                          return (
+                            <Table.Cell key={`${key}${i.toString()}`}>
+                              {obj.Delivered ? 'True' : 'False'}
+                            </Table.Cell>
+                          );
+                        }
+                        if (key === 'Date') {
+                          return (
+                            <Table.Cell key={`${key}${i.toString()}`}>
+                              {moment(obj[key]).format('MM/DD/YYYY h:mm')}
+                            </Table.Cell>
+                          );
+                        }
+                        if (key === 'Arrived') {
+                          return (
+                            <Table.Cell key={`${key}${i.toString()}`}>
+                              <Button
+                                value={i}
+                                icon="truck"
+                                onClick={() => this.props.arrived(i)}
+                              />
+                            </Table.Cell>
+                          );
+                        }
+                        if (key === 'Price') {
+                          return (
+                            <Table.Cell key={`${key}${i.toString()}`}>
+                              {`$${obj[key].toFixed(2)}`}
+                            </Table.Cell>
+                          );
+                        }
                         return (
                           <Table.Cell key={`${key}${i.toString()}`}>
-                            {obj.Delivered ? 'True' : 'False'}
+                            {obj[key]}
                           </Table.Cell>
                         );
-                      }
-                      if (key === 'Date') {
-                        return (
-                          <Table.Cell key={`${key}${i.toString()}`}>
-                            {moment(obj[key]).format('MM/DD/YYYY h:mm')}
-                          </Table.Cell>
-                        );
-                      }
-                      if (key === 'Arrived') {
-                        return (
-                          <Table.Cell key={`${key}${i.toString()}`}>
-                            <Button
-                              value={i}
-                              icon="truck"
-                              onClick={() => this.props.arrived(i)}
-                            />
-                          </Table.Cell>
-                        );
-                      }
-                      if (key === 'Price') {
-                        return (
-                          <Table.Cell key={`${key}${i.toString()}`}>
-                            {`$${obj[key].toFixed(2)}`}
-                          </Table.Cell>
-                        );
-                      }
-                      return (
-                        <Table.Cell key={`${key}${i.toString()}`}>
-                          {obj[key]}
-                        </Table.Cell>
-                      );
-                    })}
-                  </Table.Row>
-                ))
+                      })}
+                    </Table.Row>
+                  ))
               ) : (
                 <Table.Row key="None" />
               )}
             </Table.Body>
           </Table>
+          <Menu floated="right" pagination>
+            <Menu.Item as="a" icon onClick={() => this.decrementPage()}>
+              <Icon name="chevron left" />
+            </Menu.Item>
+            {Array(totalPages)
+              .fill(0)
+              .map((_, i) => (
+                <Menu.Item as="a" onClick={() => this.moveToPage(i + 1)}>
+                  {i + 1}
+                </Menu.Item>
+              ))}
+            <Menu.Item as="a" icon onClick={() => this.incrementPage()}>
+              <Icon name="chevron right" />
+            </Menu.Item>
+          </Menu>
           {/* <Divider /> */}
           {/* <Segment textAlign="right" size="huge">
             Total:

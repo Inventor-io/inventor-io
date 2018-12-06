@@ -1,0 +1,16 @@
+import styled from 'styled-components';
+import image from '../images/Graph 1.png';
+
+const Graph1 = styled.div`
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 3;
+  grid-row-end: 4;
+  background-position: center;
+  background-size: 100%;
+  background-image: url('${image}');
+  border-radius: 5px;
+
+  `;
+
+export default Graph1;

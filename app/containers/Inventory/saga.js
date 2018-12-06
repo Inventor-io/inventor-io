@@ -69,8 +69,12 @@ function* deleteInventory() {
     arr = arr.filter(obj => obj.ndbno !== delItem);
     const result = yield call(axios, options); // delete in db
 
-    if (result.data === 'alert') {
-      alert(`Please modify recipes using ndbno ${delItem}`);
+    if (result.data[0] === 'alert') {
+      alert(
+        `Please modify recipes using ndbno ${delItem}: ${JSON.stringify(
+          result.data[1],
+        )}`,
+      );
     } else {
       yield put(replaceInven(arr)); // send to front end
     }

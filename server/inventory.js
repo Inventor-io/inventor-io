@@ -98,67 +98,97 @@ async function getUSDA(searchTerm, res) {
   POST: /api/inventory/addIngToDB
 */
 
-const saveIngToInventoryDB = inventoryList =>
-  // save inventory to 'inventory' table
-  db
-    .insert(inventoryList)
-    .into('inventory')
-    .catch(err => {
-      if (err.code === '23505') {
-        // console.log('Duplicate in inventory db... its ok');
-      } else {
-        // console.log('ERROR saving ing to inventory db');
-      }
-    });
+// const saveIngToInventoryDB = inventoryList =>
+//   // save inventory to 'inventory' table
+//   db
+//     .insert(inventoryList)
+//     .into('inventory')
+//     .catch(err => {
+//       if (err.code === '23505') {
+//         // console.log('Duplicate in inventory db... its ok');
+//       } else {
+//         // console.log('ERROR saving ing to inventory db');
+//       }
+//     });
 
-const formatInventoryDataForDB = (ingObj, tempID) => {
-  // for 'restaurant_inventory' table
-  const arr = ingObj.map(obj => {
-    const newObj = {};
-    newObj.restaurant_id = tempID;
-    newObj.ndbno = obj.ndbno;
-    return newObj;
-  });
-  return arr;
-};
+// const formatInventoryDataForDB = (ingObj, tempID) => {
+//   // for 'restaurant_inventory' table
+//   const arr = ingObj.map(obj => {
+//     const newObj = {};
+//     newObj.restaurant_id = tempID;
+//     newObj.ndbno = obj.ndbno;
+//     return newObj;
+//   });
+//   return arr;
+// };
 
-const checkRestaurantInventory = (restaurantID, ndbnos) =>
-  db
-    .whereIn('ndbno', ndbnos)
-    .andWhere({ restaurant_id: restaurantID })
-    .from('restaurant_inventory');
+// const checkRestaurantInventory = (restaurantID, ndbnos) =>
+//   db
+//     .whereIn('ndbno', ndbnos)
+//     .andWhere({ restaurant_id: restaurantID })
+//     .from('restaurant_inventory');
 
-const getndbnos = ingObj => ingObj.map(obj => obj.ndbno);
+// const getndbnos = ingObj => ingObj.map(obj => obj.ndbno);
 
-const addInventoryToRestaurant = (inventoryList, restaurantID) => {
-  const arr = formatInventoryDataForDB(inventoryList, restaurantID);
-  return db.insert(arr).into('restaurant_inventory');
-};
+// const addInventoryToRestaurant = (inventoryList, restaurantID) => {
+//   const arr = formatInventoryDataForDB(inventoryList, restaurantID);
+//   return db.insert(arr).into('restaurant_inventory');
+// };
 
-const filterndbnos = (ndbnos, exists) => {
-  const existingndbnos = exists.map(obj => obj.ndbno);
-  const filtered = ndbnos.filter(val => !existingndbnos.includes(val));
-  return filtered;
-};
+// const filterndbnos = (ndbnos, exists) => {
+//   const existingndbnos = exists.map(obj => obj.ndbno);
+//   const filtered = ndbnos.filter(val => !existingndbnos.includes(val));
+//   return filtered;
+// };
 
-const filterObjs = (filteredndbnos, ingObj) =>
-  ingObj.filter(obj => filteredndbnos.includes(obj.ndbno));
+// const filterObjs = (filteredndbnos, ingObj) =>
+//   ingObj.filter(obj => filteredndbnos.includes(obj.ndbno));
 
 async function saveInv(ingObj, restaurantID, res) {
   try {
     // save inventory to restaurant_inventory table
     // TODO: this is a naive solution... just wanted to get it over with it
-    const ndbnos = getndbnos(ingObj); // array of all ndbnos in request
-    const exists = await checkRestaurantInventory(restaurantID, ndbnos); // array of existing objects in restaurant_inventory
-    const filteredndbnos = filterndbnos(ndbnos, exists); // array of ndbnos not in restaurant_inventory
-    const filteredObjs = filterObjs(filteredndbnos, ingObj); // array of objects not in restaurant_inventory
+    // const ndbnos = getndbnos(ingObj); // array of all ndbnos in request
+    // const exists = await checkRestaurantInventory(restaurantID, ndbnos); // array of existing objects in restaurant_inventory
+    // const filteredndbnos = filterndbnos(ndbnos, exists); // array of ndbnos not in restaurant_inventory
+    // const filteredObjs = filterObjs(filteredndbnos, ingObj); // array of objects not in restaurant_inventory
 
-    // insert into db
-    await saveIngToInventoryDB(filteredObjs); // insert to inventory table
-    await addInventoryToRestaurant(filteredObjs, restaurantID); // insert filteredObjs to restaurant_inventory
+    // console.log('>>> before inserting')
+    // // insert into db
+    // await saveIngToInventoryDB(filteredObjs); // insert to inventory table
+    // console.log('>>> after inserting to inventory', filteredObjs)
+    // console.log('>>> ingobjs, restaurantid', ingObj, restaurantID)
+    // await addInventoryToRestaurant(filteredObjs, restaurantID); // insert filteredObjs to restaurant_inventory
+    // console(ingObj)
+
+    let values = ingObj.map(obj => `('${obj.ndbno}', '${obj.inventory_name}')`);
+    values = values.join(',');
+
+    await db.raw(
+      `INSERT INTO inventory (ndbno, inventory_name) VALUES ${values} ON CONFLICT (ndbno) DO NOTHING;`,
+    );
+    // insert into restaurant_inventory
+    // let recValues = ingObj.map(obj => `(${restaurantID}, '${obj.ndbno}')`);
+    // recValues = recValues.join(',');
+
+    const exists = await db('restaurant_inventory')
+      .whereIn('ndbno', ingObj.map(obj => obj.ndbno))
+      .andWhere({ restaurant_id: restaurantID });
+    // filter ingObj ... if exists then dont
+    const existndbno = exists.map(obj => obj.ndbno);
+    let insertThese = ingObj.filter(obj => !existndbno.includes(obj.ndbno));
+    insertThese = insertThese.map(obj => {
+      const nObj = {
+        restaurant_id: restaurantID,
+        ndbno: obj.ndbno,
+      };
+      return nObj;
+    });
+    await db('restaurant_inventory').insert(insertThese);
+
     res.sendStatus(200);
   } catch (e) {
-    // console.log('ERROR in async saveInv', e);
+    console.log('ERROR in async saveInv', e);
   }
 }
 
@@ -330,10 +360,10 @@ async function deleteInv(ndbno, id, res) {
 
     if (elsewhere.length > 1) {
       // send alert
-      res.send('alert');
+      res.send(['alert', elsewhere]);
     } else {
       await knexDelInv(ndbno, id);
-      res.sendStatus(200);
+      res.send([null, elsewhere]);
     }
   } catch (e) {
     // console.log(e);
@@ -349,7 +379,7 @@ router.post('/fetchPrevOrders', (req, res) => {
   db.from('orders')
     .where('restaurant_id', id)
     .orderBy('date', 'desc')
-    .limit(20)
+    // .limit(20)
     .then(arr => formatOrderPretty(arr, res));
   // .catch(err => {
   //   console.log(err);

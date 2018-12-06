@@ -11,6 +11,8 @@ const TopRight = styled.div`
   background-image: url('${image}');
   background-attachment: fixed;
   background-repeat: no-repeat;
+  filter: blur(1px);
+  -webkit-filter: blur(1px);
 `;
 
 export default TopRight;

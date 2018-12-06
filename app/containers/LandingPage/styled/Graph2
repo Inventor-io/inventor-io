@@ -1,0 +1,16 @@
+import styled from 'styled-components';
+import image from '../images/DeepinScreenshot_20181205201238 copy.png';
+
+const Graph2 = styled.div`
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 5;
+  grid-row-end: 6;
+  background-position: center;
+  background-size: 100%;
+  background-image: url('${image}');
+  border-radius: 5px;
+  
+  `;
+
+export default Graph2;

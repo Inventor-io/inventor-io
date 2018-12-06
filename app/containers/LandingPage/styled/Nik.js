@@ -2,10 +2,10 @@ import styled from 'styled-components';
 import image from '../images/Niik-min.jpg';
 
 const Nik = styled.div`
-  grid-column-start: 4;
-  grid-column-end: 5;
-  grid-row-start: 4;
-  grid-row-end: 5;
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 3;
+  grid-row-end: 4;
   background-image: url('${image}');
   background-position: right;
 

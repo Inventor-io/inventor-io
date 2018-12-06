@@ -1,15 +1,16 @@
 import styled from 'styled-components';
 
 const Logo = styled.h1`
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 2;
-  grid-row-end: 3;
-  position: relative;
-  color: white;
+  height: 50%;
+  position: fixed;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
+  color: #f5f5f5;
   z-index: 10;
-  place-self: center;
-  font-size: 4em;
+  justify-self: center;
+  font-size: 13em;
+  position: absolute;
+  padding-top: 0.7em;
+  font-family: Futuro;
 `;
 
 export default Logo;
