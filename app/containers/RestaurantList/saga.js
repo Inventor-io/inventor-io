@@ -8,7 +8,8 @@ import {
 } from './constants';
 import { FORM_RESPONSE } from '../Restaurant/constants';
 import makeSelectLandingPage from '../LandingPage/selectors';
-import { restaurantSuccesfullyDeleted, getRestaurants } from './actions';
+import { getRestaurants } from './actions';
+// import { restaurantSuccesfullyDeleted, getRestaurants } from './actions';
 // Individual exports for testing
 export default function* restaurantListSaga() {
   // See example in containers/HomePage/saga.js
@@ -61,7 +62,8 @@ function* deleteRestaurant({ restaurantId }) {
     };
     const response = yield call(axios, post);
     console.log(response);
-    yield put(restaurantSuccesfullyDeleted(restaurantId));
+    // yield put(restaurantSuccesfullyDeleted(restaurantId));
+    yield put(getRestaurants());
   } catch (err) {
     throw err;
   }

@@ -37,6 +37,7 @@ export class RestaurantList extends React.Component {
   constructor() {
     super();
     this.state = {
+      checkDelete: false,
       modalOpen: false,
       id: 0,
       name: '',
@@ -52,6 +53,8 @@ export class RestaurantList extends React.Component {
     this.onChangeNumber = this.onChangeName.bind(this);
     this.onChangeWebsite - this.onChangeWebsite.bind(this);
     this.onSubmitForm = this.onSubmitForm.bind(this);
+    this.verifyDelete = this.verifyDelete.bind(this);
+    this.delete = this.delete.bind(this);
   }
   // componentDidMount() {
   //   this.props.onPageLoad();
@@ -80,13 +83,13 @@ export class RestaurantList extends React.Component {
     this.setState({ modalOpen: true });
   };
 
-  handleClose = e => {
-    this.setState({ modalOpen: false });
-  };
   componentDidMount() {
     this.props.onPageLoad();
   }
 
+  handleClose = e => {
+    this.setState({ modalOpen: false, checkDelete: false });
+  };
   onChangeName = e => {
     this.setState({ name: e.target.value });
   };
@@ -109,14 +112,22 @@ export class RestaurantList extends React.Component {
     this.handleClose();
     //this.setState({ modalOpen: false });
   };
+
+  verifyDelete = e => {
+    this.setState({ checkDelete: true, id: e.target.id });
+  };
+
+  delete = e => {
+    this.props.onDelete(this.state.id);
+    this.handleClose();
+  };
+
   render() {
     return (
       <div>
         <NavBar restaurant="true" />
         <div>
           Welcome {localStorage.getItem('username')}
-          {JSON.stringify(this.props.userInfo.id)}
-          Welcome {sessionStorage.getItem('username')}
           <Button floated="right" onClick={this.props.addRestaurant}>
             Add Restaurant
           </Button>
@@ -129,7 +140,7 @@ export class RestaurantList extends React.Component {
                     key={key}
                     header={restaurant.restaurants_name}
                     click={this.props.onClick}
-                    delete={this.props.onDelete}
+                    delete={this.verifyDelete}
                     edit={this.handleOpen}
                     id={restaurant.id}
                     description={
@@ -205,6 +216,27 @@ export class RestaurantList extends React.Component {
             </Button>
           </Modal.Actions>
         </Modal>
+        <Modal
+          //trigger={<Button onClick={this.handleOpen}>Show Modal</Button>}
+          open={this.state.checkDelete}
+          onClose={this.handleClose}
+          basic
+          size="small"
+        >
+          <Modal.Content>
+            <h3>
+              ARE YOU SURE YOU WANT TO DELETE? All information will be lost.
+            </h3>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button color="green" onClick={this.handleClose} inverted>
+              <Icon name="checkmark" /> GO BACK
+            </Button>
+            <Button color="red" onClick={this.delete} inverted>
+              <Icon name="checkmark" /> DELETE EVERYTHING
+            </Button>
+          </Modal.Actions>
+        </Modal>
       </div>
     );
   }
@@ -238,8 +270,8 @@ function mapDispatchToProps(dispatch) {
       history.push('/addrestaurant');
     },
     onDelete: e => {
-      console.log('DELETE CLICKED', e.target.id);
-      dispatch(deleteRestaurant(e.target.id));
+      console.log('DELETE CLICKED', e);
+      dispatch(deleteRestaurant(e));
     },
     onClose: e => {
       this.setState({ modalOpen: false });
