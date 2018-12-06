@@ -57,6 +57,7 @@ export class RecipePage extends React.PureComponent {
         <NavBar />
         <Container>
           {/* <FormattedMessage {...messages.header} /> */}
+          <br />
           <Header as="h1">Recipes</Header>
           <div>
             {false && (
