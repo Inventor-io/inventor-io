@@ -12,7 +12,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { Input, Button } from 'semantic-ui-react';
+import { Input, Button, Header, Container } from 'semantic-ui-react';
 import {
   makeSelectResAddress,
   makeSelectResName,
@@ -36,37 +36,40 @@ export class Restaurant extends React.Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.props.onSubmitForm}>
-          <Input
-            value={this.props.name}
-            onChange={this.props.onChangeName}
-            size="large"
-            placeholder="Name"
-          />
-          <br />
-          <Input
-            value={this.props.address}
-            onChange={this.props.onChangeAddress}
-            size="large"
-            placeholder="Address"
-          />
-          <br />
-          <Input
-            value={this.props.number}
-            onChange={this.props.onChangeNumber}
-            size="large"
-            placeholder="Phone Number"
-          />
-          <br />
-          <Input
-            value={this.props.number}
-            onChange={this.props.onChangeWebsite}
-            size="large"
-            placeholder="Website"
-          />
-          <br />
-          <Button content="Submit" onClick={this.props.onSubmitForm} />
-        </form>
+        <Container>
+          <Header as="h1">Add your restaurant</Header>
+          <form onSubmit={this.props.onSubmitForm}>
+            <Input
+              value={this.props.name}
+              onChange={this.props.onChangeName}
+              size="large"
+              placeholder="Name"
+            />
+            <br />
+            <Input
+              value={this.props.address}
+              onChange={this.props.onChangeAddress}
+              size="large"
+              placeholder="Address"
+            />
+            <br />
+            <Input
+              value={this.props.number}
+              onChange={this.props.onChangeNumber}
+              size="large"
+              placeholder="Phone Number"
+            />
+            <br />
+            <Input
+              value={this.props.number}
+              onChange={this.props.onChangeWebsite}
+              size="large"
+              placeholder="Website"
+            />
+            <br />
+            <Button content="Submit" onClick={this.props.onSubmitForm} />
+          </form>
+        </Container>
       </div>
     );
   }
