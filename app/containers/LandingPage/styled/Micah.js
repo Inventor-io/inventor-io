@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import image from '../images/Micah-min.jpg';
+import image from '../images/Micahtbcompressed-min.jpg';
 
 const Micah = styled.div`
   grid-column-start: 2;
@@ -7,7 +7,7 @@ const Micah = styled.div`
   grid-row-start: 2;
   grid-row-end: 3;
   background-image: url('${image}');
-  background-position-y: 1%;
+  background-position-y: 25%;
 
 background-repeat: no-repeat;
 

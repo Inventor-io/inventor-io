@@ -10,9 +10,10 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Table, Input, Button, Container } from 'semantic-ui-react';
+import { Table, Input, Button } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import moment from 'moment';
 
 import NavBar from 'containers/NavBar/Loadable';
 import injectSaga from 'utils/injectSaga';
@@ -75,11 +76,11 @@ export class SalesPage extends React.Component {
           <meta name="description" content="Description of SalesPage" />
         </Helmet>
         <NavBar />
-        <Container>
+        <div className="salesPage">
           <br />
-          <h2>Enter Sales</h2>
+          <h2 className="sales-header">Enter Sales</h2>
           {this.props.salesPage.salesList ? (
-            <Table unstackable textAlign="right">
+            <Table unstackable textAlign="right" className="sales-table">
               <Table.Header>
                 <Table.Row>
                   <Table.HeaderCell textAlign="left">
@@ -99,6 +100,7 @@ export class SalesPage extends React.Component {
                     <Table.Cell>
                       <Input
                         type="number"
+                        min="0"
                         pattern="[0-9]"
                         name="quantity"
                         placeholder="Quantity"
@@ -108,20 +110,20 @@ export class SalesPage extends React.Component {
                       />
                     </Table.Cell>
                     {/* eslint-disable */}
-                    <Table.Cell>
-                      {row.quantity
-                        ? `$${(row.price * parseInt(row.quantity, 10)).toFixed(
-                            2,
-                          )}`
-                        : '$0'}
-                    </Table.Cell>
-                    {/* eslint-enable */}
+                      <Table.Cell>
+                        {row.quantity
+                          ? `$${(row.price * parseInt(row.quantity, 10)).toFixed(
+                              2,
+                            )}`
+                          : '$0'}
+                      </Table.Cell>
+                      {/* eslint-enable */}
                   </Table.Row>
                 ))}
               </Table.Body>
             </Table>
           ) : (
-            <Table unstackable textAlign="right">
+            <Table unstackable textAlign="right" className="sales-table">
               <Table.Header>
                 <Table.Row>
                   <Table.HeaderCell textAlign="left">
@@ -149,47 +151,47 @@ export class SalesPage extends React.Component {
                       />
                     </Table.Cell>
                     {/* eslint-disable */}
-                    <Table.Cell>
-                      {row.quantity === 1
-                        ? `$${(row.price * parseInt(row.quantity, 10)).toFixed(
-                            2,
-                          )}`
-                        : '$0'}
-                    </Table.Cell>
-                    {/* eslint-enable */}
+                      <Table.Cell>
+                        {row.quantity === 1
+                          ? `$${(row.price * parseInt(row.quantity, 10)).toFixed(
+                              2,
+                            )}`
+                          : '$0'}
+                      </Table.Cell>
+                      {/* eslint-enable */}
                   </Table.Row>
                 ))}
               </Table.Body>
             </Table>
           )}
           {/* eslint-disable */}
-        <h2 style={styles}>
-          Total Revenue: $
-          {this.props.salesPage.salesList
-            ?
-              this.props.salesPage.salesList.reduce(
-                (prev, curr) => 
-                  prev + (parseInt(curr.quantity, 10) ? parseInt(curr.quantity, 10): 0) * curr.price,
-                0,
-              ).toFixed(2)
-            : '0'}
-        </h2>
-        <br />
-        <div>
-          <h2>Sold on :</h2>
+          <h2 style={styles} className="sales-total">
+            Total Revenue: $
+            {this.props.salesPage.salesList
+              ?
+                this.props.salesPage.salesList.reduce(
+                  (prev, curr) => 
+                    prev + (parseInt(curr.quantity, 10) ? parseInt(curr.quantity, 10): 0) * curr.price,
+                  0,
+                ).toFixed(2)
+              : '0'}
+          </h2>
           <br />
-          <DatePicker
-            inline
-            selected={this.state.startDate}
-            onChange={this.handleChange}
-          />
+          <h2 className="sales-header-sold">Sold on : {moment(this.state.startDate).format('MM/DD/YYYY')}</h2>
+          <div className="sales-sold">
+            <br />
+            <DatePicker
+              inline
+              selected={this.state.startDate}
+              onChange={this.handleChange}
+            />
+          </div>
+          <br />
+          <br />
+          <Button type="button" onClick={this.handleSubmit} className="enter-sales">
+            Add Sales Information
+          </Button>
         </div>
-        <br />
-        <br />
-        <Button type="button" onClick={this.handleSubmit}>
-          Add Sales Information
-        </Button>
-        </Container>
         {/* eslint-enable */}
       </div>
     );

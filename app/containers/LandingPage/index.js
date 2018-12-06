@@ -19,20 +19,29 @@ import TopLeft from './styled/Image1';
 import TopRight from './styled/Image2';
 import BottomLeft from './styled/Image3';
 import BottomRight from './styled/Image4';
+import Graph1 from './styled/Graph1';
+import Graph2 from './styled/Graph2';
 import Logo from './styled/Header';
 import Nik from './styled/Nik';
 import Yirey from './styled/Yirey';
 import John from './styled/John';
 import Micah from './styled/Micah';
 /* eslint-disable react/prefer-stateless-function */
+function smoothscroll() {
+  const currentScroll =
+    document.documentElement.scrollTop || document.body.scrollTop;
+  if (currentScroll > 0) {
+    window.requestAnimationFrame(smoothscroll);
+    window.scrollTo(0, currentScroll - currentScroll / 10);
+  }
+}
 export class LandingPage extends React.Component {
   render() {
     return (
       <div className="background">
         <div className="gradient"> </div>
         <div className="landing">
-          <Logo>Inventorio</Logo>
-          <div className="login">
+          <div className="login" name="top">
             <FacebookLogin
               appId="119762035585891"
               fields="name,email,picture"
@@ -41,23 +50,34 @@ export class LandingPage extends React.Component {
           </div>
           <TopLeft />
           <TopRight />
+          <Logo>Inventorio</Logo>
           <BottomLeft>
             <i className="fas fa-angle-double-down landing-icon" />
           </BottomLeft>
           <BottomRight />
         </div>
         <div className="people">
-          <div className="top-right-people center">
-            This is the cool description of Micah
+          <div className="top-right-people center big">
+            Micah (on the right) is a math-teacher-turned-software-engineer.
+            With 4 years in STEM fields, he creates technical solutions with a
+            focus on human context.
+            <br />
+            <br />
+            <a className="small" href="http://www.woodswebandphoto.com">
+              Photo: Woods Web and Photo
+            </a>
           </div>
+
           <Micah />
-          <div className="middle-left-people center">Hi this is Nik</div>
+          <div className="middle-left-people center big">
+            Nik is a former chef who enjoys creating wonderful new recipes.
+          </div>
           <Nik />
-          <div className="middle-right-people center">
+          <div className="middle-right-people center big">
             This one is for Yirey
           </div>
           <Yirey />
-          <div className="bottom-left-people center">
+          <div className="bottom-left-people center big">
             {' '}
             This is for John. He is ok
           </div>
@@ -65,12 +85,26 @@ export class LandingPage extends React.Component {
         </div>
         <div className="tour">
           <div className="background-tour" />
-          <div className="recipe-graph center">Recipes Graph</div>
-          <div className="recipe-desc center">Recipes Description</div>
-          <div className="inventory-graph center">Inventory Graph</div>
-          <div className="inventory-desc center">Inventory Description</div>
-          <div className="sales-graph center">Sales Graph</div>
-          <div className="sales-desc center">Sales Description</div>
+          <Graph1 className="bigger">Cost and Revenue Charts</Graph1>
+          <div className="recipe-desc center bigger">
+            Our constantly updating charts will keep you up to date with every
+            change in price! Optimize your menu with our profit maximizing
+            algorithms
+          </div>
+          <Graph2 className="bigger">Inventory Graphs</Graph2>
+          <div className="inventory-desc center bigger">
+            Our inventory graphs will constantly update with deliveries in real
+            time making managing your stock a breeze. Craft your specials with
+            knowledge of ingredients on hand.
+          </div>
+        </div>
+        <div className="big-icon">
+          {/* eslint-disable */}
+          <i
+            className="fas fa-angle-double-up up-arrow"
+            onClick={smoothscroll}
+          />
+          {/* eslint-enable */}
         </div>
       </div>
     );

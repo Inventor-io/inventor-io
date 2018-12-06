@@ -2,10 +2,10 @@ import styled from 'styled-components';
 import image from '../images/IMG_6667-min (1).jpg';
 
 const John = styled.div`
-  grid-column-start: 4;
-  grid-column-end: 5;
-  grid-row-start: 8;
-  grid-row-end: 9;
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 5;
+  grid-row-end: 6;
   background-image: url('${image}');
   background-position: right;
 
