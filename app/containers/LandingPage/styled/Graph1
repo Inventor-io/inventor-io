@@ -9,6 +9,8 @@ const Graph1 = styled.div`
   background-position: center;
   background-size: 100%;
   background-image: url('${image}');
+  border-radius: 5px;
+
   `;
 
 export default Graph1;
