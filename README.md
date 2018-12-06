@@ -67,30 +67,28 @@ MIT
 Engineers
 
 John Warren
+<br/>
 [email](mailto:johnpwarren@gmail.com)
+<br/>
 [github](https://github.com/jpwarren13)
+<br/>
+<br/>
 Nik Mentakis
+<br/>
 [email](mailto:nmentakis@gmail.com)
+<br/>
 [github](github.com/nmentakis)
+<br/>
+<br/>
 Micah Weiss
+<br/>
 [email](mailto:micahjweiss@gmail.com)
+<br/>
 [github](https://github.com/micahweiss)
+<br/>
+<br/>
 Yirey Suh
+<br/>
 [email](mailto:yrysuh@gmail.com)
+<br/>
 [github](https://github.com/thatlook)
-
-> GitHub [@amitmerchant1990](https://github.com/amitmerchant1990) &nbsp;&middot;&nbsp;
-> Twitter [@amit_merchant](https://twitter.com/amit_merchant)
-
-John Warren
-Email: johnpwarren@gmail.com
-Github: github.com/jpwarren13
-Nikolas Mentakis
-Email: nmentakis@gmail.com
-Github: github.com/nmentakis
-Micah Weiss
-Email: micahjweiss@gmail.com
-Github: github.com/micahweiss
-Yirey Suh
-Email: yrysuh@gmail.com
-Github: github.com/thatlook
