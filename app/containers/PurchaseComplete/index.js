@@ -72,7 +72,8 @@ export class PurchaseComplete extends React.Component {
         <NavBar />
 
         <Container>
-          <Header as="h1">My Orders</Header>
+          <br />
+          <Header as="h1">My Purchases</Header>
           <Table unstackable>
             <Table.Header>
               <Table.Row key="header">

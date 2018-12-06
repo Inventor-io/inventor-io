@@ -54,6 +54,7 @@ export class Inventory extends React.Component {
         </Helmet>
         <NavBar />
         <Container>
+          <br />
           <Header as="h1">Inventory List</Header>
           <Table unstackable>
             <Table.Header>
