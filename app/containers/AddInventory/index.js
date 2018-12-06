@@ -53,7 +53,8 @@ export class AddInventory extends React.Component {
         </Helmet>
         <NavBar />
         <Container>
-          <Header as="h1">Add an ingredient..!</Header>
+          <br />
+          <Header as="h1">Add Inventory</Header>
           <Form>
             <Form.Field>
               <input
