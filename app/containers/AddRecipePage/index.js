@@ -134,7 +134,11 @@ export class AddRecipePage extends React.PureComponent {
           ) : (
             <div>
               <br />
-              <Header as="h1">Edit Recipe: {this.props.recName} </Header>
+              <Header as="h1">
+                Edit Recipe: &#34;
+                {this.props.recName}
+                &#34;
+              </Header>
 
               <Input labelPosition="left" type="text" placeholder="Amount">
                 <Label basic size="large">
