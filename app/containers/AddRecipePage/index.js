@@ -104,6 +104,7 @@ export class AddRecipePage extends React.PureComponent {
               <br />
               <Input
                 // value={this.props.recPrice}
+                defaultValue=""
                 onChange={e => this.props.changePrice(e.target.value)}
                 size="large"
                 placeholder="Price"
