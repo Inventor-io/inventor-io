@@ -81,6 +81,7 @@ export class AddRecipePage extends React.PureComponent {
   }
 
   render() {
+    const params = QueryString.parse(this.props.location.search);
     return (
       <div>
         <Helmet>
@@ -94,7 +95,8 @@ export class AddRecipePage extends React.PureComponent {
             <div>
               <Header as="h1">Name your recipe:</Header>
               <Input
-                value={this.props.recName}
+                defaultValue=""
+                // value={this.props.recName}
                 onChange={e => this.props.changeName(e.target.value)}
                 size="large"
                 placeholder="Name"
@@ -114,13 +116,15 @@ export class AddRecipePage extends React.PureComponent {
               <Button
                 content="Submit"
                 onClick={() => {
-                  if (
-                    this.props.recName !== '' &&
-                    (!this.props.ingredientsList ||
-                      this.props.ingredientsList.every(
-                        row => row.name !== this.props.recName,
-                      ))
+                  if (this.props.recName === '') {
+                    alert('Please enter a valid name.');
+                  } else if (
+                    Number.isNaN(this.props.recPrice) ||
+                    this.props.recPrice === Infinity ||
+                    this.props.recPrice < 0
                   ) {
+                    alert('Please use a non-negative number for price');
+                  } else {
                     this.props.onSubmitForm();
                   }
                 }}
@@ -131,11 +135,11 @@ export class AddRecipePage extends React.PureComponent {
               <Header as="h1">Edit Recipe: {this.props.recName} </Header>
               <Input labelPosition="right" type="text" placeholder="Amount">
                 <Input
-                  defaultValue={
-                    this.props.recPrice
-                      ? parseFloat(this.props.recPrice).toFixed(2)
-                      : 0
-                  }
+                  defaultValue={this.props.location ? params.price : 0}
+                  // this.props.recPrice
+                  //   ? parseFloat(this.props.recPrice).toFixed(2)
+                  //   : 0
+
                   onChange={e => this.props.changePrice(e.target.value)}
                 />
                 <Label basic>$</Label>
