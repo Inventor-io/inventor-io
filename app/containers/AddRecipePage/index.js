@@ -165,12 +165,16 @@ export class AddRecipePage extends React.PureComponent {
                   removeIngredient={this.props.removeIngredient}
                   changeIngredientAmount={this.props.changeIngredientAmount}
                 />
-
                 <Button
                   content="Apply Changes"
                   color="green"
                   floated="right"
                   onClick={() => this.props.applyChanges()}
+                />
+                <Button
+                  content="Cancel"
+                  floated="right"
+                  onClick={() => history.push('/recipe')}
                 />
               </div>
             </div>
