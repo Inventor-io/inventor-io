@@ -57,7 +57,15 @@ export class LandingPage extends React.Component {
           <Yirey />
           <div className="bottom-left-people center">
             {' '}
-            This is for John. He is ok
+            {`I'm`} interested in full system architectures from full stack
+            application engineering to deployment and continuous integration
+            systems. <br />
+            <br />I like having a hand in every part of the stack and
+            understanding how everything works as a whole and
+            understanding/knowing the vision for what a finalized product ought
+            to look like.
+            <br /> <br />I enjoy complex problems and solving them with elegant
+            solutions.
           </div>
           <John />
         </div>
