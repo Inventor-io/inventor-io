@@ -137,10 +137,6 @@ export class AddRecipePage extends React.PureComponent {
               <Input labelPosition="right" type="text" placeholder="Amount">
                 <Input
                   defaultValue={this.props.location ? params.price : 0}
-                  // this.props.recPrice
-                  //   ? parseFloat(this.props.recPrice).toFixed(2)
-                  //   : 0
-
                   onChange={e => this.props.changePrice(e.target.value)}
                 />
                 <Label basic>$</Label>
