@@ -12,7 +12,7 @@ COPY package*.json ./
 RUN npm install
 
 # Bundle app source
-COPY . .
+COPY . /var/www/html
 
 EXPOSE 3000
 
