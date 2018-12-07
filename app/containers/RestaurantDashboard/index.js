@@ -174,6 +174,8 @@ function mapDispatchToProps(dispatch) {
     onLoad: () => dispatch(loadInformation()),
     clickHandler: e => {
       console.log(e.value);
+      let item = e.value.split('_')[0];
+      console.log(item);
     },
   };
 }
