@@ -17,13 +17,13 @@
   "containerDefinitions": [
     {
       "name": "inventorio",
-      "image": "jpwarren13/inventor-io:newdocker",
+      "image": "jpwarren13/inventor-io:latest",
       "essential": true,
       "memory": 128,
       "mountPoints": [
         {
           "sourceVolume": "inventorio",
-          "containerPath": "/var/www/html",
+          "containerPath": "/usr/src/app",
           "readOnly": true
         }
       ]
@@ -43,7 +43,7 @@
       "mountPoints": [
         {
           "sourceVolume": "inventorio",
-          "containerPath": "/var/www/html",
+          "containerPath": "/usr/src/app",
           "readOnly": true
         },
         {
