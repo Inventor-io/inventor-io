@@ -54,10 +54,10 @@ router.post('/update', (req, res) => {
 
 router.post('/getit', (req, res) => {
   console.log(req.body);
-  const restaurantID = req.body.selectedRestaurant;
+  let restaurantID = req.body.selectedRestaurant;
 
   // Object.keys(req.body)[0] ||
-  let restaurantInfo = {};
+  const restaurantInfo = {};
 
   // const order = restaurantOrders(restaurantID);
   // const sales = restaurantSales(restaurantID);
@@ -79,10 +79,10 @@ router.post('/getit', (req, res) => {
   //   console.log('PROMISE ALLLLLL', response);
   //   console.log(response[0]);
   //   // res.status(201).json(response);
-// });
-	//
-	//
-restaurantID = 1;
+  // });
+  //
+  //
+  restaurantID = 1;
   restaurantOrders(restaurantID).then(orders => {
     Object.assign(restaurantInfo, { orders });
     restaurantSales(restaurantID).then(sales => {

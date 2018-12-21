@@ -1,5 +1,6 @@
 /* eslint consistent-return:0 import/order:0 */
-
+const https = require('https');
+const fs = require('fs');
 const express = require('express');
 const logger = require('./logger');
 const session = require('express-session');
@@ -41,6 +42,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
+const options = {
+  key: fs.readFileSync('/home/ubuntu/app/server/certs/privkey1.pem'),
+  cert: fs.readFileSync('/home/ubuntu/app/server/certs/cert1.pem'),
+  //	dhparam: fs.readFileSync('/home/ubuntu/app/server/certs/'),
+};
 app.use(
   session({
     secret: 'keyboard cat',
@@ -83,6 +89,7 @@ app.listen(port, host, async err => {
     return logger.error(err.message);
   }
 
+  https.createServer(options, app).listen(8443);
   // Connect to ngrok in dev mode
   if (ngrok) {
     let url;
