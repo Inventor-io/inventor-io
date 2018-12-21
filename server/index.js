@@ -26,7 +26,6 @@ const recipe = require('./recipe.js');
 const cors = require('cors');
 const passport = require('passport');
 require('dotenv').config();
-
 // mongoose.connect('mongodb://localhost/users');
 
 const corsOption = {
